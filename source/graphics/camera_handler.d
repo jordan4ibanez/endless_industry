@@ -1,5 +1,6 @@
 module graphics.camera_handler;
 
+import controls.mouse;
 import game.player;
 import graphics.gui;
 import math.vec2d;
@@ -20,7 +21,7 @@ public: //* BEGIN PUBLIC API.
     void initialize() {
         camera = new Camera2D();
         camera.rotation = 0;
-        camera.zoom = 100.0;
+        camera.zoom = 110.0;
         camera.target = Vector2(0, 0);
     }
 
@@ -81,7 +82,10 @@ public: //* BEGIN PUBLIC API.
 
     void __update() {
         camera.offset = vec2dMultiply(Window.getSize(), Vec2d(0.5, 0.5)).toRaylib();
+        realZoom += Mouse.getScrollDelta() * 4;
+
         camera.zoom = realZoom * GUI.getGUIScale();
+
     }
 
 private: //* BEGIN INTERNAL API.

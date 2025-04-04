@@ -20,6 +20,10 @@ public:
         return Vec2d(GetMouseDelta());
     }
 
+    double getScrollDelta() {
+        return GetMouseWheelMove();
+    }
+
     Vec2d getWorldPosition() {
         Vec2d mPosition = Vec2d(GetMousePosition());
         immutable int windowHeight = Window.getHeight();
