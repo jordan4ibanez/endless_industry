@@ -73,7 +73,7 @@ public: //* BEGIN PUBLIC API.
         return false;
     }
 
-    TileDefinitionResult getBlockByID(int id) {
+    TileDefinitionResult getTileByID(int id) {
         if (id !in idDatabase) {
             return TileDefinitionResult();
         }
@@ -81,7 +81,7 @@ public: //* BEGIN PUBLIC API.
         return TileDefinitionResult(idDatabase[id], true);
     }
 
-    TileDefinitionResult getBlockByName(string name) {
+    TileDefinitionResult getTileByName(string name) {
         if (name !in nameDatabase) {
             return TileDefinitionResult();
         }

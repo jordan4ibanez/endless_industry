@@ -77,7 +77,7 @@ public: //* BEGIN PUBLIC API.
 
                 // Render.rectangle(position, Vec2d(1, 1), Colors.ORANGE);
 
-                TileDefinitionResult thisBlockResult = TileDatabase.getBlockByID(
+                TileDefinitionResult thisBlockResult = TileDatabase.getTileByID(
                     thisData.blockID);
 
                 if (!thisBlockResult.exists) {
@@ -176,7 +176,7 @@ public: //* BEGIN PUBLIC API.
         int xPosInChunk = getXInChunk(position.x);
         int yPosInChunk = getYInChunk(position.y);
 
-        TileDefinitionResult result = TileDatabase.getBlockByName(name);
+        TileDefinitionResult result = TileDatabase.getTileByName(name);
 
         if (!result.exists) {
             throw new Error("Cannot set to block " ~ name ~ ", does not exist.");
@@ -314,70 +314,45 @@ private: //* BEGIN INTERNAL API.
             throw new Error("Attempted to get biome " ~ to!string(0) ~ " which does not exist");
         }
 
-        immutable double baseHeight = 160;
-
         immutable int basePositionX = chunkPosition.x * CHUNK_WIDTH;
-        immutable int basePositionY = chunkPosition.x * CHUNK_WIDTH;
+        immutable int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
-        TileDefinitionResult bedrockResult = TileDatabase.getBlockByName("bedrock");
+        TileDefinitionResult bedrockResult = TileDatabase.getTileByName("bedrock");
         if (!bedrockResult.exists) {
             throw new Error("Please do not remove bedrock from the engine.");
         }
 
-        TileDefinitionResult stoneResult = TileDatabase.getBlockByID(
+        TileDefinitionResult stoneResult = TileDatabase.getTileByID(
             biomeResult.definition.stoneLayerID);
         if (!stoneResult.exists) {
             throw new Error("Stone does not exist for biome " ~ biomeResult.definition.name);
         }
 
-        TileDefinitionResult dirtResult = TileDatabase.getBlockByID(
+        TileDefinitionResult dirtResult = TileDatabase.getTileByID(
             biomeResult.definition.dirtLayerID);
         if (!dirtResult.exists) {
             throw new Error("Dirt does not exist for biome " ~ biomeResult.definition.name);
         }
 
-        TileDefinitionResult grassResult = TileDatabase.getBlockByID(
+        TileDefinitionResult grassResult = TileDatabase.getTileByID(
             biomeResult.definition.grassLayerID);
         if (!grassResult.exists) {
             throw new Error("Grass does not exist for biome " ~ biomeResult.definition.name);
         }
 
         foreach (x; 0 .. CHUNK_WIDTH) {
+            foreach (y; 0 .. CHUNK_WIDTH) {
+                const double selectedNoise = fnlGetNoise2D(&noise, (x + basePositionX) * 10, (
+                        y + basePositionY) * 10);
 
-            immutable double selectedNoise = fnlGetNoise2D(&noise, x + basePositionX, 0);
+                writeln(selectedNoise);
 
-            immutable double noiseScale = 20;
-
-            immutable int selectedHeight = cast(int) floor(
-                baseHeight + (selectedNoise * noiseScale));
-
-            immutable int grassLayer = selectedHeight;
-            immutable int dirtLayer = selectedHeight - 3;
-
-            immutable double bedRockNoise = fnlGetNoise2D(&noise, (x + basePositionX) * 12, 0) * 2;
-            immutable int bedRockSelectedHeight = cast(int) round(abs(bedRockNoise));
-
-            yStack: foreach (y; 0 .. CHUNK_WIDTH) {
-
-                if (y > selectedHeight) {
-                    break yStack;
-                }
-
-                if (y == 0) {
-                    thisChunk.data[x][y].blockID = bedrockResult.definition.id;
-                } else if (y <= 2) {
-                    if (y <= bedRockSelectedHeight) {
-                        thisChunk.data[x][y].blockID = bedrockResult.definition.id;
-                    } else {
-                        thisChunk.data[x][y].blockID = stoneResult.definition.id;
-                    }
-                } else if (y < dirtLayer) {
-                    thisChunk.data[x][y].blockID = stoneResult.definition.id;
-                } else if (y < grassLayer) {
-                    thisChunk.data[x][y].blockID = dirtResult.definition.id;
-                } else if (y == grassLayer) {
+                if (selectedNoise < 0) {
                     thisChunk.data[x][y].blockID = grassResult.definition.id;
+                } else {
+                    thisChunk.data[x][y].blockID = dirtResult.definition.id;
                 }
+
             }
         }
     }
