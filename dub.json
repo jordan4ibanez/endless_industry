@@ -1,0 +1,27 @@
+{
+	"authors": [
+		"jordan4ibanez"
+	],
+	"copyright": "Copyright © 2025, jordan4ibanez",
+	"dependencies": {
+		"fast_noise": "~>1.0.5",
+		"fast_pack": "~>5.0.1",
+		"raylib-d": "~>5.5.1"
+	},
+	"description": "A tile thing",
+	"lflags-linux": [
+		"-rpath=$$ORIGIN"
+	],
+	"lflags-osx": [
+		"-rpath",
+		"@executable_path/"
+	],
+	"lflags-posix": [
+		"-L."
+	],
+	"libs": [
+		"raylib"
+	],
+	"license": "GPL-3.0-or-later",
+	"name": "cube_thing"
+}

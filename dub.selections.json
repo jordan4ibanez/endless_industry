@@ -1,0 +1,11 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"fast_noise": "1.0.5",
+		"fast_pack": "5.0.1",
+		"gamut": "3.2.0",
+		"intel-intrinsics": "1.11.25",
+		"miniz": "0.0.1",
+		"raylib-d": "5.5.1"
+	}
+}
