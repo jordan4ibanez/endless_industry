@@ -345,7 +345,7 @@ private: //* BEGIN INTERNAL API.
                 const double selectedNoise = fnlGetNoise2D(&noise, (x + basePositionX) * 10, (
                         y + basePositionY) * 10);
 
-                writeln(selectedNoise);
+                // writeln(selectedNoise);
 
                 if (selectedNoise < 0) {
                     thisChunk.data[x][y].blockID = grassResult.definition.id;
