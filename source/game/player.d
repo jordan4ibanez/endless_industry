@@ -140,37 +140,22 @@ public: //* BEGIN PUBLIC API.
             double valSign = sgn(velocity.x);
             velocity.x = valSign * 5;
         }
-
-        if (!inJump && Keyboard.isDown(KeyboardKey.KEY_SPACE)) {
-            jumpQueued = true;
+        if (abs(velocity.y) > 5) {
+            double valSign = sgn(velocity.y);
+            velocity.y = valSign * 5;
         }
 
         //? Then apply Y axis.
         position.y += velocity.y * delta;
-
-        // bool hitGround = Map.collideEntityToWorld(position, size, velocity, CollisionAxis.Y);
-
-        // if (inJump && hitGround) {
-        //     inJump = false;
-        // } else if (jumpQueued && hitGround) {
-        //     velocity.y = 7;
-        //     jumpQueued = false;
-        //     inJump = true;
-        // }
 
         //? Finally apply X axis.
         position.x += velocity.x * delta;
 
         // Map.collideEntityToWorld(position, size, velocity, CollisionAxis.X);
 
-        if (velocity.x == 0) {
+        if (velocity.x == 0 && velocity.y == 0) {
             moving = false;
         }
-
-        // todo: the void.
-        // if (position.y <= 0) {
-        //     position.y = 0;
-        // }
 
         Vec2i oldChunk = inChunk;
         Vec2i newChunk = Map.calculateChunkAtWorldPosition(position);
