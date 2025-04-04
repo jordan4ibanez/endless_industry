@@ -22,7 +22,7 @@ static final const class Player {
 static:
 private:
 
-    Vec2d size = Vec2d(0.6, 1.8);
+    Vec2d size = Vec2d(0.5, 0.5);
     Vec2d position = Vec2d(0, 0);
     Vec2d velocity = Vec2d(0, 0);
     Vec2i inChunk = Vec2i(int.max, int.max);
@@ -46,10 +46,6 @@ public: //* BEGIN PUBLIC API.
         return size.y;
     }
 
-    double getHalfWidth() {
-        return size.x * 0.5;
-    }
-
     Vec2d getVelocity() {
         return velocity;
     }
@@ -63,7 +59,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     Rect getRectangle() {
-        Vec2d centeredPosition = centerCollisionboxBottom(position, size);
+        Vec2d centeredPosition = centerCollisionbox(position, size);
         return Rect(centeredPosition.x, centeredPosition.y, size.x, size.y);
     }
 
@@ -79,87 +75,65 @@ public: //* BEGIN PUBLIC API.
         immutable double QUARTER_PI = PI * 0.25;
         immutable double HALF_PI = PI * 0.5;
 
-        immutable double speedMultiplier = 4;
-
-        // writeln(abs(velocity.x * delta));
-        if (abs(velocity.x * delta) <= 0.00001 || !moving) {
-
-            if (rotation == 0) {
-                // do nothing.
-            } else if (rotation > QUARTER_PI) {
-                rotation += delta * speedMultiplier;
-                if (rotation >= PI) {
-                    rotation = 0;
-                }
-            } else if (rotation > 0) {
-                rotation -= delta * speedMultiplier;
-
-                if (rotation <= 0) {
-                    rotation = 0;
-                }
-            } else if (rotation < -QUARTER_PI) {
-                rotation -= delta * speedMultiplier;
-                if (rotation <= -PI) {
-                    rotation = 0;
-                }
-            } else if (rotation < 0) {
-                rotation += delta * speedMultiplier;
-                if (rotation >= 0) {
-                    rotation = 0;
-                }
-            }
-        } else {
-            rotation += abs(velocity.x) * (delta * 2.0);
-        }
-
-        if (rotation < -PI) {
-            rotation += DOUBLE_PI;
-        } else if (rotation > PI) {
-            rotation -= DOUBLE_PI;
-        }
-
-        double animationRotation = sin(rotation) * RAD2DEG;
-
-        Render.rectangleLines(centerCollisionboxBottom(position, size), size, Colors.WHITE);
+        Render.rectangleLines(centerCollisionbox(position, size), size, Colors.WHITE);
     }
 
     void move() {
         double delta = Delta.getDelta();
 
-        immutable double acceleration = 20;
-        immutable double deceleration = 25;
+        const double acceleration = 40;
+        const double deceleration = 50;
 
         // writeln(velocity.x);
 
         moving = false;
 
         //? Controls first.
-        // if (Keyboard.isDown(KeyboardKey.KEY_D)) {
-        //     direction = Direction.Right;
-        //     moving = true;
-        //     if (sgn(velocity.x) < 0) {
-        //         skidding = true;
-        //         velocity.x += delta * deceleration;
-        //     } else {
-        //         velocity.x += delta * acceleration;
-        //     }
-        // } else if (Keyboard.isDown(KeyboardKey.KEY_A)) {
-        //     direction = Direction.Left;
-        //     moving = true;
-        //     if (sgn(velocity.x) > 0) {
-        //         skidding = true;
-        //         velocity.x -= delta * deceleration;
-        //     } else {
-        //         velocity.x -= delta * acceleration;
-        //     }
-        // } else {
-        //     if (abs(velocity.x) > delta * deceleration) {
-        //         double valSign = sgn(velocity.x);
-        //         velocity.x = (abs(velocity.x) - (delta * deceleration)) * valSign;
-        //     } else {
-        //         velocity.x = 0;
-        //     }
-        // }
+        if (Keyboard.isDown(KeyboardKey.KEY_D)) {
+            moving = true;
+            if (sgn(velocity.x) < 0) {
+                velocity.x += delta * deceleration;
+            } else {
+                velocity.x += delta * acceleration;
+            }
+        } else if (Keyboard.isDown(KeyboardKey.KEY_A)) {
+            moving = true;
+            if (sgn(velocity.x) > 0) {
+                velocity.x -= delta * deceleration;
+            } else {
+                velocity.x -= delta * acceleration;
+            }
+        } else {
+            if (abs(velocity.x) > delta * deceleration) {
+                double valSign = sgn(velocity.x);
+                velocity.x = (abs(velocity.x) - (delta * deceleration)) * valSign;
+            } else {
+                velocity.x = 0;
+            }
+        }
+
+        if (Keyboard.isDown(KeyboardKey.KEY_W)) {
+            moving = true;
+            if (sgn(velocity.y) < 0) {
+                velocity.y += delta * deceleration;
+            } else {
+                velocity.y += delta * acceleration;
+            }
+        } else if (Keyboard.isDown(KeyboardKey.KEY_S)) {
+            moving = true;
+            if (sgn(velocity.y) > 0) {
+                velocity.y -= delta * deceleration;
+            } else {
+                velocity.y -= delta * acceleration;
+            }
+        } else {
+            if (abs(velocity.y) > delta * deceleration) {
+                double valSign = sgn(velocity.y);
+                velocity.y = (abs(velocity.y) - (delta * deceleration)) * valSign;
+            } else {
+                velocity.y = 0;
+            }
+        }
 
         // Speed limiter. 
         if (abs(velocity.x) > 5) {
@@ -174,20 +148,20 @@ public: //* BEGIN PUBLIC API.
         //? Then apply Y axis.
         position.y += velocity.y * delta;
 
-        bool hitGround = Map.collideEntityToWorld(position, size, velocity, CollisionAxis.Y);
+        // bool hitGround = Map.collideEntityToWorld(position, size, velocity, CollisionAxis.Y);
 
-        if (inJump && hitGround) {
-            inJump = false;
-        } else if (jumpQueued && hitGround) {
-            velocity.y = 7;
-            jumpQueued = false;
-            inJump = true;
-        }
+        // if (inJump && hitGround) {
+        //     inJump = false;
+        // } else if (jumpQueued && hitGround) {
+        //     velocity.y = 7;
+        //     jumpQueued = false;
+        //     inJump = true;
+        // }
 
         //? Finally apply X axis.
         position.x += velocity.x * delta;
 
-        Map.collideEntityToWorld(position, size, velocity, CollisionAxis.X);
+        // Map.collideEntityToWorld(position, size, velocity, CollisionAxis.X);
 
         if (velocity.x == 0) {
             moving = false;
