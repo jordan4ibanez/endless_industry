@@ -86,14 +86,6 @@ public: //* BEGIN PUBLIC API.
         database.pack(fileName, location);
     }
 
-    // Texture2D* getTexturePointer(string textureName) {
-    //     if (textureName !in database) {
-    //         throw new Error("[TextureManager]: Texture does not exist. " ~ textureName);
-    //     }
-
-    //     return database[textureName];
-    // }
-
     void terminate() {
         UnloadTexture(atlas);
     }
