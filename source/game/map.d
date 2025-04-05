@@ -139,7 +139,7 @@ public: //* BEGIN PUBLIC API.
         return database[chunkID].data[xPosInChunk][yPosInChunk];
     }
 
-    void setBlockAtWorldPositionByID(Vec2d position, int id) {
+    void setTileAtWorldPositionByID(Vec2d position, int id) {
         if (!TileDatabase.hasTileID(id)) {
             throw new Error("Cannot set to block ID " ~ to!string(id) ~ ", ID does not exist.");
         }

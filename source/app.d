@@ -80,9 +80,9 @@ void main() {
 				}
 
 				if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-					Map.setBlockAtWorldPositionByID(Mouse.getWorldPosition(), 0);
+					Map.setTileAtWorldPositionByID(Mouse.getWorldPosition(), 0);
 				} else if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_RIGHT)) {
-					Map.setBlockAtWorldPositionByID(Mouse.getWorldPosition(), 2);
+					Map.setTileAtWorldPositionByID(Mouse.getWorldPosition(), 2);
 				}
 
 			}
