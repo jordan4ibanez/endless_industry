@@ -86,6 +86,10 @@ public: //* BEGIN PUBLIC API.
         database.pack(fileName, location);
     }
 
+    Texture2D getAtlas() {
+        return atlas;
+    }
+
     void terminate() {
         UnloadTexture(atlas);
     }
