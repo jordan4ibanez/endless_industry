@@ -2,6 +2,7 @@ module graphics.model;
 
 public import raylib;
 import graphics.texture_handler;
+import math.vec2d;
 import std.conv;
 import std.stdio;
 
@@ -46,8 +47,14 @@ public: //* BEGIN PUBLIC API.
         return modelID;
     }
 
-    void draw(int id) {
+    void draw(Vec2d position, int id) {
+        Model* thisModel = id in database;
 
+        if (thisModel is null) {
+            throw new Error("This is quite a strange crash.");
+        }
+
+        DrawModel(*thisModel, Vector3(position.x, -position.y, 0), 1, Colors.WHITE);
     }
 
 }
