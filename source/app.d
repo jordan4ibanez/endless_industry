@@ -6,7 +6,7 @@ import game.map;
 import game.player;
 import graphics.camera_handler;
 import graphics.font_handler;
-import graphics.mesh;
+import graphics.model;
 import graphics.render;
 import graphics.texture_handler;
 import math.vec2d;
@@ -47,7 +47,7 @@ void main() {
 
 	Map.initialize();
 
-	MeshHandler.initialize();
+	ModelHandler.initialize();
 
 	while (Window.shouldStayOpen()) {
 

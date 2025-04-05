@@ -6,6 +6,7 @@ import fast_noise;
 import game.biome_database;
 import game.tile_database;
 import graphics.camera_handler;
+import graphics.model;
 import graphics.render;
 import graphics.texture_handler;
 import math.rect;
@@ -260,7 +261,7 @@ public: //* BEGIN PUBLIC API.
 
         foreach (x; currentPlayerChunk.x - worldLoadDistance .. currentPlayerChunk.x + worldLoadDistance + 1) {
             foreach (y; currentPlayerChunk.y - worldLoadDistance .. currentPlayerChunk.y + worldLoadDistance + 1) {
-                writeln("loading chunk ", x, " ", y);
+                // writeln("loading chunk ", x, " ", y);
                 loadChunk(Vec2i(x, y));
             }
         }
@@ -373,6 +374,7 @@ private: //* BEGIN INTERNAL API.
         // todo: try to read from sqlite.
         Chunk newChunk = new Chunk();
         generateChunkData(chunkPosition, newChunk);
+        generateChunkMesh(chunkPosition, newChunk);
 
         database[chunkPosition] = newChunk;
     }
@@ -426,6 +428,10 @@ private: //* BEGIN INTERNAL API.
     }
 
     void generateChunkMesh(Vec2i chunkPosition, ref Chunk thisChunk) {
+
+        const VERTEX_LENGTH = 12 * (CHUNK_WIDTH * CHUNK_WIDTH);
+        const TEXTURE_LENGTH = 8 * (CHUNK_WIDTH * CHUNK_WIDTH);
+
         float* vertices = cast(float*) GC.malloc(float.sizeof * 12 * (CHUNK_WIDTH * CHUNK_WIDTH));
         ulong vertexIndex = 0;
         float* textureCoordinates = cast(float*) GC.malloc(
@@ -470,6 +476,8 @@ private: //* BEGIN INTERNAL API.
 
             }
         }
+
+        ModelHandler.generate(vertices, VERTEX_LENGTH, textureCoordinates);
 
     }
 
