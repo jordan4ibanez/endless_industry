@@ -61,19 +61,19 @@ public: //* BEGIN PUBLIC API.
         Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
         Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
 
-        // foreach (x; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
-        //     foreach (y; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
-        //         Render.rectangleLines(Vec2d(x * CHUNK_WIDTH, (y + 1) * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH),
-        //             Colors.WHITE, 0.7);
-        //     }
-        // }
-
         //? This needs to be dynamic so it can support 8k+ displays.
         //? I do not have an 8k display to test this though. :(
         //* TODO: IN THE FUTURE: Preallocate this based on the biggest display. It will save GC resources.
         Chunk*[][] data = new Chunk*[][](
             abs(bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1,
             abs(bottomRightChunkPosition.y - topLeftChunkPosition.y) + 1);
+
+        foreach (x; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
+            foreach (y; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
+                Render.rectangleLines(Vec2d(x * CHUNK_WIDTH, (y + 1) * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH),
+                    Colors.WHITE, 0.7);
+            }
+        }
 
         //     foreach (x; minX .. maxX + 1) {
         //         foreach (y; minY .. maxY + 1) {
