@@ -40,7 +40,7 @@ private:
 
     Chunk[Vec2i] database;
     FNLState noise;
-    // Vec2d[] debugDrawPoints = [];
+
     double gravity = 20.0;
 
 public: //* BEGIN PUBLIC API.
