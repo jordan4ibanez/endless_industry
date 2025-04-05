@@ -57,43 +57,56 @@ public: //* BEGIN PUBLIC API.
         int maxX = cast(int) floor(topRight.x);
         int maxY = cast(int) floor(topRight.y);
 
-        
+        Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
+        Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
 
+        writeln("test: ", topLeftChunkPosition.x, " ", bottomRightChunkPosition.x);
 
+        // writeln(bottomRightChunkPosition.x - topLeftChunkPosition.x);
 
-        foreach (x; minX .. maxX + 1) {
+        // Chunk*[][] data = new Chunk*[][](1, 1);
 
-            foreach (y; minY .. maxY + 1) {
+        foreach (x; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
+            foreach (y; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
 
-                Vec2d position = Vec2d(x, y);
-
-                ChunkData thisData = getTileAtWorldPosition(position);
-
-                position.y += 1;
-
-                if (thisData.tileID == 0) {
-                    // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
-                    continue;
-                }
-
-                // +1 on Y because it's drawn with the origin at the top left.
-
-                // Render.rectangle(position, Vec2d(1, 1), Colors.ORANGE);
-
-                TileDefinitionResult thisTileResult = TileDatabase.getTileByID(
-                    thisData.tileID);
-
-                // if (!thisTileResult.exists) {
-                //     TextureHandler.drawTexture("unknown.png", position, Rect(0, 0, 16, 16), Vec2d(1, 1));
-                // } else {
-                //     TextureHandler.drawTexture(thisTileResult.definition.texture, position,
-                //         Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
-                // }
-
-                // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
-
+                Render.rectangleLines(Vec2d(x * CHUNK_WIDTH, y * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors
+                        .WHITE, 1);
             }
         }
+
+        // foreach (x; minX .. maxX + 1) {
+
+        //     foreach (y; minY .. maxY + 1) {
+
+        //         Vec2d position = Vec2d(x, y);
+
+        //         ChunkData thisData = getTileAtWorldPosition(position);
+
+        //         position.y += 1;
+
+        //         if (thisData.tileID == 0) {
+        //             // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
+        //             continue;
+        //         }
+
+        //         // +1 on Y because it's drawn with the origin at the top left.
+
+        //         // Render.rectangle(position, Vec2d(1, 1), Colors.ORANGE);
+
+        //         TileDefinitionResult thisTileResult = TileDatabase.getTileByID(
+        //             thisData.tileID);
+
+        //         if (!thisTileResult.exists) {
+        //             TextureHandler.drawTexture("unknown.png", position, Rect(0, 0, 16, 16), Vec2d(1, 1));
+        //         } else {
+        //             TextureHandler.drawTexture(thisTileResult.definition.texture, position,
+        //                 Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
+        //         }
+
+        //         // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
+
+        //     }
+        // }
     }
 
     double getGravity() {
