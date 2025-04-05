@@ -21,10 +21,11 @@ import std.stdio;
 import utility.window;
 
 //! NEVER CHANGE THIS!
-immutable public int CHUNK_WIDTH = 32;
+immutable public int CHUNK_WIDTH = 64;
 
 struct ChunkData {
     int tileID = 0;
+    int meshID = 0;
 }
 
 final class Chunk {
@@ -63,9 +64,9 @@ public: //* BEGIN PUBLIC API.
         Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
         Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
 
-        //? This needs to be dynamic so it can support 8k+ displays.
-        //? I do not have an 8k display to test this though. :(
-        //* TODO: IN THE FUTURE: Preallocate this based on the biggest display. It will save GC resources.
+        // //? This needs to be dynamic so it can support 8k+ displays.
+        // //? I do not have an 8k display to test this though. :(
+        // //* TODO: IN THE FUTURE: Preallocate this based on the biggest display. It will save GC resources.
         Chunk*[][] data = new Chunk*[][](
             abs(bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1,
             abs(bottomRightChunkPosition.y - topLeftChunkPosition.y) + 1);
@@ -105,61 +106,61 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
-        // Draw the entire map as one HUGE mesh and stream it into the GPU.
+        // // Draw the entire map as one HUGE mesh and stream it into the GPU.
 
-        ulong allocation = chunkCount * (CHUNK_WIDTH * CHUNK_WIDTH);
+        // ulong allocation = chunkCount * (CHUNK_WIDTH * CHUNK_WIDTH);
 
-        writeln("allocation: ", allocation);
-        void* vertexPos = GC.malloc((float.sizeof * allocation) * 4);
-        ulong vertexIndex = 0;
-        void* textureCoord = GC.malloc((float.sizeof * allocation) * 8);
-        ulong textureIndex = 0;
+        // writeln("allocation: ", allocation);
+        // void* vertexPos = GC.malloc((float.sizeof * allocation) * 4);
+        // ulong vertexIndex = 0;
+        // void* textureCoord = GC.malloc((float.sizeof * allocation) * 8);
+        // ulong textureIndex = 0;
 
-        // Draw chunk by chunk instead of tile by tile, it's much faster.
+        // // Draw chunk by chunk instead of tile by tile, it's much faster.
 
-        ulong drawn = 0;
+        // ulong drawn = 0;
 
-        foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
-            foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
-                int xInArray = xReal - topLeftChunkPosition.x;
-                int yInArray = yReal - topLeftChunkPosition.y;
+        // foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
+        //     foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
+        //         int xInArray = xReal - topLeftChunkPosition.x;
+        //         int yInArray = yReal - topLeftChunkPosition.y;
 
-                const Chunk* thisChunk = data[xInArray][yInArray];
+        //         const Chunk* thisChunk = data[xInArray][yInArray];
 
-                if (thisChunk is null) {
-                    continue;
-                }
+        //         if (thisChunk is null) {
+        //             continue;
+        //         }
 
-                foreach (xInChunk; 0 .. CHUNK_WIDTH) {
-                    foreach (yInChunk; 0 .. CHUNK_WIDTH) {
+        //         foreach (xInChunk; 0 .. CHUNK_WIDTH) {
+        //             foreach (yInChunk; 0 .. CHUNK_WIDTH) {
 
-                        const int tileID = thisChunk.data[xInChunk][yInChunk].tileID;
+        //                 const int tileID = thisChunk.data[xInChunk][yInChunk].tileID;
 
-                        TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
+        //                 TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
 
-                        // if (thisTilePointer is null) {
-                        //     throw new Error("null tile definition pointer!");
-                        // }
+        //                 // if (thisTilePointer is null) {
+        //                 //     throw new Error("null tile definition pointer!");
+        //                 // }
 
-                        Vec2d worldPosition = Vec2d(
-                            (xReal * CHUNK_WIDTH) + xInChunk,
-                            ((yReal * CHUNK_WIDTH) + yInChunk) + 1);
+        //                 Vec2d worldPosition = Vec2d(
+        //                     (xReal * CHUNK_WIDTH) + xInChunk,
+        //                     ((yReal * CHUNK_WIDTH) + yInChunk) + 1);
 
-                        // TextureHandler.drawTexture(thisTilePointer.texture, worldPosition,
-                        //     Rect(0, 0, 16.001, 16.001), Vec2d(1, 1));
+        //                 // TextureHandler.drawTexture(thisTilePointer.texture, worldPosition,
+        //                 //     Rect(0, 0, 16.001, 16.001), Vec2d(1, 1));
 
-                        drawn++;
+        //                 drawn++;
 
-                        // if (thisTileResult.isSome) {
+        //                 // if (thisTileResult.isSome) {
 
-                        // } else {
-                        //     throw new Error("missing tile ID!");
-                        // }
-                    }
-                }
+        //                 // } else {
+        //                 //     throw new Error("missing tile ID!");
+        //                 // }
+        //             }
+        //         }
 
-            }
-        }
+        //     }
+        // }
 
         // writeln("Drawn: ", drawn);
 
