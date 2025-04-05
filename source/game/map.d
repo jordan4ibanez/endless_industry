@@ -31,6 +31,7 @@ struct ChunkData {
 
 final class Chunk {
     ChunkData[CHUNK_WIDTH][CHUNK_WIDTH] data;
+    int modelID = 0;
 }
 
 static final const class Map {
@@ -477,7 +478,7 @@ private: //* BEGIN INTERNAL API.
             }
         }
 
-        ModelHandler.generate(vertices, VERTEX_LENGTH, textureCoordinates);
+        thisChunk.modelID = ModelHandler.generate(vertices, VERTEX_LENGTH, textureCoordinates);
 
     }
 
