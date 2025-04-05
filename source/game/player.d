@@ -65,16 +65,6 @@ public: //* BEGIN PUBLIC API.
 
     void draw() {
 
-        double delta = Delta.getDelta();
-        // rotation += delta * 230.0;
-        immutable double scale = 0.05625;
-
-        immutable double centerX = size.x * 0.5;
-
-        immutable double DOUBLE_PI = PI * 2;
-        immutable double QUARTER_PI = PI * 0.25;
-        immutable double HALF_PI = PI * 0.5;
-
         Render.rectangleLines(centerCollisionbox(position, size), size, Colors.WHITE);
     }
 
