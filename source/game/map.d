@@ -99,6 +99,41 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
+        // Draw chunk by chunk instead of tile by tile, it's much faster.
+
+        foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
+            foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
+                int xInArray = xReal - topLeftChunkPosition.x;
+                int yInArray = yReal - topLeftChunkPosition.y;
+
+                const Chunk* thisChunk = data[xInArray][yInArray];
+
+                if (thisChunk is null) {
+                    continue;
+                }
+
+                foreach (xInChunk; 0 .. CHUNK_WIDTH) {
+                    foreach (yInChunk; 0 .. CHUNK_WIDTH) {
+
+                        const int tileID = thisChunk.data[xInChunk][yInChunk].tileID;
+
+                        TileDefinitionResult thisTileResult = TileDatabase.getTileByID(tileID);
+
+                        Vec2d worldPosition = Vec2d((xReal * CHUNK_WIDTH) + xInChunk, (
+                                yReal * CHUNK_WIDTH) + yInChunk);
+
+                        if (!thisTileResult.exists) {
+                            TextureHandler.drawTexture("unknown.png", worldPosition, Rect(0, 0, 16, 16), Vec2d(1, 1));
+                        } else {
+                            TextureHandler.drawTexture(thisTileResult.definition.texture, worldPosition,
+                                Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
+                        }
+                    }
+                }
+
+            }
+        }
+
         //     foreach (x; minX .. maxX + 1) {
         //         foreach (y; minY .. maxY + 1) {
 
