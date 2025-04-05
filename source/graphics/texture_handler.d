@@ -120,6 +120,14 @@ public: //* BEGIN PUBLIC API.
         return atlas;
     }
 
+    ulong lookupTexturePointsIndex(string name) {
+        ulong* thisIndex = name in texturePointAccessReverseLookup;
+        if (thisIndex is null) {
+            throw new Error("Texture " ~ name ~ " does not exist");
+        }
+        return *thisIndex;
+    }
+
     void terminate() {
         UnloadTexture(atlas);
     }
