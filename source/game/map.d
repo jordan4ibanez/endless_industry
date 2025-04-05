@@ -24,13 +24,13 @@ import utility.window;
 //! NEVER CHANGE THIS!
 immutable public int CHUNK_WIDTH = 64;
 
-struct ChunkData {
+struct TileData {
     int tileID = 0;
     int meshID = 0;
 }
 
 final class Chunk {
-    ChunkData[CHUNK_WIDTH][CHUNK_WIDTH] data;
+    TileData[CHUNK_WIDTH][CHUNK_WIDTH] data;
     int modelID = 0;
 }
 
@@ -111,11 +111,11 @@ public: //* BEGIN PUBLIC API.
 
     ///! This can be extremely expensive!
     /// todo: This needs a bulk counterpart!
-    ChunkData getTileAtWorldPosition(Vec2d position) {
+    TileData getTileAtWorldPosition(Vec2d position) {
         Vec2i chunkID = calculateChunkAtWorldPosition(position);
 
         if (chunkID !in database) {
-            return ChunkData();
+            return TileData();
         }
 
         int xPosInChunk = getXInChunk(position.x);
@@ -224,7 +224,7 @@ private: //* BEGIN INTERNAL API.
 
                 // debugDrawPoints ~= Vec2d(currentX, currentY);
 
-                ChunkData data = getTileAtWorldPosition(Vec2d(currentX, currentY));
+                TileData data = getTileAtWorldPosition(Vec2d(currentX, currentY));
 
                 // todo: if solid tile collide.
                 // todo: probably custom tile one day.
