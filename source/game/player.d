@@ -71,8 +71,9 @@ public: //* BEGIN PUBLIC API.
     void move() {
         double delta = Delta.getDelta();
 
-        const double acceleration = 40;
-        const double deceleration = 50;
+        const double acceleration = 400; //40;
+        const double deceleration = 500; //50;
+        const double topSpeed = 20;
 
         // writeln(velocity.x);
 
