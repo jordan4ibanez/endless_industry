@@ -68,6 +68,7 @@ public: //* BEGIN PUBLIC API.
             abs(bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1,
             abs(bottomRightChunkPosition.y - topLeftChunkPosition.y) + 1);
 
+        // Jam the pointers into the local 2d array for faster access.
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
                 int xInArray = xReal - topLeftChunkPosition.x;
@@ -85,6 +86,7 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
+        // Any chunks that don't exist get drawn as a blank chunk grid.
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
                 int xInArray = xReal - topLeftChunkPosition.x;
