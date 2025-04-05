@@ -399,6 +399,7 @@ private: //* BEGIN INTERNAL API.
         // todo: try to read from sqlite.
         Chunk newChunk = new Chunk();
         generateChunkData(chunkPosition, newChunk);
+
         database[chunkPosition] = newChunk;
     }
 
@@ -448,6 +449,11 @@ private: //* BEGIN INTERNAL API.
 
             }
         }
+    }
+
+    void generateChunkMesh(Vec2i chunkPosition, ref Chunk thisChunk) {
+        
+
     }
 
 }

@@ -8,6 +8,7 @@ static:
 private:
 
     Texture2D textureAtlas;
+    Mesh[int] database;
 
 public: //* BEGIN PUBLIC API.
 
@@ -15,8 +16,12 @@ public: //* BEGIN PUBLIC API.
         textureAtlas = TextureHandler.getAtlas();
     }
 
-    void superUpload() {
+    int generate(float* vertices, const ulong verticesLength, float* textureCoordinates) {
+        int meshID = 0;
+
         
+
+        return meshID;
     }
 
 }
