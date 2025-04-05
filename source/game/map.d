@@ -10,6 +10,7 @@ import graphics.texture_handler;
 import math.rect;
 import math.vec2d;
 import math.vec2i;
+import optibrev;
 import std.algorithm.comparison;
 import std.conv;
 import std.math.algebraic;
@@ -117,7 +118,7 @@ public: //* BEGIN PUBLIC API.
 
                         const int tileID = thisChunk.data[xInChunk][yInChunk].tileID;
 
-                        TileDefinitionResult thisTileResult = TileDatabase.getTileByID(tileID);
+                        Option!TileDefinition thisTileResult = TileDatabase.getTileByID(tileID);
 
                         // Vec2d worldPosition = Vec2d((xReal * CHUNK_WIDTH) + xInChunk, (
                         //         yReal * CHUNK_WIDTH) + yInChunk);
@@ -241,13 +242,13 @@ public: //* BEGIN PUBLIC API.
         int xPosInChunk = getXInChunk(position.x);
         int yPosInChunk = getYInChunk(position.y);
 
-        TileDefinitionResult result = TileDatabase.getTileByName(name);
+        Option!TileDefinition result = TileDatabase.getTileByName(name);
 
-        if (!result.exists) {
+        if (result.isNone) {
             throw new Error("Cannot set to tile " ~ name ~ ", does not exist.");
         }
 
-        database[chunkID].data[xPosInChunk][yPosInChunk].tileID = result.definition.id;
+        database[chunkID].data[xPosInChunk][yPosInChunk].tileID = result.unwrap.id;
     }
 
     void worldLoad(Vec2i currentPlayerChunk) {
@@ -385,21 +386,21 @@ private: //* BEGIN INTERNAL API.
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
-        TileDefinitionResult stoneResult = TileDatabase.getTileByID(
+        Option!TileDefinition stoneResult = TileDatabase.getTileByID(
             biomeResult.definition.stoneLayerID);
-        if (!stoneResult.exists) {
+        if (stoneResult.isNone) {
             throw new Error("Stone does not exist for biome " ~ biomeResult.definition.name);
         }
 
-        TileDefinitionResult dirtResult = TileDatabase.getTileByID(
+        Option!TileDefinition dirtResult = TileDatabase.getTileByID(
             biomeResult.definition.dirtLayerID);
-        if (!dirtResult.exists) {
+        if (dirtResult.isNone) {
             throw new Error("Dirt does not exist for biome " ~ biomeResult.definition.name);
         }
 
-        TileDefinitionResult grassResult = TileDatabase.getTileByID(
+        Option!TileDefinition grassResult = TileDatabase.getTileByID(
             biomeResult.definition.grassLayerID);
-        if (!grassResult.exists) {
+        if (grassResult.isNone) {
             throw new Error("Grass does not exist for biome " ~ biomeResult.definition.name);
         }
 
@@ -411,9 +412,9 @@ private: //* BEGIN INTERNAL API.
                 // writeln(selectedNoise);
 
                 if (selectedNoise < 0) {
-                    thisChunk.data[x][y].tileID = grassResult.definition.id;
+                    thisChunk.data[x][y].tileID = grassResult.unwrap.id;
                 } else {
-                    thisChunk.data[x][y].tileID = dirtResult.definition.id;
+                    thisChunk.data[x][y].tileID = dirtResult.unwrap.id;
                 }
 
             }
