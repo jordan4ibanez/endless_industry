@@ -41,8 +41,6 @@ private:
     Chunk[Vec2i] database;
     FNLState noise;
 
-    double gravity = 20.0;
-
 public: //* BEGIN PUBLIC API.
 
     void initialize() {
@@ -86,10 +84,6 @@ public: //* BEGIN PUBLIC API.
                 }
             }
         }
-    }
-
-    double getGravity() {
-        return gravity;
     }
 
     Vec2i calculateChunkAtWorldPosition(Vec2d position) {
