@@ -13,7 +13,7 @@ struct TileDefinition {
     string texture = null;
     //! NEVER USE THESE.
     int id = -1;
-    int textureIndex = -1;
+    int texturePointsIndex = -1;
 }
 
 static final const class TileDatabase {
