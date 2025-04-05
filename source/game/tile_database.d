@@ -11,7 +11,9 @@ struct TileDefinition {
     string name = null;
     string modName = null;
     string texture = null;
+    //! NEVER USE THESE.
     int id = -1;
+    int textureIndex = -1;
 }
 
 static final const class TileDatabase {
