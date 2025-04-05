@@ -16,12 +16,12 @@ struct CollisionResult {
     bool hitGround = false;
 }
 
-// This basically shoves the entity out of the block.
+// This basically shoves the entity out of the tile.
 //? Note: This will have issues extremely far out.
 private immutable double magicAdjustment = 0.0001;
 
 CollisionResult collideXToTile(Vec2d entityPosition, Vec2d entitySize, Vec2d entityVelocity,
-    Vec2d blockPosition, Vec2d blockSize) {
+    Vec2d tilePosition, Vec2d tileSize) {
 
     CollisionResult result;
     result.newPosition = entityPosition.x;
@@ -38,17 +38,17 @@ CollisionResult collideXToTile(Vec2d entityPosition, Vec2d entitySize, Vec2d ent
     immutable Rect entityRectangle = Rect(entityPosition.x - entityHalfWidth, entityPosition.y,
         entitySize.x, entitySize.y);
 
-    immutable Rect blockRectangle = Rect(blockPosition.x, blockPosition.y, blockSize.x, blockSize.y);
+    immutable Rect tileRectangle = Rect(tilePosition.x, tilePosition.y, tileSize.x, tileSize.y);
 
-    if (checkCollisionRecs(entityRectangle, blockRectangle)) {
+    if (checkCollisionRecs(entityRectangle, tileRectangle)) {
         // This doesn't kick out in a specific direction on dir 0 because the Y axis check will kick them up as a safety.
         result.collides = true;
         if (dir > 0) {
             // Kick left.
-            result.newPosition = blockPosition.x - entityHalfWidth - magicAdjustment;
+            result.newPosition = tilePosition.x - entityHalfWidth - magicAdjustment;
         } else if (dir < 0) {
             // Kick right.
-            result.newPosition = blockPosition.x + blockSize.x + entityHalfWidth + magicAdjustment;
+            result.newPosition = tilePosition.x + tileSize.x + entityHalfWidth + magicAdjustment;
         }
     }
 
@@ -56,7 +56,7 @@ CollisionResult collideXToTile(Vec2d entityPosition, Vec2d entitySize, Vec2d ent
 }
 
 CollisionResult collideYToTile(Vec2d entityPosition, Vec2d entitySize, Vec2d entityVelocity,
-    Vec2d blockPosition, Vec2d blockSize) {
+    Vec2d tilePosition, Vec2d tileSize) {
 
     CollisionResult result;
     result.newPosition = entityPosition.y;
@@ -73,18 +73,18 @@ CollisionResult collideYToTile(Vec2d entityPosition, Vec2d entitySize, Vec2d ent
     immutable Rect entityRectangle = Rect(entityPosition.x - entityHalfWidth, entityPosition.y,
         entitySize.x, entitySize.y);
 
-    immutable Rect blockRectangle = Rect(blockPosition.x, blockPosition.y, blockSize.x, blockSize.y);
+    immutable Rect tileRectangle = Rect(tilePosition.x, tilePosition.y, tileSize.x, tileSize.y);
 
-    if (checkCollisionRecs(entityRectangle, blockRectangle)) {
+    if (checkCollisionRecs(entityRectangle, tileRectangle)) {
 
         result.collides = true;
         if (dir <= 0) {
             // Kick up. This is the safety default.
-            result.newPosition = blockPosition.y + blockSize.y + magicAdjustment;
+            result.newPosition = tilePosition.y + tileSize.y + magicAdjustment;
             result.hitGround = true;
         } else {
             // Kick down.
-            result.newPosition = blockPosition.y - entitySize.y - magicAdjustment;
+            result.newPosition = tilePosition.y - entitySize.y - magicAdjustment;
         }
     }
 
