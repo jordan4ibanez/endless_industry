@@ -67,8 +67,8 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
-        writeln("allocation attempt X: ", (
-                abs(topLeftChunkPosition.x) - abs(bottomRightChunkPosition.x)) + 1);
+        writeln("allocation attempt X: ", abs(
+                bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1);
 
         Chunk*[][] data = new Chunk*[][](
             (abs(topLeftChunkPosition.x) - abs(bottomRightChunkPosition.x)) + 1,
