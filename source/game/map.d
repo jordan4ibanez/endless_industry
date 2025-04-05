@@ -68,6 +68,8 @@ public: //* BEGIN PUBLIC API.
         //     }
         // }
 
+        //? This needs to be dynamic so it can support 8k+ displays.
+        //? I do not have an 8k display to test this though. :(
         Chunk*[][] data = new Chunk*[][](
             abs(bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1,
             abs(bottomRightChunkPosition.y - topLeftChunkPosition.y) + 1);
