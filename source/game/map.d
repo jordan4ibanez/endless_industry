@@ -60,17 +60,16 @@ public: //* BEGIN PUBLIC API.
         Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
         Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
 
-        writeln("test: ", topLeftChunkPosition.x, " ", bottomRightChunkPosition.x);
-
-        // writeln(bottomRightChunkPosition.x - topLeftChunkPosition.x);
+        writeln("test: ", topLeftChunkPosition.y, " ", bottomRightChunkPosition.y);
 
         // Chunk*[][] data = new Chunk*[][](1, 1);
 
         foreach (x; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (y; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
+                // writeln("y: ", y);
 
-                Render.rectangleLines(Vec2d(x * CHUNK_WIDTH, y * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors
-                        .WHITE, 1);
+                Render.rectangleLines(Vec2d(0, y * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors
+                        .WHITE, 0.7);
             }
         }
 
