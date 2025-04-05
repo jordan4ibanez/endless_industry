@@ -69,13 +69,7 @@ public: //* BEGIN PUBLIC API.
         //? This needs to be dynamic so it can support 8k+ displays.
         //? I do not have an 8k display to test this though. :(
         //* TODO: IN THE FUTURE: Preallocate this based on the biggest display. It will save GC resources.
-        Chunk*[][] data = new Chunk*[][](
-            abs(bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1,
-            abs(bottomRightChunkPosition.y - topLeftChunkPosition.y) + 1);
 
-        ulong chunkCount = 0;
-
-        // Jam the pointers into the local 2d array for faster access.
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
                 int xInArray = xReal - topLeftChunkPosition.x;
@@ -85,27 +79,12 @@ public: //* BEGIN PUBLIC API.
 
                 Chunk* thisChunk = chunkID in database;
 
+                // Any chunks that don't exist get drawn as a blank chunk grid.
                 if (thisChunk is null) {
-                    continue;
-                }
-
-                chunkCount++;
-
-                data[xInArray][yInArray] = thisChunk;
-            }
-        }
-
-        // Any chunks that don't exist get drawn as a blank chunk grid.
-        foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
-            foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
-                int xInArray = xReal - topLeftChunkPosition.x;
-                int yInArray = yReal - topLeftChunkPosition.y;
-
-                if (data[xInArray][yInArray] is null) {
                     Render.rectangleLines(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH),
                         Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors.WHITE, 0.75);
                 } else {
-                    ModelHandler.draw(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH), data[xInArray][yInArray]
+                    ModelHandler.draw(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH), thisChunk
                             .modelID);
                 }
             }
