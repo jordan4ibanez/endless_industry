@@ -64,9 +64,9 @@ public: //* BEGIN PUBLIC API.
         Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
         Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
 
-        // //? This needs to be dynamic so it can support 8k+ displays.
-        // //? I do not have an 8k display to test this though. :(
-        // //* TODO: IN THE FUTURE: Preallocate this based on the biggest display. It will save GC resources.
+        //? This needs to be dynamic so it can support 8k+ displays.
+        //? I do not have an 8k display to test this though. :(
+        //* TODO: IN THE FUTURE: Preallocate this based on the biggest display. It will save GC resources.
         Chunk*[][] data = new Chunk*[][](
             abs(bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1,
             abs(bottomRightChunkPosition.y - topLeftChunkPosition.y) + 1);
@@ -131,33 +131,7 @@ public: //* BEGIN PUBLIC API.
         //             continue;
         //         }
 
-        //         foreach (xInChunk; 0 .. CHUNK_WIDTH) {
-        //             foreach (yInChunk; 0 .. CHUNK_WIDTH) {
-
-        //                 const int tileID = thisChunk.data[xInChunk][yInChunk].tileID;
-
-        //                 TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
-
-        //                 // if (thisTilePointer is null) {
-        //                 //     throw new Error("null tile definition pointer!");
-        //                 // }
-
-        //                 Vec2d worldPosition = Vec2d(
-        //                     (xReal * CHUNK_WIDTH) + xInChunk,
-        //                     ((yReal * CHUNK_WIDTH) + yInChunk) + 1);
-
-        //                 // TextureHandler.drawTexture(thisTilePointer.texture, worldPosition,
-        //                 //     Rect(0, 0, 16.001, 16.001), Vec2d(1, 1));
-
-        //                 drawn++;
-
-        //                 // if (thisTileResult.isSome) {
-
-        //                 // } else {
-        //                 //     throw new Error("missing tile ID!");
-        //                 // }
-        //             }
-        //         }
+        //         
 
         //     }
         // }
@@ -452,7 +426,34 @@ private: //* BEGIN INTERNAL API.
     }
 
     void generateChunkMesh(Vec2i chunkPosition, ref Chunk thisChunk) {
+        foreach (x; 0 .. CHUNK_WIDTH) {
+            foreach (y; 0 .. CHUNK_WIDTH) {
 
+                const int tileID = thisChunk.data[x][y].tileID;
+
+                const TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
+
+                // if (thisTilePointer is null) {
+                //     throw new Error("null tile definition pointer!");
+                // }
+
+                // +1 because the tile origin is +Y and it needs to be shifted up.
+                // Vec2d worldPosition = Vec2d(
+                //     (xReal * CHUNK_WIDTH) + xInChunk,
+                //     ((yReal * CHUNK_WIDTH) + yInChunk) + 1);
+
+                // TextureHandler.drawTexture(thisTilePointer.texture, worldPosition,
+                //     Rect(0, 0, 16.001, 16.001), Vec2d(1, 1));
+
+                // drawn++;
+
+                // if (thisTileResult.isSome) {
+
+                // } else {
+                //     throw new Error("missing tile ID!");
+                // }
+            }
+        }
 
     }
 
