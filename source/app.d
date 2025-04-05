@@ -6,6 +6,7 @@ import game.map;
 import game.player;
 import graphics.camera_handler;
 import graphics.font_handler;
+import graphics.mesh;
 import graphics.render;
 import graphics.texture_handler;
 import math.vec2d;
@@ -31,7 +32,7 @@ void main() {
 
 	validateRaylibBinding();
 
-	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
+	// SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
 	Window.initialize();
 
@@ -45,6 +46,8 @@ void main() {
 	Api.initialize();
 
 	Map.initialize();
+
+	MeshHandler.initialize();
 
 	while (Window.shouldStayOpen()) {
 
