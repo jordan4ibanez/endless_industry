@@ -82,14 +82,14 @@ public: //* BEGIN PUBLIC API.
 
     void __update() {
         camera.offset = vec2dMultiply(Window.getSize(), Vec2d(0.5, 0.5)).toRaylib();
+
+        // Yes, this calculation really is this simple. I honestly didn't think this would work when I was writing it.
         realZoom += Mouse.getScrollDelta() * (realZoom / 10.0);
         if (realZoom < 1) {
             realZoom = 1;
         } else if (realZoom > 1000) {
             realZoom = 1000;
         }
-
-        writeln("zoom: ", realZoom);
 
         camera.zoom = realZoom * GUI.getGUIScale();
 
