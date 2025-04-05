@@ -124,12 +124,14 @@ public: //* BEGIN PUBLIC API.
                         //     throw new Error("null tile definition pointer!");
                         // }
 
-                        Vec2d worldPosition = Vec2d((xReal * CHUNK_WIDTH) + xInChunk, (
-                                yReal * CHUNK_WIDTH) + yInChunk);
+                        Vec2d worldPosition = Vec2d(
+                            (xReal * CHUNK_WIDTH) + xInChunk,
+                            ((yReal * CHUNK_WIDTH) + yInChunk) + 1);
+
+                        TextureHandler.drawTexture(thisTilePointer.texture, worldPosition,
+                            Rect(0, 0, 16.001, 16.001), Vec2d(1, 1));
 
                         // if (thisTileResult.isSome) {
-                        //     // TextureHandler.drawTexture(thisTileResult.unwrap.texture, worldPosition,
-                        //     //     Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
 
                         // } else {
                         //     throw new Error("missing tile ID!");
