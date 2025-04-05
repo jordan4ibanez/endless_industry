@@ -1,6 +1,7 @@
 module game.biome_database;
 
 import game.tile_database;
+import optibrev;
 
 class BiomeDefinition {
     string name = null;
@@ -82,28 +83,29 @@ public: //* BEGIN PUBLIC API.
     }
 
     void finalize() {
+
         foreach (name, ref thisBiome; nameDatabase) {
-            TileDefinitionResult grassResult = TileDatabase.getTileByName(thisBiome.grassLayer);
-            if (!grassResult.exists) {
+            Option!TileDefinition grassResult = TileDatabase.getTileByName(thisBiome.grassLayer);
+            if (grassResult.isNone) {
                 throw new Error(
                     "Biome " ~ thisBiome.name ~ " grass layer " ~ thisBiome.grassLayer ~ " is not a registered tile");
             }
 
-            TileDefinitionResult dirtResult = TileDatabase.getTileByName(thisBiome.dirtLayer);
-            if (!dirtResult.exists) {
+            Option!TileDefinition dirtResult = TileDatabase.getTileByName(thisBiome.dirtLayer);
+            if (dirtResult.isNone) {
                 throw new Error(
                     "Biome " ~ thisBiome.name ~ " dirt layer " ~ thisBiome.dirtLayer ~ " is not a registered tile");
             }
 
-            TileDefinitionResult stoneResult = TileDatabase.getTileByName(thisBiome.stoneLayer);
-            if (!stoneResult.exists) {
+            Option!TileDefinition stoneResult = TileDatabase.getTileByName(thisBiome.stoneLayer);
+            if (stoneResult.isNone) {
                 throw new Error(
                     "Biome " ~ thisBiome.name ~ " stone layer " ~ thisBiome.stoneLayer ~ " is not a registered tile");
             }
 
-            thisBiome.grassLayerID = grassResult.definition.id;
-            thisBiome.dirtLayerID = dirtResult.definition.id;
-            thisBiome.stoneLayerID = stoneResult.definition.id;
+            thisBiome.grassLayerID = grassResult.unwrap.id;
+            thisBiome.dirtLayerID = dirtResult.unwrap.id;
+            thisBiome.stoneLayerID = stoneResult.unwrap.id;
 
             // todo: do the match thing below when mongoDB is added in.
             thisBiome.id = nextID();
