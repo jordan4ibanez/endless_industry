@@ -73,12 +73,26 @@ public: //* BEGIN PUBLIC API.
                 int xInArray = xReal - topLeftChunkPosition.x;
                 int yInArray = yReal - topLeftChunkPosition.y;
 
-                // writeln("x: ", x);
+                Vec2i chunkID = Vec2i(xReal, yReal);
+
+                Chunk* thisChunk = chunkID in database;
+
+                if (thisChunk is null) {
+                    continue;
+                }
+
+                data[xInArray][yInArray] = thisChunk;
+            }
+        }
+
+        foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
+            foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
+                int xInArray = xReal - topLeftChunkPosition.x;
+                int yInArray = yReal - topLeftChunkPosition.y;
 
                 if (data[xInArray][yInArray] is null) {
                     Render.rectangleLines(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH),
-                        Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors.WHITE, 0.7);
-
+                        Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors.WHITE, 0.75);
                 }
             }
         }
