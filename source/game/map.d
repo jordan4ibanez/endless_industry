@@ -97,12 +97,6 @@ public: //* BEGIN PUBLIC API.
         return gravity;
     }
 
-    // void drawDebugPoints() {
-    //     foreach (point; debugDrawPoints) {
-    //         Render.circle(point, 0.1, Colors.ORANGE);
-    //     }
-    // }
-
     Vec2i calculateChunkAtWorldPosition(Vec2d position) {
         return Vec2i(cast(int) floor(position.x / CHUNK_WIDTH), cast(int) floor(
                 position.y / CHUNK_WIDTH));
