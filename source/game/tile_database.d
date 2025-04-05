@@ -25,7 +25,7 @@ private:
     TileDefinition[string] nameDatabase;
     TileDefinition[int] idDatabase;
 
-    int currentID = 2;
+    int currentID = 0;
 
 public: //* BEGIN PUBLIC API.
 
