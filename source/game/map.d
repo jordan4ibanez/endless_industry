@@ -216,8 +216,11 @@ public: //* BEGIN PUBLIC API.
     }
 
     void worldLoad(Vec2i currentPlayerChunk) {
-        foreach (x; currentPlayerChunk.x - 1 .. currentPlayerChunk.x + 2) {
-            foreach (y; currentPlayerChunk.y - 1 .. currentPlayerChunk.y + 2) {
+
+        const int worldLoadDistance = 3;
+
+        foreach (x; currentPlayerChunk.x - worldLoadDistance .. currentPlayerChunk.x + worldLoadDistance + 1) {
+            foreach (y; currentPlayerChunk.y - worldLoadDistance .. currentPlayerChunk.y + worldLoadDistance + 1) {
                 writeln("loading chunk ", x, " ", y);
                 loadChunk(Vec2i(x, y));
             }
