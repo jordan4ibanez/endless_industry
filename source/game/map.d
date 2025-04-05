@@ -1,6 +1,7 @@
 module game.map;
 
 public import utility.collision_functions : CollisionAxis;
+import core.memory;
 import fast_noise;
 import game.biome_database;
 import game.tile_database;
@@ -69,6 +70,8 @@ public: //* BEGIN PUBLIC API.
             abs(bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1,
             abs(bottomRightChunkPosition.y - topLeftChunkPosition.y) + 1);
 
+        ulong chunkCount = 0;
+
         // Jam the pointers into the local 2d array for faster access.
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
@@ -82,6 +85,8 @@ public: //* BEGIN PUBLIC API.
                 if (thisChunk is null) {
                     continue;
                 }
+
+                chunkCount++;
 
                 data[xInArray][yInArray] = thisChunk;
             }
@@ -101,6 +106,14 @@ public: //* BEGIN PUBLIC API.
         }
 
         // Draw the entire map as one HUGE mesh and stream it into the GPU.
+
+        ulong allocation = chunkCount * (CHUNK_WIDTH * CHUNK_WIDTH);
+
+        writeln("allocation: ", allocation);
+        void* vertexPos = GC.malloc((float.sizeof * allocation) * 4);
+        ulong vertexIndex = 0;
+        void* textureCoord = GC.malloc((float.sizeof * allocation) * 8);
+        ulong textureIndex = 0;
 
         // Draw chunk by chunk instead of tile by tile, it's much faster.
 
@@ -148,7 +161,7 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
-        writeln("Drawn: ", drawn);
+        // writeln("Drawn: ", drawn);
 
         //     foreach (x; minX .. maxX + 1) {
         //         foreach (y; minY .. maxY + 1) {
