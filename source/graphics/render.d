@@ -12,18 +12,24 @@ private:
 public: //* BEGIN PUBLIC API.
 
     void rectangle(Vec2d position, Vec2d size, Color color) {
-        DrawRectangleV(position.toRaylib(), size.toRaylib(), color);
+        DrawRectangleV(invertPosition(position).toRaylib(), size.toRaylib(), color);
     }
 
     void rectangleLines(Vec2d position, Vec2d size, Color color, double thickness = 0.01) {
-        Rect rect = Rect(position.x, position.y, size.x, size.y);
+        Vec2d invertedPosition = invertPosition(position);
+        Rect rect = Rect(invertedPosition.x, invertedPosition.y, size.x, size.y);
         DrawRectangleLinesEx(rect.toRaylib(), thickness, color);
     }
 
     void circle(Vec2d center, double radius, Color color) {
-        DrawCircleV(center.toRaylib(), radius, color);
+        Vec2d invertedPosition = invertPosition(center);
+        DrawCircleV(invertedPosition.toRaylib(), radius, color);
     }
 
 private: //* BEGIN INTERNAL API.
+
+    Vec2d invertPosition(Vec2d position) {
+        return Vec2d(position.x, -position.y);
+    }
 
 }
