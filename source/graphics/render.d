@@ -16,14 +16,12 @@ public: //* BEGIN PUBLIC API.
     }
 
     void rectangleLines(Vec2d position, Vec2d size, Color color, double thickness = 0.01) {
-        Vec2d invertedPosition = invertPosition(position);
-        Rect rect = Rect(invertedPosition.x, invertedPosition.y, size.x, size.y);
+        Rect rect = Rect(position.x, position.y, size.x, size.y);
         DrawRectangleLinesEx(rect.toRaylib(), thickness, color);
     }
 
     void circle(Vec2d center, double radius, Color color) {
-        Vec2d invertedPosition = invertPosition(center);
-        DrawCircleV(invertedPosition.toRaylib(), radius, color);
+        DrawCircleV(center.toRaylib(), radius, color);
     }
 
 private: //* BEGIN INTERNAL API.
