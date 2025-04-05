@@ -103,34 +103,6 @@ public: //* BEGIN PUBLIC API.
 
 private: //* BEGIN INTERNAL API.
 
-    void makeAir() {
-        TileDefinition air = new TileDefinition();
-        air.name = "air";
-        air.modName = "engine";
-        air.texture = "air.png";
-        // todo: do the match thing below when mongoDB is added in.
-        air.id = 0;
-
-        debugWrite(air);
-
-        nameDatabase[air.name] = air;
-        idDatabase[air.id] = air;
-    }
-
-    void makeBedrock() {
-        TileDefinition bedrock = new TileDefinition();
-        bedrock.name = "bedrock";
-        bedrock.modName = "engine";
-        bedrock.texture = "default_bedrock.png";
-        // todo: do the match thing below when mongoDB is added in.
-        bedrock.id = 1;
-
-        debugWrite(bedrock);
-
-        nameDatabase[bedrock.name] = bedrock;
-        idDatabase[bedrock.id] = bedrock;
-    }
-
     void debugWrite(TileDefinition definition) {
         writeln("Tile " ~ definition.name ~ " at ID " ~ to!string(definition.id));
     }
