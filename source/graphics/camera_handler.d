@@ -82,9 +82,11 @@ public: //* BEGIN PUBLIC API.
 
     void __update() {
         camera.offset = vec2dMultiply(Window.getSize(), Vec2d(0.5, 0.5)).toRaylib();
-        realZoom += Mouse.getScrollDelta();
+        realZoom += Mouse.getScrollDelta() * (realZoom / 10.0);
         if (realZoom < 1) {
             realZoom = 1;
+        } else if (realZoom > 1000) {
+            realZoom = 1000;
         }
 
         writeln("zoom: ", realZoom);
