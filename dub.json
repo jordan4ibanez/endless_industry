@@ -6,7 +6,8 @@
 	"dependencies": {
 		"fast_noise": "~>1.0.5",
 		"fast_pack": "~>5.0.1",
-		"raylib-d": "~>5.5.1"
+		"raylib-d": "~>5.5.1",
+		"optibrev": "~>0.0.2"
 	},
 	"description": "A tile thing",
 	"lflags-linux": [

@@ -6,6 +6,7 @@
 		"gamut": "3.2.0",
 		"intel-intrinsics": "1.12.0",
 		"miniz": "0.0.2",
+		"optibrev": "0.0.2",
 		"raylib-d": "5.5.1"
 	}
 }
