@@ -120,6 +120,11 @@ public: //* BEGIN PUBLIC API.
         return atlas;
     }
 
+    /// If you use this in your mods, you're going to have an extremely bad time.
+    TexturePoints!Vec2d* getTexturePointsPointer(ulong index) {
+        return ultraFastTexturePointAccess + index;
+    }
+
     ulong lookupTexturePointsIndex(string name) {
         ulong* thisIndex = name in texturePointAccessReverseLookup;
         if (thisIndex is null) {

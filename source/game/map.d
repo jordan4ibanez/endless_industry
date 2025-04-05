@@ -353,8 +353,8 @@ private: //* BEGIN INTERNAL API.
 
                 const TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
 
-                TexturePoints!Vec2d tPoints = TextureHandler.getTexturePoints(
-                    thisTilePointer.texture);
+                TexturePoints!Vec2d* tPoints = TextureHandler.getTexturePointsPointer(
+                    thisTilePointer.texturePointsIndex);
 
                 // Tri 1.
                 vertices[0 + vertexIndex] = x;
