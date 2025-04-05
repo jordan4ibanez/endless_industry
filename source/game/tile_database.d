@@ -13,11 +13,6 @@ class TileDefinition {
     int id = -1;
 }
 
-struct TileDefinitionResult {
-    TileDefinition definition = null;
-    bool exists = false;
-}
-
 static final const class TileDatabase {
 static:
 private:
