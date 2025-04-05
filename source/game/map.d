@@ -282,7 +282,7 @@ public: //* BEGIN PUBLIC API.
 
     void worldLoad(Vec2i currentPlayerChunk) {
 
-        const int worldLoadDistance = 10;
+        const int worldLoadDistance = 6;
 
         foreach (x; currentPlayerChunk.x - worldLoadDistance .. currentPlayerChunk.x + worldLoadDistance + 1) {
             foreach (y; currentPlayerChunk.y - worldLoadDistance .. currentPlayerChunk.y + worldLoadDistance + 1) {
@@ -452,7 +452,7 @@ private: //* BEGIN INTERNAL API.
     }
 
     void generateChunkMesh(Vec2i chunkPosition, ref Chunk thisChunk) {
-        
+
 
     }
 
