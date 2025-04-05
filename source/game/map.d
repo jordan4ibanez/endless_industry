@@ -66,9 +66,7 @@ public: //* BEGIN PUBLIC API.
 
         foreach (x; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (y; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
-                // writeln("y: ", y);
-
-                Render.rectangleLines(Vec2d(0, y * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors
+                Render.rectangleLines(Vec2d(x * CHUNK_WIDTH, (y + 1) * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors
                         .WHITE, 0.7);
             }
         }
