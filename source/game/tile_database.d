@@ -13,7 +13,7 @@ struct TileDefinition {
     string texture = null;
     //! NEVER USE THESE.
     int id = -1;
-    int texturePointsIndex = -1;
+    ulong texturePointsIndex = 0;
 }
 
 static final const class TileDatabase {
@@ -102,6 +102,8 @@ public: //* BEGIN PUBLIC API.
         foreach (name, ref thisDefinition; nameDatabase) {
             // todo: do the match thing below when sqlite is added in.
             thisDefinition.id = nextID();
+            thisDefinition.texturePointsIndex = TextureHandler.lookupTexturePointsIndex(
+                thisDefinition.texture);
             idDatabase[thisDefinition.id] = thisDefinition;
             debugWrite(thisDefinition);
         }
