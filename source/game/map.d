@@ -426,12 +426,21 @@ private: //* BEGIN INTERNAL API.
     }
 
     void generateChunkMesh(Vec2i chunkPosition, ref Chunk thisChunk) {
+        float* vertices = cast(float*) GC.malloc(float.sizeof * 4 * (CHUNK_WIDTH * CHUNK_WIDTH));
+        ulong vertexIndex = 0;
+        float* textureCoordinates = cast(float*) GC.malloc(
+            float.sizeof * 8 * (CHUNK_WIDTH * CHUNK_WIDTH));
+
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
 
                 const int tileID = thisChunk.data[x][y].tileID;
 
                 const TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
+
+
+                TexturePoints!Vec2d theseTexturePoints = TextureHandler.getTexturePoints(thisTilePointer.texture);
+                // thisTilePointer.texture
 
                 // if (thisTilePointer is null) {
                 //     throw new Error("null tile definition pointer!");

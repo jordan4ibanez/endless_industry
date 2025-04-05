@@ -1,5 +1,6 @@
 module graphics.texture_handler;
 
+public import fast_pack : TexturePoints;
 import fast_pack;
 import math.rect;
 import math.vec2d;
@@ -17,6 +18,7 @@ private:
 
     TexturePacker!string database = TexturePacker!string(1);
     Texture2D atlas;
+    TexturePoints!Vec2d[string] texturePointDatabase;
 
 public: //* BEGIN PUBLIC API.
 
@@ -29,6 +31,8 @@ public: //* BEGIN PUBLIC API.
         database.finalize("atlas.png");
 
         atlas = LoadTexture(toStringz("atlas.png"));
+
+        database.extractTexturePoints(texturePointDatabase);
     }
 
     void drawTexture(string textureName, Vec2d position, Rect sourceOnTexture, Vec2d size, Vec2d origin = Vec2d(0, 0),
@@ -65,6 +69,14 @@ public: //* BEGIN PUBLIC API.
 
     bool hasTexture(string name) {
         return database.contains(name);
+    }
+
+    TexturePoints!Vec2d getTexturePoints(string textureName) {
+        TexturePoints!Vec2d* theseTexturePoints = textureName in texturePointDatabase;
+        if (theseTexturePoints is null) {
+            throw new Error("missing texture");
+        }
+        return *theseTexturePoints;
     }
 
     void loadTexture(string location) {
