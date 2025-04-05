@@ -60,52 +60,52 @@ public: //* BEGIN PUBLIC API.
         Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
         Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
 
-        foreach (x; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
-            foreach (y; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
-                Render.rectangleLines(Vec2d(x * CHUNK_WIDTH, (y + 1) * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH),
-                    Colors.WHITE, 0.7);
-            }
-        }
+        // foreach (x; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
+        //     foreach (y; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
+        //         Render.rectangleLines(Vec2d(x * CHUNK_WIDTH, (y + 1) * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH),
+        //             Colors.WHITE, 0.7);
+        //     }
+        // }
 
         writeln("allocation attempt X: ", abs(
                 bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1);
 
         Chunk*[][] data = new Chunk*[][](
-            (abs(topLeftChunkPosition.x) - abs(bottomRightChunkPosition.x)) + 1,
-            (abs(topLeftChunkPosition.y) - abs(bottomRightChunkPosition.y)) + 1);
+            abs(bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1,
+            abs(bottomRightChunkPosition.y - topLeftChunkPosition.y) + 1);
 
-        foreach (x; minX .. maxX + 1) {
-            foreach (y; minY .. maxY + 1) {
+        //     foreach (x; minX .. maxX + 1) {
+        //         foreach (y; minY .. maxY + 1) {
 
-                Vec2d position = Vec2d(x, y);
+        //             Vec2d position = Vec2d(x, y);
 
-                ChunkData thisData = getTileAtWorldPosition(position);
+        //             ChunkData thisData = getTileAtWorldPosition(position);
 
-                position.y += 1;
+        //             position.y += 1;
 
-                if (thisData.tileID == 0) {
-                    // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
-                    continue;
-                }
+        //             if (thisData.tileID == 0) {
+        //                 // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
+        //                 continue;
+        //             }
 
-                // +1 on Y because it's drawn with the origin at the top left.
+        //             // +1 on Y because it's drawn with the origin at the top left.
 
-                // Render.rectangle(position, Vec2d(1, 1), Colors.ORANGE);
+        //             // Render.rectangle(position, Vec2d(1, 1), Colors.ORANGE);
 
-                TileDefinitionResult thisTileResult = TileDatabase.getTileByID(
-                    thisData.tileID);
+        //             TileDefinitionResult thisTileResult = TileDatabase.getTileByID(
+        //                 thisData.tileID);
 
-                if (!thisTileResult.exists) {
-                    TextureHandler.drawTexture("unknown.png", position, Rect(0, 0, 16, 16), Vec2d(1, 1));
-                } else {
-                    TextureHandler.drawTexture(thisTileResult.definition.texture, position,
-                        Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
-                }
+        //             if (!thisTileResult.exists) {
+        //                 TextureHandler.drawTexture("unknown.png", position, Rect(0, 0, 16, 16), Vec2d(1, 1));
+        //             } else {
+        //                 TextureHandler.drawTexture(thisTileResult.definition.texture, position,
+        //                     Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
+        //             }
 
-                // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
+        //             // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
 
-            }
-        }
+        //         }
+        //     }
     }
 
     double getGravity() {
