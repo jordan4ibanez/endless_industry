@@ -1,5 +1,6 @@
 module game.tile_database;
 
+import core.memory;
 import graphics.texture_handler;
 import std.conv;
 import std.stdio;
@@ -24,6 +25,10 @@ private:
     // Faster access based on ID or name.
     TileDefinition[string] nameDatabase;
     TileDefinition[int] idDatabase;
+
+    // Insanely fast unsafe access based on ID alone from pointer arithmetic.
+    // Do not use this unless you want to debug some "very cool" errors.
+    TileDefinition* ultraFastAccess;
 
     int currentID = 0;
 
@@ -86,13 +91,24 @@ public: //* BEGIN PUBLIC API.
 
     void finalize() {
 
+        // Regular safe API access.
         foreach (name, ref thisDefinition; nameDatabase) {
-
             // todo: do the match thing below when mongoDB is added in.
             thisDefinition.id = nextID();
             idDatabase[thisDefinition.id] = thisDefinition;
-
             debugWrite(thisDefinition);
+        }
+
+        // Extremely unsafe API access.
+        // Do not use this unless you want to debug some "very cool" errors.
+        ultraFastAccess = cast(TileDefinition*) GC.malloc(TileDefinition.sizeof * idDatabase.length);
+        foreach (i; 0 .. idDatabase.length) {
+            ultraFastAccess[i] = idDatabase[cast(int) i];
+
+            assert(ultraFastAccess[i].modName == idDatabase[cast(int) i].modName);
+            assert(ultraFastAccess[i].name == idDatabase[cast(int) i].name);
+            assert(ultraFastAccess[i].id == idDatabase[cast(int) i].id);
+            assert(ultraFastAccess[i].texture == idDatabase[cast(int) i].texture);
         }
 
     }
