@@ -72,9 +72,6 @@ public: //* BEGIN PUBLIC API.
 
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
-                int xInArray = xReal - topLeftChunkPosition.x;
-                int yInArray = yReal - topLeftChunkPosition.y;
-
                 Vec2i chunkID = Vec2i(xReal, yReal);
 
                 Chunk* thisChunk = chunkID in database;
@@ -292,7 +289,7 @@ private: //* BEGIN INTERNAL API.
         // todo: try to read from sqlite.
         Chunk newChunk = new Chunk();
         generateChunkData(chunkPosition, newChunk);
-        generateChunkMesh(chunkPosition, newChunk);
+        generateChunkMesh(newChunk);
 
         database[chunkPosition] = newChunk;
     }
@@ -345,7 +342,7 @@ private: //* BEGIN INTERNAL API.
         }
     }
 
-    void generateChunkMesh(Vec2i chunkPosition, ref Chunk thisChunk) {
+    void generateChunkMesh(ref Chunk thisChunk) {
 
         const VERTEX_LENGTH = 18 * (CHUNK_WIDTH * CHUNK_WIDTH);
 
