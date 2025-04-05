@@ -19,7 +19,7 @@ public: //* BEGIN PUBLIC API.
         SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 
         // This is a hack to get the resolution.
-        InitWindow(1, 1, "Classic Tale");
+        InitWindow(1, 1, "Tile Game");
         int currentMonitor = GetCurrentMonitor();
         int monitorWidth = GetMonitorWidth(currentMonitor);
         int monitorHeight = GetMonitorHeight(currentMonitor);
