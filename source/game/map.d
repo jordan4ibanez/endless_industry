@@ -426,10 +426,11 @@ private: //* BEGIN INTERNAL API.
     }
 
     void generateChunkMesh(Vec2i chunkPosition, ref Chunk thisChunk) {
-        float* vertices = cast(float*) GC.malloc(float.sizeof * 4 * (CHUNK_WIDTH * CHUNK_WIDTH));
+        float* vertices = cast(float*) GC.malloc(float.sizeof * 12 * (CHUNK_WIDTH * CHUNK_WIDTH));
         ulong vertexIndex = 0;
         float* textureCoordinates = cast(float*) GC.malloc(
             float.sizeof * 8 * (CHUNK_WIDTH * CHUNK_WIDTH));
+        ulong textureIndex = 0;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
@@ -438,29 +439,35 @@ private: //* BEGIN INTERNAL API.
 
                 const TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
 
+                TexturePoints!Vec2d tPoints = TextureHandler.getTexturePoints(
+                    thisTilePointer.texture);
 
-                TexturePoints!Vec2d theseTexturePoints = TextureHandler.getTexturePoints(thisTilePointer.texture);
-                // thisTilePointer.texture
+                vertices[0 + vertexIndex] = x;
+                vertices[1 + vertexIndex] = y;
+                vertices[2 + vertexIndex] = 0;
+                vertices[3 + vertexIndex] = x;
+                vertices[4 + vertexIndex] = y + 1;
+                vertices[5 + vertexIndex] = 0;
+                vertices[6 + vertexIndex] = x + 1;
+                vertices[7 + vertexIndex] = y + 1;
+                vertices[8 + vertexIndex] = 0;
+                vertices[9 + vertexIndex] = x + 1;
+                vertices[10 + vertexIndex] = y;
+                vertices[11 + vertexIndex] = 0;
 
-                // if (thisTilePointer is null) {
-                //     throw new Error("null tile definition pointer!");
-                // }
+                textureCoordinates[0 + textureIndex] = tPoints.topLeft.x;
+                textureCoordinates[1 + textureIndex] = tPoints.topLeft.y;
+                textureCoordinates[2 + textureIndex] = tPoints.bottomLeft.x;
+                textureCoordinates[3 + textureIndex] = tPoints.bottomLeft.y;
+                textureCoordinates[4 + textureIndex] = tPoints.bottomRight.x;
+                textureCoordinates[5 + textureIndex] = tPoints.bottomRight.y;
+                textureCoordinates[6 + textureIndex] = tPoints.topRight.x;
+                textureCoordinates[7 + textureIndex] = tPoints.topRight.y;
 
-                // +1 because the tile origin is +Y and it needs to be shifted up.
-                // Vec2d worldPosition = Vec2d(
-                //     (xReal * CHUNK_WIDTH) + xInChunk,
-                //     ((yReal * CHUNK_WIDTH) + yInChunk) + 1);
+                vertexIndex += 12;
 
-                // TextureHandler.drawTexture(thisTilePointer.texture, worldPosition,
-                //     Rect(0, 0, 16.001, 16.001), Vec2d(1, 1));
+                textureIndex += 8;
 
-                // drawn++;
-
-                // if (thisTileResult.isSome) {
-
-                // } else {
-                //     throw new Error("missing tile ID!");
-                // }
             }
         }
 

@@ -19,8 +19,6 @@ public: //* BEGIN PUBLIC API.
     int generate(float* vertices, const ulong verticesLength, float* textureCoordinates) {
         int meshID = 0;
 
-        
-
         return meshID;
     }
 
