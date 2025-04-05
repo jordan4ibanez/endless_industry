@@ -70,19 +70,22 @@ public: //* BEGIN PUBLIC API.
         return false;
     }
 
-    TileDefinitionResult getTileByID(int id) {
-        if (id !in idDatabase) {
-            return TileDefinitionResult();
+    Option!TileDefinition getTileByID(int id) {
+        Option!TileDefinition result;
+        TileDefinition* thisDefinition = id in idDatabase;
+        if (thisDefinition !is null) {
+            result = result.Some(*thisDefinition);
         }
-
-        return TileDefinitionResult(idDatabase[id], true);
+        return result;
     }
 
-    TileDefinitionResult getTileByName(string name) {
-        if (name !in nameDatabase) {
-            return TileDefinitionResult();
+    Option!TileDefinition getTileByName(string name) {
+        Option!TileDefinition result;
+        TileDefinition* thisDefinition = name in idDatabase;
+        if (thisDefinition !is null) {
+            result = result.Some(*thisDefinition);
         }
-        return TileDefinitionResult(nameDatabase[name], true);
+        return result;
     }
 
     void finalize() {
