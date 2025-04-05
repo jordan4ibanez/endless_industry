@@ -60,8 +60,6 @@ public: //* BEGIN PUBLIC API.
         Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
         Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
 
-        writeln("test: ", topLeftChunkPosition.y, " ", bottomRightChunkPosition.y);
-
         foreach (x; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (y; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
                 Render.rectangleLines(Vec2d(x * CHUNK_WIDTH, (y + 1) * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH),
@@ -69,10 +67,11 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
-        // Chunk*[][] data = new Chunk*[][](1, 1);
+        Chunk*[][] data = new Chunk*[][](
+            (abs(topLeftChunkPosition.x) - abs(bottomRightChunkPosition.x)) + 1,
+            (abs(topLeftChunkPosition.y) - abs(bottomRightChunkPosition.y)) + 1);
 
         foreach (x; minX .. maxX + 1) {
-
             foreach (y; minY .. maxY + 1) {
 
                 Vec2d position = Vec2d(x, y);
