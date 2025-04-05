@@ -118,18 +118,22 @@ public: //* BEGIN PUBLIC API.
 
                         const int tileID = thisChunk.data[xInChunk][yInChunk].tileID;
 
-                        Option!TileDefinition thisTileResult = TileDatabase.getTileByID(tileID);
+                        TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
+
+                        // if (thisTilePointer is null) {
+                        //     throw new Error("null tile definition pointer!");
+                        // }
 
                         Vec2d worldPosition = Vec2d((xReal * CHUNK_WIDTH) + xInChunk, (
                                 yReal * CHUNK_WIDTH) + yInChunk);
 
-                        if (thisTileResult.isSome) {
-                            // TextureHandler.drawTexture(thisTileResult.unwrap.texture, worldPosition,
-                            //     Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
+                        // if (thisTileResult.isSome) {
+                        //     // TextureHandler.drawTexture(thisTileResult.unwrap.texture, worldPosition,
+                        //     //     Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
 
-                        } else {
-                            // TextureHandler.drawTexture("unknown.png", worldPosition, Rect(0, 0, 16, 16), Vec2d(1, 1));
-                        }
+                        // } else {
+                        //     throw new Error("missing tile ID!");
+                        // }
                     }
                 }
 
