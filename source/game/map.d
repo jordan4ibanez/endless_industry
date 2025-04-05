@@ -178,7 +178,7 @@ public: //* BEGIN PUBLIC API.
 
     void worldLoad(Vec2i currentPlayerChunk) {
 
-        const int worldLoadDistance = 0;
+        const int worldLoadDistance = 7;
 
         foreach (x; currentPlayerChunk.x - worldLoadDistance .. currentPlayerChunk.x + worldLoadDistance + 1) {
             foreach (y; currentPlayerChunk.y - worldLoadDistance .. currentPlayerChunk.y + worldLoadDistance + 1) {
@@ -333,8 +333,8 @@ private: //* BEGIN INTERNAL API.
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
-                const double selectedNoise = fnlGetNoise2D(&noise, (x + basePositionX) * 10, (
-                        y + basePositionY) * 10);
+                const double selectedNoise = fnlGetNoise2D(&noise, (x + basePositionX) * 2, (
+                        y + basePositionY) * 2);
 
                 // writeln(selectedNoise);
 
