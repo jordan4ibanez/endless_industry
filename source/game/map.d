@@ -54,9 +54,12 @@ public: //* BEGIN PUBLIC API.
 
         int minX = cast(int) floor(bottomLeft.x);
         int minY = cast(int) floor(bottomLeft.y);
-
         int maxX = cast(int) floor(topRight.x);
         int maxY = cast(int) floor(topRight.y);
+
+        
+
+
 
         foreach (x; minX .. maxX + 1) {
 
@@ -80,12 +83,12 @@ public: //* BEGIN PUBLIC API.
                 TileDefinitionResult thisTileResult = TileDatabase.getTileByID(
                     thisData.tileID);
 
-                if (!thisTileResult.exists) {
-                    TextureHandler.drawTexture("unknown.png", position, Rect(0, 0, 16, 16), Vec2d(1, 1));
-                } else {
-                    TextureHandler.drawTexture(thisTileResult.definition.texture, position,
-                        Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
-                }
+                // if (!thisTileResult.exists) {
+                //     TextureHandler.drawTexture("unknown.png", position, Rect(0, 0, 16, 16), Vec2d(1, 1));
+                // } else {
+                //     TextureHandler.drawTexture(thisTileResult.definition.texture, position,
+                //         Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
+                // }
 
                 // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
 
