@@ -26,8 +26,4 @@ public: //* BEGIN PUBLIC API.
 
 private: //* BEGIN INTERNAL API.
 
-    Vec2d invertPosition(Vec2d position) {
-        return Vec2d(position.x, -position.y);
-    }
-
 }
