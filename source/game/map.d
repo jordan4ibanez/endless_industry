@@ -77,13 +77,13 @@ public: //* BEGIN PUBLIC API.
 
                 // Render.rectangle(position, Vec2d(1, 1), Colors.ORANGE);
 
-                TileDefinitionResult thisBlockResult = TileDatabase.getTileByID(
+                TileDefinitionResult thisTileResult = TileDatabase.getTileByID(
                     thisData.tileID);
 
-                if (!thisBlockResult.exists) {
+                if (!thisTileResult.exists) {
                     TextureHandler.drawTexture("unknown.png", position, Rect(0, 0, 16, 16), Vec2d(1, 1));
                 } else {
-                    TextureHandler.drawTexture(thisBlockResult.definition.texture, position,
+                    TextureHandler.drawTexture(thisTileResult.definition.texture, position,
                         Rect(0, 0, 16.00001, 16.00001), Vec2d(1, 1));
                 }
 
@@ -141,7 +141,7 @@ public: //* BEGIN PUBLIC API.
 
     void setTileAtWorldPositionByID(Vec2d position, int id) {
         if (!TileDatabase.hasTileID(id)) {
-            throw new Error("Cannot set to block ID " ~ to!string(id) ~ ", ID does not exist.");
+            throw new Error("Cannot set to tile ID " ~ to!string(id) ~ ", ID does not exist.");
         }
 
         Vec2i chunkID = calculateChunkAtWorldPosition(position);
@@ -158,7 +158,7 @@ public: //* BEGIN PUBLIC API.
         database[chunkID].data[xPosInChunk][yPosInChunk].tileID = id;
     }
 
-    void setBlockAtWorldPositionByName(Vec2d position, string name) {
+    void setTileAtWorldPositionByName(Vec2d position, string name) {
 
         Vec2i chunkID = calculateChunkAtWorldPosition(position);
 
@@ -173,7 +173,7 @@ public: //* BEGIN PUBLIC API.
         TileDefinitionResult result = TileDatabase.getTileByName(name);
 
         if (!result.exists) {
-            throw new Error("Cannot set to block " ~ name ~ ", does not exist.");
+            throw new Error("Cannot set to tile " ~ name ~ ", does not exist.");
         }
 
         database[chunkID].data[xPosInChunk][yPosInChunk].tileID = result.definition.id;
@@ -238,15 +238,15 @@ private: //* BEGIN INTERNAL API.
 
                 ChunkData data = getTileAtWorldPosition(Vec2d(currentX, currentY));
 
-                // todo: if solid block collide.
-                // todo: probably custom blocks one day.
+                // todo: if solid tile collide.
+                // todo: probably custom tile one day.
 
                 if (data.tileID == 0) {
                     continue;
                 }
 
                 if (axis == CollisionAxis.X) {
-                    CollisionResult result = collideXToBlock(entityPosition, entitySize, entityVelocity,
+                    CollisionResult result = collideXToTile(entityPosition, entitySize, entityVelocity,
                         Vec2d(currentX, currentY), Vec2d(1, 1));
 
                     if (result.collides) {
@@ -255,7 +255,7 @@ private: //* BEGIN INTERNAL API.
                     }
                 } else {
 
-                    CollisionResult result = collideYToBlock(entityPosition, entitySize, entityVelocity,
+                    CollisionResult result = collideYToTile(entityPosition, entitySize, entityVelocity,
                         Vec2d(currentX, currentY), Vec2d(1, 1));
 
                     if (result.collides) {

@@ -20,7 +20,7 @@ struct CollisionResult {
 //? Note: This will have issues extremely far out.
 private immutable double magicAdjustment = 0.0001;
 
-CollisionResult collideXToBlock(Vec2d entityPosition, Vec2d entitySize, Vec2d entityVelocity,
+CollisionResult collideXToTile(Vec2d entityPosition, Vec2d entitySize, Vec2d entityVelocity,
     Vec2d blockPosition, Vec2d blockSize) {
 
     CollisionResult result;
@@ -55,7 +55,7 @@ CollisionResult collideXToBlock(Vec2d entityPosition, Vec2d entitySize, Vec2d en
     return result;
 }
 
-CollisionResult collideYToBlock(Vec2d entityPosition, Vec2d entitySize, Vec2d entityVelocity,
+CollisionResult collideYToTile(Vec2d entityPosition, Vec2d entitySize, Vec2d entityVelocity,
     Vec2d blockPosition, Vec2d blockSize) {
 
     CollisionResult result;

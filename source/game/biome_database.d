@@ -86,19 +86,19 @@ public: //* BEGIN PUBLIC API.
             TileDefinitionResult grassResult = TileDatabase.getTileByName(thisBiome.grassLayer);
             if (!grassResult.exists) {
                 throw new Error(
-                    "Biome " ~ thisBiome.name ~ " grass layer " ~ thisBiome.grassLayer ~ " is not a registered block");
+                    "Biome " ~ thisBiome.name ~ " grass layer " ~ thisBiome.grassLayer ~ " is not a registered tile");
             }
 
             TileDefinitionResult dirtResult = TileDatabase.getTileByName(thisBiome.dirtLayer);
             if (!dirtResult.exists) {
                 throw new Error(
-                    "Biome " ~ thisBiome.name ~ " dirt layer " ~ thisBiome.dirtLayer ~ " is not a registered block");
+                    "Biome " ~ thisBiome.name ~ " dirt layer " ~ thisBiome.dirtLayer ~ " is not a registered tile");
             }
 
             TileDefinitionResult stoneResult = TileDatabase.getTileByName(thisBiome.stoneLayer);
             if (!stoneResult.exists) {
                 throw new Error(
-                    "Biome " ~ thisBiome.name ~ " stone layer " ~ thisBiome.stoneLayer ~ " is not a registered block");
+                    "Biome " ~ thisBiome.name ~ " stone layer " ~ thisBiome.stoneLayer ~ " is not a registered tile");
             }
 
             thisBiome.grassLayerID = grassResult.definition.id;
@@ -125,7 +125,7 @@ private: //* BEGIN INTERNAL API.
 
     // todo: make this pull the standard IDs into an associative array from the mongoDB.
     // todo: mongoDB should store the MAX current ID and restore it.
-    // todo: Then, match to it. If it doesn't match, this is a new block.
+    // todo: Then, match to it. If it doesn't match, this is a new tile.
     // todo: Then you'd call into this. :)
     int nextID() {
         int thisID = currentID;
