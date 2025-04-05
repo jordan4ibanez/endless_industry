@@ -107,7 +107,7 @@ public: //* BEGIN PUBLIC API.
             thisBiome.dirtLayerID = dirtResult.unwrap.id;
             thisBiome.stoneLayerID = stoneResult.unwrap.id;
 
-            // todo: do the match thing below when mongoDB is added in.
+            // todo: do the match thing below when sqlite is added in.
             thisBiome.id = nextID();
 
             idDatabase[thisBiome.id] = thisBiome;
@@ -125,8 +125,8 @@ private: //* BEGIN INTERNAL API.
         writeln("Biome " ~ biome.name ~ " at ID " ~ to!string(biome.id));
     }
 
-    // todo: make this pull the standard IDs into an associative array from the mongoDB.
-    // todo: mongoDB should store the MAX current ID and restore it.
+    // todo: make this pull the standard IDs into an associative array from the sqlite.
+    // todo: sqlite should store the MAX current ID and restore it.
     // todo: Then, match to it. If it doesn't match, this is a new tile.
     // todo: Then you'd call into this. :)
     int nextID() {

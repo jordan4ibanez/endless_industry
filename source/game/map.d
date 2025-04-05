@@ -378,14 +378,14 @@ private: //* BEGIN INTERNAL API.
 
     // void unloadOldChunks(int currentPlayerChunk) {
 
-    //     // todo: save the chunks to mongoDB.
+    //     // todo: save the chunks to sqlite.
 
     //     int[] keys = [] ~ database.keys;
 
     //     foreach (int key; keys) {
     //         if (abs(key - currentPlayerChunk) > 1) {
     //             database.remove(key);
-    //             // todo: save the chunks to mongoDB.
+    //             // todo: save the chunks to sqlite.
     //             // writeln("deleted: " ~ to!string(key));
     //         }
     //     }
@@ -396,7 +396,7 @@ private: //* BEGIN INTERNAL API.
         if (chunkPosition in database) {
             return;
         }
-        // todo: try to read from mongoDB.
+        // todo: try to read from sqlite.
         Chunk newChunk = new Chunk();
         generateChunkData(chunkPosition, newChunk);
         database[chunkPosition] = newChunk;

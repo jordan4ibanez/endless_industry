@@ -98,7 +98,7 @@ public: //* BEGIN PUBLIC API.
 
         // Regular safe API access.
         foreach (name, ref thisDefinition; nameDatabase) {
-            // todo: do the match thing below when mongoDB is added in.
+            // todo: do the match thing below when sqlite is added in.
             thisDefinition.id = nextID();
             idDatabase[thisDefinition.id] = thisDefinition;
             debugWrite(thisDefinition);
@@ -124,8 +124,8 @@ private: //* BEGIN INTERNAL API.
         writeln("Tile " ~ definition.name ~ " at ID " ~ to!string(definition.id));
     }
 
-    // todo: make this pull the standard IDs into an associative array from the mongoDB.
-    // todo: mongoDB should store the MAX current ID and restore it.
+    // todo: make this pull the standard IDs into an associative array from the sqlite.
+    // todo: sqlite should store the MAX current ID and restore it.
     // todo: Then, match to it. If it doesn't match, this is a new tile.
     // todo: Then you'd call into this. :)
     int nextID() {
