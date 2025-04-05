@@ -68,10 +68,18 @@ public: //* BEGIN PUBLIC API.
             abs(bottomRightChunkPosition.x - topLeftChunkPosition.x) + 1,
             abs(bottomRightChunkPosition.y - topLeftChunkPosition.y) + 1);
 
-        foreach (x; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
-            foreach (y; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
-                Render.rectangleLines(Vec2d(x * CHUNK_WIDTH, (y + 1) * CHUNK_WIDTH), Vec2d(CHUNK_WIDTH, CHUNK_WIDTH),
-                    Colors.WHITE, 0.7);
+        foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
+            foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
+                int xInArray = xReal - topLeftChunkPosition.x;
+                int yInArray = yReal - topLeftChunkPosition.y;
+
+                // writeln("x: ", x);
+
+                if (data[xInArray][yInArray] is null) {
+                    Render.rectangleLines(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH),
+                        Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors.WHITE, 0.7);
+
+                }
             }
         }
 
