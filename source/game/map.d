@@ -100,7 +100,11 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
+        // Draw the entire map as one HUGE mesh and stream it into the GPU.
+
         // Draw chunk by chunk instead of tile by tile, it's much faster.
+
+        ulong drawn = 0;
 
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
@@ -128,8 +132,10 @@ public: //* BEGIN PUBLIC API.
                             (xReal * CHUNK_WIDTH) + xInChunk,
                             ((yReal * CHUNK_WIDTH) + yInChunk) + 1);
 
-                        TextureHandler.drawTexture(thisTilePointer.texture, worldPosition,
-                            Rect(0, 0, 16.001, 16.001), Vec2d(1, 1));
+                        // TextureHandler.drawTexture(thisTilePointer.texture, worldPosition,
+                        //     Rect(0, 0, 16.001, 16.001), Vec2d(1, 1));
+
+                        drawn++;
 
                         // if (thisTileResult.isSome) {
 
@@ -141,6 +147,8 @@ public: //* BEGIN PUBLIC API.
 
             }
         }
+
+        writeln("Drawn: ", drawn);
 
         //     foreach (x; minX .. maxX + 1) {
         //         foreach (y; minY .. maxY + 1) {
