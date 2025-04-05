@@ -74,7 +74,7 @@ public: //* BEGIN PUBLIC API.
         // Todo: Make this API element later.
         const double acceleration = 400; //40;
         const double deceleration = 500; //50;
-        const double topSpeed = 20;
+        const double topSpeed = 200;
 
         // writeln(velocity.x);
 
