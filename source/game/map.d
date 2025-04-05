@@ -140,7 +140,17 @@ public: //* BEGIN PUBLIC API.
 
         int yPosInChunk = getYInChunk(position.y);
 
-        database[chunkID].data[xPosInChunk][yPosInChunk].tileID = id;
+        writeln("test");
+
+        Chunk* thisChunk = chunkID in database;
+
+        if (thisChunk is null) {
+            throw new Error("Null chunk! How is this even possible? It was loaded!");
+        }
+
+        thisChunk.data[xPosInChunk][yPosInChunk].tileID = id;
+
+        generateChunkMesh(*thisChunk);
     }
 
     void setTileAtWorldPositionByName(Vec2d position, string name) {
@@ -160,6 +170,8 @@ public: //* BEGIN PUBLIC API.
         if (result.isNone) {
             throw new Error("Cannot set to tile " ~ name ~ ", does not exist.");
         }
+
+        writeln("test");
 
         database[chunkID].data[xPosInChunk][yPosInChunk].tileID = result.unwrap.id;
     }
