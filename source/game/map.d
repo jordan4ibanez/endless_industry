@@ -140,7 +140,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     void setBlockAtWorldPositionByID(Vec2d position, int id) {
-        if (!TileDatabase.hastileID(id)) {
+        if (!TileDatabase.hasTileID(id)) {
             throw new Error("Cannot set to block ID " ~ to!string(id) ~ ", ID does not exist.");
         }
 
