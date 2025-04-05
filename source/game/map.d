@@ -18,6 +18,7 @@ import std.random;
 import std.stdio;
 import utility.window;
 
+//! NEVER CHANGE THIS!
 immutable public int CHUNK_WIDTH = 32;
 
 struct ChunkData {
