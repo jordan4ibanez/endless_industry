@@ -35,10 +35,6 @@ public: //* BEGIN PUBLIC API.
             throw new Error("Name for tile is null.");
         }
 
-        if (newTile.name.toLower() == "air") {
-            throw new Error("Tile air is reserved by engine.");
-        }
-
         if (newTile.name in nameDatabase) {
             throw new Error("Trying to overwrite tile " ~ newTile.name);
         }
