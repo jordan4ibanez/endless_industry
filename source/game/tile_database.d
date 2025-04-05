@@ -81,7 +81,7 @@ public: //* BEGIN PUBLIC API.
 
     Option!TileDefinition getTileByName(string name) {
         Option!TileDefinition result;
-        TileDefinition* thisDefinition = name in idDatabase;
+        TileDefinition* thisDefinition = name in nameDatabase;
         if (thisDefinition !is null) {
             result = result.Some(*thisDefinition);
         }
