@@ -382,8 +382,8 @@ private: //* BEGIN INTERNAL API.
             throw new Error("Attempted to get biome " ~ to!string(0) ~ " which does not exist");
         }
 
-        immutable int basePositionX = chunkPosition.x * CHUNK_WIDTH;
-        immutable int basePositionY = chunkPosition.y * CHUNK_WIDTH;
+        const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
+        const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
         TileDefinitionResult stoneResult = TileDatabase.getTileByID(
             biomeResult.definition.stoneLayerID);
