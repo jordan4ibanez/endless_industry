@@ -127,13 +127,13 @@ public: //* BEGIN PUBLIC API.
         }
 
         // Speed limiter. 
-        if (abs(velocity.x) > 5) {
+        if (abs(velocity.x) > topSpeed) {
             double valSign = sgn(velocity.x);
-            velocity.x = valSign * 5;
+            velocity.x = valSign * topSpeed;
         }
-        if (abs(velocity.y) > 5) {
+        if (abs(velocity.y) > topSpeed) {
             double valSign = sgn(velocity.y);
-            velocity.y = valSign * 5;
+            velocity.y = valSign * topSpeed;
         }
 
         //? Then apply Y axis.
