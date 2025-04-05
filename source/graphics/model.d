@@ -57,4 +57,20 @@ public: //* BEGIN PUBLIC API.
         DrawModel(*thisModel, Vector3(position.x, -position.y, 0), 1, Colors.WHITE);
     }
 
+    void destroy(int id) {
+        // 0 is reserved for null;
+        if (id == 0) {
+            return;
+        }
+
+        Model* thisModel = id in database;
+
+        if (thisModel is null) {
+            throw new Error(
+                "[ModelManager]: Tried to destroy non-existent model. " ~ to!string(id));
+        }
+
+        UnloadModel(*thisModel);
+    }
+
 }
