@@ -385,11 +385,6 @@ private: //* BEGIN INTERNAL API.
         immutable int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         immutable int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
-        TileDefinitionResult bedrockResult = TileDatabase.getTileByName("bedrock");
-        if (!bedrockResult.exists) {
-            throw new Error("Please do not remove bedrock from the engine.");
-        }
-
         TileDefinitionResult stoneResult = TileDatabase.getTileByID(
             biomeResult.definition.stoneLayerID);
         if (!stoneResult.exists) {
