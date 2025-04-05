@@ -361,7 +361,7 @@ private: //* BEGIN INTERNAL API.
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
 
-                const int tileID = thisChunk.data[x][y].tileID;
+                const int tileID = thisChunk.data[x][CHUNK_WIDTH - y].tileID;
 
                 const TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
 
