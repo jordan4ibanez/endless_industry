@@ -26,7 +26,7 @@ public:
 
     Vec2d getWorldPosition() {
         Vec2d mPosition = Vec2d(GetMousePosition());
-        immutable int windowHeight = Window.getHeight();
+        const int windowHeight = Window.getHeight();
         mPosition.y = windowHeight - mPosition.y;
         return CameraHandler.screenToWorld(mPosition);
     }

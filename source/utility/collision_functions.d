@@ -34,11 +34,11 @@ CollisionResult collideXToTile(Vec2d entityPosition, Vec2d entitySize, Vec2d ent
     }
 
     // Entity position is on the bottom center of the collisionbox.
-    immutable double entityHalfWidth = entitySize.x * 0.5;
-    immutable Rect entityRectangle = Rect(entityPosition.x - entityHalfWidth, entityPosition.y,
+    const double entityHalfWidth = entitySize.x * 0.5;
+    const Rect entityRectangle = Rect(entityPosition.x - entityHalfWidth, entityPosition.y,
         entitySize.x, entitySize.y);
 
-    immutable Rect tileRectangle = Rect(tilePosition.x, tilePosition.y, tileSize.x, tileSize.y);
+    const Rect tileRectangle = Rect(tilePosition.x, tilePosition.y, tileSize.x, tileSize.y);
 
     if (checkCollisionRecs(entityRectangle, tileRectangle)) {
         // This doesn't kick out in a specific direction on dir 0 because the Y axis check will kick them up as a safety.
@@ -69,11 +69,11 @@ CollisionResult collideYToTile(Vec2d entityPosition, Vec2d entitySize, Vec2d ent
     }
 
     // Entity position is on the bottom center of the collisionbox.
-    immutable double entityHalfWidth = entitySize.x * 0.5;
-    immutable Rect entityRectangle = Rect(entityPosition.x - entityHalfWidth, entityPosition.y,
+    const double entityHalfWidth = entitySize.x * 0.5;
+    const Rect entityRectangle = Rect(entityPosition.x - entityHalfWidth, entityPosition.y,
         entitySize.x, entitySize.y);
 
-    immutable Rect tileRectangle = Rect(tilePosition.x, tilePosition.y, tileSize.x, tileSize.y);
+    const Rect tileRectangle = Rect(tilePosition.x, tilePosition.y, tileSize.x, tileSize.y);
 
     if (checkCollisionRecs(entityRectangle, tileRectangle)) {
 

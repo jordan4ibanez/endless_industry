@@ -11,7 +11,7 @@ private:
 
     // Roboto condensed medium looks pretty close to the Bass Rise font, kind of.
     Font* font = null;
-    immutable double spacing = -1;
+    const double spacing = -1;
     double currentFontSize = 1;
 
 public: //* BEGIN PUBLIC API.
