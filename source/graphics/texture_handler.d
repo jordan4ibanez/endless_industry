@@ -1,6 +1,7 @@
 module graphics.texture_handler;
 
 public import fast_pack : TexturePoints;
+import core.memory;
 import fast_pack;
 import math.rect;
 import math.vec2d;
@@ -20,6 +21,10 @@ private:
     Texture2D atlas;
     TexturePoints!Vec2d[string] texturePointDatabase;
 
+    //! NEVER USE THESE IN YOUR MODS.
+    TexturePoints!Vec2d* ultraFastTexturePointAccess;
+    ulong[string] texturePointAccessReverseLookup;
+
 public: //* BEGIN PUBLIC API.
 
     void initialize() {
@@ -33,6 +38,19 @@ public: //* BEGIN PUBLIC API.
         atlas = LoadTexture(toStringz("atlas.png"));
 
         database.extractTexturePoints(texturePointDatabase);
+
+        // Begin ultra fast lookup for map mesh generation.
+
+        ultraFastTexturePointAccess = cast(TexturePoints!Vec2d*) GC.malloc(
+            TexturePoints!Vec2d.sizeof * texturePointDatabase.length);
+
+        ulong index = 0;
+        foreach (key, value; texturePointDatabase) {
+            texturePointAccessReverseLookup[key] = index;
+
+            ultraFastTexturePointAccess[index] = value;
+            index++;
+        }
     }
 
     void drawTexture(string textureName, Vec2d position, Rect sourceOnTexture, Vec2d size, Vec2d origin = Vec2d(0, 0),
