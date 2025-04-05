@@ -90,14 +90,7 @@ public: //* BEGIN PUBLIC API.
 
     void finalize() {
 
-        makeAir();
-        makeBedrock();
-
         foreach (name, ref thisDefinition; nameDatabase) {
-
-            if (name == "air" || name == "bedrock") {
-                continue;
-            }
 
             // todo: do the match thing below when mongoDB is added in.
             thisDefinition.id = nextID();
