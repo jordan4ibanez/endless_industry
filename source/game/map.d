@@ -145,7 +145,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     ///! This can be extremely expensive!
-    ///! This needs a bulk counterpart!
+    /// todo: This needs a bulk counterpart!
     ChunkData getTileAtWorldPosition(Vec2d position) {
         Vec2i chunkID = calculateChunkAtWorldPosition(position);
 
