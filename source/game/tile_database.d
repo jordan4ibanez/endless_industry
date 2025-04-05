@@ -29,34 +29,34 @@ private:
 
 public: //* BEGIN PUBLIC API.
 
-    void registerBlock(TileDefinition newBlock) {
+    void registerTile(TileDefinition newTile) {
 
-        if (newBlock.name is null) {
-            throw new Error("Name for block is null.");
+        if (newTile.name is null) {
+            throw new Error("Name for tile is null.");
         }
 
-        if (newBlock.name.toLower() == "air") {
-            throw new Error("Block air is reserved by engine.");
+        if (newTile.name.toLower() == "air") {
+            throw new Error("Tile air is reserved by engine.");
         }
 
-        if (newBlock.name in nameDatabase) {
-            throw new Error("Trying to overwrite block " ~ newBlock.name);
+        if (newTile.name in nameDatabase) {
+            throw new Error("Trying to overwrite tile " ~ newTile.name);
         }
 
-        if (newBlock.modName is null) {
-            throw new Error("Mod name is null for block " ~ newBlock.name);
+        if (newTile.modName is null) {
+            throw new Error("Mod name is null for tile " ~ newTile.name);
         }
 
-        if (newBlock.texture is null) {
-            throw new Error("Texture is null for block " ~ newBlock.name);
+        if (newTile.texture is null) {
+            throw new Error("Texture is null for tile " ~ newTile.name);
         }
 
-        if (!TextureHandler.hasTexture(newBlock.texture)) {
+        if (!TextureHandler.hasTexture(newTile.texture)) {
             throw new Error(
-                "Texture " ~ newBlock.texture ~ "for block " ~ newBlock.name ~ " does not exist");
+                "Texture " ~ newTile.texture ~ "for tile " ~ newTile.name ~ " does not exist");
         }
 
-        nameDatabase[newBlock.name] = newBlock;
+        nameDatabase[newTile.name] = newTile;
     }
 
     bool hasTileID(int id) {
@@ -139,12 +139,12 @@ private: //* BEGIN INTERNAL API.
     }
 
     void debugWrite(TileDefinition definition) {
-        writeln("Block " ~ definition.name ~ " at ID " ~ to!string(definition.id));
+        writeln("Tile " ~ definition.name ~ " at ID " ~ to!string(definition.id));
     }
 
     // todo: make this pull the standard IDs into an associative array from the mongoDB.
     // todo: mongoDB should store the MAX current ID and restore it.
-    // todo: Then, match to it. If it doesn't match, this is a new block.
+    // todo: Then, match to it. If it doesn't match, this is a new tile.
     // todo: Then you'd call into this. :)
     int nextID() {
         int thisID = currentID;
