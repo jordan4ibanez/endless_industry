@@ -59,14 +59,14 @@ public: //* BEGIN PUBLIC API.
         nameDatabase[newBlock.name] = newBlock;
     }
 
-    bool hasBlockID(int id) {
+    bool hasTileID(int id) {
         if (id in idDatabase) {
             return true;
         }
         return false;
     }
 
-    bool hasBlockName(string name) {
+    bool hasTileName(string name) {
         if (name in nameDatabase) {
             return true;
         }

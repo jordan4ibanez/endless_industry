@@ -21,7 +21,7 @@ import utility.window;
 immutable public int CHUNK_WIDTH = 32;
 
 struct ChunkData {
-    int blockID = 0;
+    int tileID = 0;
 }
 
 final class Chunk {
@@ -68,7 +68,7 @@ public: //* BEGIN PUBLIC API.
 
                 position.y += 1;
 
-                if (thisData.blockID == 0) {
+                if (thisData.tileID == 0) {
                     // Render.rectangleLines(position, Vec2d(1, 1), Colors.WHITE);
                     continue;
                 }
@@ -78,7 +78,7 @@ public: //* BEGIN PUBLIC API.
                 // Render.rectangle(position, Vec2d(1, 1), Colors.ORANGE);
 
                 TileDefinitionResult thisBlockResult = TileDatabase.getTileByID(
-                    thisData.blockID);
+                    thisData.tileID);
 
                 if (!thisBlockResult.exists) {
                     TextureHandler.drawTexture("unknown.png", position, Rect(0, 0, 16, 16), Vec2d(1, 1));
@@ -140,7 +140,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     void setBlockAtWorldPositionByID(Vec2d position, int id) {
-        if (!TileDatabase.hasBlockID(id)) {
+        if (!TileDatabase.hastileID(id)) {
             throw new Error("Cannot set to block ID " ~ to!string(id) ~ ", ID does not exist.");
         }
 
@@ -155,7 +155,7 @@ public: //* BEGIN PUBLIC API.
 
         int yPosInChunk = getYInChunk(position.y);
 
-        database[chunkID].data[xPosInChunk][yPosInChunk].blockID = id;
+        database[chunkID].data[xPosInChunk][yPosInChunk].tileID = id;
     }
 
     void setBlockAtWorldPositionByName(Vec2d position, string name) {
@@ -176,7 +176,7 @@ public: //* BEGIN PUBLIC API.
             throw new Error("Cannot set to block " ~ name ~ ", does not exist.");
         }
 
-        database[chunkID].data[xPosInChunk][yPosInChunk].blockID = result.definition.id;
+        database[chunkID].data[xPosInChunk][yPosInChunk].tileID = result.definition.id;
     }
 
     void worldLoad(Vec2i currentPlayerChunk) {
@@ -241,7 +241,7 @@ private: //* BEGIN INTERNAL API.
                 // todo: if solid block collide.
                 // todo: probably custom blocks one day.
 
-                if (data.blockID == 0) {
+                if (data.tileID == 0) {
                     continue;
                 }
 
@@ -342,9 +342,9 @@ private: //* BEGIN INTERNAL API.
                 // writeln(selectedNoise);
 
                 if (selectedNoise < 0) {
-                    thisChunk.data[x][y].blockID = grassResult.definition.id;
+                    thisChunk.data[x][y].tileID = grassResult.definition.id;
                 } else {
-                    thisChunk.data[x][y].blockID = dirtResult.definition.id;
+                    thisChunk.data[x][y].tileID = dirtResult.definition.id;
                 }
 
             }
