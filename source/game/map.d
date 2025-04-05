@@ -434,7 +434,6 @@ private: //* BEGIN INTERNAL API.
     void generateChunkMesh(Vec2i chunkPosition, ref Chunk thisChunk) {
 
         const VERTEX_LENGTH = 18 * (CHUNK_WIDTH * CHUNK_WIDTH);
-        const TEXTURE_LENGTH = 12 * (CHUNK_WIDTH * CHUNK_WIDTH);
 
         float* vertices = cast(float*) GC.malloc(float.sizeof * 18 * (CHUNK_WIDTH * CHUNK_WIDTH));
         ulong vertexIndex = 0;
