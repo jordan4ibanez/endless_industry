@@ -6,12 +6,6 @@ import std.stdio;
 
 private immutable string nameOfMod = "CubeThing";
 
-class CubeThingTile : TileDefinition {
-    this() {
-        this.modName = nameOfMod;
-    }
-}
-
 class CubeThingBiome : BiomeDefinition {
     this() {
         this.modName = nameOfMod;
@@ -22,17 +16,20 @@ void cubeThingMain() {
 
     //? Tiles.
 
-    CubeThingTile stone = new CubeThingTile();
+    TileDefinition stone;
+    stone.modName = nameOfMod;
     stone.name = "stone";
     stone.texture = "default_stone.png";
     TileDatabase.registerTile(stone);
 
-    CubeThingTile dirt = new CubeThingTile();
+    TileDefinition dirt;
+    dirt.modName = nameOfMod;
     dirt.name = "dirt";
     dirt.texture = "default_dirt.png";
     TileDatabase.registerTile(dirt);
 
-    CubeThingTile grass = new CubeThingTile();
+    TileDefinition grass;
+    grass.modName = nameOfMod;
     grass.name = "grass";
     grass.texture = "default_grass.png";
     TileDatabase.registerTile(grass);
