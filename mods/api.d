@@ -8,15 +8,15 @@ import game.tile_database;
 // I also probably wouldn't duplicate these comments unless you like seeing the file disappear lol.
 
 //# =-AUTO IMPORT BEGIN-=
-import mods.the_mill.main;
+import mods.endless_industry.main;
 import mods.test_mod.main;
 
 //# =-AUTO IMPORT END-=
 
 //# =-AUTO FUNCTION BEGIN-=
 void deployMainFunctions() {
-    setModName("the_mill");
-    theMillMain();
+    setModName("endless_industry");
+    endlessIndustryMain();
     setModName("test_mod");
     testModMain();
 }
