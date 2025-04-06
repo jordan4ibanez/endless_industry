@@ -234,6 +234,20 @@ private: //* BEGIN INTERNAL API.
 
                 if (_waterCoinFlip > 0.5) {
 
+                    // Move the noise into the range of 0 - 1.
+                    const double _selectedWaterNoise = clamp((fnlGetNoise2D(&noise, (
+                            x + basePositionX) * 10, (
+                            y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
+
+                    const ulong _baseWaterSelection = cast(ulong) floor(
+                        numberOfWaterTiles * _selectedWaterNoise);
+
+                    // Make sure no floating point imprecision happened.
+                    const ulong selectedTile = (_baseWaterSelection >= numberOfWaterTiles) ? 0
+                        : _baseWaterSelection;
+
+                    thisChunk.data[x][y].tileID = availableWaterTiles[selectedTile];
+
                 } else {
                     // Move the noise into the range of 0 - 1.
                     const double _selectedGroundNoise = clamp((fnlGetNoise2D(&noise, (
