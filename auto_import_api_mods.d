@@ -14,9 +14,9 @@ This file literally just modified the api.d file.
 void main() {
 
     // this turns it off when debugging the main mod API file.
-    // if (true) {
-    //     return;
-    // }
+    if (true) {
+        return;
+    }
 
     // writeln("AUTO IMPORT: Automating imports.");
 
