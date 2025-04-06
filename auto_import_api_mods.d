@@ -30,7 +30,7 @@ void main() {
 
             string target = filename ~ "/main.d";
 
-            // If your mod does not have an main file, it gets skipped.
+            // If your mod does not have an main.d file, it halts.
 
             if (isFile!string(target)) {
 
@@ -77,6 +77,8 @@ void main() {
                 thisFunctionName ~= "Main";
 
                 mainFunctionList ~= thisFunctionName;
+            } else {
+                throw new Error(target ~ " | Missing main.d");
             }
         }
     }
