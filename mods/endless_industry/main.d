@@ -30,7 +30,8 @@ void endlessIndustryMain() {
     BiomeDefinition grassLands;
     grassLands.name = "grass lands";
     grassLands.groundLayerTiles = [
-        "endless:grass", "endless:dirt", "endless:stone"
+        "endless_industry.grass", "endless_industry.dirt",
+        "endless_industry.stone"
     ];
 
     BiomeDatabase.registerBiome(grassLands);
