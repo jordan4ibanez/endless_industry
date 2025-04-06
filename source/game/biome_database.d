@@ -1,8 +1,8 @@
 module game.biome_database;
 
 import game.tile_database;
-import optibrev;
 import std.conv;
+import utility.option;
 
 struct BiomeDefinition {
     string name = null;

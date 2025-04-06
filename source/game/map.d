@@ -13,7 +13,7 @@ import graphics.window;
 import math.rect;
 import math.vec2d;
 import math.vec2i;
-import optibrev;
+import utility.option;
 import std.algorithm.comparison;
 import std.conv;
 import std.math.algebraic;
