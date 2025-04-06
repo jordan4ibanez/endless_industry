@@ -38,6 +38,46 @@ void main() {
             string target = filename ~ "/mod.conf";
 
             // If your mod does not have an mod.conf file, it halts.
+
+            try {
+                // This will jump into the catch state if the mod.conf file isn't there.
+                isFile!string(target);
+
+                File confFile = File(target, "r");
+
+                ModConfig thisConfig;
+
+                foreach (thisLine; confFile.byLine()) {
+
+                    // Get the version info.
+                    if (thisLine.startsWith("version")) {
+                        char[][] components = thisLine.split("=");
+                        if (components.length != 2) {
+                            throw new Error("Version line is malformed! " ~ target);
+                        }
+                        thisConfig.modVersion = components[1].idup;
+                        // It has now been moved into a safely mutable area.
+                        thisConfig.modVersion = thisConfig.modVersion.replace('"', ' ').strip();
+
+                        // Now check if the string is semantically versioned.
+                        string[] versionDataIndividual = thisConfig.modVersion.split(".");
+                        if (versionDataIndividual.length != 3) {
+                            throw new Error("Version is not semantic! " ~ target);
+                        }
+                        if (!versionDataIndividual.join().isNumeric()) {
+                            throw new Error("Version contains garbage data! " ~ target);
+                        }
+                        foreach (thisPortion; versionDataIndividual) {
+                            if (!thisPortion.isNumeric()) {
+                                throw new Error("Version is malformed! " ~ target);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                throw new Error(target ~ " | Missing mod.conf");
+            }
+
             target = filename ~ "/main.d";
 
             // If your mod does not have an main.d file, it halts.
