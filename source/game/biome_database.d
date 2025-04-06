@@ -78,6 +78,10 @@ public: //* BEGIN PUBLIC API.
         return result;
     }
 
+    int getNumberOfBiomes() {
+        return currentID;
+    }
+
     void finalize() {
 
         foreach (biomeName, ref thisBiome; nameDatabase) {
