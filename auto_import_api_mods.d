@@ -27,7 +27,9 @@ void main() {
 
     // These do not have to be synchronized.
     string[] importList = [];
+    // But these do.
     string[] mainFunctionList = [];
+    ModConfig[] configurationList = [];
 
     foreach (filename; dirEntries("mods/", SpanMode.shallow)) {
         if (isDir!string(filename)) {
