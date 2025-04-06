@@ -26,6 +26,11 @@ private:
 
     int currentID = 0;
 
+    // Insanely fast unsafe access based on ID alone from pointer arithmetic.
+    // Do not use this unless you want to debug some "very cool" errors.
+    BiomeDefinition* ultraFastAccess;
+
+
 public: //* BEGIN PUBLIC API.
 
     void registerBiome(BiomeDefinition newBiome) {
