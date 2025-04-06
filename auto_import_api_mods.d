@@ -105,6 +105,8 @@ void main() {
             }
 
             if (thisLine == "//# =-AUTO IMPORT END-=") {
+                // Insert a space to not fight the auto formatter.
+                newFileData ~= "";
                 inImports = false;
                 // writeln("ended import");
                 newFileData ~= to!string(thisLine);
