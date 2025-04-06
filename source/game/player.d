@@ -27,8 +27,6 @@ private:
     Vec2d velocity = Vec2d(0, 0);
     Vec2i inChunk = Vec2i(int.max, int.max);
     bool firstGen = true;
-    bool jumpQueued = false;
-    bool inJump = false;
     double rotation = 0;
     bool moving = false;
 
