@@ -180,6 +180,22 @@ public: //* BEGIN PUBLIC API.
                 thisBiome.waterLayerIDs[index] = tileDefinitionResult.unwrap.id;
             }
 
+            //? Water corner layer.
+
+            thisBiome.waterLayerCornerIDs = new int[](thisBiome.waterLayerCornerTiles.length);
+
+            foreach (index, tileName; thisBiome.waterLayerCornerTiles) {
+                Option!TileDefinition tileDefinitionResult = TileDatabase.getTileByName(tileName);
+
+                if (tileDefinitionResult.isNone) {
+                    throw new Error(
+                        "Biome " ~ biomeName ~ " water corner tile " ~ tileName ~ " in index " ~ to!string(
+                            index) ~ " is not a registered tile");
+                }
+
+                thisBiome.waterLayerCornerIDs[index] = tileDefinitionResult.unwrap.id;
+            }
+
             // todo: do the match thing below when sqlite is added in.
             thisBiome.id = nextID();
 

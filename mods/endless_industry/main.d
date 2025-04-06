@@ -101,7 +101,7 @@ void endlessIndustryMain() {
     0_0_0_1
 
     */
-    grassLands.waterLayerTilesCorners = [
+    grassLands.waterLayerCornerTiles = [
         "endless_industry.water_0_0_0_1",
         "endless_industry.water_0_0_1_0",
         "endless_industry.water_0_0_1_1",
