@@ -8,8 +8,8 @@ import utility.option;
 
 struct BiomeDefinition {
     string name = null;
-    // These need to be renamed, they're not really "layers".
-    // They're different types.
+    // These are not really layers, they're different types.
+    // But thinking of them as "layers" is slightly more intuitive. 
     string[] groundLayerTiles = null;
     string[] waterLayerTiles = null;
     string[] waterLayerTilesCorners = null;
