@@ -167,7 +167,7 @@ public: //* BEGIN PUBLIC API.
 
     void worldLoad(Vec2i currentPlayerChunk) {
 
-        const int worldLoadDistance = 7;
+        const int worldLoadDistance = 0;
 
         foreach (x; currentPlayerChunk.x - worldLoadDistance .. currentPlayerChunk.x + worldLoadDistance + 1) {
             foreach (y; currentPlayerChunk.y - worldLoadDistance .. currentPlayerChunk.y + worldLoadDistance + 1) {
