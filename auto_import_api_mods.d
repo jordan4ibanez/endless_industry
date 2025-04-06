@@ -35,7 +35,8 @@ void main() {
         if (isDir!string(filename)) {
             // writeln("folder: ", filename);
 
-            string target = filename ~ "/main.d";
+            string target = filename ~ "/mod.conf";
+            target = filename ~ "/main.d";
 
             // If your mod does not have an main.d file, it halts.
 
