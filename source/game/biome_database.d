@@ -6,17 +6,11 @@ import optibrev;
 class BiomeDefinition {
     string name = null;
     string modName = null;
+    string[] groundLayerTiles = null;
 
+    ///! DO NOT USE.
     int id = -1;
-
-    string grassLayer = null;
-    int grassLayerID = -1;
-    string dirtLayer = null;
-    int dirtLayerID = -1;
-    string stoneLayer = null;
-    int stoneLayerID = -1;
-
-    // todo: noise parameters.
+    int[] groundLayerIDs = null;
 
     // todo: ores.
 }
