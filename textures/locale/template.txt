@@ -1,3 +1,0 @@
-# textdomain: vilja_pix_2
-
-A sophisticated texture pack for Luanti.=
