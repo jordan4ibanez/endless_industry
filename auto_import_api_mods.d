@@ -103,6 +103,7 @@ void main() {
                     newFileData ~= "import " ~ imp ~ ";";
                 }
             }
+
             if (thisLine == "//# =-AUTO IMPORT END-=") {
                 inImports = false;
                 // writeln("ended import");
