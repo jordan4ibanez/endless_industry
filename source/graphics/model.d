@@ -51,7 +51,8 @@ public: //* BEGIN PUBLIC API.
         Model* thisModel = id in database;
 
         if (thisModel is null) {
-            throw new Error("This is quite a strange crash.");
+            throw new Error("This is quite a strange crash. " ~
+                    "This means that this thing had a model that didn't exist assigned to it.");
         }
 
         DrawModel(*thisModel, Vector3(position.x, -position.y, 0), 1, Colors.WHITE);
