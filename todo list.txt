@@ -1,3 +1,15 @@
+- better tileset
+
+- layers
+
+- water
+
+- some kind of extremely simple algorithm to make water border tiles
+
+
+
+Later:
+
 - sql saving on a green thread to be non blocking
 
 - ores but baked into the ground via the biome
