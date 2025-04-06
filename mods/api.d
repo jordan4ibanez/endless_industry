@@ -18,6 +18,8 @@ void deployMainFunctions() {
 }
 //# =-AUTO FUNCTION END-=
 
+// End the note about modifying the autos.
+
 static final const class Api {
 static:
 private:
