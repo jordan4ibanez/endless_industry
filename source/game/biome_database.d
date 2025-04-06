@@ -65,6 +65,9 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
+        // Now inject the modname prefix into the biome name.
+        newBiome.name = modName ~ "." ~ newBiome.name;
+
         nameDatabase[newBiome.name] = newBiome;
     }
 

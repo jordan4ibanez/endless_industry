@@ -57,6 +57,9 @@ public: //* BEGIN PUBLIC API.
                 "Texture " ~ newTile.texture ~ "for tile " ~ newTile.name ~ " does not exist");
         }
 
+        // Now inject the modname prefix into the biome name.
+        newTile.name = modName ~ "." ~ newTile.name;
+
         nameDatabase[newTile.name] = newTile;
     }
 
