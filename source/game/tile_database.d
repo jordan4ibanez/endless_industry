@@ -9,7 +9,6 @@ import utility.option;
 
 struct TileDefinition {
     string name = null;
-    string modName = null;
     string texture = null;
     //! NEVER USE THESE.
     int id = -1;
@@ -47,10 +46,6 @@ public: //* BEGIN PUBLIC API.
 
         if (newTile.name in nameDatabase) {
             throw new Error("Trying to overwrite tile " ~ newTile.name);
-        }
-
-        if (newTile.modName is null) {
-            throw new Error("Mod name is null for tile " ~ newTile.name);
         }
 
         if (newTile.texture is null) {
@@ -121,7 +116,6 @@ public: //* BEGIN PUBLIC API.
         foreach (i; 0 .. idDatabase.length) {
             ultraFastAccess[i] = idDatabase[cast(int) i];
 
-            assert(ultraFastAccess[i].modName == idDatabase[cast(int) i].modName);
             assert(ultraFastAccess[i].name == idDatabase[cast(int) i].name);
             assert(ultraFastAccess[i].id == idDatabase[cast(int) i].id);
             assert(ultraFastAccess[i].texture == idDatabase[cast(int) i].texture);
