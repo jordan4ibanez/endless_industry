@@ -57,6 +57,8 @@ void main() {
                         }
                         thisConfig.modVersion = components[1].idup;
                         // It has now been moved into a safely mutable area.
+
+                        // Remove the quotes.
                         thisConfig.modVersion = thisConfig.modVersion.replace('"', ' ').strip();
 
                         // Now check if the string is semantically versioned.
@@ -72,6 +74,25 @@ void main() {
                                 throw new Error("Version is malformed! " ~ target);
                             }
                         }
+                    }
+                    // Get the mod name.
+                    if (thisLine.startsWith("name")) {
+                        char[][] components = thisLine.split("=");
+                        if (components.length != 2) {
+                            throw new Error("Name line is malformed! " ~ target);
+                        }
+                        thisConfig.modName = components[1].idup;
+                        // It has now been moved into a safely mutable area.
+
+                        // Remove the quotes.
+                        thisConfig.modName = thisConfig.modName.replace('"', ' ').strip();
+
+                        // I only have a simple request, it should be plain ascii and have no spaces.
+                        // This isn't to stop your creativity, it's to prevent any edge cases. 
+                        if (thisConfig.modName.indexOf(' ') >= 0) {
+                            throw new Error("Name must not contain spaces! " ~ target);
+                        }
+                        writeln(thisConfig.modName);
                     }
                 }
             } catch (Exception e) {
