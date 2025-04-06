@@ -88,6 +88,10 @@ public: //* BEGIN PUBLIC API.
         return currentID;
     }
 
+    BiomeDefinition* unsafeGetByID(int id) {
+        return ultraFastAccess + id;
+    }
+
     void finalize() {
 
         ultraFastAccess = cast(BiomeDefinition*) GC.malloc(
