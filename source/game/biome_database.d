@@ -12,12 +12,13 @@ struct BiomeDefinition {
     // But thinking of them as "layers" is slightly more intuitive. 
     string[] groundLayerTiles = null;
     string[] waterLayerTiles = null;
-    string[] waterLayerTilesCorners = null;
+    string[] waterLayerCornerTiles = null;
 
     ///! DO NOT USE.
     int id = -1;
     int[] groundLayerIDs = null;
     int[] waterLayerIDs = null;
+    int[] waterLayerCornerIDs = null;
 
     // todo: ores.
 }
@@ -55,6 +56,8 @@ public: //* BEGIN PUBLIC API.
             throw new Error("Tried to overwrite biome" ~ newBiome.name);
         }
 
+        //? Ground layer.
+
         if (newBiome.groundLayerTiles is null) {
             throw new Error("Ground layer tiles is missing from biome " ~ newBiome.name);
         }
@@ -70,6 +73,8 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
+        //? Water layer.
+
         if (newBiome.waterLayerTiles.length == 0) {
             throw new Error("Water layer tiles is an empty array in biome " ~ newBiome.name);
         }
@@ -77,6 +82,20 @@ public: //* BEGIN PUBLIC API.
         foreach (index, value; newBiome.waterLayerTiles) {
             if (value is null) {
                 throw new Error("Water layer tile at index " ~ to!string(
+                        index) ~ " in biome " ~ newBiome.name ~ " is null");
+            }
+        }
+
+
+        //? Water corner layer.
+
+        if (newBiome.waterLayerCornerTiles.length == 0) {
+            throw new Error("Water corner layer tiles is an empty array in biome " ~ newBiome.name);
+        }
+
+        foreach (index, value; newBiome.waterLayerTiles) {
+            if (value is null) {
+                throw new Error("Water corner layer tile at index " ~ to!string(
                         index) ~ " in biome " ~ newBiome.name ~ " is null");
             }
         }
