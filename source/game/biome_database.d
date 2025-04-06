@@ -16,11 +16,6 @@ struct BiomeDefinition {
     // todo: ores.
 }
 
-struct BiomeDefinitionResult {
-    BiomeDefinition definition;
-    bool exists = false;
-}
-
 static final const class BiomeDatabase {
 static:
 private:
@@ -65,19 +60,22 @@ public: //* BEGIN PUBLIC API.
         nameDatabase[newBiome.name] = newBiome;
     }
 
-    BiomeDefinitionResult getBiomeByID(int id) {
-        if (id !in idDatabase) {
-            return BiomeDefinitionResult();
+    Option!BiomeDefinition getBiomeByID(int id) {
+        Option!BiomeDefinition result;
+        BiomeDefinition* thisDefinition = id in idDatabase;
+        if (thisDefinition !is null) {
+            result = result.Some(*thisDefinition);
         }
-
-        return BiomeDefinitionResult(idDatabase[id], true);
+        return result;
     }
 
-    BiomeDefinitionResult getBiomeByName(string name) {
-        if (name !in nameDatabase) {
-            return BiomeDefinitionResult();
+    Option!BiomeDefinition getBiomeByName(string name) {
+        Option!BiomeDefinition result;
+        BiomeDefinition* thisDefinition = name in nameDatabase;
+        if (thisDefinition !is null) {
+            result = result.Some(*thisDefinition);
         }
-        return BiomeDefinitionResult(nameDatabase[name], true);
+        return result;
     }
 
     void finalize() {

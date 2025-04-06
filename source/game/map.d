@@ -13,13 +13,13 @@ import graphics.window;
 import math.rect;
 import math.vec2d;
 import math.vec2i;
-import utility.option;
 import std.algorithm.comparison;
 import std.conv;
 import std.math.algebraic;
 import std.math.rounding;
 import std.random;
 import std.stdio;
+import utility.option;
 
 //! NEVER CHANGE THIS!
 immutable public int CHUNK_WIDTH = 64;
@@ -213,17 +213,19 @@ private: //* BEGIN INTERNAL API.
     void generateChunkData(Vec2i chunkPosition, ref Chunk thisChunk) {
 
         // todo: the chunk should have a biome.
-        BiomeDefinitionResult biomeResult = BiomeDatabase.getBiomeByID(0);
+        Option!BiomeDefinition biomeResult = BiomeDatabase.getBiomeByID(0);
 
-        if (!biomeResult.exists) {
+        if (biomeResult.isNone) {
             throw new Error("Attempted to get biome " ~ to!string(0) ~ " which does not exist");
         }
 
+        BiomeDefinition thisBiome = biomeResult.unwrap;
+
+        const int* availableTiles = thisBiome.groundLayerIDs.ptr;
+        const ulong numberOfTiles = thisBiome.groundLayerIDs.length;
+
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
-
-        const int* availableTiles = biomeResult.definition.groundLayerIDs.ptr;
-        const ulong numberOfTiles = biomeResult.definition.groundLayerIDs.length;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
