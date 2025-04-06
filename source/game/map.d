@@ -229,6 +229,18 @@ private: //* BEGIN INTERNAL API.
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
 
+                import std.bitmanip;
+
+                struct WaterResult {
+                    mixin(bitfields!(
+                            bool, "up", 1,
+                            bool, "down", 1,
+                            bool, "left", 1,
+                            bool, "right", 1,
+                            byte, "", 4));
+
+                }
+
                 const double _waterCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
                         y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0);
 
