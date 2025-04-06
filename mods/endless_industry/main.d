@@ -10,29 +10,57 @@ void endlessIndustryMain() {
 
     //? Tiles.
 
-    TileDefinition stone;
-    stone.name = "stone";
-    stone.texture = "default_stone.png";
-    TileDatabase.registerTile(stone);
+    TileDefinition grass0;
+    grass0.name = "grass_0";
+    grass0.texture = "grass_0.png";
+    TileDatabase.registerTile(grass0);
 
-    TileDefinition dirt;
-    dirt.name = "dirt";
-    dirt.texture = "default_dirt.png";
-    TileDatabase.registerTile(dirt);
+    TileDefinition grass1;
+    grass1.name = "grass_1";
+    grass1.texture = "grass_1.png";
+    TileDatabase.registerTile(grass1);
 
-    TileDefinition grass;
-    grass.name = "grass";
-    grass.texture = "default_grass.png";
-    TileDatabase.registerTile(grass);
+    TileDefinition grass2;
+    grass2.name = "grass_2";
+    grass2.texture = "grass_2.png";
+    TileDatabase.registerTile(grass2);
 
     //? Biomes.
 
     BiomeDefinition grassLands;
     grassLands.name = "grass lands";
     grassLands.groundLayerTiles = [
-        "endless_industry.grass", "endless_industry.dirt",
-        "endless_industry.stone"
+        "endless_industry.grass_0", "endless_industry.grass_1",
+        "endless_industry.grass_2"
     ];
+
+    TileDefinition water0;
+    water0.name = "water_0";
+    water0.texture = "water_0.png";
+    TileDatabase.registerTile(water0);
+
+    TileDefinition water1;
+    water1.name = "water_1";
+    water1.texture = "water_1.png";
+    TileDatabase.registerTile(water1);
+
+    TileDefinition water2;
+    water2.name = "water_2";
+    water2.texture = "water_2.png";
+    TileDatabase.registerTile(water2);
+
+    grassLands.waterLayerTiles = [
+        "endless_industry.water_0", "endless_industry.water_1",
+        "endless_industry.water_2"
+    ];
+
+    /*
+    In a very specific binary order for allowing bitshifting into an index during terrain generation.
+    ! WIP
+
+    0_0_0_1
+
+    */
 
     BiomeDatabase.registerBiome(grassLands);
 
