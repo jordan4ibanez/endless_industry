@@ -2,11 +2,11 @@ module auto_import_api_mods;
 
 import std.algorithm.mutation;
 import std.array;
+import std.ascii;
 import std.conv;
 import std.file;
 import std.stdio : File, writeln;
 import std.string;
-import std.ascii;
 
 /*
 This file literally just modified the api.d file.
@@ -88,12 +88,16 @@ void main() {
                         // Remove the quotes.
                         thisConfig.modName = thisConfig.modName.replace('"', ' ').strip();
 
-                        // I only have a simple request, it should be plain ascii and have no spaces.
+                        // I only have a simple request, it should be plain ASCII and have no spaces.
                         // This isn't to stop your creativity, it's to prevent any edge cases. 
                         if (thisConfig.modName.indexOf(' ') >= 0) {
                             throw new Error("Name must not contain spaces! " ~ target);
                         }
-                        writeln(thisConfig.modName);
+                        foreach (character; thisConfig.modName) {
+                            if (!character.isASCII()) {
+                                throw new Error("Name must be only ASCII characters! " ~ target);
+                            }
+                        }
                     }
                 }
             } catch (Exception e) {
