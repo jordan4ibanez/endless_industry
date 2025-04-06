@@ -212,13 +212,8 @@ private: //* BEGIN INTERNAL API.
 
     void generateChunkData(Vec2i chunkPosition, ref Chunk thisChunk) {
 
-        Option!BiomeDefinition biomeResult = BiomeDatabase.getBiomeByID(0);
-
-        if (biomeResult.isNone) {
-            throw new Error("Attempted to get biome " ~ to!string(0) ~ " which does not exist");
-        }
-
-        BiomeDefinition thisBiome = biomeResult.unwrap;
+        const int numberOfBiomes = BiomeDatabase.getNumberOfBiomes();
+        const BiomeDefinition* thisBiome = BiomeDatabase.unsafeGetByID(0);
 
         const int* availableTiles = thisBiome.groundLayerIDs.ptr;
         const ulong numberOfTiles = thisBiome.groundLayerIDs.length;
