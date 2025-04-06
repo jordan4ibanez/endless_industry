@@ -11,6 +11,11 @@ import std.string;
 This file literally just modified the api.d file.
 */
 
+struct ModConfig {
+    string modName = null;
+    string modVersion = null;
+}
+
 void main() {
 
     // this turns it off when debugging the main mod API file.
