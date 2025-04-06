@@ -23,5 +23,5 @@
 #! ::::IMPORTANT:::::
 
 = The chunks being loaded is not causing lag!
- The chunks holding so many VAOs in memory is causing a weird thing to happen with OpenGL when going past 100_000 VAOs
+ The chunks holding so many VAOs in memory is causing a weird thing to happen with OpenGL when going past 30_000 VAOs
  Keep the chunks loaded in memory but unload any chunk's MESH (<<MESH>> NOT THE CHUNK) so it just uses a bunch of memory, not lag!
