@@ -218,6 +218,9 @@ private: //* BEGIN INTERNAL API.
         const int* availableGroundTiles = thisBiome.groundLayerIDs.ptr;
         const ulong numberOfGroundTiles = thisBiome.groundLayerIDs.length;
 
+        const int* availableWaterTiles = thisBiome.waterLayerIDs.ptr;
+        const ulong numberOfWaterTiles = thisBiome.waterLayerIDs.length;
+
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
