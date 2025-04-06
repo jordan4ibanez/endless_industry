@@ -6,6 +6,7 @@ import std.conv;
 import std.file;
 import std.stdio : File, writeln;
 import std.string;
+import std.ascii;
 
 /*
 This file literally just modified the api.d file.
