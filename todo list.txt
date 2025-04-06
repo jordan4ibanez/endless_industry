@@ -1,5 +1,3 @@
-- Make the mod name be set by the mod folder or literally anything, this is awful
-
 - sql saving on a green thread to be non blocking
 
 - ores but baked into the ground via the biome
