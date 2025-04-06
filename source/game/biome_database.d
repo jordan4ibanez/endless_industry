@@ -120,20 +120,38 @@ public: //* BEGIN PUBLIC API.
 
         foreach (biomeName, ref thisBiome; nameDatabase) {
 
+            // Make an ultra fast access implementation based on the names.
+
+            //? Ground layer.
+
             thisBiome.groundLayerIDs = new int[](thisBiome.groundLayerTiles.length);
 
-            // Make an ultra fast access implementation based on the names.
-            //? Ground layer.
             foreach (index, tileName; thisBiome.groundLayerTiles) {
                 Option!TileDefinition tileDefinitionResult = TileDatabase.getTileByName(tileName);
 
                 if (tileDefinitionResult.isNone) {
                     throw new Error(
-                        "Biome " ~ biomeName ~ " tile " ~ tileName ~ " in index " ~ to!string(
+                        "Biome " ~ biomeName ~ " ground tile " ~ tileName ~ " in index " ~ to!string(
                             index) ~ " is not a registered tile");
                 }
 
                 thisBiome.groundLayerIDs[index] = tileDefinitionResult.unwrap.id;
+            }
+
+            //? Water layer.
+
+            thisBiome.waterLayerIDs = new int[](thisBiome.waterLayerTiles.length);
+
+            foreach (index, tileName; thisBiome.waterLayerTiles) {
+                Option!TileDefinition tileDefinitionResult = TileDatabase.getTileByName(tileName);
+
+                if (tileDefinitionResult.isNone) {
+                    throw new Error(
+                        "Biome " ~ biomeName ~ " water tile " ~ tileName ~ " in index " ~ to!string(
+                            index) ~ " is not a registered tile");
+                }
+
+                thisBiome.waterLayerIDs[index] = tileDefinitionResult.unwrap.id;
             }
 
             // todo: do the match thing below when sqlite is added in.
