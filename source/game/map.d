@@ -271,6 +271,7 @@ private: //* BEGIN INTERNAL API.
                     }
 
                     // 15 means that it's fully surrounded by water.
+                    //! This probably does not work on ARM. Endian might be different.
                     if (*cast(ubyte*)&localWaters == 15) {
                         const ulong _baseWaterSelection = cast(ulong) floor(
                             numberOfWaterTiles * _selectedWaterNoise);
