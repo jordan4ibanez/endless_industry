@@ -234,10 +234,10 @@ private: //* BEGIN INTERNAL API.
 
                 struct WaterResult {
                     mixin(bitfields!(
-                            bool, "left", 1,
-                            bool, "up", 1,
-                            bool, "right", 1,
-                            bool, "down", 1,
+                            ubyte, "left", 1,
+                            ubyte, "up", 1,
+                            ubyte, "right", 1,
+                            ubyte, "down", 1,
                             byte, "", 4));
                 }
 
