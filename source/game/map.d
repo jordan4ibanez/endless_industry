@@ -128,28 +128,18 @@ public: //* BEGIN PUBLIC API.
         if (!TileDatabase.hasTileID(id)) {
             throw new Error("Cannot set to tile ID " ~ to!string(id) ~ ", ID does not exist.");
         }
-
         Vec2i chunkID = calculateChunkAtWorldPosition(position);
-
         if (chunkID !in database) {
             // todo: maybe unload the chunk after?
             loadChunk(chunkID);
         }
-
         int xPosInChunk = getXInChunk(position.x);
-
         int yPosInChunk = getYInChunk(position.y);
-
-        writeln("test");
-
         Chunk* thisChunk = chunkID in database;
-
         if (thisChunk is null) {
             throw new Error("Null chunk! How is this even possible? It was loaded!");
         }
-
         thisChunk.data[xPosInChunk][yPosInChunk].tileID = id;
-
         generateChunkMesh(*thisChunk);
     }
 
@@ -161,19 +151,18 @@ public: //* BEGIN PUBLIC API.
             // todo: maybe unload the chunk after?
             loadChunk(chunkID);
         }
-
         int xPosInChunk = getXInChunk(position.x);
         int yPosInChunk = getYInChunk(position.y);
-
         Option!TileDefinition result = TileDatabase.getTileByName(name);
-
         if (result.isNone) {
             throw new Error("Cannot set to tile " ~ name ~ ", does not exist.");
         }
-
-        writeln("test");
-
-        database[chunkID].data[xPosInChunk][yPosInChunk].tileID = result.unwrap.id;
+        Chunk* thisChunk = chunkID in database;
+        if (thisChunk is null) {
+            throw new Error("Null chunk! How is this even possible? It was loaded!");
+        }
+        thisChunk.data[xPosInChunk][yPosInChunk].tileID = result.unwrap.id;
+        generateChunkMesh(*thisChunk);
     }
 
     void worldLoad(Vec2i currentPlayerChunk) {
@@ -191,11 +180,7 @@ public: //* BEGIN PUBLIC API.
         // unloadOldChunks(currentPlayerChunk);
     }
 
-
-
 private: //* BEGIN INTERNAL API.
-
-
 
     // void unloadOldChunks(int currentPlayerChunk) {
 

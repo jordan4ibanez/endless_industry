@@ -85,7 +85,7 @@ void main() {
 				if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
 					Map.setTileAtWorldPositionByID(Mouse.getWorldPosition(), 0);
 				} else if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) {
-					Map.setTileAtWorldPositionByID(Mouse.getWorldPosition(), 1);
+					Map.setTileAtWorldPositionByName(Mouse.getWorldPosition(), "dirt");
 				}
 
 			}
