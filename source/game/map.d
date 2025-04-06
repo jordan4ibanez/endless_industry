@@ -225,6 +225,7 @@ private: //* BEGIN INTERNAL API.
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
         const double waterFrequency = 0.3;
+        const double waterChance = 0.7;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
@@ -238,18 +239,35 @@ private: //* BEGIN INTERNAL API.
                             bool, "left", 1,
                             bool, "right", 1,
                             byte, "", 4));
-
                 }
 
                 const double _waterCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
                         y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0);
 
-                if (_waterCoinFlip > 0.7) {
+                if (_waterCoinFlip > waterChance) {
 
                     // Move the noise into the range of 0 - 1.
                     const double _selectedWaterNoise = clamp((fnlGetNoise2D(&noise, (
                             x + basePositionX) * 10, (
                             y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
+
+                    WaterResult localWaters;
+
+                    // It is literally faster to cache this calculation in the CPU than it is to check the map.
+                    //? Simulate neighbors.
+                    {
+                        localWaters.up = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
+                                y + basePositionY + 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+
+                        localWaters.down = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
+                                y + basePositionY - 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+
+                        localWaters.left = clamp((fnlGetNoise2D(&noise, (x + basePositionX - 1) * waterFrequency, (
+                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+
+                        localWaters.right = clamp((fnlGetNoise2D(&noise, (x + basePositionX + 1) * waterFrequency, (
+                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+                    }
 
                     const ulong _baseWaterSelection = cast(ulong) floor(
                         numberOfWaterTiles * _selectedWaterNoise);
