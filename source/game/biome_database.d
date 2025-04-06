@@ -22,6 +22,8 @@ static final const class BiomeDatabase {
 static:
 private:
 
+    string modName = null;
+
     // Faster access based on ID or name.
     BiomeDefinition[string] nameDatabase;
     BiomeDefinition[int] idDatabase;
@@ -33,6 +35,11 @@ private:
     BiomeDefinition* ultraFastAccess;
 
 public: //* BEGIN PUBLIC API.
+
+    ///! This is not to be used. Only for the mod API automation.
+    void setModName(string modName) {
+        this.modName = modName;
+    }
 
     void registerBiome(BiomeDefinition newBiome) {
 

@@ -20,6 +20,8 @@ static final const class TileDatabase {
 static:
 private:
 
+    string modName = null;
+
     // Faster access based on ID or name.
     TileDefinition[string] nameDatabase;
     TileDefinition[int] idDatabase;
@@ -31,6 +33,11 @@ private:
     int currentID = 0;
 
 public: //* BEGIN PUBLIC API.
+
+    ///! This is not to be used. Only for the mod API automation.
+    void setModName(string modName) {
+        this.modName = modName;
+    }
 
     void registerTile(TileDefinition newTile) {
 
