@@ -1,5 +1,6 @@
 module game.biome_database;
 
+import core.memory;
 import game.tile_database;
 import std.conv;
 import utility.option;
@@ -29,7 +30,6 @@ private:
     // Insanely fast unsafe access based on ID alone from pointer arithmetic.
     // Do not use this unless you want to debug some "very cool" errors.
     BiomeDefinition* ultraFastAccess;
-
 
 public: //* BEGIN PUBLIC API.
 
@@ -89,6 +89,10 @@ public: //* BEGIN PUBLIC API.
 
     void finalize() {
 
+        int index = 0;
+
+        ultraFastAccess = cast(BiomeDefinition*) GC.malloc(BiomeDefinition.sizeof * currentID);
+
         foreach (biomeName, ref thisBiome; nameDatabase) {
 
             thisBiome.groundLayerIDs = new int[](thisBiome.groundLayerTiles.length);
@@ -112,6 +116,10 @@ public: //* BEGIN PUBLIC API.
             idDatabase[thisBiome.id] = thisBiome;
 
             debugWrite(thisBiome);
+
+            // Begin ultra fast access.
+
+            index++;
         }
     }
 
