@@ -7,7 +7,14 @@ import game.tile_database;
 
 //# =-AUTO IMPORT BEGIN-=
 import mods.cube_thing.main;
+
 //# =-AUTO IMPORT END-=
+
+//# =-AUTO FUNCTION BEGIN-=
+void deployMainFunctions() {
+    cubeThingMain();
+}
+//# =-AUTO FUNCTION END-=
 
 static final const class Api {
 static:
@@ -16,7 +23,7 @@ private:
 public: //* BEGIN PUBLIC API.
 
     void initialize() {
-        cubeThingMain();
+        deployMainFunctions();
 
         finalize();
     }
