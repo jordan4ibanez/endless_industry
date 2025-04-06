@@ -304,45 +304,31 @@ private: //* BEGIN INTERNAL API.
 
         // todo: the chunk should have a biome.
         BiomeDefinitionResult biomeResult = BiomeDatabase.getBiomeByID(0);
-        if (!biomeResult.exists) {
-            import std.conv;
 
+        if (!biomeResult.exists) {
             throw new Error("Attempted to get biome " ~ to!string(0) ~ " which does not exist");
         }
 
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
-        Option!TileDefinition stoneResult = TileDatabase.getTileByID(
-            biomeResult.definition.stoneLayerID);
-        if (stoneResult.isNone) {
-            throw new Error("Stone does not exist for biome " ~ biomeResult.definition.name);
-        }
-
-        Option!TileDefinition dirtResult = TileDatabase.getTileByID(
-            biomeResult.definition.dirtLayerID);
-        if (dirtResult.isNone) {
-            throw new Error("Dirt does not exist for biome " ~ biomeResult.definition.name);
-        }
-
-        Option!TileDefinition grassResult = TileDatabase.getTileByID(
-            biomeResult.definition.grassLayerID);
-        if (grassResult.isNone) {
-            throw new Error("Grass does not exist for biome " ~ biomeResult.definition.name);
-        }
+        int[] availableTiles = biomeResult.definition.groundLayerIDs;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
-                const double selectedNoise = fnlGetNoise2D(&noise, (x + basePositionX) * 2, (
-                        y + basePositionY) * 2);
+                const double selectedNoise = clamp(fnlGetNoise2D(&noise, (x + basePositionX) * 2, (
+                        y + basePositionY) * 2), -1.0, 1.0);
 
+                if (selectedNoise > 1 || selectedNoise < -1) {
+                    throw new Error("hmmm, went out of bounds");
+                }
                 // writeln(selectedNoise);
 
-                if (selectedNoise < 0) {
-                    thisChunk.data[x][y].tileID = grassResult.unwrap.id;
-                } else {
-                    thisChunk.data[x][y].tileID = dirtResult.unwrap.id;
-                }
+                // if (selectedNoise < 0) {
+                //     thisChunk.data[x][y].tileID = grassResult.unwrap.id;
+                // } else {
+                //     thisChunk.data[x][y].tileID = dirtResult.unwrap.id;
+                // }
 
             }
         }
