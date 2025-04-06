@@ -257,16 +257,16 @@ private: //* BEGIN INTERNAL API.
                     //? Simulate neighbors.
                     {
                         localWaters.left = clamp((fnlGetNoise2D(&noise, (x + basePositionX - 1) * waterFrequency, (
-                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
                         localWaters.up = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
-                                y + basePositionY + 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+                                y + basePositionY + 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
                         localWaters.right = clamp((fnlGetNoise2D(&noise, (x + basePositionX + 1) * waterFrequency, (
-                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
                         localWaters.down = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
-                                y + basePositionY - 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+                                y + basePositionY - 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
                     }
 
