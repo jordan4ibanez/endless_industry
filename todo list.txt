@@ -2,6 +2,8 @@
 
 - move mods to it's own folder
 
+- Make the mod name be set by the mod folder or literally anything, this is awful
+
 - sql saving on a green thread to be non blocking
 
 - ores but baked into the ground via the biome
@@ -17,3 +19,9 @@
 >
 
 - Make the player the flare character cause that's probably the best thing to use right now
+
+#! ::::IMPORTANT:::::
+
+= The chunks being loaded is not causing lag!
+ The chunks holding so many VAOs in memory is causing a weird thing to happen with OpenGL when going past 100_000 VAOs
+ Keep the chunks loaded in memory but unload any chunk's MESH (<<MESH>> NOT THE CHUNK) so it just uses a bunch of memory, not lag!
