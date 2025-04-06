@@ -3,7 +3,7 @@ module game.biome_database;
 import game.tile_database;
 import optibrev;
 
-class BiomeDefinition {
+struct BiomeDefinition {
     string name = null;
     string modName = null;
     string[] groundLayerTiles = null;
@@ -16,7 +16,7 @@ class BiomeDefinition {
 }
 
 struct BiomeDefinitionResult {
-    BiomeDefinition definition = null;
+    BiomeDefinition definition;
     bool exists = false;
 }
 
@@ -46,16 +46,19 @@ public: //* BEGIN PUBLIC API.
             throw new Error("Mod name is missing from biome " ~ newBiome.name);
         }
 
-        if (newBiome.grassLayer is null) {
-            throw new Error("Grass layer missing from biome " ~ newBiome.name);
+        if (newBiome.groundLayerTiles is null) {
+            throw new Error("Ground layer tiles is missing from biome " ~ newBiome.name);
         }
 
-        if (newBiome.dirtLayer is null) {
-            throw new Error("Dirt layer missing from biome " ~ newBiome.name);
+        if (newBiome.groundLayerTiles.length == 0) {
+            throw new Error("Ground layer tiles is an empty array in biome " ~ newBiome.name);
         }
 
-        if (newBiome.stoneLayer is null) {
-            throw new Error("Stone layer missing from biome " ~ newBiome.name);
+        foreach (index, value; newBiome.groundLayerTiles) {
+            if (value is null) {
+                throw new Error("Ground layer tile at index " ~ to!string(
+                        index) ~ " in biome " ~ newBiome.name ~ " is null");
+            }
         }
 
         nameDatabase[newBiome.name] = newBiome;
