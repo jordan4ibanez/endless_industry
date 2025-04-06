@@ -212,7 +212,6 @@ private: //* BEGIN INTERNAL API.
 
     void generateChunkData(Vec2i chunkPosition, ref Chunk thisChunk) {
 
-        // todo: the chunk should have a biome.
         Option!BiomeDefinition biomeResult = BiomeDatabase.getBiomeByID(0);
 
         if (biomeResult.isNone) {
