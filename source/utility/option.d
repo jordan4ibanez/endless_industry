@@ -154,7 +154,7 @@ struct Option(T) {
     */
     T unwrap() const {
         if (type == OptionType.SOME) {
-            return value;
+            return cast(T)value;
         }
 
         throw new Exception("Can't unwrap None");
