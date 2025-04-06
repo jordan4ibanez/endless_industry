@@ -224,7 +224,7 @@ private: //* BEGIN INTERNAL API.
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
-        const double waterFrequency = 1.0;
+        const double waterFrequency = 0.3;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
@@ -232,7 +232,7 @@ private: //* BEGIN INTERNAL API.
                 const double _waterCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
                         y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0);
 
-                if (_waterCoinFlip > 0.5) {
+                if (_waterCoinFlip > 0.7) {
 
                     // Move the noise into the range of 0 - 1.
                     const double _selectedWaterNoise = clamp((fnlGetNoise2D(&noise, (
