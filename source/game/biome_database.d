@@ -82,28 +82,22 @@ public: //* BEGIN PUBLIC API.
 
     void finalize() {
 
-        foreach (name, ref thisBiome; nameDatabase) {
-            Option!TileDefinition grassResult = TileDatabase.getTileByName(thisBiome.grassLayer);
-            if (grassResult.isNone) {
-                throw new Error(
-                    "Biome " ~ thisBiome.name ~ " grass layer " ~ thisBiome.grassLayer ~ " is not a registered tile");
-            }
+        foreach (biomeName, ref thisBiome; nameDatabase) {
 
-            Option!TileDefinition dirtResult = TileDatabase.getTileByName(thisBiome.dirtLayer);
-            if (dirtResult.isNone) {
-                throw new Error(
-                    "Biome " ~ thisBiome.name ~ " dirt layer " ~ thisBiome.dirtLayer ~ " is not a registered tile");
-            }
+            thisBiome.groundLayerIDs = new int[](thisBiome.groundLayerTiles.length);
 
-            Option!TileDefinition stoneResult = TileDatabase.getTileByName(thisBiome.stoneLayer);
-            if (stoneResult.isNone) {
-                throw new Error(
-                    "Biome " ~ thisBiome.name ~ " stone layer " ~ thisBiome.stoneLayer ~ " is not a registered tile");
-            }
+            // Make an ultra fast access implementation based on the names.
+            foreach (index, tileName; thisBiome.groundLayerTiles) {
+                Option!TileDefinition tileDefinitionResult = TileDatabase.getTileByName(tileName);
 
-            thisBiome.grassLayerID = grassResult.unwrap.id;
-            thisBiome.dirtLayerID = dirtResult.unwrap.id;
-            thisBiome.stoneLayerID = stoneResult.unwrap.id;
+                if (tileDefinitionResult.isNone) {
+                    throw new Error(
+                        "Biome " ~ biomeName ~ " tile " ~ tileName ~ " in index " ~ to!string(
+                            index) ~ " is not a registered tile");
+                }
+
+                thisBiome.groundLayerIDs[index] = tileDefinitionResult.unwrap.id;
+            }
 
             // todo: do the match thing below when sqlite is added in.
             thisBiome.id = nextID();
