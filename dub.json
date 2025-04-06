@@ -23,7 +23,7 @@
 		"raylib"
 	],
 	"license": "GPL-3.0-or-later",
-	"name": "the_mill",
+	"name": "endless_industry",
 	"importPaths": [
 		"source",
 		"mods"

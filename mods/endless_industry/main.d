@@ -1,4 +1,4 @@
-module mods.the_mill.main;
+module mods.endless_industry.main;
 
 import game.biome_database;
 import game.tile_database;
