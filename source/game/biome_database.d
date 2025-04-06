@@ -8,11 +8,16 @@ import utility.option;
 
 struct BiomeDefinition {
     string name = null;
+    // These need to be renamed, they're not really "layers".
+    // They're different types.
     string[] groundLayerTiles = null;
+    string[] waterLayerTiles = null;
+    string[] waterLayerTilesCorners = null;
 
     ///! DO NOT USE.
     int id = -1;
     int[] groundLayerIDs = null;
+    int[] waterLayerIDs = null;
 
     // todo: ores.
 }
@@ -65,6 +70,17 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
+        if (newBiome.waterLayerTiles.length == 0) {
+            throw new Error("Water layer tiles is an empty array in biome " ~ newBiome.name);
+        }
+
+        foreach (index, value; newBiome.waterLayerTiles) {
+            if (value is null) {
+                throw new Error("Water layer tile at index " ~ to!string(
+                        index) ~ " in biome " ~ newBiome.name ~ " is null");
+            }
+        }
+
         // Now inject the modname prefix into the biome name.
         newBiome.name = modName ~ "." ~ newBiome.name;
 
@@ -107,6 +123,7 @@ public: //* BEGIN PUBLIC API.
             thisBiome.groundLayerIDs = new int[](thisBiome.groundLayerTiles.length);
 
             // Make an ultra fast access implementation based on the names.
+            //? Ground layer.
             foreach (index, tileName; thisBiome.groundLayerTiles) {
                 Option!TileDefinition tileDefinitionResult = TileDatabase.getTileByName(tileName);
 
