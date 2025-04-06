@@ -1,0 +1,19 @@
+- rework the engine, clean up remnants of cube_thing
+
+- move mods to it's own folder
+
+- sql saving on a green thread to be non blocking
+
+- ores but baked into the ground via the biome
+
+<
+
+- Find a nice tileset on opengameart
+
+- whichever biome is created first is the default
+ - - Make this biome the grasslands
+
+- desert biome
+>
+
+- Make the player the flare character cause that's probably the best thing to use right now
