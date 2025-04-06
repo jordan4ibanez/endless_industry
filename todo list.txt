@@ -1,4 +1,4 @@
-- move mods to it's own folder
+
 
 - Make the mod name be set by the mod folder or literally anything, this is awful
 
