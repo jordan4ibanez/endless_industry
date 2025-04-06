@@ -6,7 +6,7 @@ import std.stdio;
 
 private immutable string nameOfMod = "CubeThing";
 
-void theMillMain() {
+void endlessIndustryMain() {
 
     //? Tiles.
 
