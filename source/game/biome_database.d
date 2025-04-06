@@ -90,7 +90,6 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
-
         //? Water corner layer.
 
         if (newBiome.waterLayerCornerTiles is null) {
@@ -101,7 +100,7 @@ public: //* BEGIN PUBLIC API.
             throw new Error("Water corner layer tiles is an empty array in biome " ~ newBiome.name);
         }
 
-        foreach (index, value; newBiome.waterLayerTiles) {
+        foreach (index, value; newBiome.waterLayerCornerTiles) {
             if (value is null) {
                 throw new Error("Water corner layer tile at index " ~ to!string(
                         index) ~ " in biome " ~ newBiome.name ~ " is null");
