@@ -270,14 +270,19 @@ private: //* BEGIN INTERNAL API.
 
                     }
 
-                    const ulong _baseWaterSelection = cast(ulong) floor(
-                        numberOfWaterTiles * _selectedWaterNoise);
+                    // 15 means that it's fully surrounded by water.
+                    if (*cast(ubyte*)&localWaters == 15) {
+                        const ulong _baseWaterSelection = cast(ulong) floor(
+                            numberOfWaterTiles * _selectedWaterNoise);
 
-                    // Make sure no floating point imprecision happened.
-                    const ulong selectedTile = (_baseWaterSelection >= numberOfWaterTiles) ? 0
-                        : _baseWaterSelection;
+                        // Make sure no floating point imprecision happened.
+                        const ulong selectedTile = (_baseWaterSelection >= numberOfWaterTiles) ? 0
+                            : _baseWaterSelection;
 
-                    thisChunk.data[x][y].tileID = availableWaterTiles[selectedTile];
+                        thisChunk.data[x][y].tileID = availableWaterTiles[selectedTile];
+                    } else {
+                        // Else, it is the edge of the water.
+                    }
 
                 } else {
                     // Move the noise into the range of 0 - 1.
