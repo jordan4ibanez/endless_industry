@@ -231,6 +231,7 @@ private: //* BEGIN INTERNAL API.
             foreach (y; 0 .. CHUNK_WIDTH) {
 
                 import std.bitmanip;
+                import std.conv;
 
                 struct WaterResult {
                     mixin(bitfields!(
@@ -283,6 +284,27 @@ private: //* BEGIN INTERNAL API.
                         thisChunk.data[x][y].tileID = availableWaterTiles[selectedTile];
                     } else {
                         // Else, it is the edge of the water.
+
+                        //! FIXME: SLOW, HARDCODED IMPLEMENTATION!
+
+                        const string thisTile = "endless_industry.water_"
+                            ~ to!string(
+                                localWaters.left) ~ "_"
+                            ~ to!string(localWaters.up) ~ "_"
+                            ~ to!string(
+                                localWaters.right) ~ "_"
+                            ~ to!string(localWaters.down);
+
+                        writeln(thisTile);
+
+                        if (TileDatabase.hasTileName(thisTile)) {
+                            thisChunk.data[x][y].tileID = TileDatabase.getTileByName(thisTile)
+                                .unwrap.id;
+                        } else {
+                            thisChunk.data[x][y].tileID = TileDatabase.getTileByName("endless_industry.water_0")
+                                .unwrap.id;
+                        }
+
                     }
 
                 } else {
