@@ -6,12 +6,6 @@ import std.stdio;
 
 private immutable string nameOfMod = "CubeThing";
 
-class CubeThingBiome : BiomeDefinition {
-    this() {
-        this.modName = nameOfMod;
-    }
-}
-
 void cubeThingMain() {
 
     //? Tiles.
@@ -36,11 +30,9 @@ void cubeThingMain() {
 
     //? Biomes.
 
-    CubeThingBiome grassLands = new CubeThingBiome();
+    BiomeDefinition grassLands;
     grassLands.name = "grass lands";
-    grassLands.grassLayer = "grass";
-    grassLands.dirtLayer = "dirt";
-    grassLands.stoneLayer = "stone";
+    grassLands.groundLayerTiles = ["grass", "dirt", "stone"];
 
     BiomeDatabase.registerBiome(grassLands);
 
