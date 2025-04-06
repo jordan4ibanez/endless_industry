@@ -8,14 +8,16 @@ import utility.option;
 
 struct BiomeDefinition {
     string name = null;
-    string[] groundTiles = null;
-    string[] waterTiles = null;
-    string[] waterTilesCorner = null;
+    // These need to be renamed, they're not really "layers".
+    // They're different types.
+    string[] groundLayerTiles = null;
+    string[] waterLayerTiles = null;
+    string[] waterLayerTilesCorners = null;
 
     ///! DO NOT USE.
     int id = -1;
-    int[] groundTileIDs = null;
-    int[] waterTileIDs = null;
+    int[] groundLayerIDs = null;
+    int[] waterLayerIDs = null;
 
     // todo: ores.
 }
@@ -53,26 +55,26 @@ public: //* BEGIN PUBLIC API.
             throw new Error("Tried to overwrite biome" ~ newBiome.name);
         }
 
-        if (newBiome.groundTiles is null) {
+        if (newBiome.groundLayerTiles is null) {
             throw new Error("Ground layer tiles is missing from biome " ~ newBiome.name);
         }
 
-        if (newBiome.groundTiles.length == 0) {
+        if (newBiome.groundLayerTiles.length == 0) {
             throw new Error("Ground layer tiles is an empty array in biome " ~ newBiome.name);
         }
 
-        foreach (index, value; newBiome.groundTiles) {
+        foreach (index, value; newBiome.groundLayerTiles) {
             if (value is null) {
                 throw new Error("Ground layer tile at index " ~ to!string(
                         index) ~ " in biome " ~ newBiome.name ~ " is null");
             }
         }
 
-        if (newBiome.waterTiles.length == 0) {
+        if (newBiome.waterLayerTiles.length == 0) {
             throw new Error("Water layer tiles is an empty array in biome " ~ newBiome.name);
         }
 
-        foreach (index, value; newBiome.waterTiles) {
+        foreach (index, value; newBiome.waterLayerTiles) {
             if (value is null) {
                 throw new Error("Water layer tile at index " ~ to!string(
                         index) ~ " in biome " ~ newBiome.name ~ " is null");
