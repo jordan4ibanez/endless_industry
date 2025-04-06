@@ -9,6 +9,7 @@ import graphics.camera_handler;
 import graphics.model;
 import graphics.render;
 import graphics.texture_handler;
+import graphics.window;
 import math.rect;
 import math.vec2d;
 import math.vec2i;
@@ -19,7 +20,6 @@ import std.math.algebraic;
 import std.math.rounding;
 import std.random;
 import std.stdio;
-import utility.window;
 
 //! NEVER CHANGE THIS!
 immutable public int CHUNK_WIDTH = 64;

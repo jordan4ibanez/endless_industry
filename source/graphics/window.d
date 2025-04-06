@@ -1,4 +1,4 @@
-module utility.window;
+module graphics.window;
 
 import graphics.camera_handler;
 import graphics.font_handler;

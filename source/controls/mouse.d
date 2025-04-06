@@ -2,9 +2,9 @@ module controls.mouse;
 
 public import raylib : MouseButton;
 import graphics.camera_handler;
+import graphics.window;
 import math.vec2d;
 import raylib;
-import utility.window;
 
 static final const class Mouse {
 static:

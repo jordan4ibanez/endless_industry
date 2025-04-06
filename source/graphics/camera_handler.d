@@ -3,10 +3,10 @@ module graphics.camera_handler;
 import controls.mouse;
 import game.player;
 import graphics.gui;
+import graphics.window;
 import math.vec2d;
 import raylib;
 import std.stdio;
-import utility.window;
 
 static final const class CameraHandler {
 static:

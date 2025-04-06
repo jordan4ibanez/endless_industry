@@ -9,6 +9,7 @@ import graphics.font_handler;
 import graphics.model;
 import graphics.render;
 import graphics.texture_handler;
+import graphics.window;
 import math.vec2d;
 import math.vec2i;
 import mods.api;
@@ -18,7 +19,6 @@ import std.math.traits;
 import std.string;
 import utility.collision_functions;
 import utility.delta;
-import utility.window;
 
 void main() {
 
