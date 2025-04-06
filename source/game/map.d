@@ -295,7 +295,7 @@ private: //* BEGIN INTERNAL API.
                                 localWaters.right) ~ "_"
                             ~ to!string(localWaters.down);
 
-                        writeln(thisTile);
+                        // writeln(thisTile);
 
                         if (TileDatabase.hasTileName(thisTile)) {
                             thisChunk.data[x][y].tileID = TileDatabase.getTileByName(thisTile)
