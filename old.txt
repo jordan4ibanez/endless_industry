@@ -1,0 +1,80 @@
+from: game.map
+    
+    bool collision(ref Vec2d entityPosition, Vec2d entitySize, ref Vec2d entityVelocity, CollisionAxis axis) {
+        import utility.collision_functions;
+
+        int oldX = int.min;
+        int oldY = int.min;
+        int currentX = int.min;
+        int currentY = int.min;
+
+        // debugDrawPoints = [];
+
+        bool hitGround = false;
+
+        foreach (double xOnRect; 0 .. ceil(entitySize.x) + 1) {
+            double thisXPoint = (xOnRect > entitySize.x) ? entitySize.x : xOnRect;
+            thisXPoint += entityPosition.x - (entitySize.x * 0.5);
+            oldX = currentX;
+            currentX = cast(int) floor(thisXPoint);
+
+            if (oldX == currentX) {
+                // writeln("skip X ", currentY);
+                continue;
+            }
+
+            foreach (double yOnRect; 0 .. ceil(entitySize.y) + 1) {
+                double thisYPoint = (yOnRect > entitySize.y) ? entitySize.y : yOnRect;
+                thisYPoint += entityPosition.y;
+
+                oldY = currentY;
+                currentY = cast(int) floor(thisYPoint);
+
+                if (currentY == oldY) {
+                    // writeln("skip Y ", currentY);
+                    continue;
+                }
+
+                // debugDrawPoints ~= Vec2d(currentX, currentY);
+
+                TileData data = getTileAtWorldPosition(Vec2d(currentX, currentY));
+
+                // todo: if solid tile collide.
+                // todo: probably custom tile one day.
+
+                if (data.tileID == 0) {
+                    continue;
+                }
+
+                if (axis == CollisionAxis.X) {
+                    CollisionResult result = collideXToTile(entityPosition, entitySize, entityVelocity,
+                        Vec2d(currentX, currentY), Vec2d(1, 1));
+
+                    if (result.collides) {
+                        entityPosition.x = result.newPosition;
+                        entityVelocity.x = 0;
+                    }
+                } else {
+
+                    CollisionResult result = collideYToTile(entityPosition, entitySize, entityVelocity,
+                        Vec2d(currentX, currentY), Vec2d(1, 1));
+
+                    if (result.collides) {
+                        entityPosition.y = result.newPosition;
+                        entityVelocity.y = 0;
+                        if (result.hitGround) {
+                            hitGround = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return hitGround;
+    }
+
+        bool collideEntityToWorld(ref Vec2d entityPosition, Vec2d entitySize, ref Vec2d entityVelocity,
+        CollisionAxis axis) {
+
+        return collision(entityPosition, entitySize, entityVelocity, axis);
+    }

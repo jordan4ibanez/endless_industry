@@ -191,86 +191,11 @@ public: //* BEGIN PUBLIC API.
         // unloadOldChunks(currentPlayerChunk);
     }
 
-    bool collideEntityToWorld(ref Vec2d entityPosition, Vec2d entitySize, ref Vec2d entityVelocity,
-        CollisionAxis axis) {
 
-        return collision(entityPosition, entitySize, entityVelocity, axis);
-    }
 
 private: //* BEGIN INTERNAL API.
 
-    bool collision(ref Vec2d entityPosition, Vec2d entitySize, ref Vec2d entityVelocity, CollisionAxis axis) {
-        import utility.collision_functions;
 
-        int oldX = int.min;
-        int oldY = int.min;
-        int currentX = int.min;
-        int currentY = int.min;
-
-        // debugDrawPoints = [];
-
-        bool hitGround = false;
-
-        foreach (double xOnRect; 0 .. ceil(entitySize.x) + 1) {
-            double thisXPoint = (xOnRect > entitySize.x) ? entitySize.x : xOnRect;
-            thisXPoint += entityPosition.x - (entitySize.x * 0.5);
-            oldX = currentX;
-            currentX = cast(int) floor(thisXPoint);
-
-            if (oldX == currentX) {
-                // writeln("skip X ", currentY);
-                continue;
-            }
-
-            foreach (double yOnRect; 0 .. ceil(entitySize.y) + 1) {
-                double thisYPoint = (yOnRect > entitySize.y) ? entitySize.y : yOnRect;
-                thisYPoint += entityPosition.y;
-
-                oldY = currentY;
-                currentY = cast(int) floor(thisYPoint);
-
-                if (currentY == oldY) {
-                    // writeln("skip Y ", currentY);
-                    continue;
-                }
-
-                // debugDrawPoints ~= Vec2d(currentX, currentY);
-
-                TileData data = getTileAtWorldPosition(Vec2d(currentX, currentY));
-
-                // todo: if solid tile collide.
-                // todo: probably custom tile one day.
-
-                if (data.tileID == 0) {
-                    continue;
-                }
-
-                if (axis == CollisionAxis.X) {
-                    CollisionResult result = collideXToTile(entityPosition, entitySize, entityVelocity,
-                        Vec2d(currentX, currentY), Vec2d(1, 1));
-
-                    if (result.collides) {
-                        entityPosition.x = result.newPosition;
-                        entityVelocity.x = 0;
-                    }
-                } else {
-
-                    CollisionResult result = collideYToTile(entityPosition, entitySize, entityVelocity,
-                        Vec2d(currentX, currentY), Vec2d(1, 1));
-
-                    if (result.collides) {
-                        entityPosition.y = result.newPosition;
-                        entityVelocity.y = 0;
-                        if (result.hitGround) {
-                            hitGround = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        return hitGround;
-    }
 
     // void unloadOldChunks(int currentPlayerChunk) {
 
@@ -312,23 +237,21 @@ private: //* BEGIN INTERNAL API.
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
-        int[] availableTiles = biomeResult.definition.groundLayerIDs;
-        ulong numberOfTiles = availableTiles.length;
+        const int* availableTiles = biomeResult.definition.groundLayerIDs.ptr;
+        const ulong numberOfTiles = biomeResult.definition.groundLayerIDs.length;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
                 // Move the noise into the range of 0 - 1.
-                const double selectedNoise = (clamp(fnlGetNoise2D(&noise, (x + basePositionX) * 2, (
-                        y + basePositionY) * 2), -1.0, 1.0) + 1.0) * 0.5;
+                const double _selectedNoise = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * 2, (
+                        y + basePositionY) * 2) + 1.0) * 0.5, 0.0, 1.0);
 
-                // writeln(selectedNoise);
+                const ulong _baseSelection = cast(ulong) floor(numberOfTiles * _selectedNoise);
 
-                // if (selectedNoise < 0) {
-                //     thisChunk.data[x][y].tileID = grassResult.unwrap.id;
-                // } else {
-                //     thisChunk.data[x][y].tileID = dirtResult.unwrap.id;
-                // }
+                // Make sure no floating point imprecision happened.
+                const ulong selectedTile = (_baseSelection >= numberOfTiles) ? 0 : _baseSelection;
 
+                thisChunk.data[x][y].tileID = availableTiles[selectedTile];
             }
         }
     }
