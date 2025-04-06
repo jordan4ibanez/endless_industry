@@ -224,21 +224,32 @@ private: //* BEGIN INTERNAL API.
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
+        const double waterFrequency = 1.0;
+
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
 
-                
-                // Move the noise into the range of 0 - 1.
-                const double _selectedGroundNoise = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * 10, (
-                        y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
+                const double _waterCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
+                        y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0);
 
-                const ulong _baseGroundSelection = cast(ulong) floor(numberOfGroundTiles * _selectedGroundNoise);
+                if (waterFrequency > 0.5) {
 
-                // Make sure no floating point imprecision happened.
-                const ulong selectedTile = (_baseGroundSelection >= numberOfGroundTiles) ? 0
-                    : _baseGroundSelection;
+                } else {
+                    // Move the noise into the range of 0 - 1.
+                    const double _selectedGroundNoise = clamp((fnlGetNoise2D(&noise, (
+                            x + basePositionX) * 10, (
+                            y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
 
-                thisChunk.data[x][y].tileID = availableGroundTiles[selectedTile];
+                    const ulong _baseGroundSelection = cast(ulong) floor(
+                        numberOfGroundTiles * _selectedGroundNoise);
+
+                    // Make sure no floating point imprecision happened.
+                    const ulong selectedTile = (_baseGroundSelection >= numberOfGroundTiles) ? 0
+                        : _baseGroundSelection;
+
+                    thisChunk.data[x][y].tileID = availableGroundTiles[selectedTile];
+                }
+
             }
         }
     }
