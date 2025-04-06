@@ -94,6 +94,13 @@ void endlessIndustryMain() {
     water1100.texture = "water_1_1_0_0.png";
     TileDatabase.registerTile(water1100);
 
+    /*
+    In a very specific binary order for allowing bitshifting into an index during terrain generation.
+    ! WIP
+
+    0_0_0_1
+
+    */
     grassLands.waterLayerTilesCorners = [
         "endless_industry.water_0_0_0_1",
         "endless_industry.water_0_0_1_0",
@@ -104,14 +111,6 @@ void endlessIndustryMain() {
         "endless_industry.water_1_0_0_1",
         "endless_industry.water_1_1_0_0"
     ];
-
-    /*
-    In a very specific binary order for allowing bitshifting into an index during terrain generation.
-    ! WIP
-
-    0_0_0_1
-
-    */
 
     BiomeDatabase.registerBiome(grassLands);
 
