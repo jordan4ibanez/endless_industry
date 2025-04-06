@@ -215,8 +215,8 @@ private: //* BEGIN INTERNAL API.
         const int numberOfBiomes = BiomeDatabase.getNumberOfBiomes();
         const BiomeDefinition* thisBiome = BiomeDatabase.unsafeGetByID(0);
 
-        const int* availableTiles = thisBiome.groundLayerIDs.ptr;
-        const ulong numberOfTiles = thisBiome.groundLayerIDs.length;
+        const int* availableGroundTiles = thisBiome.groundLayerIDs.ptr;
+        const ulong numberOfGroundTiles = thisBiome.groundLayerIDs.length;
 
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
@@ -227,12 +227,12 @@ private: //* BEGIN INTERNAL API.
                 const double _selectedNoise = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * 10, (
                         y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
 
-                const ulong _baseSelection = cast(ulong) floor(numberOfTiles * _selectedNoise);
+                const ulong _baseSelection = cast(ulong) floor(numberOfGroundTiles * _selectedNoise);
 
                 // Make sure no floating point imprecision happened.
-                const ulong selectedTile = (_baseSelection >= numberOfTiles) ? 0 : _baseSelection;
+                const ulong selectedTile = (_baseSelection >= numberOfGroundTiles) ? 0 : _baseSelection;
 
-                thisChunk.data[x][y].tileID = availableTiles[selectedTile];
+                thisChunk.data[x][y].tileID = availableGroundTiles[selectedTile];
             }
         }
     }
