@@ -75,6 +75,10 @@ public: //* BEGIN PUBLIC API.
 
         //? Water layer.
 
+        if (newBiome.waterLayerTiles is null) {
+            throw new Error("Water layer tiles is missing from biome " ~ newBiome.name);
+        }
+
         if (newBiome.waterLayerTiles.length == 0) {
             throw new Error("Water layer tiles is an empty array in biome " ~ newBiome.name);
         }
@@ -88,6 +92,10 @@ public: //* BEGIN PUBLIC API.
 
 
         //? Water corner layer.
+
+        if (newBiome.waterLayerCornerTiles is null) {
+            throw new Error("Water corner layer tiles is missing from biome " ~ newBiome.name);
+        }
 
         if (newBiome.waterLayerCornerTiles.length == 0) {
             throw new Error("Water corner layer tiles is an empty array in biome " ~ newBiome.name);
