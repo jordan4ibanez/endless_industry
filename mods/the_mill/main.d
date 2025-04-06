@@ -28,7 +28,6 @@ void theMillMain() {
     //? Biomes.
 
     BiomeDefinition grassLands;
-    grassLands.modName = "the_mill";
     grassLands.name = "grass lands";
     grassLands.groundLayerTiles = ["grass", "dirt", "stone"];
 

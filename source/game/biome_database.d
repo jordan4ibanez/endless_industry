@@ -8,7 +8,6 @@ import utility.option;
 
 struct BiomeDefinition {
     string name = null;
-    string modName = null;
     string[] groundLayerTiles = null;
 
     ///! DO NOT USE.
@@ -49,10 +48,6 @@ public: //* BEGIN PUBLIC API.
 
         if (newBiome.name in nameDatabase) {
             throw new Error("Tried to overwrite biome" ~ newBiome.name);
-        }
-
-        if (newBiome.modName is null) {
-            throw new Error("Mod name is missing from biome " ~ newBiome.name);
         }
 
         if (newBiome.groundLayerTiles is null) {
