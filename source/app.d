@@ -22,6 +22,8 @@ import utility.delta;
 
 void main() {
 
+	return;
+
 	scope (exit) {
 		// FontHandler.terminate();
 		// ShaderHandler.terminate();
@@ -32,7 +34,7 @@ void main() {
 
 	validateRaylibBinding();
 
-	// SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
+	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
 	Window.initialize();
 

@@ -18,7 +18,7 @@ void main() {
         return;
     }
 
-    // writeln("AUTO IMPORT: Automating imports.");
+    // writeln("AUTO IMPORT: Automating mod imports.");
 
     // These do not have to be synchronized.
     string[] importList = [];
@@ -157,4 +157,5 @@ void main() {
     }
     // writeln("========================================");
 
+    // writeln("AUTO IMPORT: Finished automating mod imports.");
 }
