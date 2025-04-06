@@ -313,15 +313,14 @@ private: //* BEGIN INTERNAL API.
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
         int[] availableTiles = biomeResult.definition.groundLayerIDs;
+        ulong numberOfTiles = availableTiles.length;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
-                const double selectedNoise = clamp(fnlGetNoise2D(&noise, (x + basePositionX) * 2, (
-                        y + basePositionY) * 2), -1.0, 1.0);
+                // Move the noise into the range of 0 - 1.
+                const double selectedNoise = (clamp(fnlGetNoise2D(&noise, (x + basePositionX) * 2, (
+                        y + basePositionY) * 2), -1.0, 1.0) + 1.0) * 0.5;
 
-                if (selectedNoise > 1 || selectedNoise < -1) {
-                    throw new Error("hmmm, went out of bounds");
-                }
                 // writeln(selectedNoise);
 
                 // if (selectedNoise < 0) {
