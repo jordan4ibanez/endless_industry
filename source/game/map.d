@@ -234,10 +234,10 @@ private: //* BEGIN INTERNAL API.
 
                 struct WaterResult {
                     mixin(bitfields!(
-                            bool, "up", 1,
-                            bool, "down", 1,
                             bool, "left", 1,
+                            bool, "up", 1,
                             bool, "right", 1,
+                            bool, "down", 1,
                             byte, "", 4));
                 }
 
@@ -256,17 +256,18 @@ private: //* BEGIN INTERNAL API.
                     // It is literally faster to cache this calculation in the CPU than it is to check the map.
                     //? Simulate neighbors.
                     {
+                        localWaters.left = clamp((fnlGetNoise2D(&noise, (x + basePositionX - 1) * waterFrequency, (
+                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+
                         localWaters.up = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
                                 y + basePositionY + 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
+
+                        localWaters.right = clamp((fnlGetNoise2D(&noise, (x + basePositionX + 1) * waterFrequency, (
+                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
 
                         localWaters.down = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
                                 y + basePositionY - 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
 
-                        localWaters.left = clamp((fnlGetNoise2D(&noise, (x + basePositionX - 1) * waterFrequency, (
-                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
-
-                        localWaters.right = clamp((fnlGetNoise2D(&noise, (x + basePositionX + 1) * waterFrequency, (
-                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) > waterChance;
                     }
 
                     const ulong _baseWaterSelection = cast(ulong) floor(
