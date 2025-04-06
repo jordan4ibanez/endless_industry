@@ -3,6 +3,7 @@ module game.biome_database;
 import core.memory;
 import game.tile_database;
 import std.conv;
+import std.stdio;
 import utility.option;
 
 struct BiomeDefinition {
@@ -89,9 +90,8 @@ public: //* BEGIN PUBLIC API.
 
     void finalize() {
 
-        int index = 0;
-
-        ultraFastAccess = cast(BiomeDefinition*) GC.malloc(BiomeDefinition.sizeof * currentID);
+        ultraFastAccess = cast(BiomeDefinition*) GC.malloc(
+            BiomeDefinition.sizeof * nameDatabase.length);
 
         foreach (biomeName, ref thisBiome; nameDatabase) {
 
@@ -115,11 +115,8 @@ public: //* BEGIN PUBLIC API.
 
             idDatabase[thisBiome.id] = thisBiome;
 
-            debugWrite(thisBiome);
-
             // Begin ultra fast access.
-
-            index++;
+            ultraFastAccess[thisBiome.id] = thisBiome;
         }
     }
 
