@@ -16,6 +16,8 @@
  - - Make this biome the grasslands
 
 - desert biome
+
+- biomes in the list should be set in order in a fixed list
 >
 
 - Make the player the flare character cause that's probably the best thing to use right now
