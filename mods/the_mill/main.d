@@ -29,7 +29,9 @@ void theMillMain() {
 
     BiomeDefinition grassLands;
     grassLands.name = "grass lands";
-    grassLands.groundLayerTiles = ["grass", "dirt", "stone"];
+    grassLands.groundLayerTiles = [
+        "endless:grass", "endless:dirt", "endless:stone"
+    ];
 
     BiomeDatabase.registerBiome(grassLands);
 
