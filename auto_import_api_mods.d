@@ -100,6 +100,8 @@ void main() {
                         }
                     }
                 }
+
+                configurationList ~= thisConfig;
             } catch (Exception e) {
                 throw new Error(target ~ " | Missing mod.conf");
             }
@@ -196,8 +198,10 @@ void main() {
                 // Wrap the main function deployment in a function.
                 newFileData ~= "void deployMainFunctions() {";
 
-                // Here we insert the functions.
-                foreach (func; mainFunctionList) {
+                // Here we insert the functions and mod configuration automation.
+                foreach (index, func; mainFunctionList) {
+                    ModConfig thisConfig = configurationList[index];
+                    newFileData ~= "    " ~ "setModName(\"" ~ thisConfig.modName ~ "\");";
                     newFileData ~= "    " ~ func ~ "();";
                 }
 
