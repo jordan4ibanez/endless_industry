@@ -50,19 +50,19 @@ public: //* BEGIN PUBLIC API.
     void draw() {
 
         //? Screen draws, bottom left to top right.
-        int windowWidth = Window.getWidth();
-        int windowHeight = Window.getHeight();
+        const int windowWidth = Window.getWidth();
+        const int windowHeight = Window.getHeight();
 
-        Vec2d bottomLeft = CameraHandler.screenToWorld(0, 0);
-        Vec2d topRight = CameraHandler.screenToWorld(windowWidth, windowHeight);
+        const Vec2d bottomLeft = CameraHandler.screenToWorld(0, 0);
+        const Vec2d topRight = CameraHandler.screenToWorld(windowWidth, windowHeight);
 
-        int minX = cast(int) floor(bottomLeft.x);
-        int minY = cast(int) floor(bottomLeft.y);
-        int maxX = cast(int) floor(topRight.x);
-        int maxY = cast(int) floor(topRight.y);
+        const int minX = cast(int) floor(bottomLeft.x);
+        const int minY = cast(int) floor(bottomLeft.y);
+        const int maxX = cast(int) floor(topRight.x);
+        const int maxY = cast(int) floor(topRight.y);
 
-        Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
-        Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
+        const Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
+        const Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
 
         //? This needs to be dynamic so it can support 8k+ displays.
         //? I do not have an 8k display to test this though. :(
