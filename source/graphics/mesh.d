@@ -80,8 +80,8 @@ public: //* BEGIN PUBLIC API.
 
         thisMesh.vertexCount = cast(int) verticesLength / 2;
         thisMesh.triangleCount = thisMesh.vertexCount / 2;
-        thisMesh.texcoords = textureCoords;
         thisMesh.vertices = verticesAndTextureCoordinates;
+        thisMesh.texcoords = textureCoords;
         thisMesh.indices = indices;
 
         uploadMeshIntoGPU(&thisMesh, false);
