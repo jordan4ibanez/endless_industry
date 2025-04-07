@@ -9,9 +9,9 @@ private:
 
     Shader[string] database;
 
-    //* BEGIN PUBLIC API.
+public: //* BEGIN PUBLIC API.
 
-    public void newShader(string shaderName, string vertCodeLocation, string fragCodeLocation) {
+    void newShader(string shaderName, string vertCodeLocation, string fragCodeLocation) {
         if (shaderName in database) {
             throw new Error("[ShaderHandler]: Tried to overwrite shader " ~ shaderName);
         }
@@ -26,7 +26,7 @@ private:
         database[shaderName] = thisShader;
     }
 
-    public int getUniformLocation(string shaderName, string uniformName) {
+    int getUniformLocation(string shaderName, string uniformName) {
         if (shaderName !in database) {
             throw new Error(
                 "[ShaderHandler]: Tried to get non-existent shader. " ~ shaderName);
@@ -42,7 +42,7 @@ private:
         return val;
     }
 
-    public Shader* getShaderPointer(string shaderName) {
+    Shader* getShaderPointer(string shaderName) {
         Shader* thisShader = shaderName in database;
         if (thisShader is null) {
             throw new Error(
@@ -51,7 +51,7 @@ private:
         return thisShader;
     }
 
-    public void setUniformFloat(string shaderName, int location, float value) {
+    void setUniformFloat(string shaderName, int location, float value) {
         Shader* thisShader = shaderName in database;
         if (thisShader is null) {
             throw new Error(
@@ -62,7 +62,7 @@ private:
             ShaderUniformDataType.SHADER_UNIFORM_FLOAT);
     }
 
-    public void setUniformInt(string shaderName, int location, int value) {
+    void setUniformInt(string shaderName, int location, int value) {
         Shader* thisShader = shaderName in database;
         if (thisShader is null) {
             throw new Error(
@@ -73,7 +73,7 @@ private:
             ShaderUniformDataType.SHADER_UNIFORM_INT);
     }
 
-    public void terminate() {
+    void terminate() {
         foreach (shaderName, thisShader; database) {
             UnloadShader(thisShader);
         }
