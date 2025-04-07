@@ -1,7 +1,7 @@
 #version 330
 
 // Input vertex attributes
-in vec3 vertexPosition;
+in vec2 vertexPosition;
 in vec2 vertexTexCoord;
 in vec3 vertexNormal;
 in vec4 vertexColor;
@@ -22,5 +22,5 @@ void main()
     fragColor = vertexColor;
 
     // Calculate final vertex position
-    gl_Position = mvp*vec4(vertexPosition, 1.0);
+    gl_Position = mvp*vec4(vertexPosition, 0.0, 1.0);
 }
