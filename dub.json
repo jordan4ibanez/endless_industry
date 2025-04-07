@@ -6,9 +6,14 @@
 	"dependencies": {
 		"fast_noise": "~>1.0.5",
 		"fast_pack": "~>5.0.1",
+		"optibrev": "~>0.0.3",
 		"raylib-d": "~>5.5.1"
 	},
 	"description": "A tile thing",
+	"importPaths": [
+		"source",
+		"mods"
+	],
 	"lflags-linux": [
 		"-rpath=$$ORIGIN"
 	],
@@ -24,15 +29,11 @@
 	],
 	"license": "GPL-3.0-or-later",
 	"name": "endless_industry",
-	"importPaths": [
-		"source",
-		"mods"
+	"preGenerateCommands": [
+		"ldc2 --run auto_import_api_mods.d"
 	],
 	"sourcePaths": [
 		"source",
 		"mods"
-	],
-	"preGenerateCommands": [
-		"ldc2 --run auto_import_api_mods.d"
 	]
 }
