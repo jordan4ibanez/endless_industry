@@ -233,7 +233,7 @@ private: //* BEGIN INTERNAL API.
                 import std.bitmanip;
                 import std.conv;
 
-                struct WaterResult {
+                struct LandResult {
                     mixin(bitfields!(
                             ubyte, "left", 1,
                             ubyte, "up", 1,
@@ -252,28 +252,28 @@ private: //* BEGIN INTERNAL API.
                             x + basePositionX) * 10, (
                             y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
 
-                    WaterResult localWaters;
+                    LandResult localLand;
 
                     // It is literally faster to cache this calculation in the CPU than it is to check the map.
                     //? Simulate neighbors.
                     {
-                        localWaters.left = clamp((fnlGetNoise2D(&noise, (x + basePositionX - 1) * waterFrequency, (
+                        localLand.left = clamp((fnlGetNoise2D(&noise, (x + basePositionX - 1) * waterFrequency, (
                                 y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
-                        localWaters.up = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
+                        localLand.up = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
                                 y + basePositionY + 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
-                        localWaters.right = clamp((fnlGetNoise2D(&noise, (x + basePositionX + 1) * waterFrequency, (
+                        localLand.right = clamp((fnlGetNoise2D(&noise, (x + basePositionX + 1) * waterFrequency, (
                                 y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
-                        localWaters.down = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
+                        localLand.down = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
                                 y + basePositionY - 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
                     }
 
-                    // 15 means that it's fully surrounded by water.
+                    // 0 means that it's fully surrounded by water.
                     //! This probably does not work on ARM. Endian might be different.
-                    if (*cast(ubyte*)&localWaters == 15) {
+                    if (*cast(ubyte*)&localLand == 0) {
                         const ulong _baseWaterSelection = cast(ulong) floor(
                             numberOfWaterTiles * _selectedWaterNoise);
 
@@ -289,11 +289,11 @@ private: //* BEGIN INTERNAL API.
 
                         const string thisTile = "endless_industry.water_"
                             ~ to!string(
-                                localWaters.left) ~ "_"
-                            ~ to!string(localWaters.up) ~ "_"
+                                localLand.left) ~ "_"
+                            ~ to!string(localLand.up) ~ "_"
                             ~ to!string(
-                                localWaters.right) ~ "_"
-                            ~ to!string(localWaters.down);
+                                localLand.right) ~ "_"
+                            ~ to!string(localLand.down);
 
                         // writeln(thisTile);
 
