@@ -70,7 +70,7 @@ public: //* BEGIN PUBLIC API.
 
         Mesh thisMesh = Mesh();
 
-        thisMesh.vertexCount = cast(int) verticesLength / 3;
+        thisMesh.vertexCount = cast(int) verticesLength / 2;
         thisMesh.triangleCount = thisMesh.vertexCount / 3;
         thisMesh.vertices = vertices;
         thisMesh.texcoords = textureCoordinates;
