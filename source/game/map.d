@@ -342,9 +342,9 @@ private: //* BEGIN INTERNAL API.
         const VERTEX_LENGTH = 12 * (CHUNK_WIDTH * CHUNK_WIDTH);
 
         float* vertices = cast(float*) GC.malloc(float.sizeof * 12 * (CHUNK_WIDTH * CHUNK_WIDTH));
-        ulong index = 0;
         float* textureCoordinates = cast(float*) GC.malloc(
             float.sizeof * 12 * (CHUNK_WIDTH * CHUNK_WIDTH));
+        ulong index = 0;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
