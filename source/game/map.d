@@ -6,7 +6,7 @@ import fast_noise;
 import game.biome_database;
 import game.tile_database;
 import graphics.camera_handler;
-import graphics.model;
+import graphics.mesh;
 import graphics.render;
 import graphics.texture_handler;
 import graphics.window;
