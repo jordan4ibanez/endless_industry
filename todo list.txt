@@ -10,6 +10,8 @@ Later:
 
 - ores but baked into the ground via the biome
 
+- greedy meshing
+
 <
 
 - Find a nice tileset on opengameart
