@@ -78,7 +78,6 @@ void endlessIndustryMain() {
     */
 
     string[] waterCorners = [
-        "0_0_0_0",
         "1_0_0_0",
         "0_1_0_0",
         "1_1_0_0",
@@ -92,7 +91,8 @@ void endlessIndustryMain() {
         "1_1_0_1",
         "0_0_1_1",
         "1_0_1_1",
-        "0_1_1_1"
+        "0_1_1_1",
+        "1_1_1_1"
     ];
 
     foreach (identifier; waterCorners) {
@@ -104,7 +104,6 @@ void endlessIndustryMain() {
     }
 
     grassLands.waterLayerCornerTiles = [
-        "endless_industry.water_0_0_0_0",
         "endless_industry.water_1_0_0_0",
         "endless_industry.water_0_1_0_0",
         "endless_industry.water_1_1_0_0",
@@ -118,7 +117,8 @@ void endlessIndustryMain() {
         "endless_industry.water_1_1_0_1",
         "endless_industry.water_0_0_1_1",
         "endless_industry.water_1_0_1_1",
-        "endless_industry.water_0_1_1_1"
+        "endless_industry.water_0_1_1_1",
+        "endless_industry.water_1_1_1_1",
     ];
 
     BiomeDatabase.registerBiome(grassLands);
