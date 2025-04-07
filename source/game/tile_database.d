@@ -54,7 +54,7 @@ public: //* BEGIN PUBLIC API.
 
         if (!TextureHandler.hasTexture(newTile.texture)) {
             throw new Error(
-                "Texture " ~ newTile.texture ~ "for tile " ~ newTile.name ~ " does not exist");
+                "Texture " ~ newTile.texture ~ " for tile " ~ newTile.name ~ " does not exist");
         }
 
         // Now inject the modname prefix into the biome name.
