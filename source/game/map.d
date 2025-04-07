@@ -341,12 +341,15 @@ private: //* BEGIN INTERNAL API.
 
         // Note: This is vertex and texture coordinate data interlaced together.
 
-        const VERTEX_LENGTH = 24 * (CHUNK_WIDTH * CHUNK_WIDTH);
+        const VERTEX_LENGTH = 16 * (CHUNK_WIDTH * CHUNK_WIDTH);
+        const INDEX_LENGTH = 6 * (CHUNK_WIDTH * CHUNK_WIDTH);
 
-        float* verticesANDTextureCoord = cast(float*) GC.malloc(
-            float.sizeof * 24 * (CHUNK_WIDTH * CHUNK_WIDTH));
+        float* verticesANDTextureCoord = cast(float*) GC.malloc(float.sizeof * VERTEX_LENGTH);
+        ulong vertAndTexIndex = 0;
 
-        ulong index = 0;
+        ushort* indices = cast(ushort*) GC.malloc(ushort.sizeof * INDEX_LENGTH);
+        ulong indicesIndex = 0;
+        ushort vertexPosCount = 0;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
@@ -360,47 +363,50 @@ private: //* BEGIN INTERNAL API.
 
                 static immutable triCompletion = 1.00075;
 
-                // Tri 1.
-                verticesANDTextureCoord[0 + index] = x;
-                verticesANDTextureCoord[1 + index] = y;
-                verticesANDTextureCoord[2 + index] = tPoints.topLeft.x;
-                verticesANDTextureCoord[3 + index] = tPoints.topLeft.y;
+                // Quad.
 
-                verticesANDTextureCoord[4 + index] = x;
-                verticesANDTextureCoord[5 + index] = y + triCompletion;
-                verticesANDTextureCoord[6 + index] = tPoints.bottomLeft.x;
-                verticesANDTextureCoord[7 + index] = tPoints.bottomLeft.y;
+                verticesANDTextureCoord[0 + vertAndTexIndex] = x;
+                verticesANDTextureCoord[1 + vertAndTexIndex] = y;
+                verticesANDTextureCoord[2 + vertAndTexIndex] = tPoints.topLeft.x;
+                verticesANDTextureCoord[3 + vertAndTexIndex] = tPoints.topLeft.y;
 
-                verticesANDTextureCoord[8 + index] = x + triCompletion;
-                verticesANDTextureCoord[9 + index] = y + triCompletion;
-                verticesANDTextureCoord[10 + index] = tPoints.bottomRight.x;
-                verticesANDTextureCoord[11 + index] = tPoints.bottomRight.y;
+                verticesANDTextureCoord[4 + vertAndTexIndex] = x;
+                verticesANDTextureCoord[5 + vertAndTexIndex] = y + triCompletion;
+                verticesANDTextureCoord[6 + vertAndTexIndex] = tPoints.bottomLeft.x;
+                verticesANDTextureCoord[7 + vertAndTexIndex] = tPoints.bottomLeft.y;
 
-                // Tri 2.
+                verticesANDTextureCoord[8 + vertAndTexIndex] = x + triCompletion;
+                verticesANDTextureCoord[9 + vertAndTexIndex] = y + triCompletion;
+                verticesANDTextureCoord[10 + vertAndTexIndex] = tPoints.bottomRight.x;
+                verticesANDTextureCoord[11 + vertAndTexIndex] = tPoints.bottomRight.y;
 
-                verticesANDTextureCoord[12 + index] = x + triCompletion;
-                verticesANDTextureCoord[13 + index] = y + triCompletion;
-                verticesANDTextureCoord[14 + index] = tPoints.bottomRight.x;
-                verticesANDTextureCoord[15 + index] = tPoints.bottomRight.y;
+                verticesANDTextureCoord[12 + vertAndTexIndex] = x + triCompletion;
+                verticesANDTextureCoord[13 + vertAndTexIndex] = y;
+                verticesANDTextureCoord[14 + vertAndTexIndex] = tPoints.topRight.x;
+                verticesANDTextureCoord[15 + vertAndTexIndex] = tPoints.topRight.y;
 
-                verticesANDTextureCoord[16 + index] = x + triCompletion;
-                verticesANDTextureCoord[17 + index] = y;
-                verticesANDTextureCoord[18 + index] = tPoints.topRight.x;
-                verticesANDTextureCoord[19 + index] = tPoints.topRight.y;
+                vertAndTexIndex += 16;
 
-                verticesANDTextureCoord[20 + index] = x;
-                verticesANDTextureCoord[21 + index] = y;
-                verticesANDTextureCoord[22 + index] = tPoints.topLeft.x;
-                verticesANDTextureCoord[23 + index] = tPoints.topLeft.y;
+                indices[0 + indicesIndex] = cast(ushort)(0 + vertexPosCount);
+                indices[1 + indicesIndex] = cast(ushort)(1 + vertexPosCount);
+                indices[2 + indicesIndex] = cast(ushort)(2 + vertexPosCount);
+                indices[3 + indicesIndex] = cast(ushort)(2 + vertexPosCount);
+                indices[4 + indicesIndex] = cast(ushort)(3 + vertexPosCount);
+                indices[5 + indicesIndex] = cast(ushort)(0 + vertexPosCount);
 
-                index += 24;
+                vertexPosCount += 4;
+
+                indicesIndex += 6;
 
             }
         }
 
-        thisChunk.modelID = MeshHandler.generate(verticesANDTextureCoord, VERTEX_LENGTH);
+        writeln(vertexPosCount);
+
+        thisChunk.modelID = MeshHandler.generate(verticesANDTextureCoord, VERTEX_LENGTH, indices);
 
         GC.free(verticesANDTextureCoord);
+        GC.free(indices);
 
     }
 
