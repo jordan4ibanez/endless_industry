@@ -76,7 +76,7 @@ public: //* BEGIN PUBLIC API.
         thisMesh.vertices = vertices;
         thisMesh.texcoords = textureCoordinates;
 
-        UploadMesh(&thisMesh, false);
+        uploadMeshIntoGPU(&thisMesh, false);
 
         if (!thisMesh.vaoId < 0) {
             throw new Error("Invalid mesh. " ~ to!string(meshID));
@@ -185,7 +185,7 @@ public: //* BEGIN PUBLIC API.
         UnloadMesh(*thisMesh);
     }
 
-    void uploadMesh(Mesh* mesh, bool dynamic) {
+    void uploadMeshIntoGPU(Mesh* mesh, bool dynamic) {
         if (mesh.vaoId > 0) {
             // Check if mesh has already been loaded in GPU.
             throw new Error("VAO: Trying to re-load an already loaded mesh" ~ to!string(mesh.vaoId));
@@ -238,19 +238,21 @@ public: //* BEGIN PUBLIC API.
             rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR);
         }
 
-        // if (mesh.texcoords2 != null) {
-        //     // Enable vertex attribute: texcoord2 (shader-location = 5)
-        //     mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = rlLoadVertexBuffer(mesh.texcoords2, mesh
-        //             .vertexCount * 2 * sizeof(float), dynamic);
-        //     rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, 2, RL_FLOAT, 0, 0, 0);
-        //     rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
-        // } else {
-        //     // Default vertex attribute: texcoord2
-        //     // WARNING: Default value provided to shader if location available
-        //     float value[2] = {0.0f, 0.0f};
-        //     rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, value, SHADER_ATTRIB_VEC2, 2);
-        //     rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
-        // }
+        if (mesh.texcoords2 != null) {
+            // Enable vertex attribute: texcoord2 (shader-location = 5)
+            mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = rlLoadVertexBuffer(mesh.texcoords2, cast(
+                    int)(mesh
+                    .vertexCount * 2 * float.sizeof), dynamic);
+            rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, 2, RL_FLOAT, 0, 0, 0);
+            rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
+        } else {
+            // Default vertex attribute: texcoord2
+            // WARNING: Default value provided to shader if location available
+            float[2] value = [0.0f, 0.0f];
+            rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, &value, ShaderAttributeDataType
+                    .SHADER_ATTRIB_VEC2, 2);
+            rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
+        }
 
         // if (mesh.vaoId > 0)
         //     TRACELOG(LOG_INFO, "VAO: [ID %i] Mesh uploaded successfully to VRAM (GPU)", mesh.vaoId);
