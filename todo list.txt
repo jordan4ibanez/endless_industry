@@ -2,10 +2,6 @@
 
 - layers
 
-- water
-
-- some kind of extremely simple algorithm to make water border tiles
-
 
 
 Later:
