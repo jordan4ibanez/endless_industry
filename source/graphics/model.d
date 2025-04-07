@@ -18,6 +18,7 @@ private:
 
     int defaultShaderID = 0;
     int shaderColorDiffuseUniformLocation = 0;
+    int mvpUniformLocation = 0;
 
 public: //* BEGIN PUBLIC API.
 
@@ -25,12 +26,20 @@ public: //* BEGIN PUBLIC API.
         textureAtlas = TextureHandler.getAtlas();
         defaultShaderID = rlGetShaderIdDefault();
 
-        immutable(char)* blah = toStringz("colDiffuse");
-        shaderColorDiffuseUniformLocation = rlGetLocationUniform(defaultShaderID, blah);
-
-        if (shaderColorDiffuseUniformLocation <= 0) {
-            throw new Error("Something has gone wrong with uniform color diffuse");
+        // Color uniform.
+        immutable(char)* colDiffuse = toStringz("colDiffuse");
+        shaderColorDiffuseUniformLocation = rlGetLocationUniform(defaultShaderID, colDiffuse);
+        if (shaderColorDiffuseUniformLocation < 0) {
+            throw new Error("Something has gone wrong with uniform colDiffuse");
         }
+
+        // mvp uniform.
+        immutable(char)* mvp = toStringz("mvp");
+        mvpUniformLocation = rlGetLocationUniform(defaultShaderID, mvp);
+        if (mvpUniformLocation < 0) {
+            throw new Error("Something has gone wrong with uniform mvp");
+        }
+
     }
 
     int generate(float* vertices, const ulong verticesLength, float* textureCoordinates) {
@@ -59,8 +68,9 @@ public: //* BEGIN PUBLIC API.
         return modelID;
     }
 
+    pragma(inline, true);
     void draw(Vec2d position, int id) {
-        import std.datetime.stopwatch;
+        // import std.datetime.stopwatch;
 
         Model* thisModel = id in database;
 
@@ -71,37 +81,51 @@ public: //* BEGIN PUBLIC API.
 
         //! This part is absolutely depraved and you should look away.
 
-        auto sw = StopWatch(AutoStart.yes);
+        // auto sw = StopWatch(AutoStart.yes);
 
         // Manually inline the identity and translation and hope SIMD takes over.
-        Matrix matTransform;
-        matTransform.m0 = 1;
-        matTransform.m3 = position.x;
-        matTransform.m5 = 1;
-        matTransform.m7 = -position.y;
-        matTransform.m10 = 1;
-        matTransform.m15 = 1;
+        Matrix matScale = MatrixScale(1, 1, 1);
+        Matrix matTranslation = MatrixTranslate(position.x, -position.y, 0);
+        Matrix matTransform = MatrixMultiply(matScale, matTranslation);
+
+        Matrix transform = matTransform;
 
         rlEnableShader(defaultShaderID);
 
-        // Matrix matModel = MatrixIdentity();
-        // Matrix matView = rlGetMatrixModelview();
-        // Matrix matModelView = MatrixIdentity();
-        // Matrix matProjection = rlGetMatrixProjection();
+        static immutable float[4] COLOR_DATA = [1.0, 1.0, 1.0, 1.0];
+        static immutable int UNIFORM_DATA_TYPE = ShaderUniformDataType.SHADER_UNIFORM_VEC4;
 
-        // matModel = MatrixMultiply(matTransform, rlGetMatrixTransform());
+        rlSetUniform(shaderColorDiffuseUniformLocation, &COLOR_DATA, UNIFORM_DATA_TYPE, 1);
 
-        // DrawMesh(*thisModel.meshes, *thisModel.materials, matTransform);
+        rlActiveTextureSlot(0);
+        rlSetUniform(shaderColorDiffuseUniformLocation, null, ShaderUniformDataType.SHADER_UNIFORM_INT, 1);
+        rlEnableTexture(textureAtlas.id);
 
-        rlDisableShader();
+        rlEnableVertexArray(thisModel.meshes.vaoId);
 
-        // model.materials[model.meshMaterial[i]].maps[MATERIAL_MAP_DIFFUSE].color = color;
+        Matrix matModel = MatrixIdentity();
+        Matrix matView = rlGetMatrixModelview();
+        Matrix matModelView = MatrixIdentity();
+        Matrix matProjection = rlGetMatrixProjection();
 
-        // DrawModel(*thisModel, Vector3(position.x, -position.y, 0), 1, Colors.WHITE);
+        matModel = MatrixMultiply(transform, rlGetMatrixTransform());
 
-        long blah = sw.peek().total!"nsecs";
+        // Get model-view matrix
+        matModelView = MatrixMultiply(matModel, matView);
 
-        writeln("total: ", blah, "nsecs");
+        // Calculate model-view-projection matrix (MVP)
+        Matrix matModelViewProjection = MatrixIdentity();
+        matModelViewProjection = MatrixMultiply(matModelView, matProjection);
+
+        // Send combined model-view-projection matrix to shader
+        rlSetUniformMatrix(mvpUniformLocation, matModelViewProjection);
+
+        // Draw mesh
+
+        rlDrawVertexArray(0, thisModel.meshes.vertexCount);
+
+        rlDisableVertexArray();
+
     }
 
     void destroy(int id) {
