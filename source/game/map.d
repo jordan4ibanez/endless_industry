@@ -339,13 +339,12 @@ private: //* BEGIN INTERNAL API.
 
     void generateChunkMesh(ref Chunk thisChunk) {
 
-        const VERTEX_LENGTH = 18 * (CHUNK_WIDTH * CHUNK_WIDTH);
+        const VERTEX_LENGTH = 12 * (CHUNK_WIDTH * CHUNK_WIDTH);
 
-        float* vertices = cast(float*) GC.malloc(float.sizeof * 18 * (CHUNK_WIDTH * CHUNK_WIDTH));
-        ulong vertexIndex = 0;
+        float* vertices = cast(float*) GC.malloc(float.sizeof * 12 * (CHUNK_WIDTH * CHUNK_WIDTH));
+        ulong index = 0;
         float* textureCoordinates = cast(float*) GC.malloc(
             float.sizeof * 12 * (CHUNK_WIDTH * CHUNK_WIDTH));
-        ulong textureIndex = 0;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
@@ -358,57 +357,49 @@ private: //* BEGIN INTERNAL API.
                     thisTilePointer.texturePointsIndex);
 
                 // Tri 1.
-                vertices[0 + vertexIndex] = x;
-                vertices[1 + vertexIndex] = y;
-                vertices[2 + vertexIndex] = 0;
+                vertices[0 + index] = x;
+                vertices[1 + index] = y;
 
-                vertices[3 + vertexIndex] = x;
-                vertices[4 + vertexIndex] = y + 1;
-                vertices[5 + vertexIndex] = 0;
+                vertices[2 + index] = x;
+                vertices[3 + index] = y + 1;
 
-                vertices[6 + vertexIndex] = x + 1;
-                vertices[7 + vertexIndex] = y + 1;
-                vertices[8 + vertexIndex] = 0;
+                vertices[4 + index] = x + 1;
+                vertices[5 + index] = y + 1;
 
                 // Tri 2.
 
-                vertices[9 + vertexIndex] = x + 1;
-                vertices[10 + vertexIndex] = y + 1;
-                vertices[11 + vertexIndex] = 0;
+                vertices[6 + index] = x + 1;
+                vertices[7 + index] = y + 1;
 
-                vertices[12 + vertexIndex] = x + 1;
-                vertices[13 + vertexIndex] = y;
-                vertices[14 + vertexIndex] = 0;
+                vertices[8 + index] = x + 1;
+                vertices[9 + index] = y;
 
-                vertices[15 + vertexIndex] = x;
-                vertices[16 + vertexIndex] = y;
-                vertices[17 + vertexIndex] = 0;
+                vertices[10 + index] = x;
+                vertices[11 + index] = y;
 
                 // Tri 1.
 
-                textureCoordinates[0 + textureIndex] = tPoints.topLeft.x;
-                textureCoordinates[1 + textureIndex] = tPoints.topLeft.y;
+                textureCoordinates[0 + index] = tPoints.topLeft.x;
+                textureCoordinates[1 + index] = tPoints.topLeft.y;
 
-                textureCoordinates[2 + textureIndex] = tPoints.bottomLeft.x;
-                textureCoordinates[3 + textureIndex] = tPoints.bottomLeft.y;
+                textureCoordinates[2 + index] = tPoints.bottomLeft.x;
+                textureCoordinates[3 + index] = tPoints.bottomLeft.y;
 
-                textureCoordinates[4 + textureIndex] = tPoints.bottomRight.x;
-                textureCoordinates[5 + textureIndex] = tPoints.bottomRight.y;
+                textureCoordinates[4 + index] = tPoints.bottomRight.x;
+                textureCoordinates[5 + index] = tPoints.bottomRight.y;
 
                 // Tri 2.
 
-                textureCoordinates[6 + textureIndex] = tPoints.bottomRight.x;
-                textureCoordinates[7 + textureIndex] = tPoints.bottomRight.y;
+                textureCoordinates[6 + index] = tPoints.bottomRight.x;
+                textureCoordinates[7 + index] = tPoints.bottomRight.y;
 
-                textureCoordinates[8 + textureIndex] = tPoints.topRight.x;
-                textureCoordinates[9 + textureIndex] = tPoints.topRight.y;
+                textureCoordinates[8 + index] = tPoints.topRight.x;
+                textureCoordinates[9 + index] = tPoints.topRight.y;
 
-                textureCoordinates[10 + textureIndex] = tPoints.topLeft.x;
-                textureCoordinates[11 + textureIndex] = tPoints.topLeft.y;
+                textureCoordinates[10 + index] = tPoints.topLeft.x;
+                textureCoordinates[11 + index] = tPoints.topLeft.y;
 
-                vertexIndex += 18;
-
-                textureIndex += 12;
+                index += 12;
 
             }
         }
