@@ -121,14 +121,19 @@ public: //* BEGIN PUBLIC API.
 
         Matrix matView = rlGetMatrixModelview();
         Matrix matProjection = rlGetMatrixProjection();
+        Matrix matrixTransform = rlGetMatrixTransform();
 
-        matModel = MatrixMultiply(transform, rlGetMatrixTransform());
+        matModel = MatrixMultiply(transform, matrixTransform);
 
         // Get model-view matrix
         matModelView = MatrixMultiply(matModel, matView);
 
         // Calculate model-view-projection matrix (MVP)
-        Matrix matModelViewProjection = MatrixIdentity();
+        Matrix matModelViewProjection;
+        matModelViewProjection.m0 = 1;
+        matModelViewProjection.m5 = 1;
+        matModelViewProjection.m10 = 1;
+        matModelViewProjection.m15 = 1;
         matModelViewProjection = MatrixMultiply(matModelView, matProjection);
 
         // Send combined model-view-projection matrix to shader
