@@ -2,7 +2,7 @@
 
 // Input vertex attributes (from vertex shader)
 in vec2 fragTexCoord;
-in vec4 fragColor;
+// in vec4 fragColor;
 
 // Input uniform values
 uniform sampler2D texture0;
@@ -23,5 +23,5 @@ void main()
     // final color is the color from the texture 
     //    times the tint color (colDiffuse)
     //    times the fragment color (interpolated vertex color)
-    finalColor = texelColor*colDiffuse*fragColor;
+    finalColor = texelColor * colDiffuse; // * fragColor;
 }
