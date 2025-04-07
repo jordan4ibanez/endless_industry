@@ -43,7 +43,7 @@ private:
     Texture2D textureAtlas;
     Mesh[int] database;
 
-    int nextModelID = 1;
+    int nextMeshID = 1;
 
     int defaultShaderID = 0;
     int shaderColorDiffuseUniformLocation = 0;
@@ -76,8 +76,8 @@ public: //* BEGIN PUBLIC API.
     }
 
     int generate(float* vertices, const ulong verticesLength, float* textureCoordinates) {
-        int meshID = nextModelID;
-        nextModelID++;
+        int meshID = nextMeshID;
+        nextMeshID++;
 
         Mesh thisMesh = Mesh();
 
@@ -89,7 +89,7 @@ public: //* BEGIN PUBLIC API.
         UploadMesh(&thisMesh, false);
 
         if (!thisMesh.vaoId < 0) {
-            throw new Error("[ModelHandler]: Invalid mesh. " ~ to!string(meshID));
+            throw new Error("Invalid mesh. " ~ to!string(meshID));
         }
 
         database[meshID] = thisMesh;
@@ -123,7 +123,7 @@ public: //* BEGIN PUBLIC API.
 
         if (thisMesh is null) {
             throw new Error("This is quite a strange crash. " ~
-                    "This means that this thing had a model that didn't exist assigned to it.");
+                    "This means that this thing had a mesh that didn't exist assigned to it.");
         }
 
         //! This part is absolutely depraved and you should look away.
@@ -189,7 +189,7 @@ public: //* BEGIN PUBLIC API.
 
         if (thisMesh is null) {
             throw new Error(
-                "[ModelManager]: Tried to destroy non-existent model. " ~ to!string(id));
+                "Tried to destroy non-existent mesh. " ~ to!string(id));
         }
 
         UnloadMesh(*thisMesh);
