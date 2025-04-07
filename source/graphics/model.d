@@ -68,6 +68,20 @@ public: //* BEGIN PUBLIC API.
         return modelID;
     }
 
+    pragma(inline, true)
+    void prepareAtlasDrawing() {
+        rlEnableShader(defaultShaderID);
+
+        static immutable float[4] COLOR_DATA = [1.0, 1.0, 1.0, 1.0];
+        static immutable int UNIFORM_DATA_TYPE = ShaderUniformDataType.SHADER_UNIFORM_VEC4;
+
+        rlSetUniform(shaderColorDiffuseUniformLocation, &COLOR_DATA, UNIFORM_DATA_TYPE, 1);
+
+        rlActiveTextureSlot(0);
+        rlSetUniform(shaderColorDiffuseUniformLocation, null, ShaderUniformDataType.SHADER_UNIFORM_INT, 1);
+        rlEnableTexture(textureAtlas.id);
+    }
+
     pragma(inline, true);
     void draw(Vec2d position, int id) {
         import std.datetime.stopwatch;
@@ -93,19 +107,6 @@ public: //* BEGIN PUBLIC API.
         transform.m14 = 0;
         transform.m15 = 1;
 
-        rlEnableShader(defaultShaderID);
-
-        static immutable float[4] COLOR_DATA = [1.0, 1.0, 1.0, 1.0];
-        static immutable int UNIFORM_DATA_TYPE = ShaderUniformDataType.SHADER_UNIFORM_VEC4;
-
-        rlSetUniform(shaderColorDiffuseUniformLocation, &COLOR_DATA, UNIFORM_DATA_TYPE, 1);
-
-        rlActiveTextureSlot(0);
-        rlSetUniform(shaderColorDiffuseUniformLocation, null, ShaderUniformDataType.SHADER_UNIFORM_INT, 1);
-        rlEnableTexture(textureAtlas.id);
-
-        rlEnableVertexArray(thisModel.meshes.vaoId);
-
         Matrix matModel = MatrixIdentity();
         Matrix matView = rlGetMatrixModelview();
         Matrix matModelView = MatrixIdentity();
@@ -123,6 +124,7 @@ public: //* BEGIN PUBLIC API.
         // Send combined model-view-projection matrix to shader
         rlSetUniformMatrix(mvpUniformLocation, matModelViewProjection);
 
+        rlEnableVertexArray(thisModel.meshes.vaoId);
         rlDrawVertexArray(0, thisModel.meshes.vertexCount);
 
         // rlDisableVertexArray();
