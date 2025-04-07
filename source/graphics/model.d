@@ -5,6 +5,7 @@ import graphics.texture_handler;
 import math.vec2d;
 import std.conv;
 import std.stdio;
+import std.string;
 
 static final const class ModelHandler {
 static:
@@ -14,13 +15,22 @@ private:
     Model[int] database;
 
     int nextModelID = 1;
+
     int defaultShaderID = 0;
+    int shaderColorDiffuseUniformLocation = 0;
 
 public: //* BEGIN PUBLIC API.
 
     void initialize() {
         textureAtlas = TextureHandler.getAtlas();
         defaultShaderID = rlGetShaderIdDefault();
+
+        immutable(char)* blah = toStringz("colDiffuse");
+        shaderColorDiffuseUniformLocation = rlGetLocationUniform(defaultShaderID, blah);
+
+        if (shaderColorDiffuseUniformLocation <= 0) {
+            throw new Error("Something has gone wrong with uniform color diffuse");
+        }
     }
 
     int generate(float* vertices, const ulong verticesLength, float* textureCoordinates) {
