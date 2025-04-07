@@ -77,11 +77,31 @@ void endlessIndustryMain() {
 
     */
 
-    TileDefinition water0001;
-    water0001.name = "water_0_0_0_1";
-    water0001.texture = "water_0_0_0_1.png";
-    TileDatabase.registerTile(water0001);
+    string[] waterCorners = [
+        "0_0_0_0",
+        "1_0_0_0",
+        "0_1_0_0",
+        "1_1_0_0",
+        "0_0_1_0",
+        "1_0_1_0",
+        "0_1_1_0",
+        "1_1_1_0",
+        "0_0_0_1",
+        "1_0_0_1",
+        "0_1_0_1",
+        "1_1_0_1",
+        "0_0_1_1",
+        "1_0_1_1",
+        "0_1_1_1"
+    ];
 
+    foreach (identifier; waterCorners) {
+
+        TileDefinition aCornerTile;
+        aCornerTile.name = "water_" ~ identifier;
+        aCornerTile.texture = "water_" ~ identifier ~ ".png";
+        TileDatabase.registerTile(aCornerTile);
+    }
 
     grassLands.waterLayerCornerTiles = [
         "endless_industry.water_0_0_0_0",
