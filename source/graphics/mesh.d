@@ -209,7 +209,8 @@ public: //* BEGIN PUBLIC API.
         // Enable vertex attributes: position (shader-location = 0)
         void* vertices = (mesh.animVertices != null) ? mesh.animVertices : mesh.vertices;
 
-        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION] = rlLoadVertexBuffer(vertices, mesh.vertexCount * 2 * float.sizeof, dynamic);
+        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION] = rlLoadVertexBuffer(vertices, cast(
+                int)(mesh.vertexCount * 2 * float.sizeof), dynamic);
         rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION, 3, RL_FLOAT, 0, 0, 0);
         rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION);
 
