@@ -222,21 +222,6 @@ public: //* BEGIN PUBLIC API.
         // WARNING: When setting default vertex attribute values, the values for each generic vertex attribute
         // is part of current state, and it is maintained even if a different program object is used
 
-        if (mesh.normals != null) {
-            // Enable vertex attributes: normals (shader-location = 2)
-            void* normals = (mesh.animNormals != null) ? mesh.animNormals : mesh.normals;
-            mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_NORMAL] = rlLoadVertexBuffer(normals, mesh.vertexCount * 3 * sizeof(
-                    float), dynamic);
-            rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_NORMAL, 3, RL_FLOAT, 0, 0, 0);
-            rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_NORMAL);
-        } else {
-            // Default vertex attribute: normal
-            // WARNING: Default value provided to shader if location available
-            float value[3] = {0.0f, 0.0f, 1.0f};
-            rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_NORMAL, value, SHADER_ATTRIB_VEC3, 3);
-            rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_NORMAL);
-        }
-
         if (mesh.colors != null) {
             // Enable vertex attribute: color (shader-location = 3)
             mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR] = rlLoadVertexBuffer(mesh.colors, mesh.vertexCount * 4 * sizeof(
@@ -251,20 +236,6 @@ public: //* BEGIN PUBLIC API.
             rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR);
         }
 
-        if (mesh.tangents != null) {
-            // Enable vertex attribute: tangent (shader-location = 4)
-            mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TANGENT] = rlLoadVertexBuffer(mesh.tangents, mesh.vertexCount * 4 * sizeof(
-                    float), dynamic);
-            rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TANGENT, 4, RL_FLOAT, 0, 0, 0);
-            rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TANGENT);
-        } else {
-            // Default vertex attribute: tangent
-            // WARNING: Default value provided to shader if location available
-            float value[4] = {1.0f, 0.0f, 0.0f, 1.0f};
-            rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TANGENT, value, SHADER_ATTRIB_VEC4, 4);
-            rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TANGENT);
-        }
-
         if (mesh.texcoords2 != null) {
             // Enable vertex attribute: texcoord2 (shader-location = 5)
             mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = rlLoadVertexBuffer(mesh.texcoords2, mesh
@@ -277,11 +248,6 @@ public: //* BEGIN PUBLIC API.
             float value[2] = {0.0f, 0.0f};
             rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, value, SHADER_ATTRIB_VEC2, 2);
             rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
-        }
-
-        if (mesh.indices != null) {
-            mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_INDICES] = rlLoadVertexBufferElement(mesh.indices, mesh
-                    .triangleCount * 3 * sizeof(unsigned short), dynamic);
         }
 
         if (mesh.vaoId > 0)
