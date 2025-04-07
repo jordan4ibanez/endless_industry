@@ -75,13 +75,18 @@ public: //* BEGIN PUBLIC API.
                 Chunk* thisChunk = chunkID in database;
 
                 // Any chunks that don't exist get drawn as a blank chunk grid.
+                // if (thisChunk is null) {
+                //     Render.rectangleLines(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH),
+                //         Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors.WHITE, 0.75);
+                // } 
+
                 if (thisChunk is null) {
-                    Render.rectangleLines(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH),
-                        Vec2d(CHUNK_WIDTH, CHUNK_WIDTH), Colors.WHITE, 0.75);
-                } else {
-                    ModelHandler.draw(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH), thisChunk
-                            .modelID);
+                    continue;
                 }
+
+                ModelHandler.draw(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH), thisChunk
+                        .modelID);
+
             }
         }
     }
