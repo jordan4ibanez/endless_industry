@@ -253,6 +253,11 @@ public: //* BEGIN PUBLIC API.
         //     rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
         // }
 
+        // if (mesh.indices != null) {
+        //     mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_INDICES] = rlLoadVertexBufferElement(mesh.indices,
+        //         cast(int)(mesh.triangleCount * 2 * uint.sizeof), dynamic);
+        // }
+
         // if (mesh.vaoId > 0)
         //     TRACELOG(LOG_INFO, "VAO: [ID %i] Mesh uploaded successfully to VRAM (GPU)", mesh.vaoId);
         // else
