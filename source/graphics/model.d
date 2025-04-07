@@ -70,7 +70,7 @@ public: //* BEGIN PUBLIC API.
 
     pragma(inline, true);
     void draw(Vec2d position, int id) {
-        // import std.datetime.stopwatch;
+        import std.datetime.stopwatch;
 
         Model* thisModel = id in database;
 
@@ -81,7 +81,7 @@ public: //* BEGIN PUBLIC API.
 
         //! This part is absolutely depraved and you should look away.
 
-        // auto sw = StopWatch(AutoStart.yes);
+        auto sw = StopWatch(AutoStart.yes);
 
         // Manually inline the identity and translation and hope SIMD takes over.
         Matrix transform;
@@ -123,11 +123,13 @@ public: //* BEGIN PUBLIC API.
         // Send combined model-view-projection matrix to shader
         rlSetUniformMatrix(mvpUniformLocation, matModelViewProjection);
 
-        // Draw mesh
-
         rlDrawVertexArray(0, thisModel.meshes.vertexCount);
 
-        rlDisableVertexArray();
+        // rlDisableVertexArray();
+
+        long timeResult = sw.peek().total!"hnsecs";
+
+        writeln("total: ", timeResult / 10.0, " usecs");
 
     }
 
