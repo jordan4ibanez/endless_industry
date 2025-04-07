@@ -7,8 +7,9 @@ import std.conv;
 import std.stdio;
 import std.string;
 
+// In debug mode, this is slower.
+// In release mode, it consistently makes render time immeasurable.
 void fastMatrixMultiply(const Matrix* left, const Matrix* right, Matrix* result) {
-
     result.m0 = left.m0 * right.m0 + left.m1 * right.m4 + left.m2 * right.m8 + left.m3 * right.m12;
     result.m1 = left.m0 * right.m1 + left.m1 * right.m5 + left.m2 * right.m9 + left.m3 * right.m13;
     result.m2 = left.m0 * right.m2 + left.m1 * right.m6 + left.m2 * right.m10 + left.m3 * right.m14;
