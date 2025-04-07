@@ -1,4 +1,4 @@
-module graphics.model;
+module graphics.mesh;
 
 public import raylib;
 import graphics.texture_handler;
@@ -36,7 +36,7 @@ void fastMatrixMultiply(const Matrix* left, const Matrix* right, Matrix* result)
         .m15;
 }
 
-static final const class ModelHandler {
+static final const class MeshHandler {
 static:
 private:
 
