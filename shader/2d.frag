@@ -23,5 +23,5 @@ void main()
     // final color is the color from the texture 
     //    times the tint color (colDiffuse)
     //    times the fragment color (interpolated vertex color)
-    finalColor = texelColor * colDiffuse; // * fragColor;
+    finalColor = texelColor*colDiffuse;//*fragColor;
 }
