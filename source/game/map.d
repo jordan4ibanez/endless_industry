@@ -288,6 +288,8 @@ private: //* BEGIN INTERNAL API.
                     } else {
                         // Else, it is the edge of the water.
 
+                        // -1 because 0's bit data is on the previous section of this if statement.
+                        // So the selection has to be shifted back into 0 indexed.
                         thisChunk.data[x][y].tileID = availableWaterCornerTiles[(
                                 *cast(ubyte*)(&localLand)) - 1];
                     }
