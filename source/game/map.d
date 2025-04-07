@@ -64,10 +64,6 @@ public: //* BEGIN PUBLIC API.
         const Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
         const Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
 
-        //? This needs to be dynamic so it can support 8k+ displays.
-        //? I do not have an 8k display to test this though. :(
-        //* TODO: IN THE FUTURE: Preallocate this based on the biggest display. It will save GC resources.
-
         Vec2i chunkID;
 
         const(Chunk)* thisChunk;
