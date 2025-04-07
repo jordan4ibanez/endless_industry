@@ -221,6 +221,9 @@ private: //* BEGIN INTERNAL API.
         const int* availableWaterTiles = thisBiome.waterLayerIDs.ptr;
         const ulong numberOfWaterTiles = thisBiome.waterLayerIDs.length;
 
+        const int* availableWaterCornerTiles = thisBiome.waterLayerCornerIDs.ptr;
+        const ulong numberOfWaterCornerTiles = thisBiome.waterLayerCornerIDs.length;
+
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
