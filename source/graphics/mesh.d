@@ -124,7 +124,7 @@ public: //* BEGIN PUBLIC API.
 
         //! This part is absolutely depraved and you should look away.
 
-        auto sw = StopWatch(AutoStart.yes);
+        // auto sw = StopWatch(AutoStart.yes);
 
         // Manually inline the identity and translation and hope SIMD takes over.
         Matrix transform;
@@ -173,9 +173,9 @@ public: //* BEGIN PUBLIC API.
 
         // rlDisableVertexArray();
 
-        long timeResult = sw.peek().total!"hnsecs";
+        // long timeResult = sw.peek().total!"hnsecs";
 
-        writeln("total: ", timeResult / 10.0, " usecs");
+        // writeln("total: ", timeResult / 10.0, " usecs");
 
     }
 
