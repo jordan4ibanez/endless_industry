@@ -118,14 +118,21 @@ void endlessIndustryMain() {
     TileDatabase.registerTile(water1100);
 
     grassLands.waterLayerCornerTiles = [
-        "endless_industry.water_0_0_0_1",
-        "endless_industry.water_0_0_1_0",
-        "endless_industry.water_0_0_1_1",
-        "endless_industry.water_0_1_0_0",
-        "endless_industry.water_0_1_1_0",
+        "endless_industry.water_0_0_0_0",
         "endless_industry.water_1_0_0_0",
+        "endless_industry.water_0_1_0_0",
+        "endless_industry.water_1_1_0_0",
+        "endless_industry.water_0_0_1_0",
+        "endless_industry.water_1_0_1_0",
+        "endless_industry.water_0_1_1_0",
+        "endless_industry.water_1_1_1_0",
+        "endless_industry.water_0_0_0_1",
         "endless_industry.water_1_0_0_1",
-        "endless_industry.water_1_1_0_0"
+        "endless_industry.water_0_1_0_1",
+        "endless_industry.water_1_1_0_1",
+        "endless_industry.water_0_0_1_1",
+        "endless_industry.water_1_0_1_1",
+        "endless_industry.water_0_1_1_1"
     ];
 
     BiomeDatabase.registerBiome(grassLands);
