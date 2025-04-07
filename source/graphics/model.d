@@ -14,11 +14,13 @@ private:
     Model[int] database;
 
     int nextModelID = 1;
+    int defaultShaderID = 0;
 
 public: //* BEGIN PUBLIC API.
 
     void initialize() {
         textureAtlas = TextureHandler.getAtlas();
+        defaultShaderID = rlGetShaderIdDefault();
     }
 
     int generate(float* vertices, const ulong verticesLength, float* textureCoordinates) {
@@ -57,11 +59,20 @@ public: //* BEGIN PUBLIC API.
                     "This means that this thing had a model that didn't exist assigned to it.");
         }
 
+        //! This part is absolutely depraved and you should look away.
+
         auto sw = StopWatch(AutoStart.yes);
 
-        Matrix matTransform = MatrixTranslate(position.x, -position.y, 0);
+        // Manually inline the identity and translation and hope SIMD takes over.
+        Matrix matTransform;
+        matTransform.m0 = 1;
+        matTransform.m3 = position.x;
+        matTransform.m5 = 1;
+        matTransform.m7 = -position.y;
+        matTransform.m10 = 1;
+        matTransform.m15 = 1;
 
-        // rlEnableShader(thisModel.materials.shader.id);
+        rlEnableShader(defaultShaderID);
 
         // Matrix matModel = MatrixIdentity();
         // Matrix matView = rlGetMatrixModelview();
@@ -72,7 +83,7 @@ public: //* BEGIN PUBLIC API.
 
         // DrawMesh(*thisModel.meshes, *thisModel.materials, matTransform);
 
-        // rlDisableShader();
+        rlDisableShader();
 
         // model.materials[model.meshMaterial[i]].maps[MATERIAL_MAP_DIFFUSE].color = color;
 
