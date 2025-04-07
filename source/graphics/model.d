@@ -107,9 +107,19 @@ public: //* BEGIN PUBLIC API.
         transform.m14 = 0;
         transform.m15 = 1;
 
-        Matrix matModel = MatrixIdentity();
+        Matrix matModel;
+        matModel.m0 = 1;
+        matModel.m5 = 1;
+        matModel.m10 = 1;
+        matModel.m15 = 1;
+
+        Matrix matModelView;
+        matModelView.m0 = 1;
+        matModelView.m5 = 1;
+        matModelView.m10 = 1;
+        matModelView.m15 = 1;
+
         Matrix matView = rlGetMatrixModelview();
-        Matrix matModelView = MatrixIdentity();
         Matrix matProjection = rlGetMatrixProjection();
 
         matModel = MatrixMultiply(transform, rlGetMatrixTransform());
