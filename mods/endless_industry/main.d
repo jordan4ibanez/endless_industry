@@ -54,6 +54,29 @@ void endlessIndustryMain() {
         "endless_industry.water_2"
     ];
 
+    /*
+
+    ? Water Corner Tiles.
+
+    In a very specific binary order for allowing pointer arithmetic during terrain generation.
+    0_0_0_0
+    1_0_0_0
+    0_1_0_0
+    1_1_0_0
+    0_0_1_0
+    1_0_1_0
+    0_1_1_0
+    1_1_1_0
+    0_0_0_1
+    1_0_0_1
+    0_1_0_1
+    1_1_0_1
+    0_0_1_1
+    1_0_1_1
+    0_1_1_1
+
+    */
+
     TileDefinition water0001;
     water0001.name = "water_0_0_0_1";
     water0001.texture = "water_0_0_0_1.png";
@@ -94,13 +117,6 @@ void endlessIndustryMain() {
     water1100.texture = "water_1_1_0_0.png";
     TileDatabase.registerTile(water1100);
 
-    /*
-    In a very specific binary order for allowing bitshifting into an index during terrain generation.
-    ! WIP
-
-    0_0_0_1
-
-    */
     grassLands.waterLayerCornerTiles = [
         "endless_industry.water_0_0_0_1",
         "endless_industry.water_0_0_1_0",
