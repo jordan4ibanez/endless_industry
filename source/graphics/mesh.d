@@ -179,7 +179,7 @@ public: //* BEGIN PUBLIC API.
 
         long timeResult = sw.peek().total!"hnsecs";
 
-        writeln("total: ", timeResult / 10.0, " nsecs");
+        writeln("total: ", timeResult / 10.0, " usecs");
 
     }
 
