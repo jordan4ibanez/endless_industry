@@ -5,7 +5,7 @@ import graphics.texture_handler;
 import std.conv;
 import std.stdio;
 import std.string;
-import utility.option;
+import optibrev;
 
 struct TileDefinition {
     string name = null;

@@ -19,7 +19,7 @@ import std.math.algebraic;
 import std.math.rounding;
 import std.random;
 import std.stdio;
-import utility.option;
+import optibrev;
 
 //! NEVER CHANGE THIS!
 immutable public int CHUNK_WIDTH = 64;
