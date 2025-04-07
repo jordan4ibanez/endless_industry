@@ -48,6 +48,8 @@ public: //* BEGIN PUBLIC API.
     }
 
     void draw(Vec2d position, int id) {
+        import std.datetime.stopwatch;
+
         Model* thisModel = id in database;
 
         if (thisModel is null) {
@@ -55,7 +57,13 @@ public: //* BEGIN PUBLIC API.
                     "This means that this thing had a model that didn't exist assigned to it.");
         }
 
+        auto sw = StopWatch(AutoStart.yes);
+        
         DrawModel(*thisModel, Vector3(position.x, -position.y, 0), 1, Colors.WHITE);
+
+        long blah = sw.peek().total!"hnsecs";
+
+        writeln("total: ", blah, "hn");
     }
 
     void destroy(int id) {
