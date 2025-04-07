@@ -221,6 +221,8 @@ private: //* BEGIN INTERNAL API.
         generateChunkMesh(newChunk);
 
         database[chunkPosition] = newChunk;
+
+        database = database.rehash();
     }
 
     void generateChunkData(Vec2i chunkPosition, ref Chunk thisChunk) {
