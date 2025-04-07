@@ -65,16 +65,15 @@ public: //* BEGIN PUBLIC API.
         mvpUniformLocation = ShaderHandler.getUniformLocation("2d", "mvp");
     }
 
-    int generate(float* vertices, const ulong verticesLength, float* textureCoordinates) {
+    int generate(float* vertices, const ulong verticesLength) {
         int meshID = nextMeshID;
         nextMeshID++;
 
         Mesh thisMesh = Mesh();
 
-        thisMesh.vertexCount = cast(int) verticesLength / 2;
+        thisMesh.vertexCount = cast(int) verticesLength / 4;
         thisMesh.triangleCount = thisMesh.vertexCount / 3;
         thisMesh.vertices = vertices;
-        thisMesh.texcoords = textureCoordinates;
 
         uploadMeshIntoGPU(&thisMesh, false);
 
@@ -210,8 +209,8 @@ public: //* BEGIN PUBLIC API.
         void* vertices = (mesh.animVertices != null) ? mesh.animVertices : mesh.vertices;
 
         mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION] = rlLoadVertexBuffer(vertices, cast(
-                int)(mesh.vertexCount * 2 * float.sizeof), dynamic);
-        rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION, 2, RL_FLOAT, 0, 0, 0);
+                int)(mesh.vertexCount * 4 * float.sizeof), dynamic);
+        rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION, 4, RL_FLOAT, 0, 0, 0);
         rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION);
 
         // Enable vertex attributes: texcoords (shader-location = 1)
