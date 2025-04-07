@@ -71,6 +71,11 @@ public: //* BEGIN PUBLIC API.
         import std.datetime.stopwatch;
 
         // auto sw = StopWatch(AutoStart.yes);
+
+        Vec2d position;
+
+        ModelHandler.prepareAtlasDrawing();
+
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
                 chunkID.x = xReal;
@@ -88,7 +93,10 @@ public: //* BEGIN PUBLIC API.
                     continue;
                 }
 
-                ModelHandler.draw(Vec2d(xReal * CHUNK_WIDTH, (yReal + 1) * CHUNK_WIDTH), thisChunk
+                position.x = xReal * CHUNK_WIDTH;
+                position.y = (yReal + 1) * CHUNK_WIDTH;
+
+                ModelHandler.draw(position, thisChunk
                         .modelID);
 
             }
