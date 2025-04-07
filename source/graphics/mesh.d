@@ -72,8 +72,9 @@ public: //* BEGIN PUBLIC API.
 
         Mesh thisMesh = Mesh();
 
-        thisMesh.vertexCount = cast(int) verticesLength / 4;
+        thisMesh.vertexCount = cast(int) verticesLength / 2;
         thisMesh.triangleCount = thisMesh.vertexCount / 2;
+
         thisMesh.vertices = verticesAndTextureCoordinates;
         thisMesh.indices = indices;
 
