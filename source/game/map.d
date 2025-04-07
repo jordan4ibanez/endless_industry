@@ -68,6 +68,9 @@ public: //* BEGIN PUBLIC API.
 
         const(Chunk)* thisChunk;
 
+        import std.datetime.stopwatch;
+
+        // auto sw = StopWatch(AutoStart.yes);
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
                 chunkID.x = xReal;
@@ -90,6 +93,10 @@ public: //* BEGIN PUBLIC API.
 
             }
         }
+
+        // long blah = sw.peek().total!"hnsecs";
+
+        // writeln("total: ", blah / 10.0, " usecs");
     }
 
     Vec2i calculateChunkAtWorldPosition(Vec2d position) {
