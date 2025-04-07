@@ -41,7 +41,7 @@ static:
 private:
 
     Texture2D textureAtlas;
-    Model[int] database;
+    Mesh[int] database;
 
     int nextModelID = 1;
 
@@ -76,7 +76,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     int generate(float* vertices, const ulong verticesLength, float* textureCoordinates) {
-        int modelID = nextModelID;
+        int meshID = nextModelID;
         nextModelID++;
 
         Mesh thisMesh = Mesh();
@@ -88,17 +88,13 @@ public: //* BEGIN PUBLIC API.
 
         UploadMesh(&thisMesh, false);
 
-        Model thisModel = Model();
-        thisModel = LoadModelFromMesh(thisMesh);
-        if (!IsModelValid(thisModel)) {
-            throw new Error("[ModelHandler]: Invalid model loaded from mesh. " ~ to!string(modelID));
+        if (!thisMesh.vaoId < 0) {
+            throw new Error("[ModelHandler]: Invalid mesh. " ~ to!string(meshID));
         }
 
-        thisModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = textureAtlas;
+        database[meshID] = thisMesh;
 
-        database[modelID] = thisModel;
-
-        return modelID;
+        return meshID;
     }
 
     pragma(inline, true)
@@ -123,16 +119,16 @@ public: //* BEGIN PUBLIC API.
     void draw(Vec2d position, int id) {
         import std.datetime.stopwatch;
 
-        Model* thisModel = id in database;
+        Mesh* thisMesh = id in database;
 
-        if (thisModel is null) {
+        if (thisMesh is null) {
             throw new Error("This is quite a strange crash. " ~
                     "This means that this thing had a model that didn't exist assigned to it.");
         }
 
         //! This part is absolutely depraved and you should look away.
 
-        auto sw = StopWatch(AutoStart.yes);
+        // auto sw = StopWatch(AutoStart.yes);
 
         // Manually inline the identity and translation and hope SIMD takes over.
         Matrix transform;
@@ -172,14 +168,14 @@ public: //* BEGIN PUBLIC API.
         // Send combined model-view-projection matrix to shader
         rlSetUniformMatrix(mvpUniformLocation, matModelViewProjection);
 
-        rlEnableVertexArray(thisModel.meshes.vaoId);
-        rlDrawVertexArray(0, thisModel.meshes.vertexCount);
+        rlEnableVertexArray(thisMesh.vaoId);
+        rlDrawVertexArray(0, thisMesh.vertexCount);
 
         // rlDisableVertexArray();
 
-        long timeResult = sw.peek().total!"hnsecs";
+        // long timeResult = sw.peek().total!"hnsecs";
 
-        writeln("total: ", timeResult / 10.0, " usecs");
+        // writeln("total: ", timeResult / 10.0, " usecs");
 
     }
 
@@ -189,14 +185,14 @@ public: //* BEGIN PUBLIC API.
             return;
         }
 
-        Model* thisModel = id in database;
+        Mesh* thisMesh = id in database;
 
-        if (thisModel is null) {
+        if (thisMesh is null) {
             throw new Error(
                 "[ModelManager]: Tried to destroy non-existent model. " ~ to!string(id));
         }
 
-        UnloadModel(*thisModel);
+        UnloadMesh(*thisMesh);
     }
 
 }
