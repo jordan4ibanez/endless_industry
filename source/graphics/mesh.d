@@ -185,7 +185,7 @@ public: //* BEGIN PUBLIC API.
         UnloadMesh(*thisMesh);
     }
 
-    void UploadMesh(Mesh* mesh, bool dynamic) {
+    void uploadMesh(Mesh* mesh, bool dynamic) {
         if (mesh.vaoId > 0) {
             // Check if mesh has already been loaded in GPU.
             throw new Error("VAO: Trying to re-load an already loaded mesh" ~ to!string(mesh.vaoId));
@@ -195,14 +195,14 @@ public: //* BEGIN PUBLIC API.
 
         mesh.vboId = cast(uint*) GC.malloc(uint.sizeof * MAX_MESH_VERTEX_BUFFERS);
 
-        // mesh.vaoId = 0; // Vertex Array Object
-        // mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION] = 0; // Vertex buffer: positions
-        // mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD] = 0; // Vertex buffer: texcoords
-        // mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR] = 0; // Vertex buffer: colors
-        // mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = 0; // Vertex buffer: texcoords2
+        mesh.vaoId = 0; // Vertex Array Object
+        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION] = 0; // Vertex buffer: positions
+        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD] = 0; // Vertex buffer: texcoords
+        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR] = 0; // Vertex buffer: colors
+        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = 0; // Vertex buffer: texcoords2
 
-        // mesh.vaoId = rlLoadVertexArray();
-        // rlEnableVertexArray(mesh.vaoId);
+        mesh.vaoId = rlLoadVertexArray();
+        rlEnableVertexArray(mesh.vaoId);
 
         // // NOTE: Vertex attributes must be uploaded considering default locations points and available vertex data
 
