@@ -51,6 +51,15 @@ public: //* BEGIN PUBLIC API.
         return thisShader;
     }
 
+    int getShaderID(string shaderName) {
+        Shader* thisShader = shaderName in database;
+        if (thisShader is null) {
+            throw new Error(
+                "[ShaderHandler]: Tried to get non-existent shader pointer. " ~ shaderName);
+        }
+        return thisShader.id;
+    }
+
     void setUniformFloat(string shaderName, int location, float value) {
         Shader* thisShader = shaderName in database;
         if (thisShader is null) {
