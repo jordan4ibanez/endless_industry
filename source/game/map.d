@@ -74,7 +74,7 @@ public: //* BEGIN PUBLIC API.
 
         Vec2d position;
 
-        ModelHandler.prepareAtlasDrawing();
+        MeshHandler.prepareAtlasDrawing();
 
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
@@ -96,7 +96,7 @@ public: //* BEGIN PUBLIC API.
                 position.x = xReal * CHUNK_WIDTH;
                 position.y = (yReal + 1) * CHUNK_WIDTH;
 
-                ModelHandler.draw(position, thisChunk
+                MeshHandler.draw(position, thisChunk
                         .modelID);
 
             }
@@ -413,7 +413,7 @@ private: //* BEGIN INTERNAL API.
             }
         }
 
-        thisChunk.modelID = ModelHandler.generate(vertices, VERTEX_LENGTH, textureCoordinates);
+        thisChunk.modelID = MeshHandler.generate(vertices, VERTEX_LENGTH, textureCoordinates);
 
         GC.free(vertices);
         GC.free(textureCoordinates);
