@@ -188,11 +188,10 @@ public: //* BEGIN PUBLIC API.
 
     void UploadMesh(Mesh *mesh, bool dynamic)
 {
-    if (mesh->vaoId > 0)
+    if (mesh.vaoId > 0)
     {
-        // Check if mesh has already been loaded in GPU
-        TRACELOG(LOG_WARNING, "VAO: [ID %i] Trying to re-load an already loaded mesh", mesh->vaoId);
-        return;
+        // Check if mesh has already been loaded in GPU.
+        throw new Error("VAO: Trying to re-load an already loaded mesh" ~ to!string(mesh.vaoId));
     }
 
     mesh->vboId = (unsigned int *)RL_CALLOC(MAX_MESH_VERTEX_BUFFERS, sizeof(unsigned int));
