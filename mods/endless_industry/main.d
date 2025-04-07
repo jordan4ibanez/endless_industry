@@ -82,40 +82,6 @@ void endlessIndustryMain() {
     water0001.texture = "water_0_0_0_1.png";
     TileDatabase.registerTile(water0001);
 
-    TileDefinition water0010;
-    water0010.name = "water_0_0_1_0";
-    water0010.texture = "water_0_0_1_0.png";
-    TileDatabase.registerTile(water0010);
-
-    TileDefinition water0011;
-    water0011.name = "water_0_0_1_1";
-    water0011.texture = "water_0_0_1_1.png";
-    TileDatabase.registerTile(water0011);
-
-    TileDefinition water0100;
-    water0100.name = "water_0_1_0_0";
-    water0100.texture = "water_0_1_0_0.png";
-    TileDatabase.registerTile(water0100);
-
-    TileDefinition water0110;
-    water0110.name = "water_0_1_1_0";
-    water0110.texture = "water_0_1_1_0.png";
-    TileDatabase.registerTile(water0110);
-
-    TileDefinition water1000;
-    water1000.name = "water_1_0_0_0";
-    water1000.texture = "water_1_0_0_0.png";
-    TileDatabase.registerTile(water1000);
-
-    TileDefinition water1001;
-    water1001.name = "water_1_0_0_1";
-    water1001.texture = "water_1_0_0_1.png";
-    TileDatabase.registerTile(water1001);
-
-    TileDefinition water1100;
-    water1100.name = "water_1_1_0_0";
-    water1100.texture = "water_1_1_0_0.png";
-    TileDatabase.registerTile(water1100);
 
     grassLands.waterLayerCornerTiles = [
         "endless_industry.water_0_0_0_0",
