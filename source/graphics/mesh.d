@@ -1,6 +1,7 @@
 module graphics.mesh;
 
 public import raylib;
+import graphics.shader;
 import graphics.texture_handler;
 import math.vec2d;
 import std.conv;
@@ -45,7 +46,7 @@ private:
 
     int nextMeshID = 1;
 
-    int defaultShaderID = 0;
+    int mainShaderID = 0;
     int shaderColorDiffuseUniformLocation = 0;
     int mvpUniformLocation = 0;
 
@@ -57,22 +58,10 @@ public: //* BEGIN PUBLIC API.
 
     void initialize() {
         textureAtlas = TextureHandler.getAtlas();
-        defaultShaderID = rlGetShaderIdDefault();
 
-        // Color uniform.
-        immutable(char)* colDiffuse = toStringz("colDiffuse");
-        shaderColorDiffuseUniformLocation = rlGetLocationUniform(defaultShaderID, colDiffuse);
-        if (shaderColorDiffuseUniformLocation < 0) {
-            throw new Error("Something has gone wrong with uniform colDiffuse");
-        }
-
-        // mvp uniform.
-        immutable(char)* mvp = toStringz("mvp");
-        mvpUniformLocation = rlGetLocationUniform(defaultShaderID, mvp);
-        if (mvpUniformLocation < 0) {
-            throw new Error("Something has gone wrong with uniform mvp");
-        }
-
+        mainShaderID = ShaderHandler.getShaderID("2d");
+        shaderColorDiffuseUniformLocation = ShaderHandler.getUniformLocation("2d", "colDiffuse");
+        mvpUniformLocation = ShaderHandler.getUniformLocation("2d", "mvp");
     }
 
     int generate(float* vertices, const ulong verticesLength, float* textureCoordinates) {
@@ -99,7 +88,7 @@ public: //* BEGIN PUBLIC API.
 
     pragma(inline, true)
     void prepareAtlasDrawing() {
-        rlEnableShader(defaultShaderID);
+        rlEnableShader(mainShaderID);
 
         static immutable float[4] COLOR_DATA = [1.0, 1.0, 1.0, 1.0];
         static immutable int UNIFORM_DATA_TYPE = ShaderUniformDataType.SHADER_UNIFORM_VEC4;
