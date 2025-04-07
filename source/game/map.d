@@ -285,26 +285,6 @@ private: //* BEGIN INTERNAL API.
                     } else {
                         // Else, it is the edge of the water.
 
-                        //! FIXME: SLOW, HARDCODED IMPLEMENTATION!
-
-                        const string thisTile = "endless_industry.water_"
-                            ~ to!string(
-                                localLand.left) ~ "_"
-                            ~ to!string(localLand.up) ~ "_"
-                            ~ to!string(
-                                localLand.right) ~ "_"
-                            ~ to!string(localLand.down);
-
-                        // writeln(thisTile);
-
-                        if (TileDatabase.hasTileName(thisTile)) {
-                            thisChunk.data[x][y].tileID = TileDatabase.getTileByName(thisTile)
-                                .unwrap.id;
-                        } else {
-                            thisChunk.data[x][y].tileID = TileDatabase.getTileByName("endless_industry.water_0")
-                                .unwrap.id;
-                        }
-
                     }
 
                 } else {
