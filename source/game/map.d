@@ -288,6 +288,8 @@ private: //* BEGIN INTERNAL API.
                     } else {
                         // Else, it is the edge of the water.
 
+                        thisChunk.data[x][y].tileID = availableWaterCornerTiles[(
+                                *cast(ubyte*)(&localLand)) - 1];
                     }
 
                 } else {
