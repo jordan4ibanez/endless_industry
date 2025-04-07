@@ -66,7 +66,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     int generate(float* verticesAndTextureCoordinates, const ulong verticesLength,
-        ushort* indices) {
+        float* textureCoords, ushort* indices) {
         int meshID = nextMeshID;
         nextMeshID++;
 
@@ -74,7 +74,7 @@ public: //* BEGIN PUBLIC API.
 
         thisMesh.vertexCount = cast(int) verticesLength / 2;
         thisMesh.triangleCount = thisMesh.vertexCount / 2;
-
+        thisMesh.texcoords = textureCoords;
         thisMesh.vertices = verticesAndTextureCoordinates;
         thisMesh.indices = indices;
 
@@ -215,9 +215,15 @@ public: //* BEGIN PUBLIC API.
         void* vertices = (mesh.animVertices != null) ? mesh.animVertices : mesh.vertices;
 
         mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION] = rlLoadVertexBuffer(vertices, cast(
-                int)(mesh.vertexCount * 4 * float.sizeof), dynamic);
-        rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION, 4, RL_FLOAT, 0, 0, 0);
+                int)(mesh.vertexCount * 2 * float.sizeof), dynamic);
+        rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION, 2, RL_FLOAT, 0, 0, 0);
         rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION);
+
+        // Enable vertex attributes: texcoords (shader-location = 1)
+        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD] = rlLoadVertexBuffer(
+            mesh.texcoords, cast(int)(mesh.vertexCount * 2 * float.sizeof), dynamic);
+        rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD, 2, RL_FLOAT, 0, 0, 0);
+        rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD);
 
         // 3 points on each triangle.
         if (mesh.indices != null) {
@@ -228,12 +234,6 @@ public: //* BEGIN PUBLIC API.
     }
 
 }
-
-// Enable vertex attributes: texcoords (shader-location = 1)
-// mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD] = rlLoadVertexBuffer(
-//     mesh.texcoords, cast(int)(mesh.vertexCount * 2 * float.sizeof), dynamic);
-// rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD, 2, RL_FLOAT, 0, 0, 0);
-// rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD);
 
 // WARNING: When setting default vertex attribute values, the values for each generic vertex attribute
 // is part of current state, and it is maintained even if a different program object is used

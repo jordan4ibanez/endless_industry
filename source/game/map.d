@@ -341,11 +341,13 @@ private: //* BEGIN INTERNAL API.
 
         // Note: This is vertex and texture coordinate data interlaced together.
 
-        const VERTEX_LENGTH = 16 * (CHUNK_WIDTH * CHUNK_WIDTH);
+        const VERTEX_LENGTH = 8 * (CHUNK_WIDTH * CHUNK_WIDTH);
         const INDEX_LENGTH = 6 * (CHUNK_WIDTH * CHUNK_WIDTH);
 
-        float* verticesANDTextureCoord = cast(float*) GC.malloc(float.sizeof * VERTEX_LENGTH);
-        ulong vertAndTexIndex = 0;
+        float* vertices = cast(float*) GC.malloc(float.sizeof * VERTEX_LENGTH);
+        float* textureCoords = cast(float*) GC.malloc(float.sizeof * VERTEX_LENGTH);
+
+        ulong index = 0;
 
         ushort* indices = cast(ushort*) GC.malloc(ushort.sizeof * INDEX_LENGTH);
         ulong indicesIndex = 0;
@@ -365,27 +367,28 @@ private: //* BEGIN INTERNAL API.
 
                 // Quad.
 
-                verticesANDTextureCoord[0 + vertAndTexIndex] = x;
-                verticesANDTextureCoord[1 + vertAndTexIndex] = y;
-                verticesANDTextureCoord[2 + vertAndTexIndex] = tPoints.topLeft.x;
-                verticesANDTextureCoord[3 + vertAndTexIndex] = tPoints.topLeft.y;
+                vertices[0 + index] = x;
+                vertices[1 + index] = y;
+                vertices[2 + index] = x;
+                vertices[3 + index] = y + triCompletion;
+                vertices[4 + index] = x + triCompletion;
+                vertices[5 + index] = y + triCompletion;
+                vertices[6 + index] = x + triCompletion;
+                vertices[7 + index] = y;
 
-                verticesANDTextureCoord[4 + vertAndTexIndex] = x;
-                verticesANDTextureCoord[5 + vertAndTexIndex] = y + triCompletion;
-                verticesANDTextureCoord[6 + vertAndTexIndex] = tPoints.bottomLeft.x;
-                verticesANDTextureCoord[7 + vertAndTexIndex] = tPoints.bottomLeft.y;
+                // Texturing.
+                textureCoords[0 + index] = tPoints.topLeft.x;
+                textureCoords[1 + index] = tPoints.topLeft.y;
+                textureCoords[2 + index] = tPoints.bottomLeft.x;
+                textureCoords[3 + index] = tPoints.bottomLeft.y;
+                textureCoords[4 + index] = tPoints.bottomRight.x;
+                textureCoords[5 + index] = tPoints.bottomRight.y;
+                textureCoords[6 + index] = tPoints.topRight.x;
+                textureCoords[7 + index] = tPoints.topRight.y;
 
-                verticesANDTextureCoord[8 + vertAndTexIndex] = x + triCompletion;
-                verticesANDTextureCoord[9 + vertAndTexIndex] = y + triCompletion;
-                verticesANDTextureCoord[10 + vertAndTexIndex] = tPoints.bottomRight.x;
-                verticesANDTextureCoord[11 + vertAndTexIndex] = tPoints.bottomRight.y;
+                index += 8;
 
-                verticesANDTextureCoord[12 + vertAndTexIndex] = x + triCompletion;
-                verticesANDTextureCoord[13 + vertAndTexIndex] = y;
-                verticesANDTextureCoord[14 + vertAndTexIndex] = tPoints.topRight.x;
-                verticesANDTextureCoord[15 + vertAndTexIndex] = tPoints.topRight.y;
-
-                vertAndTexIndex += 16;
+                // Indices.
 
                 indices[0 + indicesIndex] = cast(ushort)(0 + vertexPosCount);
                 indices[1 + indicesIndex] = cast(ushort)(1 + vertexPosCount);
@@ -401,9 +404,10 @@ private: //* BEGIN INTERNAL API.
             }
         }
 
-        thisChunk.modelID = MeshHandler.generate(verticesANDTextureCoord, VERTEX_LENGTH, indices);
+        thisChunk.modelID = MeshHandler.generate(vertices, VERTEX_LENGTH, textureCoords, indices);
 
-        GC.free(verticesANDTextureCoord);
+        GC.free(vertices);
+        GC.free(textureCoords);
         GC.free(indices);
 
     }
