@@ -68,11 +68,16 @@ public: //* BEGIN PUBLIC API.
         //? I do not have an 8k display to test this though. :(
         //* TODO: IN THE FUTURE: Preallocate this based on the biggest display. It will save GC resources.
 
+        Vec2i chunkID;
+
+        const(Chunk)* thisChunk;
+
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
             foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
-                Vec2i chunkID = Vec2i(xReal, yReal);
+                chunkID.x = xReal;
+                chunkID.y = yReal;
 
-                Chunk* thisChunk = chunkID in database;
+                thisChunk = chunkID in database;
 
                 // Any chunks that don't exist get drawn as a blank chunk grid.
                 // if (thisChunk is null) {
