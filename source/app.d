@@ -8,6 +8,7 @@ import graphics.camera_handler;
 import graphics.font_handler;
 import graphics.mesh;
 import graphics.render;
+import graphics.shader;
 import graphics.texture_handler;
 import graphics.window;
 import math.vec2d;
@@ -35,6 +36,8 @@ void main() {
 	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
 	Window.initialize();
+
+	ShaderHandler.newShader("2d", "shader/2d.vert", "shader/2d.frag");
 
 	TextureHandler.initialize();
 
