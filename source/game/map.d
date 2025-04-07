@@ -13,13 +13,13 @@ import graphics.window;
 import math.rect;
 import math.vec2d;
 import math.vec2i;
+import optibrev;
 import std.algorithm.comparison;
 import std.conv;
 import std.math.algebraic;
 import std.math.rounding;
 import std.random;
 import std.stdio;
-import optibrev;
 
 //! NEVER CHANGE THIS!
 immutable public int CHUNK_WIDTH = 64;
