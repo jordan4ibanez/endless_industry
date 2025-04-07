@@ -196,6 +196,37 @@ public: //* BEGIN PUBLIC API.
         // UnloadMesh(*thisMesh);
     }
 
+    void unloadMeshFromGPU(Mesh mesh) {
+
+        // writeln("unloading mesh: ", mesh.vaoId);
+        // Unload rlgl mesh vboId data
+        rlUnloadVertexArray(mesh.vaoId);
+
+        const static ulong MAX_MESH_VERTEX_BUFFERS = 9;
+
+        if (mesh.vboId != null) {
+            for (int i = 0; i < MAX_MESH_VERTEX_BUFFERS; i++) {
+                rlUnloadVertexBuffer(mesh.vboId[i]);
+            }
+        }
+        GC.free(mesh.vboId);
+
+        GC.free(mesh.vertices);
+        GC.free(mesh.texcoords);
+        GC.free(mesh.normals);
+        GC.free(mesh.colors);
+        GC.free(mesh.tangents);
+        GC.free(mesh.texcoords2);
+        GC.free(mesh.indices);
+
+        GC.free(mesh.animVertices);
+        GC.free(mesh.animNormals);
+        GC.free(mesh.boneWeights);
+        GC.free(mesh.boneIds);
+        GC.free(mesh.boneMatrices);
+
+    }
+
     void uploadMeshIntoGPU(Mesh* mesh, bool dynamic) {
         if (mesh.vaoId > 0) {
             // Check if mesh has already been loaded in GPU.
