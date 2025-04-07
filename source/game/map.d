@@ -356,22 +356,24 @@ private: //* BEGIN INTERNAL API.
                 TexturePoints!Vec2d* tPoints = TextureHandler.getTexturePointsPointer(
                     thisTilePointer.texturePointsIndex);
 
+                static immutable triCompletion = 1.00075;
+
                 // Tri 1.
                 vertices[0 + index] = x;
                 vertices[1 + index] = y;
 
                 vertices[2 + index] = x;
-                vertices[3 + index] = y + 1;
+                vertices[3 + index] = y + triCompletion;
 
-                vertices[4 + index] = x + 1;
-                vertices[5 + index] = y + 1;
+                vertices[4 + index] = x + triCompletion;
+                vertices[5 + index] = y + triCompletion;
 
                 // Tri 2.
 
-                vertices[6 + index] = x + 1;
-                vertices[7 + index] = y + 1;
+                vertices[6 + index] = x + triCompletion;
+                vertices[7 + index] = y + triCompletion;
 
-                vertices[8 + index] = x + 1;
+                vertices[8 + index] = x + triCompletion;
                 vertices[9 + index] = y;
 
                 vertices[10 + index] = x;
