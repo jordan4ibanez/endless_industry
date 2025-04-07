@@ -1,8 +1,8 @@
 #version 330
 
 // Input vertex attributes
-in vec2 vertexPosition;
-in vec2 vertexTexCoord;
+in vec4 vertexPositionANDTexCoord;
+// in vec2 vertexTexCoord;
 // in vec3 vertexNormal;
 // in vec4 vertexColor;
 
@@ -18,9 +18,9 @@ out vec2 fragTexCoord;
 void main()
 {
     // Send vertex attributes to fragment shader
-    fragTexCoord = vertexTexCoord;
+    fragTexCoord = vec2(vertexPositionANDTexCoord.z, vertexPositionANDTexCoord.w);
     // fragColor = vertexColor;
 
     // Calculate final vertex position
-    gl_Position = mvp*vec4(vertexPosition, 0.0, 1.0);
+    gl_Position = mvp*vec4(vertexPositionANDTexCoord.x, vertexPositionANDTexCoord.y, 0.0, 1.0);
 }
