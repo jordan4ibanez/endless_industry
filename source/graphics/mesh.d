@@ -238,10 +238,14 @@ public: //* BEGIN PUBLIC API.
         mesh.vboId = cast(uint*) GC.malloc(uint.sizeof * MAX_MESH_VERTEX_BUFFERS);
 
         mesh.vaoId = 0; // Vertex Array Object
-        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION] = 0; // Vertex buffer: positions
-        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD] = 0; // Vertex buffer: texcoords
-        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR] = 0; // Vertex buffer: colors
-        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = 0; // Vertex buffer: texcoords2
+
+        for (int i = 0; i < MAX_MESH_VERTEX_BUFFERS; i++) {
+            mesh.vboId[i] = 0;
+        }
+        // mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION] = 0; // Vertex buffer: positions
+        // mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD] = 0; // Vertex buffer: texcoords
+        // mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR] = 0; // Vertex buffer: colors
+        // mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = 0; // Vertex buffer: texcoords2
 
         mesh.vaoId = rlLoadVertexArray();
         rlEnableVertexArray(mesh.vaoId);
