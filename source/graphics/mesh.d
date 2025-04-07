@@ -65,6 +65,12 @@ public: //* BEGIN PUBLIC API.
         mvpUniformLocation = ShaderHandler.getUniformLocation("2d", "mvp");
     }
 
+    void terminate() {
+        foreach (thisMesh; database) {
+            unloadMeshFromGPU(thisMesh);
+        }
+    }
+
     int generate(float* verticesAndTextureCoordinates, const ulong verticesLength,
         float* textureCoords, ushort* indices) {
         int meshID = nextMeshID;

@@ -26,6 +26,7 @@ void main() {
 	scope (exit) {
 		// FontHandler.terminate();
 		// ShaderHandler.terminate();
+		MeshHandler.terminate();
 		TextureHandler.terminate();
 		Window.terminate();
 		CameraHandler.terminate();
