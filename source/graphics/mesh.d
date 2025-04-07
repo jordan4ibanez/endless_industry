@@ -49,6 +49,10 @@ private:
     int shaderColorDiffuseUniformLocation = 0;
     int mvpUniformLocation = 0;
 
+    Matrix matView;
+    Matrix matProjection;
+    Matrix matrixTransform;
+
 public: //* BEGIN PUBLIC API.
 
     void initialize() {
@@ -109,6 +113,10 @@ public: //* BEGIN PUBLIC API.
         rlActiveTextureSlot(0);
         rlSetUniform(shaderColorDiffuseUniformLocation, null, ShaderUniformDataType.SHADER_UNIFORM_INT, 1);
         rlEnableTexture(textureAtlas.id);
+
+        matView = rlGetMatrixModelview();
+        matProjection = rlGetMatrixProjection();
+        matrixTransform = rlGetMatrixTransform();
     }
 
     pragma(inline, true);
@@ -147,10 +155,6 @@ public: //* BEGIN PUBLIC API.
         matModelView.m5 = 1;
         matModelView.m10 = 1;
         matModelView.m15 = 1;
-
-        Matrix matView = rlGetMatrixModelview();
-        Matrix matProjection = rlGetMatrixProjection();
-        Matrix matrixTransform = rlGetMatrixTransform();
 
         // fastMatrixMultiply(&transform, &matrixTransform, &matModel);
 
