@@ -156,24 +156,24 @@ public: //* BEGIN PUBLIC API.
         matModelView.m10 = 1;
         matModelView.m15 = 1;
 
-        // fastMatrixMultiply(&transform, &matrixTransform, &matModel);
+        fastMatrixMultiply(&transform, &matrixTransform, &matModel);
 
         // Get model-view matrix
-        // fastMatrixMultiply(&matModel, &matView, &matModelView);
+        fastMatrixMultiply(&matModel, &matView, &matModelView);
 
         // Calculate model-view-projection matrix (MVP)
-        // Matrix matModelViewProjection;
-        // matModelViewProjection.m0 = 1;
-        // matModelViewProjection.m5 = 1;
-        // matModelViewProjection.m10 = 1;
-        // matModelViewProjection.m15 = 1;
-        // fastMatrixMultiply(&matModelView, &matProjection, &matModelViewProjection);
+        Matrix matModelViewProjection;
+        matModelViewProjection.m0 = 1;
+        matModelViewProjection.m5 = 1;
+        matModelViewProjection.m10 = 1;
+        matModelViewProjection.m15 = 1;
+        fastMatrixMultiply(&matModelView, &matProjection, &matModelViewProjection);
 
         // Send combined model-view-projection matrix to shader
-        // rlSetUniformMatrix(mvpUniformLocation, matModelViewProjection);
+        rlSetUniformMatrix(mvpUniformLocation, matModelViewProjection);
 
-        // rlEnableVertexArray(thisModel.meshes.vaoId);
-        // rlDrawVertexArray(0, thisModel.meshes.vertexCount);
+        rlEnableVertexArray(thisModel.meshes.vaoId);
+        rlDrawVertexArray(0, thisModel.meshes.vertexCount);
 
         // rlDisableVertexArray();
 
