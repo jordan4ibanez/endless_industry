@@ -401,8 +401,6 @@ private: //* BEGIN INTERNAL API.
             }
         }
 
-        writeln(vertexPosCount);
-
         thisChunk.modelID = MeshHandler.generate(verticesANDTextureCoord, VERTEX_LENGTH, indices);
 
         GC.free(verticesANDTextureCoord);
