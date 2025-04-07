@@ -58,12 +58,29 @@ public: //* BEGIN PUBLIC API.
         }
 
         auto sw = StopWatch(AutoStart.yes);
-        
-        DrawModel(*thisModel, Vector3(position.x, -position.y, 0), 1, Colors.WHITE);
 
-        long blah = sw.peek().total!"hnsecs";
+        Matrix matTransform = MatrixTranslate(position.x, -position.y, 0);
 
-        writeln("total: ", blah, "hn");
+        // rlEnableShader(thisModel.materials.shader.id);
+
+        // Matrix matModel = MatrixIdentity();
+        // Matrix matView = rlGetMatrixModelview();
+        // Matrix matModelView = MatrixIdentity();
+        // Matrix matProjection = rlGetMatrixProjection();
+
+        // matModel = MatrixMultiply(matTransform, rlGetMatrixTransform());
+
+        // DrawMesh(*thisModel.meshes, *thisModel.materials, matTransform);
+
+        // rlDisableShader();
+
+        // model.materials[model.meshMaterial[i]].maps[MATERIAL_MAP_DIFFUSE].color = color;
+
+        // DrawModel(*thisModel, Vector3(position.x, -position.y, 0), 1, Colors.WHITE);
+
+        long blah = sw.peek().total!"nsecs";
+
+        writeln("total: ", blah, "nsecs");
     }
 
     void destroy(int id) {
