@@ -84,11 +84,14 @@ public: //* BEGIN PUBLIC API.
         // auto sw = StopWatch(AutoStart.yes);
 
         // Manually inline the identity and translation and hope SIMD takes over.
-        Matrix matScale = MatrixScale(1, 1, 1);
-        Matrix matTranslation = MatrixTranslate(position.x, -position.y, 0);
-        Matrix matTransform = MatrixMultiply(matScale, matTranslation);
-
-        Matrix transform = matTransform;
+        Matrix transform;
+        transform.m0 = 1;
+        transform.m5 = 1;
+        transform.m10 = 1;
+        transform.m12 = position.x;
+        transform.m13 = -position.y;
+        transform.m14 = 0;
+        transform.m15 = 1;
 
         rlEnableShader(defaultShaderID);
 
