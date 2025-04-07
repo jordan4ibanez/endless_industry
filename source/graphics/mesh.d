@@ -65,7 +65,7 @@ public: //* BEGIN PUBLIC API.
         mvpUniformLocation = ShaderHandler.getUniformLocation("2d", "mvp");
     }
 
-    int generate(float* vertices, const ulong verticesLength) {
+    int generate(float* verticesAndTextureCoordinates, const ulong verticesLength) {
         int meshID = nextMeshID;
         nextMeshID++;
 
@@ -73,7 +73,7 @@ public: //* BEGIN PUBLIC API.
 
         thisMesh.vertexCount = cast(int) verticesLength / 4;
         thisMesh.triangleCount = thisMesh.vertexCount / 3;
-        thisMesh.vertices = vertices;
+        thisMesh.vertices = verticesAndTextureCoordinates;
 
         uploadMeshIntoGPU(&thisMesh, false);
 
