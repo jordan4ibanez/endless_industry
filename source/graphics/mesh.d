@@ -214,44 +214,44 @@ public: //* BEGIN PUBLIC API.
         rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION);
 
         // Enable vertex attributes: texcoords (shader-location = 1)
-        mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD] = rlLoadVertexBuffer(
-            mesh.texcoords, cast(int)(mesh.vertexCount * 2 * float.sizeof), dynamic);
-        rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD, 2, RL_FLOAT, 0, 0, 0);
-        rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD);
+        // mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD] = rlLoadVertexBuffer(
+        //     mesh.texcoords, cast(int)(mesh.vertexCount * 2 * float.sizeof), dynamic);
+        // rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD, 2, RL_FLOAT, 0, 0, 0);
+        // rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD);
 
         // WARNING: When setting default vertex attribute values, the values for each generic vertex attribute
         // is part of current state, and it is maintained even if a different program object is used
 
-        if (mesh.colors != null) {
-            // Enable vertex attribute: color (shader-location = 3)
-            mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR] = rlLoadVertexBuffer(mesh.colors,
-                cast(int)(mesh.vertexCount * 4 * ubyte.sizeof), dynamic);
-            rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR, 4, RL_UNSIGNED_BYTE, 1, 0, 0);
-            rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR);
-        } else {
-            // Default vertex attribute: color
-            // WARNING: Default value provided to shader if location available
-            float[4] value = [1.0f, 1.0f, 1.0f, 1.0f]; // WHITE
-            rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR, &value, ShaderAttributeDataType
-                    .SHADER_ATTRIB_VEC4, 4);
-            rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR);
-        }
+        // if (mesh.colors != null) {
+        //     // Enable vertex attribute: color (shader-location = 3)
+        //     mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR] = rlLoadVertexBuffer(mesh.colors,
+        //         cast(int)(mesh.vertexCount * 4 * ubyte.sizeof), dynamic);
+        //     rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR, 4, RL_UNSIGNED_BYTE, 1, 0, 0);
+        //     rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR);
+        // } else {
+        //     // Default vertex attribute: color
+        //     // WARNING: Default value provided to shader if location available
+        //     float[4] value = [1.0f, 1.0f, 1.0f, 1.0f]; // WHITE
+        //     rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR, &value, ShaderAttributeDataType
+        //             .SHADER_ATTRIB_VEC4, 4);
+        //     rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR);
+        // }
 
-        if (mesh.texcoords2 != null) {
-            // Enable vertex attribute: texcoord2 (shader-location = 5)
-            mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = rlLoadVertexBuffer(mesh.texcoords2, cast(
-                    int)(mesh
-                    .vertexCount * 2 * float.sizeof), dynamic);
-            rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, 2, RL_FLOAT, 0, 0, 0);
-            rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
-        } else {
-            // Default vertex attribute: texcoord2
-            // WARNING: Default value provided to shader if location available
-            float[2] value = [0.0f, 0.0f];
-            rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, &value, ShaderAttributeDataType
-                    .SHADER_ATTRIB_VEC2, 2);
-            rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
-        }
+        // if (mesh.texcoords2 != null) {
+        //     // Enable vertex attribute: texcoord2 (shader-location = 5)
+        //     mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = rlLoadVertexBuffer(mesh.texcoords2, cast(
+        //             int)(mesh
+        //             .vertexCount * 2 * float.sizeof), dynamic);
+        //     rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, 2, RL_FLOAT, 0, 0, 0);
+        //     rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
+        // } else {
+        //     // Default vertex attribute: texcoord2
+        //     // WARNING: Default value provided to shader if location available
+        //     float[2] value = [0.0f, 0.0f];
+        //     rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, &value, ShaderAttributeDataType
+        //             .SHADER_ATTRIB_VEC2, 2);
+        //     rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
+        // }
 
         // if (mesh.vaoId > 0)
         //     TRACELOG(LOG_INFO, "VAO: [ID %i] Mesh uploaded successfully to VRAM (GPU)", mesh.vaoId);
