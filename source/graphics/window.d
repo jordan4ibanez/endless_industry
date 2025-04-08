@@ -1,7 +1,7 @@
 module graphics.window;
 
 import graphics.camera_handler;
-import graphics.font_handler;
+import graphics.font;
 import graphics.gui;
 import math.vec2d;
 import raylib;

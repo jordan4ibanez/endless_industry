@@ -5,7 +5,7 @@ import controls.mouse;
 import game.map;
 import game.player;
 import graphics.camera_handler;
-import graphics.font_handler;
+import graphics.font;
 import graphics.mesh;
 import graphics.render;
 import graphics.shader;
@@ -73,7 +73,7 @@ void main() {
 				Player.draw();
 				// Map.drawDebugPoints();
 
-				Render.circle(Mouse.getWorldPosition(), 0.1, Colors.RED);
+				// Render.circle(Mouse.getWorldPosition(), 0.1, Colors.RED);
 
 				{
 					import std.math.rounding;
@@ -83,7 +83,7 @@ void main() {
 					mousePos.x = floor(mousePos.x);
 					mousePos.y = floor(mousePos.y) + 1;
 
-					Render.rectangleLines(mousePos, Vec2d(1, 1), Colors.WHITE);
+					Render.rectangleLines(mousePos, Vec2d(1, 1), Colors.WHITE, 0.03);
 				}
 
 				if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
