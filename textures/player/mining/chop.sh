@@ -20,7 +20,7 @@ for X in $(seq 0 $HORIZONTAL_FRAMES); do
         echo "$OUTPUT_NAME"
 
 
-        # convert -extract 128x128+0+0 character_mining_cycles_raw.png 1.png
+        convert -extract ${FRAME_SIZE}x${FRAME_SIZE}+${OFFSET_X}+${OFFSET_Y} character_mining_cycles_raw.png ${OUTPUT_NAME}.png
 
 
 
