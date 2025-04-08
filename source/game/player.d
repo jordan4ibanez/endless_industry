@@ -80,7 +80,7 @@ public: //* BEGIN PUBLIC API.
 
         animationTimer += delta;
 
-        static immutable double _frameGoalWalking = 0.1;
+        static immutable double _frameGoalWalking = 0.125;
         static immutable double _frameGoalStanding = 0.25;
 
         double frameGoal = 0;
