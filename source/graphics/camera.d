@@ -16,7 +16,7 @@ private:
 
 public: //* BEGIN PUBLIC API.
 
-    double realZoom = 100.0;
+    double realZoom = 150.0;
 
     void initialize() {
         camera = new Camera2D();
