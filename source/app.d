@@ -70,7 +70,7 @@ void main() {
 			CameraHandler.begin();
 			{
 				Map.draw();
-				Player.draw();
+
 				// Map.drawDebugPoints();
 
 				// Render.circle(Mouse.getWorldPosition(), 0.1, Colors.RED);
@@ -85,6 +85,8 @@ void main() {
 
 					Render.rectangleLines(mousePos, Vec2d(1, 1), Colors.WHITE, 0.03);
 				}
+
+				Player.draw();
 
 				if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
 					Map.setTileAtWorldPositionByID(Mouse.getWorldPosition(), 0);
