@@ -39,4 +39,4 @@ Later:
  The chunks holding so many VAOs in memory is causing a weird thing to happen with OpenGL when going past 30_000 VAOs
  Keep the chunks loaded in memory but unload any chunk's MESH (<<MESH>> NOT THE CHUNK) so it just uses a bunch of memory, not lag!
 
-= Make the meshes 2d. Make a custom shader built on the raylib default one that utilizes vec2
+
