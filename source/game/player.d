@@ -70,9 +70,9 @@ public: //* BEGIN PUBLIC API.
         double delta = Delta.getDelta();
 
         // Todo: Make this API element later.
-        const double acceleration = 1000; //40;
-        const double deceleration = 1000; //50;
-        const double topSpeed = 100; //5
+        const double acceleration = 40;
+        const double deceleration = 50;
+        const double topSpeed = 5;
 
         // writeln(velocity.x);
 
