@@ -2,7 +2,6 @@
 
 # convert -extract 128x128+0+0 character_mining_cycles_raw.png 1.png
 
-
 HORIZONTAL_FRAMES=$((4 - 1))
 DIRECTIONS=$((8 - 1))
 FRAME_SIZE=128
@@ -11,6 +10,10 @@ SOURCE_FILE="character_mining_cycles_raw.png"
 for Y in $(seq 0 $DIRECTIONS); do
 
     OFFSET_Y=$((FRAME_SIZE * $Y))
+
+    OUTPUT_FOLDER=./direction_${Y}
+
+    mkdir -p ${OUTPUT_FOLDER}
 
     for X in $(seq 0 $HORIZONTAL_FRAMES); do
 
