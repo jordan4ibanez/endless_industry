@@ -44,7 +44,7 @@ private:
 public: //* BEGIN PUBLIC API.
 
     void initialize() {
-        noise.seed = 1_010_010;
+        noise.seed = 958_737;
     }
 
     void draw() {

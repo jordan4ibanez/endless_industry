@@ -80,7 +80,7 @@ public: //* BEGIN PUBLIC API.
 
         animationTimer += delta;
 
-        static immutable double _frameGoalWalking = 0.1;
+        static immutable double _frameGoalWalking = 0.095;
         static immutable double _frameGoalStanding = 0.25;
 
         double frameGoal = 0;
@@ -111,8 +111,8 @@ public: //* BEGIN PUBLIC API.
 
         Render.rectangleLines(centerCollisionbox(position, size), size, Colors.WHITE);
 
-        Vec2d adjustedPosition = centerCollisionbox(position, Vec2d(4, 4));
-        adjustedPosition.y += 1.5;
+        Vec2d adjustedPosition = centerCollisionbox(position, Vec2d(2, 2));
+        adjustedPosition.y += 0.75;
 
         // This is some next level debugging horror right here lmao.
         string animationName;
@@ -132,7 +132,7 @@ public: //* BEGIN PUBLIC API.
         const string textureName = "player_" ~ animationName ~ "_direction_" ~ to!string(
             directionFrame) ~ "_frame_" ~ to!string(animationFrame) ~ ".png";
 
-        TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(4, 4));
+        TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(2, 2));
 
     }
 
@@ -168,51 +168,24 @@ public: //* BEGIN PUBLIC API.
         if (Keyboard.isDown(KeyboardKey.KEY_D)) {
             moving = true;
             xInput = 1;
-            if (sgn(velocity.x) < 0) {
-                velocity.x += delta * deceleration;
-            } else {
-                velocity.x += delta * acceleration;
-            }
+            velocity.x = topSpeed;
         } else if (Keyboard.isDown(KeyboardKey.KEY_A)) {
             moving = true;
             xInput = -1;
-            if (sgn(velocity.x) > 0) {
-                velocity.x -= delta * deceleration;
-            } else {
-                velocity.x -= delta * acceleration;
-            }
+            velocity.x = -topSpeed;
         } else {
-            if (abs(velocity.x) > delta * deceleration) {
-                double valSign = sgn(velocity.x);
-                velocity.x = (abs(velocity.x) - (delta * deceleration)) * valSign;
-            } else {
-                velocity.x = 0;
-            }
+            velocity.x = 0;
         }
-
         if (Keyboard.isDown(KeyboardKey.KEY_W)) {
             moving = true;
             yInput = 1;
-            if (sgn(velocity.y) < 0) {
-                velocity.y += delta * deceleration;
-            } else {
-                velocity.y += delta * acceleration;
-            }
+            velocity.y = topSpeed;
         } else if (Keyboard.isDown(KeyboardKey.KEY_S)) {
             moving = true;
             yInput = -1;
-            if (sgn(velocity.y) > 0) {
-                velocity.y -= delta * deceleration;
-            } else {
-                velocity.y -= delta * acceleration;
-            }
+            velocity.y = -topSpeed;
         } else {
-            if (abs(velocity.y) > delta * deceleration) {
-                double valSign = sgn(velocity.y);
-                velocity.y = (abs(velocity.y) - (delta * deceleration)) * valSign;
-            } else {
-                velocity.y = 0;
-            }
+            velocity.y = 0;
         }
 
         // Speed limiter. 
