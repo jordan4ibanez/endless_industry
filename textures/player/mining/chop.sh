@@ -24,7 +24,7 @@ for Y in $(seq 0 $DIRECTIONS); do
         # echo "$OUTPUT_NAME"
         # echo "$OFFSET_X | $OFFSET_Y"
 
-        convert -extract ${FRAME_SIZE}x${FRAME_SIZE}+${OFFSET_X}+${OFFSET_Y} ${SOURCE_FILE} ${OUTPUT_NAME}.png
+        convert -extract ${FRAME_SIZE}x${FRAME_SIZE}+${OFFSET_X}+${OFFSET_Y} ${SOURCE_FILE} ${OUTPUT_FOLDER}/${OUTPUT_NAME}.png
 
     done
 done
