@@ -1,9 +1,9 @@
 #!/bin/bash
 
-HORIZONTAL_FRAMES=$((4 - 1))
+HORIZONTAL_FRAMES=$((8 - 1))
 DIRECTIONS=$((8 - 1))
 FRAME_SIZE=128
-SOURCE_FILE="character_standing_cycles_raw.png"
+SOURCE_FILE="character_walking_cycles_raw.png"
 OUTPUT_FRAME_SIZE=$((FRAME_SIZE - 40))
 FRAME_SHIFT=20
 
@@ -20,7 +20,7 @@ for Y in $(seq 0 $DIRECTIONS); do
 
         OFFSET_X=$(((FRAME_SIZE * $X) + FRAME_SHIFT))
 
-        OUTPUT_NAME="player_standing_direction_${Y}_frame_${X}"
+        OUTPUT_NAME="player_walking_direction_${Y}_frame_${X}"
 
         # echo "$OUTPUT_NAME"
         # echo "$OFFSET_X | $OFFSET_Y"
