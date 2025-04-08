@@ -233,6 +233,28 @@ public: //* BEGIN PUBLIC API.
 
         //! Animation components.
         setAnimationState(moving ? 1 : 0);
+        // todo: figure out a way to bitshift into this because this is hilarious.
+        if (moving) {
+            if (xInput == -1 && yInput == 0) {
+                directionFrame = 0;
+            } else if (xInput == -1 && yInput == 1) {
+                directionFrame = 1;
+            } else if (xInput == 0 && yInput == 1) {
+                directionFrame = 2;
+            } else if (xInput == 1 && yInput == 1) {
+                directionFrame = 3;
+            } else if (xInput == 1 && yInput == 0) {
+                directionFrame = 4;
+            } else if (xInput == 1 && yInput == -1) {
+                directionFrame = 5;
+            } else if (xInput == 0 && yInput == -1) {
+                directionFrame = 6;
+            } else if (xInput == -1 && yInput == -1) {
+                directionFrame = 7;
+            }
+
+        }
+
         //! End animation components.
 
         // Map.collideEntityToWorld(position, size, velocity, CollisionAxis.X);
