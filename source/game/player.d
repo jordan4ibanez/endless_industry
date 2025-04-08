@@ -233,6 +233,8 @@ public: //* BEGIN PUBLIC API.
 
         //! Animation components.
         setAnimationState(moving ? 1 : 0);
+        //! End animation components.
+
         // Map.collideEntityToWorld(position, size, velocity, CollisionAxis.X);
 
         // if (velocity.x == 0 && velocity.y == 0) {
