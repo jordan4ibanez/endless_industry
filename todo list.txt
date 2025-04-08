@@ -1,20 +1,27 @@
-- better tileset
+- Make the player the flare character cause that's probably the best thing to use right now
+
+- Link the game's logic to the FPS so that the game's logic can be accelerated with a mod
 
 - layers
+
+- ores but baked into the ground via the biome
+
+- sql saving on a green thread to be non blocking
+
+- better tileset
+- Find a nice tileset on opengameart
+
+
 
 
 
 Later:
 
-- sql saving on a green thread to be non blocking
 
-- ores but baked into the ground via the biome
 
-- greedy meshing
+- greedy meshing (this will need a fundamental rework on the texture atlas to allow repeating textures)
 
 <
-
-- Find a nice tileset on opengameart
 
 - whichever biome is created first is the default
  - - Make this biome the grasslands
@@ -24,7 +31,7 @@ Later:
 - biomes in the list should be set in order in a fixed list
 >
 
-- Make the player the flare character cause that's probably the best thing to use right now
+
 
 #! ::::IMPORTANT:::::
 
