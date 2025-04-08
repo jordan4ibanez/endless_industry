@@ -5,7 +5,7 @@ import core.memory;
 import fast_noise;
 import game.biome_database;
 import game.tile_database;
-import graphics.camera_handler;
+import graphics.camera;
 import graphics.mesh;
 import graphics.render;
 import graphics.texture_handler;

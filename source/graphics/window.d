@@ -1,6 +1,6 @@
 module graphics.window;
 
-import graphics.camera_handler;
+import graphics.camera;
 import graphics.font;
 import graphics.gui;
 import math.vec2d;

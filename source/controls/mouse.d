@@ -1,7 +1,7 @@
 module controls.mouse;
 
 public import raylib : MouseButton;
-import graphics.camera_handler;
+import graphics.camera;
 import graphics.window;
 import math.vec2d;
 import raylib;

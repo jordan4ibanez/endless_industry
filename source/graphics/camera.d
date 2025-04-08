@@ -1,4 +1,4 @@
-module graphics.camera_handler;
+module graphics.camera;
 
 import controls.mouse;
 import game.player;

@@ -4,7 +4,7 @@ import controls.keyboard;
 import controls.mouse;
 import game.map;
 import game.player;
-import graphics.camera_handler;
+import graphics.camera;
 import graphics.font;
 import graphics.mesh;
 import graphics.render;
