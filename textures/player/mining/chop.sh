@@ -6,6 +6,7 @@
 HORIZONTAL_FRAMES=$((4 - 1))
 DIRECTIONS=$((8 - 1))
 FRAME_SIZE=128
+SOURCE_FILE="character_mining_cycles_raw.png"
 
 for Y in $(seq 0 $DIRECTIONS); do
 
@@ -20,7 +21,7 @@ for Y in $(seq 0 $DIRECTIONS); do
         echo "$OUTPUT_NAME"
 
 
-        convert -extract ${FRAME_SIZE}x${FRAME_SIZE}+${OFFSET_X}+${OFFSET_Y} character_mining_cycles_raw.png ${OUTPUT_NAME}.png
+        convert -extract ${FRAME_SIZE}x${FRAME_SIZE}+${OFFSET_X}+${OFFSET_Y} ${SOURCE_FILE} ${OUTPUT_NAME}.png
 
 
 
