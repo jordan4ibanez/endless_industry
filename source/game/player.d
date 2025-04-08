@@ -231,6 +231,8 @@ public: //* BEGIN PUBLIC API.
         //? Finally apply X axis.
         position.x += velocity.x * delta;
 
+        //! Animation components.
+        setAnimationState(moving ? 1 : 0);
         // Map.collideEntityToWorld(position, size, velocity, CollisionAxis.X);
 
         // if (velocity.x == 0 && velocity.y == 0) {
