@@ -23,7 +23,7 @@ static final const class Player {
 static:
 private:
 
-    Vec2d size = Vec2d(0.5, 0.5);
+    Vec2d size = Vec2d(1, 1);
     Vec2d position = Vec2d(32, 32);
     Vec2d velocity = Vec2d(0, 0);
     Vec2i inChunk = Vec2i(int.max, int.max);
@@ -80,7 +80,7 @@ public: //* BEGIN PUBLIC API.
 
         animationTimer += delta;
 
-        static immutable double _frameGoalWalking = 0.095;
+        static immutable double _frameGoalWalking = 0.1;
         static immutable double _frameGoalStanding = 0.25;
 
         double frameGoal = 0;
@@ -111,8 +111,8 @@ public: //* BEGIN PUBLIC API.
 
         Render.rectangleLines(centerCollisionbox(position, size), size, Colors.WHITE);
 
-        Vec2d adjustedPosition = centerCollisionbox(position, Vec2d(2, 2));
-        adjustedPosition.y += 0.75;
+        Vec2d adjustedPosition = centerCollisionbox(position, Vec2d(3, 3));
+        adjustedPosition.y += 1.125;
 
         // This is some next level debugging horror right here lmao.
         string animationName;
@@ -132,7 +132,7 @@ public: //* BEGIN PUBLIC API.
         const string textureName = "player_" ~ animationName ~ "_direction_" ~ to!string(
             directionFrame) ~ "_frame_" ~ to!string(animationFrame) ~ ".png";
 
-        TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(2, 2));
+        TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(3, 3));
 
     }
 
@@ -155,7 +155,7 @@ public: //* BEGIN PUBLIC API.
         // Todo: Make this API element later.
         const double acceleration = 40;
         const double deceleration = 50;
-        const double topSpeed = 5;
+        const double topSpeed = 7;
 
         // writeln(velocity.x);
 
