@@ -136,6 +136,19 @@ public: //* BEGIN PUBLIC API.
 
     }
 
+    void setAnimationState(ubyte newState) {
+        // Walking has 8 frames.
+        // Everything else (for now) has 4.
+        // So we must catch that.
+        if (newState != 1) {
+            if (animationFrame >= 4) {
+                animationFrame = 0;
+            }
+        }
+
+        animationState = newState;
+    }
+
     void move() {
         double delta = Delta.getDelta();
 
@@ -148,9 +161,13 @@ public: //* BEGIN PUBLIC API.
 
         moving = false;
 
+        int xInput = 0;
+        int yInput = 0;
+
         //? Controls first.
         if (Keyboard.isDown(KeyboardKey.KEY_D)) {
             moving = true;
+            xInput = 1;
             if (sgn(velocity.x) < 0) {
                 velocity.x += delta * deceleration;
             } else {
@@ -158,6 +175,7 @@ public: //* BEGIN PUBLIC API.
             }
         } else if (Keyboard.isDown(KeyboardKey.KEY_A)) {
             moving = true;
+            xInput = -1;
             if (sgn(velocity.x) > 0) {
                 velocity.x -= delta * deceleration;
             } else {
@@ -174,6 +192,7 @@ public: //* BEGIN PUBLIC API.
 
         if (Keyboard.isDown(KeyboardKey.KEY_W)) {
             moving = true;
+            yInput = 1;
             if (sgn(velocity.y) < 0) {
                 velocity.y += delta * deceleration;
             } else {
@@ -181,6 +200,7 @@ public: //* BEGIN PUBLIC API.
             }
         } else if (Keyboard.isDown(KeyboardKey.KEY_S)) {
             moving = true;
+            yInput = -1;
             if (sgn(velocity.y) > 0) {
                 velocity.y -= delta * deceleration;
             } else {
