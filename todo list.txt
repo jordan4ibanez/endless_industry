@@ -4,6 +4,8 @@
 
 - sql saving on a green thread to be non blocking
 
+- raygui - translate it to D
+
 - Use the ubuntu font set cause why not
 
 - better tileset
