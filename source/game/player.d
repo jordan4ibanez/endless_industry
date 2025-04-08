@@ -4,7 +4,7 @@ import controls.keyboard;
 import game.map;
 import graphics.colors;
 import graphics.render;
-import graphics.texture_handler;
+import graphics.texture;
 import math.rect;
 import math.vec2d;
 import math.vec2i;

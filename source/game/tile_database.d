@@ -1,7 +1,7 @@
 module game.tile_database;
 
 import core.memory;
-import graphics.texture_handler;
+import graphics.texture;
 import std.conv;
 import std.stdio;
 import std.string;

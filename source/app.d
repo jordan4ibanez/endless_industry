@@ -9,7 +9,7 @@ import graphics.font;
 import graphics.mesh;
 import graphics.render;
 import graphics.shader;
-import graphics.texture_handler;
+import graphics.texture;
 import graphics.window;
 import math.vec2d;
 import math.vec2i;

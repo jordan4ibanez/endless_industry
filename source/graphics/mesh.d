@@ -3,7 +3,7 @@ module graphics.mesh;
 public import raylib;
 import core.memory;
 import graphics.shader;
-import graphics.texture_handler;
+import graphics.texture;
 import math.vec2d;
 import std.conv;
 import std.stdio;

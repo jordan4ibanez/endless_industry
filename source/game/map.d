@@ -8,7 +8,7 @@ import game.tile_database;
 import graphics.camera;
 import graphics.mesh;
 import graphics.render;
-import graphics.texture_handler;
+import graphics.texture;
 import graphics.window;
 import math.rect;
 import math.vec2d;

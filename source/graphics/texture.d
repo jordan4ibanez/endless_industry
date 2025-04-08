@@ -1,4 +1,4 @@
-module graphics.texture_handler;
+module graphics.texture;
 
 public import fast_pack : TexturePoints;
 import core.memory;
