@@ -9,6 +9,7 @@ import math.rect;
 import math.vec2d;
 import math.vec2i;
 import raylib : DEG2RAD, PI, RAD2DEG;
+import std.conv;
 import std.math.algebraic : abs;
 import std.math.rounding;
 import std.math.traits : sgn;
@@ -27,8 +28,9 @@ private:
     Vec2d velocity = Vec2d(0, 0);
     Vec2i inChunk = Vec2i(int.max, int.max);
     bool firstGen = true;
-    double rotation = 0;
     bool moving = false;
+    ubyte directionFrame = 6;
+    ubyte animationFrame = 0;
 
 public: //* BEGIN PUBLIC API.
 
@@ -69,6 +71,15 @@ public: //* BEGIN PUBLIC API.
     void draw() {
 
         Render.rectangleLines(centerCollisionbox(position, size), size, Colors.WHITE);
+
+        Vec2d adjustedPosition = centerCollisionbox(position, Vec2d(2, 2));
+        adjustedPosition.y += 0.75;
+
+        const string textureName = "player_standing_direction_" ~ to!string(
+            directionFrame) ~ "_frame_" ~ to!string(animationFrame) ~ ".png";
+
+        TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 80, 80), Vec2d(2, 2));
+
     }
 
     void move() {
