@@ -112,7 +112,7 @@ public: //* BEGIN PUBLIC API.
         Render.rectangleLines(centerCollisionbox(position, size), size, Colors.WHITE);
 
         Vec2d adjustedPosition = centerCollisionbox(position, Vec2d(3, 3));
-        adjustedPosition.y += 1.125;
+        adjustedPosition.y += 1.0;
 
         // This is some next level debugging horror right here lmao.
         string animationName;
