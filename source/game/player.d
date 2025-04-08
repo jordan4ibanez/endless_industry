@@ -213,9 +213,9 @@ public: //* BEGIN PUBLIC API.
 
         // Map.collideEntityToWorld(position, size, velocity, CollisionAxis.X);
 
-        if (velocity.x == 0 && velocity.y == 0) {
-            moving = false;
-        }
+        // if (velocity.x == 0 && velocity.y == 0) {
+        //     moving = false;
+        // }
 
         Vec2i oldChunk = inChunk;
         Vec2i newChunk = Map.calculateChunkAtWorldPosition(position);
