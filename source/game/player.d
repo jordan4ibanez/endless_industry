@@ -193,8 +193,6 @@ public: //* BEGIN PUBLIC API.
             velocity = vec2dMultiply(vec2dNormalize(velocity), Vec2d(topSpeed, topSpeed));
         }
 
-        writeln(velocity);
-
         //? Then apply Y axis.
         position.y += velocity.y * delta;
 
