@@ -1,6 +1,3 @@
-- Make the player the flare character cause that's probably the best thing to use right now
- flare character sheet is broken into 128x128 tiles
-
 - Link the game's logic to the FPS so that the game's logic can be accelerated with a mod
 
 - layers
