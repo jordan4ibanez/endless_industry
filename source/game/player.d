@@ -61,6 +61,11 @@ public: //* BEGIN PUBLIC API.
         return Rect(centeredPosition.x, centeredPosition.y, size.x, size.y);
     }
 
+    /// Get if the player is moving.
+    bool isMoving() {
+        return moving;
+    }
+
     void draw() {
 
         Render.rectangleLines(centerCollisionbox(position, size), size, Colors.WHITE);
