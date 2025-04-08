@@ -18,17 +18,10 @@ for Y in $(seq 0 $DIRECTIONS); do
 
         OUTPUT_NAME="player_mining_direction_${Y}_frame_${X}"
 
-        echo "$OUTPUT_NAME"
-
+        # echo "$OUTPUT_NAME"
+        # echo "$OFFSET_X | $OFFSET_Y"
 
         convert -extract ${FRAME_SIZE}x${FRAME_SIZE}+${OFFSET_X}+${OFFSET_Y} ${SOURCE_FILE} ${OUTPUT_NAME}.png
-
-
-
-        
-        
-
-        echo "$OFFSET_X | $OFFSET_Y"
 
     done
 done
