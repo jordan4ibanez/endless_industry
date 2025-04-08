@@ -114,7 +114,22 @@ public: //* BEGIN PUBLIC API.
         Vec2d adjustedPosition = centerCollisionbox(position, Vec2d(2, 2));
         adjustedPosition.y += 0.75;
 
-        const string textureName = "player_walking_direction_" ~ to!string(
+        // This is some next level debugging horror right here lmao.
+        string animationName;
+
+        final switch (animationState) {
+        case 0:
+            animationName = "standing";
+            break;
+        case 1:
+            animationName = "walking";
+            break;
+        case 2:
+            animationName = "mining";
+            break;
+        }
+
+        const string textureName = "player_" ~ animationName ~ "_direction_" ~ to!string(
             directionFrame) ~ "_frame_" ~ to!string(animationFrame) ~ ".png";
 
         TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(2, 2));
