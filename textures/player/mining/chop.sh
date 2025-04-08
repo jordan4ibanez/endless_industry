@@ -7,13 +7,13 @@ HORIZONTAL_FRAMES=$((4 - 1))
 DIRECTIONS=$((8 - 1))
 FRAME_SIZE=128
 
-for X in $(seq 0 $HORIZONTAL_FRAMES); do
+for Y in $(seq 0 $DIRECTIONS); do
 
-    OFFSET_X=$((FRAME_SIZE * $X))
+    OFFSET_Y=$((FRAME_SIZE * $Y))
 
-    for Y in $(seq 0 $DIRECTIONS); do
+    for X in $(seq 0 $HORIZONTAL_FRAMES); do
 
-        OFFSET_Y=$((FRAME_SIZE * $Y))
+        OFFSET_X=$((FRAME_SIZE * $X))
 
         OUTPUT_NAME="player_mining_direction_${Y}_frame_${X}"
 
