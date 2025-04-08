@@ -22,7 +22,7 @@ static final const class Player {
 static:
 private:
 
-    Vec2d size = Vec2d(0.5, 0.5);
+    Vec2d size = Vec2d(1, 1);
     Vec2d position = Vec2d(32, 32);
     Vec2d velocity = Vec2d(0, 0);
     Vec2i inChunk = Vec2i(int.max, int.max);
