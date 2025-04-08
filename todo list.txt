@@ -1,14 +1,15 @@
-- Link the game's logic to the FPS so that the game's logic can be accelerated with a mod
-
 - layers
 
 - ores but baked into the ground via the biome
 
 - sql saving on a green thread to be non blocking
 
+- Use the ubuntu font set cause why not
+
 - better tileset
 - Find a nice tileset on opengameart
 
+- Link the game's logic to the FPS so that the game's logic can be accelerated with a mod
 
 
 
