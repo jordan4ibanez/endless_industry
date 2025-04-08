@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# convert -extract 128x128+0+0 character_mining_cycles_raw.png 1.png
-
 HORIZONTAL_FRAMES=$((4 - 1))
 DIRECTIONS=$((8 - 1))
 FRAME_SIZE=128
