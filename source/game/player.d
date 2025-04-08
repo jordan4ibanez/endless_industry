@@ -29,8 +29,14 @@ private:
     Vec2i inChunk = Vec2i(int.max, int.max);
     bool firstGen = true;
     bool moving = false;
+    // states:
+    // 0 standing
+    // 1 walking
+    // 2 mining
+    ubyte animationState = 1;
     ubyte directionFrame = 6;
     ubyte animationFrame = 0;
+    double animationTimer = 0;
 
 public: //* BEGIN PUBLIC API.
 
@@ -70,15 +76,48 @@ public: //* BEGIN PUBLIC API.
 
     void draw() {
 
+        double delta = Delta.getDelta();
+
+        animationTimer += delta;
+
+        static immutable double _frameGoalWalking = 0.1;
+        static immutable double _frameGoalStanding = 0.25;
+
+        double frameGoal = 0;
+
+        // Walking is animated slightly faster.
+        if (animationState == 1) {
+            frameGoal = _frameGoalWalking;
+        } else { // Everything else is slightly slower.
+            frameGoal = _frameGoalStanding;
+        }
+
+        if (animationTimer >= frameGoal) {
+            animationTimer -= frameGoal;
+
+            animationFrame++;
+
+            // Walking has 8 frames.
+            if (animationState == 1) {
+                if (animationFrame >= 8) {
+                    animationFrame = 0;
+                }
+            } else { // Everything else (for now) has 4.
+                if (animationFrame >= 4) {
+                    animationFrame = 0;
+                }
+            }
+        }
+
         Render.rectangleLines(centerCollisionbox(position, size), size, Colors.WHITE);
 
         Vec2d adjustedPosition = centerCollisionbox(position, Vec2d(2, 2));
         adjustedPosition.y += 0.75;
 
-        const string textureName = "player_standing_direction_" ~ to!string(
+        const string textureName = "player_walking_direction_" ~ to!string(
             directionFrame) ~ "_frame_" ~ to!string(animationFrame) ~ ".png";
 
-        TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 80, 80), Vec2d(2, 2));
+        TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(2, 2));
 
     }
 
