@@ -1,6 +1,7 @@
 module game.player;
 
 import controls.keyboard;
+import core.memory;
 import game.map;
 import graphics.colors;
 import graphics.render;
@@ -44,7 +45,8 @@ private:
     // 2 mining
     AnimationState animation;
     double animationTimer = 0;
-    string[] frames = null;
+    string[] __frameNames = null;
+    OutputRect* frames = null;
 
 public: //* BEGIN PUBLIC API.
 
@@ -54,15 +56,17 @@ public: //* BEGIN PUBLIC API.
             throw new Error("Player frames does not equal " ~ to!string(
                     frameLength) ~ " | equals: " ~ to!string(frames.length));
         }
-        this.frames = frames;
+        this.__frameNames = frames;
     }
 
     void finalize() {
-        if (frames == null) {
+        if (__frameNames == null) {
             throw new Error("Player frames were never set.");
         }
 
-        foreach (string key; frames) {
+        frames = cast(OutputRect*) GC.malloc(OutputRect.sizeof * __frameNames.length);
+
+        foreach (ulong index, string key; __frameNames) {
             if (key is null) {
                 continue;
             }
@@ -70,8 +74,10 @@ public: //* BEGIN PUBLIC API.
                 throw new Error("Missing frame: " ~ key ~ " in player");
             }
 
-            
+            frames[index] = TextureHandler.getTextureRectangle(key);
         }
+
+        this.__frameNames = null;
 
     }
 
