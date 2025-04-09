@@ -2,6 +2,8 @@ module game.ore_database;
 
 import graphics.texture;
 import optibrev;
+import std.stdio;
+import std.conv;
 
 struct OreDefinition {
     string name = null;
@@ -92,6 +94,36 @@ public: //* BEGIN PUBLIC API.
     /// Do not use this unless you want to debug some "very cool" errors.
     OreDefinition* unsafeGetByID(int id) {
         return ultraFastAccess + id;
+    }
+
+    void finalize() {
+
+        // Regular safe API access.
+        foreach (name, ref thisDefinition; nameDatabase) {
+            // todo: do the match thing below when sqlite is added in.
+            thisDefinition.id = nextID();
+            thisDefinition.texturePointsIndex = TextureHandler.lookupTexturePointsIndex(
+                thisDefinition.texture);
+            idDatabase[thisDefinition.id] = thisDefinition;
+            debugWrite(thisDefinition);
+        }
+
+    }
+
+private: //* BEGIN INTERNAL API.
+
+    void debugWrite(OreDefinition definition) {
+        writeln("Ore " ~ definition.name ~ " at ID " ~ to!string(definition.id));
+    }
+
+    // todo: make this pull the standard IDs into an associative array from the sqlite.
+    // todo: sqlite should store the MAX current ID and restore it.
+    // todo: Then, match to it. If it doesn't match, this is a new tile.
+    // todo: Then you'd call into this. :)
+    int nextID() {
+        int thisID = currentID;
+        currentID++;
+        return thisID;
     }
 
 }
