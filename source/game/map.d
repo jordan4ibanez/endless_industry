@@ -26,7 +26,7 @@ immutable public int CHUNK_WIDTH = 64;
 
 struct TileData {
     int tileID = 0;
-    int meshID = 0;
+    // int meshID = 0;
 }
 
 final class Chunk {
