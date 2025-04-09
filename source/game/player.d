@@ -39,6 +39,7 @@ private:
     Vec2i inChunk = Vec2i(int.max, int.max);
     bool firstGen = true;
     bool moving = false;
+    bool mining = false;
     // states:
     // 0 standing
     // 1 walking
