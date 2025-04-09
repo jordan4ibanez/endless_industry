@@ -99,6 +99,19 @@ public: //* BEGIN PUBLIC API.
             frameGoal = _frameGoalStanding;
         }
 
+        // writeln(*cast(ubyte*)&animation);
+
+        // 3 states.
+        // 8 directions.
+        // 8 total frames.
+        const uint stateStride = 8 * 8;
+        const uint directionStride = 8;
+
+        uint index = (animation.state * stateStride) + (
+            animation.direction * directionStride) + animation.frame;
+
+        // writeln(index);
+
         if (animationTimer >= frameGoal) {
             animationTimer -= frameGoal;
 
