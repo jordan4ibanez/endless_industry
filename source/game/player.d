@@ -101,7 +101,11 @@ public: //* BEGIN PUBLIC API.
         if (animationTimer >= frameGoal) {
             animationTimer -= frameGoal;
 
-            animation.frame = cast(ubyte)(animation.frame + 1);
+            if (animation.frame == 7) {
+                animation.frame = 0;
+            } else {
+                animation.frame = cast(ubyte)(animation.frame + 1);
+            }
 
             // Walking has 8 frames.
             if (animation.state == 1) {
