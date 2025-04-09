@@ -149,8 +149,8 @@ private: //* BEGIN INTERNAL API.
             return;
         }
 
-        float width = cast(float) texture.width;
-        float height = cast(float) texture.height;
+        const float width = texture.width;
+        const float height = texture.height;
 
         bool flipX = false;
 
@@ -158,21 +158,24 @@ private: //* BEGIN INTERNAL API.
             flipX = true;
             source.width *= -1;
         }
-        if (source.height < 0)
+        if (source.height < 0) {
             source.y -= source.height;
+        }
 
-        if (dest.width < 0)
+        if (dest.width < 0) {
             dest.width *= -1;
-        if (dest.height < 0)
+        }
+        if (dest.height < 0) {
             dest.height *= -1;
+        }
 
-        Vector2 topLeft = {0};
-        Vector2 topRight = {0};
-        Vector2 bottomLeft = {0};
-        Vector2 bottomRight = {0};
+        Vector2 topLeft;
+        Vector2 topRight;
+        Vector2 bottomLeft;
+        Vector2 bottomRight;
 
         // Only calculate rotation if needed
-        if (rotation == 0.0f) {
+        if (rotation == 0.0) {
             float x = dest.x - origin.x;
             float y = dest.y - origin.y;
             topLeft = Vector2(x, y);
