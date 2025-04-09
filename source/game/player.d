@@ -146,10 +146,32 @@ public: //* BEGIN PUBLIC API.
         if (animationTimer >= frameGoal) {
             animationTimer -= frameGoal;
 
-            if (animation.frame == 7) {
-                animation.frame = 0;
+            // Only walking cycles looping, everything else cycles up and down.
+            if (animation.state == 1) {
+                if (animation.frame == 7) {
+                    animation.frame = 0;
+                } else {
+                    animation.frame = cast(ubyte)(animation.frame + 1);
+                }
             } else {
-                animation.frame = cast(ubyte)(animation.frame + 1);
+                if (animationUp) {
+                    if (animation.frame < 3) {
+                        animation.frame = cast(ubyte)(animation.frame + 1);
+                    } else {
+                        // At max frame.
+                        animationUp = false;
+                        animation.frame = 2;
+                    }
+                } else {
+                    if (animation.frame > 0) {
+                        animation.frame = cast(ubyte)(animation.frame - 1);
+                    } else {
+                        // At max frame.
+                        animationUp = true;
+                        animation.frame = 1;
+                    }
+                }
+                writeln(animation.frame);
             }
 
             // Walking has 8 frames.
