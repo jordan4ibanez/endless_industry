@@ -5,6 +5,7 @@ import game.map;
 import graphics.colors;
 import graphics.render;
 import graphics.texture;
+import math.constants;
 import math.rect;
 import math.vec2d;
 import math.vec2i;
@@ -173,32 +174,34 @@ public: //* BEGIN PUBLIC API.
 
         struct InputBits {
             mixin(bitfields!(
-                    ubyte, "x", 2,
-                    ubyte, "y", 2,
+                    byte, "x", 2,
+                    byte, "y", 2,
                     bool, "", 4));
         }
 
         InputBits input;
+        input.x = 0;
+        input.y = 0;
 
         //? Controls first.
         if (Keyboard.isDown(KeyboardKey.KEY_D)) {
             moving = true;
-            input.x = 2;
+            input.x = 1;
             velocity.x = topSpeed;
         } else if (Keyboard.isDown(KeyboardKey.KEY_A)) {
             moving = true;
-            input.x = 1;
+            input.x = -1;
             velocity.x = -topSpeed;
         } else {
             velocity.x = 0;
         }
         if (Keyboard.isDown(KeyboardKey.KEY_W)) {
             moving = true;
-            input.y = 2;
+            input.y = 1;
             velocity.y = topSpeed;
         } else if (Keyboard.isDown(KeyboardKey.KEY_S)) {
             moving = true;
-            input.y = 1;
+            input.y = -1;
             velocity.y = -topSpeed;
         } else {
             velocity.y = 0;
@@ -219,6 +222,19 @@ public: //* BEGIN PUBLIC API.
         setAnimationState(moving ? 1 : 0);
         // todo: figure out a way to bitshift into this because this is hilarious.
         if (moving) {
+
+            // writeln(*(cast(ubyte*)&input));
+            // writeln((input.x * 2));
+
+            const double __preprocessYaw = atan2(cast(double) input.y, cast(double) input.x) + (
+                PI * 0.5);
+            const Vec2d __redirectedDir = Vec2d(sin(__preprocessYaw), cos(__preprocessYaw));
+            const double __processedYaw = atan2(__redirectedDir.y, __redirectedDir.x) + PI;
+            // Rounded to prevent floating point errors.
+            uint index = cast(uint) round(__processedYaw * DIV_QUARTER_PI);
+
+            writeln(index);
+
             if (input.x == 1 && input.y == 0) {
 
                 animation.direction = 0;
