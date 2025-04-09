@@ -173,17 +173,6 @@ public: //* BEGIN PUBLIC API.
                 }
                 writeln(animation.frame);
             }
-
-            // Walking has 8 frames.
-            if (animation.state == 1) {
-                if (animation.frame >= 8) {
-                    animation.frame = 0;
-                }
-            } else { // Everything else (for now) has 4.
-                if (animation.frame >= 4) {
-                    animation.frame = 0;
-                }
-            }
         }
 
         Render.rectangleLines(centerCollisionbox(position, size), size, Colors.WHITE);
