@@ -39,6 +39,7 @@ private:
 
 public: //* BEGIN PUBLIC API.
 
+    /// This is automation, do not use this in your mods. You will cause an error.
     void initialize() {
         deployMainFunctions();
 
