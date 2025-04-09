@@ -141,11 +141,6 @@ public: //* BEGIN PUBLIC API.
         const uint stateStride = 8 * 8;
         const uint directionStride = 8;
 
-        uint index = (animation.state * stateStride) + (
-            animation.direction * directionStride) + animation.frame;
-
-        // writeln(index);
-
         if (animationTimer >= frameGoal) {
             animationTimer -= frameGoal;
 
@@ -172,26 +167,10 @@ public: //* BEGIN PUBLIC API.
         Vec2d adjustedPosition = centerCollisionbox(position, Vec2d(3, 3));
         adjustedPosition.y += 1.0;
 
-        // This is some next level debugging horror right here lmao.
-        string animationName;
+        uint index = (animation.state * stateStride) + (
+            animation.direction * directionStride) + animation.frame;
 
-        final switch (animation.state) {
-        case 0:
-            animationName = "standing";
-            break;
-        case 1:
-            animationName = "walking";
-            break;
-        case 2:
-            animationName = "mining";
-            break;
-        }
-
-        const string textureName = "player_" ~ animationName ~ "_direction_" ~ to!string(
-            animation.direction) ~ "_frame_" ~ to!string(animation.frame) ~ ".png";
-
-        TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(3, 3));
-
+        TextureHandler.drawTextureKnownCoordinates(frames + index, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(3, 3));
     }
 
     void setAnimationState(ubyte newState) {
