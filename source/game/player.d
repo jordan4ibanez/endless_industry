@@ -123,19 +123,10 @@ public: //* BEGIN PUBLIC API.
         double delta = Delta.getDelta();
 
         animationTimer += delta;
+        // Standing, walking, mining
+        static immutable double[3] _frameGoals = [0.25, 0.1, 0.1];
 
-        static immutable double _frameGoalStanding = 0.25;
-        static immutable double _frameGoalWalking = 0.1;
-        static immutable double _frameGoalMining = 0.05;
-
-        double frameGoal = 0;
-
-        // Walking is animated slightly faster.
-        if (animation.state == 1) {
-            frameGoal = _frameGoalWalking;
-        } else { // Everything else is slightly slower.
-            frameGoal = _frameGoalStanding;
-        }
+        double frameGoal = _frameGoals[animation.state];
 
         // writeln(*cast(ubyte*)&animation);
 
