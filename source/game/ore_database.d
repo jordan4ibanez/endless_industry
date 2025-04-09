@@ -1,6 +1,7 @@
 module game.ore_database;
 
 import graphics.texture;
+import optibrev;
 
 struct OreDefinition {
     string name = null;
@@ -51,6 +52,38 @@ public: //* BEGIN PUBLIC API.
             throw new Error(
                 "Texture " ~ newOre.texture ~ " for ore " ~ newOre.name ~ " does not exist");
         }
+    }
+
+    bool hasOreID(int id) {
+        if (id in idDatabase) {
+            return true;
+        }
+        return false;
+    }
+
+    bool hasOreName(string name) {
+        if (name in nameDatabase) {
+            return true;
+        }
+        return false;
+    }
+
+    Option!OreDefinition getTileByID(int id) {
+        Option!OreDefinition result;
+        OreDefinition* thisDefinition = id in idDatabase;
+        if (thisDefinition !is null) {
+            result = result.Some(*thisDefinition);
+        }
+        return result;
+    }
+
+    Option!OreDefinition getTileByName(string name) {
+        Option!OreDefinition result;
+        OreDefinition* thisDefinition = name in nameDatabase;
+        if (thisDefinition !is null) {
+            result = result.Some(*thisDefinition);
+        }
+        return result;
     }
 
 }
