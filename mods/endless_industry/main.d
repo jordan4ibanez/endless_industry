@@ -155,10 +155,30 @@ void registerBiomes() {
 
 }
 
+void setPlayerTextures() {
+    /*
+
+    In a very specific binary order for allowing pointer arithmetic during terrain generation.
+
+    animation states: 3
+    animation directions: 8
+    animation frames: 8 (the max)
+
+    Anything that is missing should be null.
+
+    States in order:
+    1 Standing
+    2 Walking
+    3 Mining
+    */
+
+    ubyte[3] frameCounts = [4, 8, 4];
+
+}
+
 void endlessIndustryMain() {
 
     registerTiles();
-
     registerBiomes();
 
 }
