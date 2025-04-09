@@ -7,9 +7,9 @@ import std.stdio;
 
 private immutable string nameOfMod = "CubeThing";
 
-void endlessIndustryMain() {
+void registerTiles() {
 
-    //? Tiles.
+    //? Regular Tiles.
 
     TileDefinition grass0;
     grass0.name = "grass_0";
@@ -26,14 +26,7 @@ void endlessIndustryMain() {
     grass2.texture = "grass_2.png";
     TileDatabase.registerTile(grass2);
 
-    //? Biomes.
-
-    BiomeDefinition grassLands;
-    grassLands.name = "grass lands";
-    grassLands.groundLayerTiles = [
-        "endless_industry.grass_0", "endless_industry.grass_1",
-        "endless_industry.grass_2"
-    ];
+    //? Water.
 
     TileDefinition water0;
     water0.name = "water_0";
@@ -49,11 +42,6 @@ void endlessIndustryMain() {
     water2.name = "water_2";
     water2.texture = "water_2.png";
     TileDatabase.registerTile(water2);
-
-    grassLands.waterLayerTiles = [
-        "endless_industry.water_0", "endless_industry.water_1",
-        "endless_industry.water_2"
-    ];
 
     /*
 
@@ -104,6 +92,47 @@ void endlessIndustryMain() {
         TileDatabase.registerTile(aCornerTile);
     }
 
+}
+
+void registerBiomes() {
+
+    //? Biomes.
+
+    BiomeDefinition grassLands;
+    grassLands.name = "grass lands";
+    grassLands.groundLayerTiles = [
+        "endless_industry.grass_0", "endless_industry.grass_1",
+        "endless_industry.grass_2"
+    ];
+
+    grassLands.waterLayerTiles = [
+        "endless_industry.water_0", "endless_industry.water_1",
+        "endless_industry.water_2"
+    ];
+
+    /*
+
+    ? Water Corner Tiles.
+
+    In a very specific binary order for allowing pointer arithmetic during terrain generation.
+    0_0_0_0
+    1_0_0_0
+    0_1_0_0
+    1_1_0_0
+    0_0_1_0
+    1_0_1_0
+    0_1_1_0
+    1_1_1_0
+    0_0_0_1
+    1_0_0_1
+    0_1_0_1
+    1_1_0_1
+    0_0_1_1
+    1_0_1_1
+    0_1_1_1
+
+    */
+
     grassLands.waterLayerCornerTiles = [
         "endless_industry.water_1_0_0_0",
         "endless_industry.water_0_1_0_0",
@@ -123,5 +152,13 @@ void endlessIndustryMain() {
     ];
 
     BiomeDatabase.registerBiome(grassLands);
+
+}
+
+void endlessIndustryMain() {
+
+    registerTiles();
+
+    registerBiomes();
 
 }
