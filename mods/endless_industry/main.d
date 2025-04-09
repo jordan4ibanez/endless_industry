@@ -1,6 +1,7 @@
 module mods.endless_industry.main;
 
 import game.biome_database;
+import game.player;
 import game.tile_database;
 import std.stdio;
 

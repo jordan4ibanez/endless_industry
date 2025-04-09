@@ -1,7 +1,6 @@
 module mods.api;
 
 import game.biome_database;
-import game.player;
 import game.tile_database;
 
 //? Do not modify the autos. :)
