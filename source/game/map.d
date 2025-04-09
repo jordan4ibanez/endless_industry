@@ -26,12 +26,13 @@ immutable public int CHUNK_WIDTH = 64;
 
 struct TileData {
     int groundTileID = 0;
-
+    int entityID = 0;
 }
 
 final class Chunk {
     TileData[CHUNK_WIDTH][CHUNK_WIDTH] data;
     int modelID = 0;
+    void* entitiesInChunk = null;
 }
 
 static final const class Map {
