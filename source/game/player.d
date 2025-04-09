@@ -223,9 +223,6 @@ public: //* BEGIN PUBLIC API.
         // todo: figure out a way to bitshift into this because this is hilarious.
         if (moving) {
 
-            // writeln(*(cast(ubyte*)&input));
-            // writeln((input.x * 2));
-
             const double __preprocessYaw = atan2(cast(double) input.y, cast(double) input.x) + (
                 PI * 0.5);
             const Vec2d __redirectedDir = Vec2d(sin(__preprocessYaw), cos(__preprocessYaw));
