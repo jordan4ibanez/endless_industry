@@ -69,7 +69,7 @@ public: //* BEGIN PUBLIC API.
         OutputRect rawInput;
         database.getRectangleIntegral(textureName, rawInput);
 
-        Rect source = Rect();
+        Rect source;
         source.x = rawInput.x + cast(int) sourceOnTexture.x;
         source.y = rawInput.y + cast(int) sourceOnTexture.y;
         source.width = sourceOnTexture.width;
