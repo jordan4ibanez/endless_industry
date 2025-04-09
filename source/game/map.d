@@ -25,8 +25,14 @@ import std.stdio;
 immutable public int CHUNK_WIDTH = 64;
 
 struct TileData {
+
     int groundTileID = 0;
+
+    int ore = 0;
+    int oreAmount = 0;
+
     int entityID = 0;
+    Vec2i entityOrigin;
 }
 
 final class Chunk {
