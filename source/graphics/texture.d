@@ -8,11 +8,11 @@ import math.vec2d;
 import raylib;
 import std.container;
 import std.file;
+import std.math.trigonometry;
 import std.path;
 import std.regex;
 import std.stdio;
 import std.string;
-import std.math.trigonometry;
 
 static final const class TextureHandler {
 static:
@@ -173,9 +173,9 @@ private: //* BEGIN INTERNAL API.
                 float x = dest.x - origin.x;
                 float y = dest.y - origin.y;
                 topLeft = Vector2(x, y);
-                topRight = Vector2 ( x + dest.width, y );
-                bottomLeft = Vector2 ( x, y + dest.height );
-                bottomRight = Vector2 ( x + dest.width, y + dest.height );
+                topRight = Vector2(x + dest.width, y);
+                bottomLeft = Vector2(x, y + dest.height);
+                bottomRight = Vector2(x + dest.width, y + dest.height);
             } else {
                 float sinRotation = sin(rotation * DEG2RAD);
                 float cosRotation = cos(rotation * DEG2RAD);
@@ -234,45 +234,6 @@ private: //* BEGIN INTERNAL API.
             rlEnd();
             rlSetTexture(0);
 
-            // NOTE: Vertex position can be transformed using matrices
-            // but the process is way more costly than just calculating
-            // the vertex positions manually, like done above
-            // I leave here the old implementation for educational purposes,
-            // just in case someone wants to do some performance test
-            /*
-        rlSetTexture(texture.id);
-        rlPushMatrix();
-            rlTranslatef(dest.x, dest.y, 0.0f);
-            if (rotation != 0.0f) rlRotatef(rotation, 0.0f, 0.0f, 1.0f);
-            rlTranslatef(-origin.x, -origin.y, 0.0f);
-
-            rlBegin(RL_QUADS);
-                rlColor4ub(tint.r, tint.g, tint.b, tint.a);
-                rlNormal3f(0.0f, 0.0f, 1.0f);                          // Normal vector pointing towards viewer
-
-                // Bottom-left corner for texture and quad
-                if (flipX) rlTexCoord2f((source.x + source.width)/width, source.y/height);
-                else rlTexCoord2f(source.x/width, source.y/height);
-                rlVertex2f(0.0f, 0.0f);
-
-                // Bottom-right corner for texture and quad
-                if (flipX) rlTexCoord2f((source.x + source.width)/width, (source.y + source.height)/height);
-                else rlTexCoord2f(source.x/width, (source.y + source.height)/height);
-                rlVertex2f(0.0f, dest.height);
-
-                // Top-right corner for texture and quad
-                if (flipX) rlTexCoord2f(source.x/width, (source.y + source.height)/height);
-                else rlTexCoord2f((source.x + source.width)/width, (source.y + source.height)/height);
-                rlVertex2f(dest.width, dest.height);
-
-                // Top-left corner for texture and quad
-                if (flipX) rlTexCoord2f(source.x/width, source.y/height);
-                else rlTexCoord2f((source.x + source.width)/width, source.y/height);
-                rlVertex2f(dest.width, 0.0f);
-            rlEnd();
-        rlPopMatrix();
-        rlSetTexture(0);
-        */
         }
     }
 }
