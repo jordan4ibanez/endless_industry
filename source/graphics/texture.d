@@ -81,7 +81,7 @@ public: //* BEGIN PUBLIC API.
             size.y
         );
 
-        DrawTexturePro(atlas, source.toRaylib(), dest.toRaylib(), origin.toRaylib(), rotation, Colors
+        drawTexturePro(atlas, source.toRaylib(), dest.toRaylib(), origin.toRaylib(), rotation, Colors
                 .WHITE);
     }
 
@@ -141,7 +141,8 @@ private: //* BEGIN INTERNAL API.
 
     // Draw a part of a texture (defined by a rectangle) with 'pro' parameters
     // NOTE: origin is relative to destination rectangle size
-    void DrawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint) {
+    void drawTextureFromAtlasPro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation,
+        Color tint) {
         // Check if texture is valid
         if (texture.id > 0) {
             float width = cast(float) texture.width;
@@ -170,10 +171,10 @@ private: //* BEGIN INTERNAL API.
             if (rotation == 0.0f) {
                 float x = dest.x - origin.x;
                 float y = dest.y - origin.y;
-                topLeft = (Vector2) { x, y };
-                topRight = (Vector2) { x + dest.width, y };
-                bottomLeft = (Vector2) { x, y + dest.height };
-                bottomRight = (Vector2) { x + dest.width, y + dest.height };
+                topLeft = Vector2(x, y);
+                topRight = Vector2 ( x + dest.width, y );
+                bottomLeft = Vector2 ( x, y + dest.height );
+                bottomRight = Vector2 ( x + dest.width, y + dest.height );
             } else {
                 float sinRotation = sinf(rotation * DEG2RAD);
                 float cosRotation = cosf(rotation * DEG2RAD);
