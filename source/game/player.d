@@ -197,18 +197,29 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
+        if (newState != animation.state) {
+            animation.frame = 0;
+        }
+
         animation.state = newState;
     }
 
     void move() {
+
+        moving = false;
+
+        if (Keyboard.isDown(KeyboardKey.KEY_SPACE)) {
+            mining = true;
+            setAnimationState(2);
+            return;
+        }
+
         double delta = Delta.getDelta();
 
         // Todo: Make this API element later.
         const double topSpeed = 7;
 
         // writeln(velocity.x);
-
-        moving = false;
 
         struct InputBits {
             mixin(bitfields!(
