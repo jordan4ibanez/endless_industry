@@ -81,7 +81,7 @@ public: //* BEGIN PUBLIC API.
             size.y
         );
 
-        drawTexturePro(atlas, source.toRaylib(), dest.toRaylib(), origin.toRaylib(), rotation, Colors
+        drawTextureFromAtlasPro(atlas, source.toRaylib(), dest.toRaylib(), origin.toRaylib(), rotation, Colors
                 .WHITE);
     }
 
