@@ -210,31 +210,35 @@ private: //* BEGIN INTERNAL API.
         rlNormal3f(0.0f, 0.0f, 1.0f); // Normal vector pointing towards viewer
 
         // Top-left corner for texture and quad
-        if (flipX)
+        if (flipX) {
             rlTexCoord2f((source.x + source.width) / width, source.y / height);
-        else
+        } else {
             rlTexCoord2f(source.x / width, source.y / height);
+        }
         rlVertex2f(topLeft.x, topLeft.y);
 
         // Bottom-left corner for texture and quad
-        if (flipX)
+        if (flipX) {
             rlTexCoord2f((source.x + source.width) / width, (source.y + source.height) / height);
-        else
+        } else {
             rlTexCoord2f(source.x / width, (source.y + source.height) / height);
+        }
         rlVertex2f(bottomLeft.x, bottomLeft.y);
 
         // Bottom-right corner for texture and quad
-        if (flipX)
+        if (flipX) {
             rlTexCoord2f(source.x / width, (source.y + source.height) / height);
-        else
+        } else {
             rlTexCoord2f((source.x + source.width) / width, (source.y + source.height) / height);
+        }
         rlVertex2f(bottomRight.x, bottomRight.y);
 
         // Top-right corner for texture and quad
-        if (flipX)
+        if (flipX) {
             rlTexCoord2f(source.x / width, source.y / height);
-        else
+        } else {
             rlTexCoord2f((source.x + source.width) / width, source.y / height);
+        }
         rlVertex2f(topRight.x, topRight.y);
 
         rlEnd();
