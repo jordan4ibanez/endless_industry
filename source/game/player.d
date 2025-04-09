@@ -9,6 +9,7 @@ import math.rect;
 import math.vec2d;
 import math.vec2i;
 import raylib : DEG2RAD, PI, RAD2DEG;
+import std.bitmanip;
 import std.conv;
 import std.math.algebraic : abs;
 import std.math.rounding;
@@ -18,6 +19,13 @@ import std.stdio;
 import utility.collision_functions;
 import utility.delta;
 import utility.drawing_functions;
+
+private struct AnimationState {
+    mixin(bitfields!(
+            ubyte, "state", 2,
+            ubyte, "direction", 3,
+            ubyte, "frame", 3));
+}
 
 static final const class Player {
 static:
