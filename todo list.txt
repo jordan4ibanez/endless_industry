@@ -1,5 +1,3 @@
-- Fix the player animation to not be terrible
-
 - layers
 
 - ores but baked into the ground via the biome
