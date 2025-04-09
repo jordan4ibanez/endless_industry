@@ -12,6 +12,7 @@ import std.path;
 import std.regex;
 import std.stdio;
 import std.string;
+import std.math.trigonometry;
 
 static final const class TextureHandler {
 static:
@@ -176,8 +177,8 @@ private: //* BEGIN INTERNAL API.
                 bottomLeft = Vector2 ( x, y + dest.height );
                 bottomRight = Vector2 ( x + dest.width, y + dest.height );
             } else {
-                float sinRotation = sinf(rotation * DEG2RAD);
-                float cosRotation = cosf(rotation * DEG2RAD);
+                float sinRotation = sin(rotation * DEG2RAD);
+                float cosRotation = cos(rotation * DEG2RAD);
                 float x = dest.x;
                 float y = dest.y;
                 float dx = -origin.x;
