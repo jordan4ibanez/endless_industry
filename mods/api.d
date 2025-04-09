@@ -1,6 +1,7 @@
 module mods.api;
 
 import game.biome_database;
+import game.player;
 import game.tile_database;
 
 // Do not modify the autos. :)
@@ -34,6 +35,8 @@ static final const class Api {
 static:
 private:
 
+    bool finalized = false;
+
 public: //* BEGIN PUBLIC API.
 
     void initialize() {
@@ -45,8 +48,12 @@ public: //* BEGIN PUBLIC API.
 private: //* BEGIN INTERNAL API.
 
     void finalize() {
+        if (finalized) {
+            throw new Error("Do not run finalize in your mods.");
+        }
         TileDatabase.finalize();
         BiomeDatabase.finalize();
+        finalized = true;
     }
 
 }
