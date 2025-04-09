@@ -10,6 +10,8 @@ struct OreDefinition {
     uint minedItemAmount = 0;
 
     ///! DO NOT USE.
+    int id = -1;
+    ulong texturePointsIndex = 0;
 }
 
 static final const class BiomeDatabase {
