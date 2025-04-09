@@ -117,6 +117,13 @@ public: //* BEGIN PUBLIC API.
         return *theseTexturePoints;
     }
 
+    /// This is a specialty function to draw entities. Do not use this in mods.
+    OutputRect getTextureRectangle(string name) {
+        OutputRect result;
+        database.getRectangleIntegral(name, result);
+        return result;
+    }
+
     void loadTexture(string location) {
 
         // Extract the file name from the location.
