@@ -222,9 +222,9 @@ public: //* BEGIN PUBLIC API.
         setAnimationState(moving ? 1 : 0);
         if (moving) {
             const double __preprocessYaw = atan2(cast(double) input.y, cast(double) input.x) + HALF_PI;
+            const double __processedYaw = atan2(cos(__preprocessYaw), sin(__preprocessYaw)) + PI;
             // Rounded to prevent floating point errors.
-            animation.direction = cast(ubyte) round((atan2(cos(__preprocessYaw), sin(
-                    __preprocessYaw)) + PI) * DIV_QUARTER_PI);
+            animation.direction = cast(ubyte) round(__processedYaw * DIV_QUARTER_PI);
         }
 
         //! End animation components.
