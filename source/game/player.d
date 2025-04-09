@@ -69,6 +69,8 @@ public: //* BEGIN PUBLIC API.
             if (!TextureHandler.hasTexture(key)) {
                 throw new Error("Missing frame: " ~ key ~ " in player");
             }
+
+            
         }
 
     }
