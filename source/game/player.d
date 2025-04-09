@@ -164,7 +164,7 @@ public: //* BEGIN PUBLIC API.
                         animation.frame = 1;
                     }
                 }
-                writeln(animation.frame);
+                // writeln(animation.frame);
             }
         }
 
