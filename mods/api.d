@@ -26,7 +26,7 @@ void deployMainFunctions() {
 // End the note about modifying the autos.
 
 // This is so you don't have to prefix your mods. :D
-void setModName(string modName) {
+private void setModName(string modName) {
     TileDatabase.setModName(modName);
     BiomeDatabase.setModName(modName);
 }
