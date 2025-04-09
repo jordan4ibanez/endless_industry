@@ -86,4 +86,10 @@ public: //* BEGIN PUBLIC API.
         return result;
     }
 
+    /// Extremely unsafe API access.
+    /// Do not use this unless you want to debug some "very cool" errors.
+    OreDefinition* unsafeGetByID(int id) {
+        return ultraFastAccess + id;
+    }
+
 }
