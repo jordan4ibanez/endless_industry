@@ -44,8 +44,24 @@ private:
     // 2 mining
     AnimationState animation;
     double animationTimer = 0;
+    string[] frames = null;
 
 public: //* BEGIN PUBLIC API.
+
+    void setPlayerFrames(string[] frames) {
+        const uint frameLength = 3 * 8 * 8;
+        if (frames.length != frameLength) {
+            throw new Error("Player frames does not equal " ~ to!string(
+                    frameLength) ~ " | equals: " ~ to!string(frames.length));
+        }
+        this.frames = frames;
+    }
+
+    void finalize() {
+        if (frames == null) {
+            throw new Error("Player frames were never set.");
+        }
+    }
 
     Vec2d getSize() {
         return size;
@@ -239,7 +255,6 @@ public: //* BEGIN PUBLIC API.
             // Rounded to prevent floating point errors.
             animation.direction = cast(ubyte) round(__processedYaw * DIV_QUARTER_PI);
         }
-
         //! End animation components.
 
         // Map.collideEntityToWorld(position, size, velocity, CollisionAxis.X);
