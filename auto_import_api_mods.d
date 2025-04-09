@@ -196,7 +196,7 @@ void main() {
                 insertedFunctions = true;
 
                 // Wrap the main function deployment in a function.
-                newFileData ~= "void deployMainFunctions() {";
+                newFileData ~= "private void deployMainFunctions() {";
 
                 // Here we insert the functions and mod configuration automation.
                 foreach (index, func; mainFunctionList) {

@@ -15,7 +15,7 @@ import mods.test_mod.main;
 //# =-AUTO IMPORT END-=
 
 //# =-AUTO FUNCTION BEGIN-=
-void deployMainFunctions() {
+private void deployMainFunctions() {
     setModName("endless_industry");
     endlessIndustryMain();
     setModName("test_mod");
