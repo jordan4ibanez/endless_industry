@@ -229,40 +229,7 @@ public: //* BEGIN PUBLIC API.
             // Rounded to prevent floating point errors.
             uint index = cast(uint) round(__processedYaw * DIV_QUARTER_PI);
 
-            writeln(index);
-
-            if (input.x == 1 && input.y == 0) {
-
-                animation.direction = 0;
-
-            } else if (input.x == 1 && input.y == 2) {
-
-                animation.direction = 1;
-
-            } else if (input.x == 0 && input.y == 2) {
-
-                animation.direction = 2;
-
-            } else if (input.x == 2 && input.y == 2) {
-
-                animation.direction = 3;
-
-            } else if (input.x == 2 && input.y == 0) {
-
-                animation.direction = 4;
-
-            } else if (input.x == 2 && input.y == 1) {
-
-                animation.direction = 5;
-
-            } else if (input.x == 0 && input.y == 1) {
-
-                animation.direction = 6;
-
-            } else if (input.x == 1 && input.y == 1) {
-                animation.direction = 7;
-            }
-
+            animation.direction = cast(ubyte) index;
         }
 
         //! End animation components.
