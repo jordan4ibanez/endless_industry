@@ -44,6 +44,8 @@ private:
     // 1 walking
     // 2 mining
     AnimationState animation;
+    // Up = +1 each cycle. Down = -1 each cycle. Only for idle and mining.
+    bool animationUp = true;
     double animationTimer = 0;
     string[] __frameNames = null;
     OutputRect* frames = null;
