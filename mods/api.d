@@ -2,6 +2,7 @@ module mods.api;
 
 import game.biome_database;
 import game.tile_database;
+import game.player;
 
 //? Do not modify the autos. :)
 //? These are part of a preprocessor I made to auto bake your mod into the game itself.
@@ -53,6 +54,7 @@ private: //* BEGIN INTERNAL API.
         }
         TileDatabase.finalize();
         BiomeDatabase.finalize();
+        Player.finalize();
         finalized = true;
     }
 

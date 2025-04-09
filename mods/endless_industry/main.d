@@ -3,6 +3,7 @@ module mods.endless_industry.main;
 import game.biome_database;
 import game.player;
 import game.tile_database;
+import std.conv;
 import std.stdio;
 
 private immutable string nameOfMod = "CubeThing";
@@ -173,20 +174,33 @@ void setPlayerTextures() {
     3 Mining
     */
 
-    ubyte[3] frameCounts = [4, 8, 4];
-
     string[] playerFrames = new string[](3 * 8 * 8);
 
+    ubyte[3] frameCounts = [4, 8, 4];
+    string[3] states = ["standing", "walking", "mining"];
+
+    uint currentIndex = 0;
+
     foreach (state; 0 .. 3) {
+
+        const string thisState = states[state];
         const ubyte thisFrameCount = frameCounts[state];
         foreach (direction; 0 .. 8) {
 
             foreach (frame; 0 .. thisFrameCount) {
+                playerFrames[currentIndex] = "player_" ~ thisState ~ "_direction_" ~ to!string(
+                    direction) ~ "_frame_" ~ to!string(frame);
 
+                // writeln(playerFrames[currentIndex]);
+                currentIndex++;
+            }
+            if (thisFrameCount == 4) {
+                currentIndex += 4;
             }
         }
     }
 
+    Player.setPlayerFrames(playerFrames);
 }
 
 void endlessIndustryMain() {
