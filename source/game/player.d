@@ -41,9 +41,7 @@ private:
     // 0 standing
     // 1 walking
     // 2 mining
-    ubyte animationState = 1;
-    ubyte directionFrame = 6;
-    ubyte animationFrame = 0;
+    AnimationState animation;
     double animationTimer = 0;
 
 public: //* BEGIN PUBLIC API.
@@ -94,7 +92,7 @@ public: //* BEGIN PUBLIC API.
         double frameGoal = 0;
 
         // Walking is animated slightly faster.
-        if (animationState == 1) {
+        if (animation.state == 1) {
             frameGoal = _frameGoalWalking;
         } else { // Everything else is slightly slower.
             frameGoal = _frameGoalStanding;
@@ -103,16 +101,16 @@ public: //* BEGIN PUBLIC API.
         if (animationTimer >= frameGoal) {
             animationTimer -= frameGoal;
 
-            animationFrame++;
+            animation.frame = cast(ubyte)(animation.frame + 1);
 
             // Walking has 8 frames.
-            if (animationState == 1) {
-                if (animationFrame >= 8) {
-                    animationFrame = 0;
+            if (animation.state == 1) {
+                if (animation.frame >= 8) {
+                    animation.frame = 0;
                 }
             } else { // Everything else (for now) has 4.
-                if (animationFrame >= 4) {
-                    animationFrame = 0;
+                if (animation.frame >= 4) {
+                    animation.frame = 0;
                 }
             }
         }
@@ -125,7 +123,7 @@ public: //* BEGIN PUBLIC API.
         // This is some next level debugging horror right here lmao.
         string animationName;
 
-        final switch (animationState) {
+        final switch (animation.state) {
         case 0:
             animationName = "standing";
             break;
@@ -138,7 +136,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         const string textureName = "player_" ~ animationName ~ "_direction_" ~ to!string(
-            directionFrame) ~ "_frame_" ~ to!string(animationFrame) ~ ".png";
+            animation.direction) ~ "_frame_" ~ to!string(animation.frame) ~ ".png";
 
         TextureHandler.drawTexture(textureName, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(3, 3));
 
@@ -149,12 +147,12 @@ public: //* BEGIN PUBLIC API.
         // Everything else (for now) has 4.
         // So we must catch that.
         if (newState != 1) {
-            if (animationFrame >= 4) {
-                animationFrame = 0;
+            if (animation.frame >= 4) {
+                animation.frame = 0;
             }
         }
 
-        animationState = newState;
+        animation.state = newState;
     }
 
     void move() {
@@ -212,21 +210,21 @@ public: //* BEGIN PUBLIC API.
         // todo: figure out a way to bitshift into this because this is hilarious.
         if (moving) {
             if (xInput == -1 && yInput == 0) {
-                directionFrame = 0;
+                animation.direction = 0;
             } else if (xInput == -1 && yInput == 1) {
-                directionFrame = 1;
+                animation.direction = 1;
             } else if (xInput == 0 && yInput == 1) {
-                directionFrame = 2;
+                animation.direction = 2;
             } else if (xInput == 1 && yInput == 1) {
-                directionFrame = 3;
+                animation.direction = 3;
             } else if (xInput == 1 && yInput == 0) {
-                directionFrame = 4;
+                animation.direction = 4;
             } else if (xInput == 1 && yInput == -1) {
-                directionFrame = 5;
+                animation.direction = 5;
             } else if (xInput == 0 && yInput == -1) {
-                directionFrame = 6;
+                animation.direction = 6;
             } else if (xInput == -1 && yInput == -1) {
-                directionFrame = 7;
+                animation.direction = 7;
             }
 
         }
