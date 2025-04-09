@@ -176,19 +176,19 @@ private: //* BEGIN INTERNAL API.
 
         // Only calculate rotation if needed
         if (rotation == 0.0) {
-            float x = dest.x - origin.x;
-            float y = dest.y - origin.y;
+            const float x = dest.x - origin.x;
+            const float y = dest.y - origin.y;
             topLeft = Vector2(x, y);
             topRight = Vector2(x + dest.width, y);
             bottomLeft = Vector2(x, y + dest.height);
             bottomRight = Vector2(x + dest.width, y + dest.height);
         } else {
-            float sinRotation = sin(rotation * DEG2RAD);
-            float cosRotation = cos(rotation * DEG2RAD);
-            float x = dest.x;
-            float y = dest.y;
-            float dx = -origin.x;
-            float dy = -origin.y;
+            const float sinRotation = sin(rotation * DEG2RAD);
+            const float cosRotation = cos(rotation * DEG2RAD);
+            const float x = dest.x;
+            const float y = dest.y;
+            const float dx = -origin.x;
+            const float dy = -origin.y;
 
             topLeft.x = x + dx * cosRotation - dy * sinRotation;
             topLeft.y = y + dx * sinRotation + dy * cosRotation;
