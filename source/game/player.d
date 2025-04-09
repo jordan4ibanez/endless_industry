@@ -220,9 +220,7 @@ public: //* BEGIN PUBLIC API.
 
         //! Animation components.
         setAnimationState(moving ? 1 : 0);
-        // todo: figure out a way to bitshift into this because this is hilarious.
         if (moving) {
-
             const double __preprocessYaw = atan2(cast(double) input.y, cast(double) input.x) + HALF_PI;
             const Vec2d __redirectedDir = Vec2d(sin(__preprocessYaw), cos(__preprocessYaw));
             const double __processedYaw = atan2(__redirectedDir.y, __redirectedDir.x) + PI;
