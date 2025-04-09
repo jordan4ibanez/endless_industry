@@ -165,6 +165,7 @@ void setPlayerTextures() {
     animation frames: 8 (the max)
 
     Anything that is missing should be null.
+    This is set by default when creating a string array.
 
     States in order:
     1 Standing
@@ -174,11 +175,24 @@ void setPlayerTextures() {
 
     ubyte[3] frameCounts = [4, 8, 4];
 
+    string[] playerFrames = new string[](3 * 8 * 8);
+
+    foreach (state; 0 .. 3) {
+        const ubyte thisFrameCount = frameCounts[state];
+        foreach (direction; 0 .. 8) {
+
+            foreach (frame; 0 .. thisFrameCount) {
+
+            }
+        }
+    }
+
 }
 
 void endlessIndustryMain() {
 
     registerTiles();
     registerBiomes();
+    setPlayerTextures();
 
 }
