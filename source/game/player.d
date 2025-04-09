@@ -61,6 +61,16 @@ public: //* BEGIN PUBLIC API.
         if (frames == null) {
             throw new Error("Player frames were never set.");
         }
+
+        foreach (string key; frames) {
+            if (key is null) {
+                continue;
+            }
+            if (!TextureHandler.hasTexture(key)) {
+                throw new Error("Missing frame: " ~ key ~ " in player");
+            }
+        }
+
     }
 
     Vec2d getSize() {

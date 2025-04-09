@@ -189,7 +189,7 @@ void setPlayerTextures() {
 
             foreach (frame; 0 .. thisFrameCount) {
                 playerFrames[currentIndex] = "player_" ~ thisState ~ "_direction_" ~ to!string(
-                    direction) ~ "_frame_" ~ to!string(frame);
+                    direction) ~ "_frame_" ~ to!string(frame) ~ ".png";
 
                 // writeln(playerFrames[currentIndex]);
                 currentIndex++;
