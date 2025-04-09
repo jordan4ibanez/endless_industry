@@ -2,15 +2,16 @@ module game.tile_database;
 
 import core.memory;
 import graphics.texture;
+import optibrev;
 import std.conv;
 import std.stdio;
 import std.string;
-import optibrev;
 
 struct TileDefinition {
     string name = null;
     string texture = null;
-    //! NEVER USE THESE.
+
+    //! DO NOT USE.
     int id = -1;
     ulong texturePointsIndex = 0;
 }
