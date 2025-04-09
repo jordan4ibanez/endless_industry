@@ -225,9 +225,7 @@ public: //* BEGIN PUBLIC API.
             const Vec2d __redirectedDir = Vec2d(sin(__preprocessYaw), cos(__preprocessYaw));
             const double __processedYaw = atan2(__redirectedDir.y, __redirectedDir.x) + PI;
             // Rounded to prevent floating point errors.
-            uint index = cast(uint) round(__processedYaw * DIV_QUARTER_PI);
-
-            animation.direction = cast(ubyte) index;
+            animation.direction = cast(ubyte) round(__processedYaw * DIV_QUARTER_PI);
         }
 
         //! End animation components.
