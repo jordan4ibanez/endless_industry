@@ -20,7 +20,6 @@ struct BiomeDefinition {
     int[] waterLayerIDs = null;
     int[] waterLayerCornerIDs = null;
 
-    // todo: ores.
 }
 
 static final const class BiomeDatabase {
