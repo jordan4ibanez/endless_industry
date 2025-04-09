@@ -64,8 +64,6 @@ public: //* BEGIN PUBLIC API.
     void drawTexture(string textureName, Vec2d position, Rect sourceOnTexture, Vec2d size, Vec2d origin = Vec2d(0, 0),
         double rotation = 0) {
 
-        const Vec2d flippedPosition = Vec2d(position.x, -position.y);
-
         OutputRect rawInput;
         database.getRectangleIntegral(textureName, rawInput);
 
@@ -76,8 +74,8 @@ public: //* BEGIN PUBLIC API.
         source.height = sourceOnTexture.height;
 
         Rect dest = Rect(
-            flippedPosition.x,
-            flippedPosition.y,
+            position.x,
+            -position.y,
             size.x,
             size.y
         );
@@ -90,8 +88,6 @@ public: //* BEGIN PUBLIC API.
         Vec2d origin = Vec2d(0, 0),
         double rotation = 0) {
 
-        const Vec2d flippedPosition = Vec2d(position.x, -position.y);
-
         Rect source;
         source.x = coordinatesRect.x + cast(int) sourceOnTexture.x;
         source.y = coordinatesRect.y + cast(int) sourceOnTexture.y;
@@ -99,15 +95,14 @@ public: //* BEGIN PUBLIC API.
         source.height = sourceOnTexture.height;
 
         Rect dest = Rect(
-            flippedPosition.x,
-            flippedPosition.y,
+            position.x,
+            -position.y,
             size.x,
             size.y
         );
 
         drawTextureFromAtlasPro(source.toRaylib(), dest.toRaylib(), origin.toRaylib(), rotation, Colors
                 .WHITE);
-
     }
 
     bool hasTexture(string name) {
