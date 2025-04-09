@@ -82,7 +82,7 @@ public: //* BEGIN PUBLIC API.
             size.y
         );
 
-        drawTextureFromAtlasPro(atlas, source.toRaylib(), dest.toRaylib(), origin.toRaylib(), rotation, Colors
+        drawTextureFromAtlasPro(source.toRaylib(), dest.toRaylib(), origin.toRaylib(), rotation, Colors
                 .WHITE);
     }
 
@@ -142,15 +142,11 @@ private: //* BEGIN INTERNAL API.
 
     // Draw a part of a texture (defined by a rectangle) with 'pro' parameters
     // NOTE: origin is relative to destination rectangle size
-    void drawTextureFromAtlasPro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation,
+    void drawTextureFromAtlasPro(Rectangle source, Rectangle dest, Vector2 origin, float rotation,
         Color tint) {
-        // Check if texture is valid.
-        if (texture.id <= 0) {
-            return;
-        }
 
-        const float width = texture.width;
-        const float height = texture.height;
+        const float width = atlas.width;
+        const float height = atlas.height;
 
         bool flipX = false;
 
@@ -203,7 +199,7 @@ private: //* BEGIN INTERNAL API.
             bottomRight.y = y + (dx + dest.width) * sinRotation + (dy + dest.height) * cosRotation;
         }
 
-        rlSetTexture(texture.id);
+        rlSetTexture(atlas.id);
         rlBegin(RL_QUADS);
 
         rlColor4ub(tint.r, tint.g, tint.b, tint.a);
