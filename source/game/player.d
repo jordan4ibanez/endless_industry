@@ -167,28 +167,34 @@ public: //* BEGIN PUBLIC API.
 
         moving = false;
 
-        int xInput = 0;
-        int yInput = 0;
+        struct InputBits {
+            mixin(bitfields!(
+                    ubyte, "x", 2,
+                    ubyte, "y", 2,
+                    bool, "", 4));
+        }
+
+        InputBits input;
 
         //? Controls first.
         if (Keyboard.isDown(KeyboardKey.KEY_D)) {
             moving = true;
-            xInput = 1;
+            input.x = 2;
             velocity.x = topSpeed;
         } else if (Keyboard.isDown(KeyboardKey.KEY_A)) {
             moving = true;
-            xInput = -1;
+            input.x = 1;
             velocity.x = -topSpeed;
         } else {
             velocity.x = 0;
         }
         if (Keyboard.isDown(KeyboardKey.KEY_W)) {
             moving = true;
-            yInput = 1;
+            input.y = 2;
             velocity.y = topSpeed;
         } else if (Keyboard.isDown(KeyboardKey.KEY_S)) {
             moving = true;
-            yInput = -1;
+            input.y = 1;
             velocity.y = -topSpeed;
         } else {
             velocity.y = 0;
@@ -209,21 +215,35 @@ public: //* BEGIN PUBLIC API.
         setAnimationState(moving ? 1 : 0);
         // todo: figure out a way to bitshift into this because this is hilarious.
         if (moving) {
-            if (xInput == -1 && yInput == 0) {
+            if (input.x == 1 && input.y == 0) {
+
                 animation.direction = 0;
-            } else if (xInput == -1 && yInput == 1) {
+
+            } else if (input.x == 1 && input.y == 2) {
+
                 animation.direction = 1;
-            } else if (xInput == 0 && yInput == 1) {
+
+            } else if (input.x == 0 && input.y == 2) {
+
                 animation.direction = 2;
-            } else if (xInput == 1 && yInput == 1) {
+
+            } else if (input.x == 2 && input.y == 2) {
+
                 animation.direction = 3;
-            } else if (xInput == 1 && yInput == 0) {
+
+            } else if (input.x == 2 && input.y == 0) {
+
                 animation.direction = 4;
-            } else if (xInput == 1 && yInput == -1) {
+
+            } else if (input.x == 2 && input.y == 1) {
+
                 animation.direction = 5;
-            } else if (xInput == 0 && yInput == -1) {
+
+            } else if (input.x == 0 && input.y == 1) {
+
                 animation.direction = 6;
-            } else if (xInput == -1 && yInput == -1) {
+
+            } else if (input.x == 1 && input.y == 1) {
                 animation.direction = 7;
             }
 
