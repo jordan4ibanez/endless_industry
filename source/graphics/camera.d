@@ -16,7 +16,7 @@ private:
 
 public: //* BEGIN PUBLIC API.
 
-    double realZoom = 150.0;
+    double realZoom = 80.0;
 
     void initialize() {
         camera = new Camera2D();
@@ -87,8 +87,8 @@ public: //* BEGIN PUBLIC API.
         realZoom += Mouse.getScrollDelta() * (realZoom / 10.0);
         if (realZoom < 1) {
             realZoom = 1;
-        } else if (realZoom > 1000) {
-            realZoom = 1000;
+        } else if (realZoom > 100) {
+            realZoom = 100;
         }
 
         camera.zoom = realZoom * GUI.getGUIScale();
