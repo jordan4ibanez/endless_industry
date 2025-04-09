@@ -25,8 +25,8 @@ import std.stdio;
 immutable public int CHUNK_WIDTH = 64;
 
 struct TileData {
-    int tileID = 0;
-    // int meshID = 0;
+    int groundTileID = 0;
+
 }
 
 final class Chunk {
@@ -160,7 +160,7 @@ public: //* BEGIN PUBLIC API.
         if (thisChunk is null) {
             throw new Error("Null chunk! How is this even possible? It was loaded!");
         }
-        thisChunk.data[xPosInChunk][yPosInChunk].tileID = id;
+        thisChunk.data[xPosInChunk][yPosInChunk].groundTileID = id;
         generateChunkMesh(*thisChunk);
     }
 
@@ -182,7 +182,7 @@ public: //* BEGIN PUBLIC API.
         if (thisChunk is null) {
             throw new Error("Null chunk! How is this even possible? It was loaded!");
         }
-        thisChunk.data[xPosInChunk][yPosInChunk].tileID = result.unwrap.id;
+        thisChunk.data[xPosInChunk][yPosInChunk].groundTileID = result.unwrap.id;
         generateChunkMesh(*thisChunk);
     }
 
@@ -307,13 +307,13 @@ private: //* BEGIN INTERNAL API.
                         const ulong selectedTile = (_baseWaterSelection >= numberOfWaterTiles) ? 0
                             : _baseWaterSelection;
 
-                        thisChunk.data[x][y].tileID = availableWaterTiles[selectedTile];
+                        thisChunk.data[x][y].groundTileID = availableWaterTiles[selectedTile];
                     } else {
                         // Else, it is the edge of the water.
 
                         // -1 because 0's bit data is on the previous section of this if statement.
                         // So the selection has to be shifted back into 0 indexed.
-                        thisChunk.data[x][y].tileID = availableWaterCornerTiles[(
+                        thisChunk.data[x][y].groundTileID = availableWaterCornerTiles[(
                                 *cast(ubyte*)(&localLand)) - 1];
                     }
 
@@ -330,7 +330,7 @@ private: //* BEGIN INTERNAL API.
                     const ulong selectedTile = (_baseGroundSelection >= numberOfGroundTiles) ? 0
                         : _baseGroundSelection;
 
-                    thisChunk.data[x][y].tileID = availableGroundTiles[selectedTile];
+                    thisChunk.data[x][y].groundTileID = availableGroundTiles[selectedTile];
                 }
 
             }
@@ -356,7 +356,7 @@ private: //* BEGIN INTERNAL API.
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
 
-                const int tileID = thisChunk.data[x][(CHUNK_WIDTH - y) - 1].tileID;
+                const int tileID = thisChunk.data[x][(CHUNK_WIDTH - y) - 1].groundTileID;
 
                 const TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
 
