@@ -2,8 +2,8 @@ module game.ore_database;
 
 import graphics.texture;
 import optibrev;
-import std.stdio;
 import std.conv;
+import std.stdio;
 
 struct OreDefinition {
     string name = null;
@@ -16,7 +16,7 @@ struct OreDefinition {
     ulong texturePointsIndex = 0;
 }
 
-static final const class BiomeDatabase {
+static final const class OreDatabase {
 static:
 private:
 
