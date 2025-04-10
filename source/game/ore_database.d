@@ -1,5 +1,6 @@
 module game.ore_database;
 
+import core.memory;
 import graphics.texture;
 import optibrev;
 import std.conv;
@@ -30,7 +31,7 @@ private:
     // Do not use this unless you want to debug some "very cool" errors.
     OreDefinition* ultraFastAccess;
 
-    int currentID = 0;
+    int currentID = 1;
 
 public: //* BEGIN PUBLIC API.
 
@@ -112,6 +113,17 @@ public: //* BEGIN PUBLIC API.
                 thisDefinition.texture);
             idDatabase[thisDefinition.id] = thisDefinition;
             debugWrite(thisDefinition);
+        }
+
+        // Extremely unsafe API access.
+        // Do not use this unless you want to debug some "very cool" errors.
+        ultraFastAccess = cast(OreDefinition*) GC.malloc(OreDefinition.sizeof * idDatabase.length);
+        foreach (i; 0 .. idDatabase.length) {
+            ultraFastAccess[i] = idDatabase[cast(int) i];
+
+            assert(ultraFastAccess[i].name == idDatabase[cast(int) i].name);
+            assert(ultraFastAccess[i].id == idDatabase[cast(int) i].id);
+            assert(ultraFastAccess[i].texture == idDatabase[cast(int) i].texture);
         }
 
     }
