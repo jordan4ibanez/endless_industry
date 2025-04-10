@@ -2,6 +2,7 @@
 
 // Input vertex attributes (from vertex shader)
 in vec2 fragTexCoord;
+in vec2 fragTexCoord2;
 // in vec4 fragColor;
 
 // Input uniform values

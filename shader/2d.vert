@@ -11,7 +11,8 @@ uniform mat4 mvp;
 
 // Output vertex attributes (to fragment shader)
 out vec2 fragTexCoord;
-out vec4 fragColor;
+out vec2 fragTexCoord2;
+// out vec4 fragColor;
 
 // NOTE: Add your custom variables here
 
@@ -19,6 +20,7 @@ void main()
 {
     // Send vertex attributes to fragment shader
     fragTexCoord = vertexTexCoord;
+    fragTexCoord2 = vertexTexCoord2;
     // fragColor = vertexColor;
 
     // Calculate final vertex position
