@@ -31,7 +31,7 @@ private:
     // Do not use this unless you want to debug some "very cool" errors.
     OreDefinition* ultraFastAccess;
 
-    int currentID = 1;
+    int currentID = 0;
 
 public: //* BEGIN PUBLIC API.
 
