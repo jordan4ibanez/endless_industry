@@ -11,6 +11,9 @@
 		"raylib-d": "~>5.5.1",
 		"sqlbuilder": "~>0.2.3"
 	},
+	"subConfigurations": {
+        "d2sqlite3": "all-included"
+    },
 	"description": "A tile thing",
 	"importPaths": [
 		"source",
