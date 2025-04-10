@@ -29,7 +29,7 @@ struct TileData {
 
     int groundTileID = 0;
 
-    int oreID = -1;
+    int oreID = 0;
     int oreAmount = 0;
 
     int entityID = 0;
