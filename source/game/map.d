@@ -283,6 +283,9 @@ private: //* BEGIN INTERNAL API.
                 import std.bitmanip;
                 import std.conv;
 
+                const int realWorldX = x + basePositionX;
+                const int realWorldY = y + basePositionY;
+
                 struct LandResult {
                     mixin(bitfields!(
                             ubyte, "left", 1,
@@ -292,33 +295,32 @@ private: //* BEGIN INTERNAL API.
                             byte, "", 4));
                 }
 
-                const double _waterCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterScale, (
-                        y + basePositionY) * waterScale) + 1.0) * 0.5, 0.0, 1.0);
+                const double _waterCoinFlip = clamp((fnlGetNoise2D(&noise, realWorldX * waterScale,
+                        realWorldY * waterScale) + 1.0) * 0.5, 0.0, 1.0);
 
                 //? This is water.
                 if (_waterCoinFlip > waterChance) {
 
                     // Move the noise into the range of 0 - 1.
-                    const double _selectedWaterNoise = clamp((fnlGetNoise2D(&noise, (
-                            x + basePositionX) * 10, (
-                            y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
+                    const double _selectedWaterNoise = clamp((fnlGetNoise2D(&noise, realWorldX * 10,
+                            realWorldY * 10) + 1.0) * 0.5, 0.0, 1.0);
 
                     LandResult localLand;
 
                     // It is literally faster to cache this calculation in the CPU than it is to check the map.
                     //? Simulate neighbors.
                     {
-                        localLand.left = clamp((fnlGetNoise2D(&noise, (x + basePositionX - 1) * waterScale, (
-                                y + basePositionY) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
+                        localLand.left = clamp((fnlGetNoise2D(&noise, (realWorldX - 1) * waterScale,
+                                realWorldY * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
-                        localLand.up = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterScale, (
-                                y + basePositionY + 1) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
+                        localLand.up = clamp((fnlGetNoise2D(&noise, realWorldX * waterScale, (
+                                realWorldY + 1) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
-                        localLand.right = clamp((fnlGetNoise2D(&noise, (x + basePositionX + 1) * waterScale, (
-                                y + basePositionY) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
+                        localLand.right = clamp((fnlGetNoise2D(&noise, (realWorldX + 1) * waterScale,
+                                realWorldY * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
-                        localLand.down = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterScale, (
-                                y + basePositionY - 1) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
+                        localLand.down = clamp((fnlGetNoise2D(&noise, realWorldX * waterScale, (
+                                realWorldY - 1) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
                     }
 
@@ -348,9 +350,8 @@ private: //* BEGIN INTERNAL API.
                     // So first the ground tile.
                     {
                         // Move the noise into the range of 0 - 1.
-                        const double _selectedGroundNoise = clamp((fnlGetNoise2D(&noise, (
-                                x + basePositionX) * landScale, (
-                                y + basePositionY) * landScale) + 1.0) * 0.5, 0.0, 1.0);
+                        const double _selectedGroundNoise = clamp((fnlGetNoise2D(&noise, realWorldX * landScale,
+                                realWorldY * landScale) + 1.0) * 0.5, 0.0, 1.0);
 
                         const ulong _baseGroundSelection = cast(ulong) floor(
                             numberOfGroundTiles * _selectedGroundNoise);
@@ -364,14 +365,14 @@ private: //* BEGIN INTERNAL API.
                     // Next, let's calculate if this is an ore.
                     {
 
-                        const double _oreCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * oreScale, (
-                                y + basePositionY) * oreScale) + 1.0) * 0.5, 0.0, 1.0);
+                        const double _oreCoinFlip = clamp((fnlGetNoise2D(&noise, realWorldX * oreScale,
+                                realWorldY * oreScale) + 1.0) * 0.5, 0.0, 1.0);
 
                         if (_oreCoinFlip < oreChance) {
                             // So this tile is an ore. Which one is it?
 
-                            const double _oreSelectionNoise = clamp((fnlGetNoise2D(&noise, (x + basePositionX) *
-                                    orePatchScale, (y + basePositionY) * orePatchScale) + 1.0) * 0.5, 0.0, 1.0);
+                            const double _oreSelectionNoise = clamp((fnlGetNoise2D(&noise, realWorldX *
+                                    orePatchScale, realWorldY * orePatchScale) + 1.0) * 0.5, 0.0, 1.0);
 
                             const ulong _baseOreSelection = cast(ulong) floor(
                                 oreCount * _oreSelectionNoise);
