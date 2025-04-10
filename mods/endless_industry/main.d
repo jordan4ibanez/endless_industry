@@ -112,6 +112,13 @@ void registerOres() {
     // coal.minedItemAmount = 1;
     OreDatabase.registerOre(copper);
 
+    OreDefinition iron;
+    iron.name = "iron";
+    iron.texture = "iron.png";
+    iron.minedItem = "iron";
+    // coal.minedItemAmount = 1;
+    OreDatabase.registerOre(iron);
+
 }
 
 void registerBiomes() {
