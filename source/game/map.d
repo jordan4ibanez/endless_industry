@@ -29,7 +29,7 @@ struct TileData {
 
     int groundTileID = 0;
 
-    int oreID = 0;
+    int oreID = -1;
     int oreAmount = 0;
 
     int entityID = 0;
@@ -267,14 +267,15 @@ private: //* BEGIN INTERNAL API.
         const double waterChance = 0.7;
 
         // Land parameters.
-        const double landScale = 10.0;
+        const double landScale = 20.0;
 
         // Ore scale is the size of the ore patches in general.
-        const double oreScale = 0.2;
-        const double oreChance = 0.5;
+        // The higher this is
+        const double oreScale = 1.0;
+        const double oreChance = 0.05;
         // Ore patch scale is the size of the individual ores in the patch.
         // The smaller this number, the patchier the patches will be.
-        const double orePatchScale = 2.0;
+        const double orePatchScale = 1.5;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
@@ -366,11 +367,20 @@ private: //* BEGIN INTERNAL API.
                         const double _oreCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * oreScale, (
                                 y + basePositionY) * oreScale) + 1.0) * 0.5, 0.0, 1.0);
 
-                        if (_oreCoinFlip > oreChance) {
+                        if (_oreCoinFlip < oreChance) {
                             // So this tile is an ore. Which one is it?
 
-                            const double oreDecisionNoise = clamp((fnlGetNoise2D(&noise, (x + basePositionX) *
+                            const double _oreSelectionNoise = clamp((fnlGetNoise2D(&noise, (x + basePositionX) *
                                     orePatchScale, (y + basePositionY) * orePatchScale) + 1.0) * 0.5, 0.0, 1.0);
+
+                            const ulong _baseOreSelection = cast(ulong) floor(
+                                oreCount * _oreSelectionNoise);
+
+                            // Make sure no floating point imprecision happened.
+                            const ulong selectedOre = (_baseOreSelection >= oreCount) ? 0
+                                : _baseOreSelection;
+
+                            thisChunk.data[x][y].oreID = availableOres[selectedOre].id;
 
                         }
                     }
