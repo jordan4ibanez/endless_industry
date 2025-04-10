@@ -1,7 +1,4 @@
 
-- ores but baked into the ground via the biome
-- trajectory change, making it easier to get a game going.
-
 - Precalculate that stupid `x + basePositionX` in ore generation, DRY please
 
 - sql saving on a green thread to be non blocking
