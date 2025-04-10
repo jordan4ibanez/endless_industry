@@ -280,6 +280,7 @@ private: //* BEGIN INTERNAL API.
                 const double _waterCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
                         y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0);
 
+                //? This is water.
                 if (_waterCoinFlip > waterChance) {
 
                     // Move the noise into the range of 0 - 1.
@@ -327,6 +328,8 @@ private: //* BEGIN INTERNAL API.
                     }
 
                 } else {
+                    //? This is not water.
+
                     // Move the noise into the range of 0 - 1.
                     const double _selectedGroundNoise = clamp((fnlGetNoise2D(&noise, (
                             x + basePositionX) * 10, (
