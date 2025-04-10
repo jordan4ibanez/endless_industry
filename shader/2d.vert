@@ -3,7 +3,8 @@
 // Input vertex attributes
 in vec2 vertexPosition;
 in vec2 vertexTexCoord;
-// in vec3 vertexNormal;
+//? This was vertexNormal.
+in vec2 vertexTexCoordOverlay;
 // in vec4 vertexColor;
 
 // Input uniform values
