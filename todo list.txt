@@ -1,6 +1,4 @@
 
-- Precalculate that stupid `x + basePositionX` in ore generation, DRY please
-
 - sql saving on a green thread to be non blocking
 
 - raygui - translate it to D
