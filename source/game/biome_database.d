@@ -19,7 +19,6 @@ struct BiomeDefinition {
     int[] groundLayerIDs = null;
     int[] waterLayerIDs = null;
     int[] waterLayerCornerIDs = null;
-
 }
 
 static final const class BiomeDatabase {
