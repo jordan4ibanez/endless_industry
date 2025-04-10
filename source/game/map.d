@@ -61,13 +61,13 @@ public: //* BEGIN PUBLIC API.
         const int windowWidth = Window.getWidth();
         const int windowHeight = Window.getHeight();
 
-        const Vec2d bottomLeft = CameraHandler.screenToWorld(0, 0);
-        const Vec2d topRight = CameraHandler.screenToWorld(windowWidth, windowHeight);
+        const Vec2d topLeft = CameraHandler.screenToWorld(0, 0);
+        const Vec2d bottomRight = CameraHandler.screenToWorld(windowWidth, windowHeight);
 
-        const int minX = cast(int) floor(bottomLeft.x);
-        const int minY = cast(int) floor(bottomLeft.y);
-        const int maxX = cast(int) floor(topRight.x);
-        const int maxY = cast(int) floor(topRight.y);
+        const int minX = cast(int) floor(topLeft.x);
+        const int minY = cast(int) floor(topLeft.y);
+        const int maxX = cast(int) floor(bottomRight.x);
+        const int maxY = cast(int) floor(bottomRight.y);
 
         const Vec2i topLeftChunkPosition = calculateChunkAtWorldPosition(Vec2d(minX, minY));
         const Vec2i bottomRightChunkPosition = calculateChunkAtWorldPosition(Vec2d(maxX, maxY));
@@ -85,9 +85,8 @@ public: //* BEGIN PUBLIC API.
         MeshHandler.prepareAtlasDrawing();
 
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
-            for (int yReal = bottomRightChunkPosition.y; yReal >= topLeftChunkPosition.y; yReal--) {
-            // foreach (yReal; bottomRightChunkPosition.y .. topLeftChunkPosition.y) {
-                // writeln(yReal);
+            for (int yReal = topLeftChunkPosition.y; yReal >= bottomRightChunkPosition.y;
+                yReal--) {
                 chunkID.x = xReal;
                 chunkID.y = yReal;
 
