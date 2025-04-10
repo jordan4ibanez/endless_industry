@@ -275,7 +275,7 @@ private: //* BEGIN INTERNAL API.
         const double oreChance = 0.05;
         // Ore patch scale is the size of the individual ores in the patch.
         // The smaller this number, the patchier the patches will be.
-        const double orePatchScale = 1.5;
+        const double orePatchScale = 0.5;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
