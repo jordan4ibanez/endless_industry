@@ -1,8 +1,9 @@
 module mods.api;
 
 import game.biome_database;
-import game.tile_database;
+import game.ore_database;
 import game.player;
+import game.tile_database;
 
 //? Do not modify the autos. :)
 //? These are part of a preprocessor I made to auto bake your mod into the game itself.
@@ -28,6 +29,7 @@ private void deployMainFunctions() {
 // This is so you don't have to prefix your mods. :D
 private void setModName(string modName) {
     TileDatabase.setModName(modName);
+    OreDatabase.setModName(modName);
     BiomeDatabase.setModName(modName);
 }
 
@@ -53,6 +55,7 @@ private: //* BEGIN INTERNAL API.
             throw new Error("Do not run finalize in your mods.");
         }
         TileDatabase.finalize();
+        OreDatabase.finalize();
         BiomeDatabase.finalize();
         Player.finalize();
         finalized = true;
