@@ -9,7 +9,7 @@ struct OreDefinition {
     string name = null;
     string texture = null;
     string minedItem = null;
-    uint minedItemAmount = 0;
+    // uint minedItemAmount = 0;
 
     ///! DO NOT USE.
     int id = -1;
@@ -72,7 +72,7 @@ public: //* BEGIN PUBLIC API.
         return false;
     }
 
-    Option!OreDefinition getTileByID(int id) {
+    Option!OreDefinition getOreByID(int id) {
         Option!OreDefinition result;
         OreDefinition* thisDefinition = id in idDatabase;
         if (thisDefinition !is null) {
@@ -81,7 +81,7 @@ public: //* BEGIN PUBLIC API.
         return result;
     }
 
-    Option!OreDefinition getTileByName(string name) {
+    Option!OreDefinition getOreByName(string name) {
         Option!OreDefinition result;
         OreDefinition* thisDefinition = name in nameDatabase;
         if (thisDefinition !is null) {
@@ -118,7 +118,7 @@ private: //* BEGIN INTERNAL API.
 
     // todo: make this pull the standard IDs into an associative array from the sqlite.
     // todo: sqlite should store the MAX current ID and restore it.
-    // todo: Then, match to it. If it doesn't match, this is a new tile.
+    // todo: Then, match to it. If it doesn't match, this is a new ore.
     // todo: Then you'd call into this. :)
     int nextID() {
         int thisID = currentID;

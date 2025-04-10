@@ -1,6 +1,7 @@
 module mods.endless_industry.main;
 
 import game.biome_database;
+import game.ore_database;
 import game.player;
 import game.tile_database;
 import std.conv;
@@ -92,6 +93,17 @@ void registerTiles() {
         aCornerTile.texture = "water_" ~ identifier ~ ".png";
         TileDatabase.registerTile(aCornerTile);
     }
+
+}
+
+void registerOres() {
+
+    OreDefinition coal;
+    coal.name = "coal";
+    coal.texture = "coal.png";
+    coal.minedItem = "coal";
+    // coal.minedItemAmount = 1;
+    OreDatabase.registerOre(coal);
 
 }
 
@@ -206,6 +218,7 @@ void setPlayerTextures() {
 void endlessIndustryMain() {
 
     registerTiles();
+    registerOres();
     registerBiomes();
     setPlayerTextures();
 
