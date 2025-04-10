@@ -56,6 +56,12 @@ public: //* BEGIN PUBLIC API.
             throw new Error(
                 "Texture " ~ newOre.texture ~ " for ore " ~ newOre.name ~ " does not exist");
         }
+
+        // Now inject the modname prefix into the biome name.
+        newOre.name = modName ~ "." ~ newOre.name;
+
+        nameDatabase[newOre.name] = newOre;
+
     }
 
     bool hasOreID(int id) {
