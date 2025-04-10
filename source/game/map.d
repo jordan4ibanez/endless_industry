@@ -435,10 +435,11 @@ private: //* BEGIN INTERNAL API.
             }
         }
 
-        thisChunk.modelID = MeshHandler.generate(vertices, VERTEX_LENGTH, textureCoords, indices);
+        thisChunk.modelID = MeshHandler.generate(vertices, VERTEX_LENGTH, textureCoords, texCoords2, indices);
 
         GC.free(vertices);
         GC.free(textureCoords);
+        GC.free(texCoords2);
         GC.free(indices);
 
     }

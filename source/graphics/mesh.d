@@ -72,7 +72,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     int generate(float* verticesAndTextureCoordinates, const ulong verticesLength,
-        float* textureCoords, ushort* indices) {
+        float* textureCoords, float* texCoords2, ushort* indices) {
         int meshID = nextMeshID;
         nextMeshID++;
 
@@ -82,6 +82,7 @@ public: //* BEGIN PUBLIC API.
         thisMesh.triangleCount = thisMesh.vertexCount / 2;
         thisMesh.vertices = verticesAndTextureCoordinates;
         thisMesh.texcoords = textureCoords;
+        thisMesh.texcoords2 = texCoords2;
         thisMesh.indices = indices;
 
         uploadMeshIntoGPU(&thisMesh, false);
@@ -266,7 +267,6 @@ public: //* BEGIN PUBLIC API.
         rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD, 2, RL_FLOAT, 0, 0, 0);
         rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD);
 
-        
         if (mesh.texcoords2 != null) {
             // Enable vertex attribute: texcoord2 (shader-location = 5)
             mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = rlLoadVertexBuffer(mesh.texcoords2, cast(
