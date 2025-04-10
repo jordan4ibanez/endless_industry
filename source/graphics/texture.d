@@ -28,6 +28,7 @@ private:
     TexturePacker!string database = TexturePacker!string(1);
     Texture2D atlas;
     TexturePoints!Vec2d[string] texturePointDatabase;
+    TexturePoints!Vec2d nothing;
 
     //! NEVER USE THESE IN YOUR MODS.
     TexturePoints!Vec2d* ultraFastTexturePointAccess;
@@ -150,6 +151,11 @@ public: //* BEGIN PUBLIC API.
     /// If you use this in your mods, you're going to have an extremely bad time.
     TexturePoints!Vec2d* getTexturePointsPointer(ulong index) {
         return ultraFastTexturePointAccess + index;
+    }
+
+    /// A specialty for faking nothing in the existing infrastructure.
+    TexturePoints!Vec2d* getNothing() {
+        return &nothing;
     }
 
     ulong lookupTexturePointsIndex(string name) {
