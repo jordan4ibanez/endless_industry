@@ -4,6 +4,7 @@ public import utility.collision_functions : CollisionAxis;
 import core.memory;
 import fast_noise;
 import game.biome_database;
+import game.ore_database;
 import game.tile_database;
 import graphics.camera;
 import graphics.mesh;
@@ -28,7 +29,7 @@ struct TileData {
 
     int groundTileID = 0;
 
-    int ore = 0;
+    int oreID = -1;
     int oreAmount = 0;
 
     int entityID = 0;
@@ -353,6 +354,7 @@ private: //* BEGIN INTERNAL API.
 
         float* vertices = cast(float*) GC.malloc(float.sizeof * VERTEX_LENGTH);
         float* textureCoords = cast(float*) GC.malloc(float.sizeof * VERTEX_LENGTH);
+        float* texCoords2 = cast(float*) GC.malloc(float.sizeof * VERTEX_LENGTH);
 
         ulong index = 0;
 
@@ -363,12 +365,24 @@ private: //* BEGIN INTERNAL API.
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
 
-                const int tileID = thisChunk.data[x][(CHUNK_WIDTH - y) - 1].groundTileID;
+                TileData thisData = thisChunk.data[x][(CHUNK_WIDTH - y) - 1];
 
+                const int tileID = thisData.groundTileID;
                 const TileDefinition* thisTilePointer = TileDatabase.unsafeGetByID(tileID);
-
                 TexturePoints!Vec2d* tPoints = TextureHandler.getTexturePointsPointer(
                     thisTilePointer.texturePointsIndex);
+
+                // Ore is a bit special.
+                const int oreID = thisData.oreID;
+                TexturePoints!Vec2d* oreTPoints;
+                if (oreID < 0) {
+                    oreTPoints = TextureHandler.getNothing();
+                } else {
+                    const OreDefinition* thisOreDefinitionPointer = OreDatabase.unsafeGetByID(
+                        oreID);
+                    oreTPoints = TextureHandler.getTexturePointsPointer(
+                        thisOreDefinitionPointer.texturePointsIndex);
+                }
 
                 static immutable triCompletion = 1.00075;
 
@@ -383,7 +397,7 @@ private: //* BEGIN INTERNAL API.
                 vertices[6 + index] = x + triCompletion;
                 vertices[7 + index] = y;
 
-                // Texturing.
+                // Texturing (ground layer).
                 textureCoords[0 + index] = tPoints.topLeft.x;
                 textureCoords[1 + index] = tPoints.topLeft.y;
                 textureCoords[2 + index] = tPoints.bottomLeft.x;
@@ -392,6 +406,16 @@ private: //* BEGIN INTERNAL API.
                 textureCoords[5 + index] = tPoints.bottomRight.y;
                 textureCoords[6 + index] = tPoints.topRight.x;
                 textureCoords[7 + index] = tPoints.topRight.y;
+
+                // Texturing (ore layer).
+                texCoords2[0 + index] = oreTPoints.topLeft.x;
+                texCoords2[1 + index] = oreTPoints.topLeft.y;
+                texCoords2[2 + index] = oreTPoints.bottomLeft.x;
+                texCoords2[3 + index] = oreTPoints.bottomLeft.y;
+                texCoords2[4 + index] = oreTPoints.bottomRight.x;
+                texCoords2[5 + index] = oreTPoints.bottomRight.y;
+                texCoords2[6 + index] = oreTPoints.topRight.x;
+                texCoords2[7 + index] = oreTPoints.topRight.y;
 
                 index += 8;
 
