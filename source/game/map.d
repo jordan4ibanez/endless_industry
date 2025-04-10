@@ -332,7 +332,7 @@ private: //* BEGIN INTERNAL API.
                     }
 
                 } else {
-                    //? This is not water.
+                    //? This is land.
 
                     // So first the ground tile.
                     {
