@@ -372,7 +372,7 @@ private: //* BEGIN INTERNAL API.
                 TexturePoints!Vec2d* tPoints = TextureHandler.getTexturePointsPointer(
                     thisTilePointer.texturePointsIndex);
 
-                // Ore is a bit special.
+                // Ore is a bit special. Handled delicately.
                 const int oreID = thisData.oreID;
                 TexturePoints!Vec2d* oreTPoints;
                 if (oreID < 0) {
