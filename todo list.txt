@@ -1,4 +1,3 @@
-- layers
 
 - ores but baked into the ground via the biome
 - trajectory change, making it easier to get a game going.
