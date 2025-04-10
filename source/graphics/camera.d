@@ -58,10 +58,6 @@ public: //* BEGIN PUBLIC API.
         realZoom = zoom;
     }
 
-    Vec2d screenToWorld(const ref Vec2d position) {
-        return Vec2d(GetScreenToWorld2D(position.toRaylib(), *camera));
-    }
-
     void centerToPlayer() {
         Vec2d playerPosition = Player.getPosition();
         Vec2d offset = Player.getSize();
@@ -75,8 +71,15 @@ public: //* BEGIN PUBLIC API.
         camera.target = playerCenter.toRaylib();
     }
 
-    Vec2d screenToWorld(int x, int y) {
+    Vec2d screenToWorld(Vec2d position) {
+        const int windowHeight = Window.getHeight();
+        position.y = windowHeight - position.y;
+        return Vec2d(GetScreenToWorld2D(position.toRaylib(), *camera));
+    }
 
+    Vec2d screenToWorld(int x, int y) {
+        const int windowHeight = Window.getHeight();
+        y = windowHeight - y;
         return Vec2d(GetScreenToWorld2D(Vec2d(x, y).toRaylib(), *camera));
     }
 
