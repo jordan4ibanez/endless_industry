@@ -5,6 +5,7 @@ import graphics.camera;
 import graphics.window;
 import math.vec2d;
 import raylib;
+import std.stdio;
 
 static final const class Mouse {
 static:
@@ -25,10 +26,7 @@ public:
     }
 
     Vec2d getWorldPosition() {
-        Vec2d mPosition = Vec2d(GetMousePosition());
-        const int windowHeight = Window.getHeight();
-        mPosition.y = windowHeight - mPosition.y;
-        return CameraHandler.screenToWorld(mPosition);
+        return CameraHandler.screenToWorld(Vec2d(GetMousePosition()));
     }
 
     bool isButtonPressed(MouseButton button) {
