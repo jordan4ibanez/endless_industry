@@ -103,6 +103,15 @@ public: //* BEGIN PUBLIC API.
         return ultraFastAccess + id;
     }
 
+    /// Never use this unless you like pain.
+    OreDefinition* getRawPointer() {
+        return ultraFastAccess;
+    }
+
+    ulong getOreCount() {
+        return currentID;
+    }
+
     void finalize() {
 
         // Regular safe API access.

@@ -256,6 +256,9 @@ private: //* BEGIN INTERNAL API.
         const int* availableWaterCornerTiles = thisBiome.waterLayerCornerIDs.ptr;
         const ulong numberOfWaterCornerTiles = thisBiome.waterLayerCornerIDs.length;
 
+        const OreDefinition* availableOres = OreDatabase.getRawPointer();
+        const ulong oreCount = OreDatabase.getOreCount();
+
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
