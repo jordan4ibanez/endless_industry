@@ -85,7 +85,9 @@ public: //* BEGIN PUBLIC API.
         MeshHandler.prepareAtlasDrawing();
 
         foreach (xReal; topLeftChunkPosition.x .. bottomRightChunkPosition.x + 1) {
-            foreach (yReal; topLeftChunkPosition.y .. bottomRightChunkPosition.y + 1) {
+            for (int yReal = bottomRightChunkPosition.y; yReal >= topLeftChunkPosition.y; yReal--) {
+            // foreach (yReal; bottomRightChunkPosition.y .. topLeftChunkPosition.y) {
+                // writeln(yReal);
                 chunkID.x = xReal;
                 chunkID.y = yReal;
 
