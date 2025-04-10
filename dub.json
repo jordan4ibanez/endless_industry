@@ -4,10 +4,12 @@
 	],
 	"copyright": "Copyright © 2025, jordan4ibanez",
 	"dependencies": {
+		"d2sqlite3": "~>1.0.0",
 		"fast_noise": "~>1.0.5",
 		"fast_pack": "~>5.0.1",
 		"optibrev": "~>0.0.3",
-		"raylib-d": "~>5.5.1"
+		"raylib-d": "~>5.5.1",
+		"sqlbuilder": "~>0.2.3"
 	},
 	"description": "A tile thing",
 	"importPaths": [

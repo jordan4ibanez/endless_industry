@@ -1,12 +1,14 @@
 {
 	"fileVersion": 1,
 	"versions": {
+		"d2sqlite3": "1.0.0",
 		"fast_noise": "1.0.5",
 		"fast_pack": "5.0.1",
 		"gamut": "3.2.0",
 		"intel-intrinsics": "1.12.0",
 		"miniz": "0.0.2",
 		"optibrev": "0.0.3",
-		"raylib-d": "5.5.1"
+		"raylib-d": "5.5.1",
+		"sqlbuilder": "0.2.3"
 	}
 }
