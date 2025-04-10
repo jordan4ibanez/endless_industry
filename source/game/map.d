@@ -266,6 +266,13 @@ private: //* BEGIN INTERNAL API.
         // Land parameters.
         const double landScale = 10.0;
 
+        // Ore scale is the size of the ore patches in general.
+        const double oreScale = 0.2;
+        const double oreChance = 0.5;
+        // Ore patch scale is the size of the individual ores in the patch.
+        // The smaller this number, the patchier the patches will be.
+        const double orePatchScale = 2.0;
+
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
 
@@ -350,9 +357,19 @@ private: //* BEGIN INTERNAL API.
 
                         thisChunk.data[x][y].groundTileID = availableGroundTiles[selectedTile];
                     }
-                    // Next, let's see if this is an ore.
+                    // Next, let's calculate if this is an ore.
                     {
 
+                        const double _oreCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * oreScale, (
+                                y + basePositionY) * oreScale) + 1.0) * 0.5, 0.0, 1.0);
+
+                        if (_oreCoinFlip > oreChance) {
+                            // So this tile is an ore. Which one is it?
+
+                            const double oreDecisionNoise = clamp((fnlGetNoise2D(&noise, (x + basePositionX) *
+                                    orePatchScale, (y + basePositionY) * orePatchScale) + 1.0) * 0.5, 0.0, 1.0);
+
+                        }
                     }
                 }
 
