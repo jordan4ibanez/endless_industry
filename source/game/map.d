@@ -259,8 +259,12 @@ private: //* BEGIN INTERNAL API.
         const int basePositionX = chunkPosition.x * CHUNK_WIDTH;
         const int basePositionY = chunkPosition.y * CHUNK_WIDTH;
 
-        const double waterFrequency = 0.3;
+        // Water parameters.
+        const double waterScale = 0.3;
         const double waterChance = 0.7;
+
+        // Land parameters.
+
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
@@ -277,8 +281,8 @@ private: //* BEGIN INTERNAL API.
                             byte, "", 4));
                 }
 
-                const double _waterCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
-                        y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0);
+                const double _waterCoinFlip = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterScale, (
+                        y + basePositionY) * waterScale) + 1.0) * 0.5, 0.0, 1.0);
 
                 //? This is water.
                 if (_waterCoinFlip > waterChance) {
@@ -293,17 +297,17 @@ private: //* BEGIN INTERNAL API.
                     // It is literally faster to cache this calculation in the CPU than it is to check the map.
                     //? Simulate neighbors.
                     {
-                        localLand.left = clamp((fnlGetNoise2D(&noise, (x + basePositionX - 1) * waterFrequency, (
-                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
+                        localLand.left = clamp((fnlGetNoise2D(&noise, (x + basePositionX - 1) * waterScale, (
+                                y + basePositionY) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
-                        localLand.up = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
-                                y + basePositionY + 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
+                        localLand.up = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterScale, (
+                                y + basePositionY + 1) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
-                        localLand.right = clamp((fnlGetNoise2D(&noise, (x + basePositionX + 1) * waterFrequency, (
-                                y + basePositionY) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
+                        localLand.right = clamp((fnlGetNoise2D(&noise, (x + basePositionX + 1) * waterScale, (
+                                y + basePositionY) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
-                        localLand.down = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterFrequency, (
-                                y + basePositionY - 1) * waterFrequency) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
+                        localLand.down = clamp((fnlGetNoise2D(&noise, (x + basePositionX) * waterScale, (
+                                y + basePositionY - 1) * waterScale) + 1.0) * 0.5, 0.0, 1.0) <= waterChance;
 
                     }
 
@@ -330,19 +334,27 @@ private: //* BEGIN INTERNAL API.
                 } else {
                     //? This is not water.
 
-                    // Move the noise into the range of 0 - 1.
-                    const double _selectedGroundNoise = clamp((fnlGetNoise2D(&noise, (
-                            x + basePositionX) * 10, (
-                            y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
+                    // So first the ground tile.
+                    {
+                        // Move the noise into the range of 0 - 1.
+                        const double _selectedGroundNoise = clamp((fnlGetNoise2D(&noise, (
+                                x + basePositionX) * 10, (
+                                y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
 
-                    const ulong _baseGroundSelection = cast(ulong) floor(
-                        numberOfGroundTiles * _selectedGroundNoise);
+                        const ulong _baseGroundSelection = cast(ulong) floor(
+                            numberOfGroundTiles * _selectedGroundNoise);
 
-                    // Make sure no floating point imprecision happened.
-                    const ulong selectedTile = (_baseGroundSelection >= numberOfGroundTiles) ? 0
-                        : _baseGroundSelection;
+                        // Make sure no floating point imprecision happened.
+                        const ulong selectedTile = (_baseGroundSelection >= numberOfGroundTiles) ? 0
+                            : _baseGroundSelection;
 
-                    thisChunk.data[x][y].groundTileID = availableGroundTiles[selectedTile];
+                        thisChunk.data[x][y].groundTileID = availableGroundTiles[selectedTile];
+                    }
+                    // Next, let's see if this is an ore.
+                    {
+
+
+                    }
                 }
 
             }
