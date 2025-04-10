@@ -16,6 +16,7 @@ import math.vec2d;
 import math.vec2i;
 import optibrev;
 import std.algorithm.comparison;
+import std.bitmanip;
 import std.conv;
 import std.math.algebraic;
 import std.math.rounding;
@@ -279,9 +280,6 @@ private: //* BEGIN INTERNAL API.
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
-
-                import std.bitmanip;
-                import std.conv;
 
                 const int realWorldX = x + basePositionX;
                 const int realWorldY = y + basePositionY;
