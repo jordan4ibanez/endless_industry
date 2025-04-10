@@ -264,7 +264,7 @@ private: //* BEGIN INTERNAL API.
         const double waterChance = 0.7;
 
         // Land parameters.
-
+        const double landScale = 10.0;
 
         foreach (x; 0 .. CHUNK_WIDTH) {
             foreach (y; 0 .. CHUNK_WIDTH) {
@@ -338,8 +338,8 @@ private: //* BEGIN INTERNAL API.
                     {
                         // Move the noise into the range of 0 - 1.
                         const double _selectedGroundNoise = clamp((fnlGetNoise2D(&noise, (
-                                x + basePositionX) * 10, (
-                                y + basePositionY) * 10) + 1.0) * 0.5, 0.0, 1.0);
+                                x + basePositionX) * landScale, (
+                                y + basePositionY) * landScale) + 1.0) * 0.5, 0.0, 1.0);
 
                         const ulong _baseGroundSelection = cast(ulong) floor(
                             numberOfGroundTiles * _selectedGroundNoise);
@@ -352,7 +352,6 @@ private: //* BEGIN INTERNAL API.
                     }
                     // Next, let's see if this is an ore.
                     {
-
 
                     }
                 }
