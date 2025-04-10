@@ -266,6 +266,23 @@ public: //* BEGIN PUBLIC API.
         rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD, 2, RL_FLOAT, 0, 0, 0);
         rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD);
 
+        
+        if (mesh.texcoords2 != null) {
+            // Enable vertex attribute: texcoord2 (shader-location = 5)
+            mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2] = rlLoadVertexBuffer(mesh.texcoords2, cast(
+                    int)(mesh
+                    .vertexCount * 2 * float.sizeof), dynamic);
+            rlSetVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, 2, RL_FLOAT, 0, 0, 0);
+            rlEnableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
+        } else {
+            // Default vertex attribute: texcoord2
+            // WARNING: Default value provided to shader if location available
+            float[2] value = [0.0f, 0.0f];
+            rlSetVertexAttributeDefault(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2, &value, ShaderAttributeDataType
+                    .SHADER_ATTRIB_VEC2, 2);
+            rlDisableVertexAttribute(RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2);
+        }
+
         // 3 points on each triangle.
         if (mesh.indices != null) {
             mesh.vboId[RL_DEFAULT_SHADER_ATTRIB_LOCATION_INDICES] = rlLoadVertexBufferElement(mesh.indices,
