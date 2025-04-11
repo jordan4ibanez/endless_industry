@@ -70,6 +70,12 @@ private: //* BEGIN INTERNAL API.
         database.prepare("create table if not exists " ~
                 "mapdata (key text not null primary key, value, unique(key))")
             .inject();
+
+        database.prepare(
+            "create table if not exists " ~
+                "playerdata (key text not null primary key, value, unique(key))")
+            .inject();
+
     }
 
     pragma(inline, true)
