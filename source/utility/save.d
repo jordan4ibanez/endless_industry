@@ -18,6 +18,7 @@ public: //* BEGIN PUBLIC API.
         database = Database(location ~ saveName ~ fileExtension);
         opened = true;
         performanceTune();
+        createBaseStructure();
     }
 
     void close() {
@@ -26,6 +27,14 @@ public: //* BEGIN PUBLIC API.
     }
 
 private: //* BEGIN INTERNAL API.
+
+    void createBaseStructure() {
+        checkOpened();
+
+        database.prepare("create table if not exists " ~
+                "mapdata (key text not null primary key, value, unique(key))")
+            .inject();
+    }
 
     pragma(inline, true)
     void checkOpened() {
