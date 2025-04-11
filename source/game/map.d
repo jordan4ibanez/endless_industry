@@ -5,6 +5,7 @@ import core.memory;
 import fast_noise;
 import game.biome_database;
 import game.ore_database;
+import game.player;
 import game.tile_database;
 import graphics.camera;
 import graphics.mesh;
@@ -56,6 +57,11 @@ public: //* BEGIN PUBLIC API.
     void initialize() {
         noise.seed = 958_737;
         Save.open("world");
+
+        Option!Vec2d playerPosition = Save.readPlayerPosition();
+        if (playerPosition.isSome) {
+            Player.setPosition(playerPosition.unwrap());
+        }
     }
 
     void terminate() {
