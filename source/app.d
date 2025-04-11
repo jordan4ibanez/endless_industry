@@ -24,6 +24,10 @@ import utility.save;
 
 void main() {
 
+	Save.open("world");
+
+	return;
+
 	scope (exit) {
 		// FontHandler.terminate();
 		// ShaderHandler.terminate();
@@ -33,8 +37,6 @@ void main() {
 		CameraHandler.terminate();
 
 	}
-
-	Save.open("world");
 
 	validateRaylibBinding();
 
