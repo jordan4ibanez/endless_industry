@@ -17,6 +17,7 @@ public: //* BEGIN PUBLIC API.
         const string fileExtension = ".sqlite";
         database = Database(location ~ saveName ~ fileExtension);
         opened = true;
+        performanceTune();
     }
 
     void close() {
