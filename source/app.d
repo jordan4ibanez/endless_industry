@@ -25,6 +25,7 @@ import utility.save;
 void main() {
 
 	Save.open("world");
+	Save.close();
 
 	return;
 
