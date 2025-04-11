@@ -58,13 +58,20 @@ public: //* BEGIN PUBLIC API.
         noise.seed = 958_737;
         Save.open("world");
 
+        writeln("Loading map " ~ "world");
+
         Option!Vec2d playerPosition = Save.readPlayerPosition();
         if (playerPosition.isSome) {
+            writeln("Loaded player position ", playerPosition.unwrap);
             Player.setPosition(playerPosition.unwrap());
         }
     }
 
     void terminate() {
+        Save.writePlayerPosition(Player.getPosition());
+
+        writeln("Saving map " ~ "world");
+
         Save.close();
     }
 
