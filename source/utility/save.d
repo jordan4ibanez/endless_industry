@@ -69,6 +69,11 @@ public: //* BEGIN PUBLIC API.
 
 private: //* BEGIN INTERNAL API.
 
+    ResultRange readFromPlayerDatabase(string key) {
+        return database.execute(
+            "select * from mapdata where \"key\" = :key", "key");
+    }
+
     void writeIntoPlayerDatabase(string key, const ubyte[] value) {
         checkOpened();
         database.prepare(
