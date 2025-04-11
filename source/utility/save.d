@@ -14,7 +14,9 @@ public: //* BEGIN PUBLIC API.
     void open(string saveName) {
         const string location = "saves/";
         const string fileExtension = ".sqlite";
-        database = database.Some(Database(location ~ saveName ~ fileExtension));
+        Database db = Database(location ~ saveName ~ fileExtension);
+
+        database = database.Some(db);
 
     }
 
