@@ -124,7 +124,7 @@ public: //* BEGIN PUBLIC API.
 
         animationTimer += delta;
         // Standing, walking, mining
-        static immutable double[3] _frameGoals = [0.25, 0.1, 0.1];
+        static immutable double[3] _frameGoals = [0.25, 0.15, 0.1];
 
         double frameGoal = _frameGoals[animation.state];
 
