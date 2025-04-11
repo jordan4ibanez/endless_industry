@@ -28,6 +28,7 @@ void main() {
 
 	Save.open("world");
 	{
+		Save.testRead();
 		Save.testWrite();
 
 	}

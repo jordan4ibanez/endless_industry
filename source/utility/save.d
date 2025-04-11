@@ -3,6 +3,8 @@ module utility.save;
 import d2sqlite3;
 import math.vec2d;
 import optibrev;
+import std.stdio;
+import utility.msgpack;
 
 static final const class Save {
 static:
@@ -27,11 +29,36 @@ public: //* BEGIN PUBLIC API.
         opened = false;
     }
 
+    void testRead() {
+        checkOpened();
+
+        // This may be using nullable but nullable is simply awful to work with.
+        // Supplement it with optibrev.
+
+        ResultRange results = database.execute(
+            "select * from mapdata where \"key\" = :key", "test");
+
+        foreach (Row row; results) {
+            writeln("found");
+            auto exists = row.peek!string(0);
+            writeln(exists);
+            auto testing = row.peek!(ubyte[])(1);
+            Vec2d blah = unpack!Vec2d(testing);
+            writeln(blah);
+            
+        }
+
+    }
+
     void testWrite() {
-        Vec2d blah = Vec2d(1, 2);
-        // database.prepare("insert or replace into mapdata (key, value) " ~
+        checkOpened();
+
+        // Vec2d blah = Vec2d(1, 2);
+        // ubyte[] testing = pack(blah);
+        // database.prepare(
+        //     "insert or replace into mapdata (key, value) " ~
         //         "values (:key, :value)")
-        //     .inject("test", blah);
+        //     .inject("test", testing);
     }
 
 private: //* BEGIN INTERNAL API.
