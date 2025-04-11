@@ -31,8 +31,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     void writePlayerPosition(Vec2d position) {
-
-        ubyte[] packedPosition = pack(position);
+        const ubyte[] packedPosition = pack(position);
         writeIntoPlayerDatabase("singleplayerposition", packedPosition);
     }
 
@@ -70,7 +69,7 @@ public: //* BEGIN PUBLIC API.
 
 private: //* BEGIN INTERNAL API.
 
-    void writeIntoPlayerDatabase(string key, ubyte[] value) {
+    void writeIntoPlayerDatabase(string key, const ubyte[] value) {
         checkOpened();
         database.prepare(
             "insert or replace into playerdata (key, value) " ~
