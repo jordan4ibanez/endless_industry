@@ -24,10 +24,16 @@ import utility.save;
 
 void main() {
 
+	//! DATABASE DEVELOPMENT.
+
 	Save.open("world");
+	{
+
+	}
 	Save.close();
 
 	return;
+	//! END DATABASE DEVELOPMENT.
 
 	scope (exit) {
 		// FontHandler.terminate();
