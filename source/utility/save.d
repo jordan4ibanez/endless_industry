@@ -88,14 +88,14 @@ private: //* BEGIN INTERNAL API.
     void performanceTune() {
         checkOpened();
 
-        // Journal in memory;
-        database.prepare("pragma journal_mode = memory;").inject();
-
         // Write Ahead Logging mode.
         database.prepare("pragma journal_mode = WAL;").inject();
 
         // Regular synchronous mode.
         database.prepare("pragma synchronous = normal;").inject();
+
+        // Journal in memory;
+        database.prepare("pragma journal_mode = memory;").inject();
 
     }
 
