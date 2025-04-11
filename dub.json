@@ -8,8 +8,7 @@
 		"fast_noise": "~>1.0.5",
 		"fast_pack": "~>5.0.1",
 		"optibrev": "~>0.0.3",
-		"raylib-d": "~>5.5.1",
-		"sqlbuilder": "~>0.2.3"
+		"raylib-d": "~>5.5.1"
 	},
 	"subConfigurations": {
         "d2sqlite3": "all-included"
