@@ -30,6 +30,16 @@ public: //* BEGIN PUBLIC API.
         opened = false;
     }
 
+    Option!Vec2d readPlayerPosition() {
+        Option!Vec2d result;
+        foreach (Row row; readFromPlayerDatabase("singleplayerposition")) {
+            const ubyte[] playerPositionPacked = row.peek!(ubyte[])(1);
+            Vec2d playerPosition = unpack!Vec2d(playerPositionPacked);
+            result = result.Some(playerPosition);
+        }
+        return result;
+    }
+
     void writePlayerPosition(Vec2d position) {
         const ubyte[] packedPosition = pack(position);
         writeIntoPlayerDatabase("singleplayerposition", packedPosition);
