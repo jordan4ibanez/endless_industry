@@ -1,8 +1,6 @@
 
 - sql saving on a green thread to be non blocking
 
-- Fix the vertical line issue, not exactly sure what's causing it
-
 - raygui - translate it to D
 
 - Use the ubuntu font set cause why not
