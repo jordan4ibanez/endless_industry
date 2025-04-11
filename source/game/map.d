@@ -22,6 +22,7 @@ import std.math.algebraic;
 import std.math.rounding;
 import std.random;
 import std.stdio;
+import utility.save;
 
 //! NEVER CHANGE THIS!
 immutable public int CHUNK_WIDTH = 64;
@@ -54,6 +55,11 @@ public: //* BEGIN PUBLIC API.
 
     void initialize() {
         noise.seed = 958_737;
+        Save.open("world");
+    }
+
+    void terminate() {
+        Save.close();
     }
 
     void draw() {

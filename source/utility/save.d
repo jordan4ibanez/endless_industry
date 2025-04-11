@@ -51,16 +51,16 @@ public: //* BEGIN PUBLIC API.
 
     // }
 
-    void testWrite() {
-        checkOpened();
+    // void testWrite() {
+    //     checkOpened();
 
-        // Vec2d blah = Vec2d(1, 2);
-        // ubyte[] testing = pack(blah);
-        // database.prepare(
-        //     "insert or replace into mapdata (key, value) " ~
-        //         "values (:key, :value)")
-        //     .inject("test", testing);
-    }
+    //     // Vec2d blah = Vec2d(1, 2);
+    //     // ubyte[] testing = pack(blah);
+    //     // database.prepare(
+    //     //     "insert or replace into mapdata (key, value) " ~
+    //     //         "values (:key, :value)")
+    //     //     .inject("test", testing);
+    // }
 
 private: //* BEGIN INTERNAL API.
 

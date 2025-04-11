@@ -24,19 +24,6 @@ import utility.save;
 
 void main() {
 
-	//! DATABASE DEVELOPMENT.
-
-	Save.open("world");
-	{
-		Save.testRead();
-		Save.testWrite();
-
-	}
-	Save.close();
-
-	return;
-	//! END DATABASE DEVELOPMENT.
-
 	scope (exit) {
 		// FontHandler.terminate();
 		// ShaderHandler.terminate();
@@ -44,7 +31,7 @@ void main() {
 		TextureHandler.terminate();
 		Window.terminate();
 		CameraHandler.terminate();
-
+		Map.terminate();
 	}
 
 	validateRaylibBinding();
