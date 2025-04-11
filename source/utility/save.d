@@ -7,32 +7,43 @@ static final const class Save {
 static:
 private:
 
-    //? This is temporarily wrapped in an option in case I blow something up.
-    //? I am currently re-re-relearning sqlite.
-    Option!Database database;
+    bool opened = false;
+    Database database;
 
 public: //* BEGIN PUBLIC API.
 
     void open(string saveName) {
         const string location = "saves/";
         const string fileExtension = ".sqlite";
-        Database db = Database(location ~ saveName ~ fileExtension);
-
-        database = database.Some(db);
+        database = Database(location ~ saveName ~ fileExtension);
+        opened = true;
     }
 
     void close() {
-        if (database.isNone) {
-            return;
-        }
-        database.unwrap().close();
+        database.close();
+        opened = false;
     }
 
 private: //* BEGIN INTERNAL API.
 
+    pragma(inline, true)
+    void checkOpened() {
+        if (!opened) {
+            throw new Error("No database opened.");
+        }
+    }
+
     void performanceTune() {
+        checkOpened();
+
         // Journal in memory;
-        database.unwrap.prepare("pragma journal_mode=memory;").inject();
+        database.prepare("pragma journal_mode = memory;").inject();
+
+        // Write Ahead Logging mode.
+        database.prepare("pragma journal_mode = WAL;").inject();
+
+        // Regular synchronous mode.
+        database.prepare("pragma synchronous = normal;").inject();
 
     }
 
