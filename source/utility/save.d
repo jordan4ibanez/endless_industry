@@ -6,11 +6,14 @@ static final const class Save {
 static:
 private:
 
+    Database database;
+
 public: //* BEGIN PUBLIC API.
 
-    void openSave() {
-        Database db = Database("test.sqlite");
-
+    void open(string saveName) {
+        const string location = "saves/";
+        const string fileExtension = ".sqlite";
+        database = Database(location ~ saveName ~ fileExtension);
     }
 
 private: //* BEGIN INTERNAL API.

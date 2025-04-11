@@ -20,6 +20,7 @@ import std.math.traits;
 import std.string;
 import utility.collision_functions;
 import utility.delta;
+import utility.save;
 
 void main() {
 
@@ -30,7 +31,10 @@ void main() {
 		TextureHandler.terminate();
 		Window.terminate();
 		CameraHandler.terminate();
+
 	}
+
+	Save.open("world");
 
 	validateRaylibBinding();
 
