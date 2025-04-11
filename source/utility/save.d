@@ -1,6 +1,7 @@
 module utility.save;
 
 import d2sqlite3;
+import game.map;
 import math.vec2d;
 import optibrev;
 import std.stdio;
@@ -29,26 +30,26 @@ public: //* BEGIN PUBLIC API.
         opened = false;
     }
 
-    void testRead() {
-        checkOpened();
+    // void testRead() {
+    //     checkOpened();
 
-        // This may be using nullable but nullable is simply awful to work with.
-        // Supplement it with optibrev.
+    //     // This may be using nullable but nullable is simply awful to work with.
+    //     // Supplement it with optibrev.
 
-        ResultRange results = database.execute(
-            "select * from mapdata where \"key\" = :key", "test");
+    //     ResultRange results = database.execute(
+    //         "select * from mapdata where \"key\" = :key", "test");
 
-        foreach (Row row; results) {
-            writeln("found");
-            auto exists = row.peek!string(0);
-            writeln(exists);
-            auto testing = row.peek!(ubyte[])(1);
-            Vec2d blah = unpack!Vec2d(testing);
-            writeln(blah);
-            
-        }
+    //     foreach (Row row; results) {
+    //         writeln("found");
+    //         auto exists = row.peek!string(0);
+    //         writeln(exists);
+    //         auto testing = row.peek!(ubyte[])(1);
+    //         Vec2d blah = unpack!Vec2d(testing);
+    //         writeln(blah);
 
-    }
+    //     }
+
+    // }
 
     void testWrite() {
         checkOpened();
