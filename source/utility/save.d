@@ -1,6 +1,7 @@
 module utility.save;
 
 import d2sqlite3;
+import math.vec2d;
 import optibrev;
 
 static final const class Save {
@@ -24,6 +25,13 @@ public: //* BEGIN PUBLIC API.
     void close() {
         database.close();
         opened = false;
+    }
+
+    void testWrite() {
+        Vec2d blah = Vec2d(1, 2);
+        database.prepare("insert or replace into mapdata (key, value) " ~
+                "values (:key, :value)")
+            .inject("test", blah);
     }
 
 private: //* BEGIN INTERNAL API.
