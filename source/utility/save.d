@@ -20,8 +20,13 @@ public: //* BEGIN PUBLIC API.
         database = database.Some(db);
     }
 
+    void close() {
+        if (database.isNone) {
+            return;
+        }
+        database.unwrap().close();
+    }
+
 private: //* BEGIN INTERNAL API.
-
-
 
 }
