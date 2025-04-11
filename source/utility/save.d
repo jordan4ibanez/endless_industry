@@ -29,9 +29,9 @@ public: //* BEGIN PUBLIC API.
 
     void testWrite() {
         Vec2d blah = Vec2d(1, 2);
-        database.prepare("insert or replace into mapdata (key, value) " ~
-                "values (:key, :value)")
-            .inject("test", blah);
+        // database.prepare("insert or replace into mapdata (key, value) " ~
+        //         "values (:key, :value)")
+        //     .inject("test", blah);
     }
 
 private: //* BEGIN INTERNAL API.
