@@ -7,6 +7,8 @@ static final const class Save {
 static:
 private:
 
+    //? This is temporarily wrapped in an option in case I blow something up.
+    //? I am currently re-re-relearning sqlite.
     Option!Database database;
 
 public: //* BEGIN PUBLIC API.
