@@ -428,38 +428,38 @@ private: //* BEGIN INTERNAL API.
                         thisOreDefinitionPointer.texturePointsIndex);
                 }
 
-                static immutable triCompletion = 1.00075;
+                static immutable double textureAdjustment = 0.00001;
 
                 // Quad.
 
                 vertices[0 + index] = x;
                 vertices[1 + index] = y;
                 vertices[2 + index] = x;
-                vertices[3 + index] = y + triCompletion;
-                vertices[4 + index] = x + triCompletion;
-                vertices[5 + index] = y + triCompletion;
-                vertices[6 + index] = x + triCompletion;
+                vertices[3 + index] = y + 1.0;
+                vertices[4 + index] = x + 1.0;
+                vertices[5 + index] = y + 1.0;
+                vertices[6 + index] = x + 1.0;
                 vertices[7 + index] = y;
 
                 // Texturing (ground layer).
-                textureCoords[0 + index] = tPoints.topLeft.x;
-                textureCoords[1 + index] = tPoints.topLeft.y;
-                textureCoords[2 + index] = tPoints.bottomLeft.x;
-                textureCoords[3 + index] = tPoints.bottomLeft.y;
-                textureCoords[4 + index] = tPoints.bottomRight.x;
-                textureCoords[5 + index] = tPoints.bottomRight.y;
-                textureCoords[6 + index] = tPoints.topRight.x;
-                textureCoords[7 + index] = tPoints.topRight.y;
+                textureCoords[0 + index] = tPoints.topLeft.x + textureAdjustment;
+                textureCoords[1 + index] = tPoints.topLeft.y + textureAdjustment;
+                textureCoords[2 + index] = tPoints.bottomLeft.x + textureAdjustment;
+                textureCoords[3 + index] = tPoints.bottomLeft.y - textureAdjustment;
+                textureCoords[4 + index] = tPoints.bottomRight.x - textureAdjustment;
+                textureCoords[5 + index] = tPoints.bottomRight.y - textureAdjustment;
+                textureCoords[6 + index] = tPoints.topRight.x - textureAdjustment;
+                textureCoords[7 + index] = tPoints.topRight.y + textureAdjustment;
 
                 // Texturing (ore layer).
-                texCoords2[0 + index] = oreTPoints.topLeft.x;
-                texCoords2[1 + index] = oreTPoints.topLeft.y;
-                texCoords2[2 + index] = oreTPoints.bottomLeft.x;
-                texCoords2[3 + index] = oreTPoints.bottomLeft.y;
-                texCoords2[4 + index] = oreTPoints.bottomRight.x;
-                texCoords2[5 + index] = oreTPoints.bottomRight.y;
-                texCoords2[6 + index] = oreTPoints.topRight.x;
-                texCoords2[7 + index] = oreTPoints.topRight.y;
+                texCoords2[0 + index] = oreTPoints.topLeft.x + textureAdjustment;
+                texCoords2[1 + index] = oreTPoints.topLeft.y + textureAdjustment;
+                texCoords2[2 + index] = oreTPoints.bottomLeft.x + textureAdjustment;
+                texCoords2[3 + index] = oreTPoints.bottomLeft.y - textureAdjustment;
+                texCoords2[4 + index] = oreTPoints.bottomRight.x - textureAdjustment;
+                texCoords2[5 + index] = oreTPoints.bottomRight.y - textureAdjustment;
+                texCoords2[6 + index] = oreTPoints.topRight.x - textureAdjustment;
+                texCoords2[7 + index] = oreTPoints.topRight.y + textureAdjustment;
 
                 index += 8;
 
