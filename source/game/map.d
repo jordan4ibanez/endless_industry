@@ -96,6 +96,14 @@ public: //* BEGIN PUBLIC API.
         }
     }
 
+    /// This is a specialty function which works with Save to reload the map.
+    void receiveMapChunkFromDatabase(Vec2i chunkID, Chunk thisChunk) {
+        thisChunk.modelID = 0;
+        generateChunkMesh(thisChunk);
+        database[chunkID] = thisChunk;
+        writeln("loaded ", chunkID);
+    }
+
     void draw() {
 
         //? Screen draws, bottom left to top right.
