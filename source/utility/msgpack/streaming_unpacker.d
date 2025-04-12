@@ -1,31 +1,28 @@
-module msgpack.streaming_unpacker;
+module utility.msgpack.streaming_unpacker;
 
-import msgpack.common;
-import msgpack.attribute;
-import msgpack.exception;
-import msgpack.value;
+import utility.msgpack.attribute;
+import utility.msgpack.common;
+import utility.msgpack.exception;
+import utility.msgpack.value;
 
 import std.array;
+import std.container;
 import std.exception;
 import std.range;
 import std.stdio;
 import std.traits;
 import std.typecons;
 import std.typetuple;
-import std.container;
-
 
 /**
  * $(D Unpacked) is a $(D Range) wrapper for stream deserialization result
  */
-struct Unpacked
-{
+struct Unpacked {
     import std.conv : text;
 
-    Value value;  /// deserialized value
+    Value value; /// deserialized value
 
     alias value this;
-
 
     /**
      * Constructs a $(D Unpacked) with argument.
@@ -34,11 +31,9 @@ struct Unpacked
      *  value = a deserialized value.
      */
     @safe
-    this(ref Value value)
-    {
+    this(ref Value value) {
         this.value = value;
     }
-
 
     /**
      * InputRange primitive operation that checks iteration state.
@@ -52,7 +47,6 @@ struct Unpacked
         return (value.type == Value.Type.array) && !value.via.array.length;
     }
 
-
     /**
      * Range primitive operation that returns the length of the range.
      *
@@ -60,12 +54,11 @@ struct Unpacked
      *  the number of values.
      */
     @property @trusted
-    size_t length()
-    {
-        debug enforce(value.type == Value.Type.array, "lenght is called with non array object. type = " ~ text(value.type));
+    size_t length() {
+        debug enforce(value.type == Value.Type.array, "lenght is called with non array object. type = " ~ text(
+                value.type));
         return value.via.array.length;
     }
-
 
     /**
      * InputRange primitive operation that returns the currently iterated element.
@@ -74,20 +67,19 @@ struct Unpacked
      *  the deserialized $(D Value).
      */
     @property @trusted
-    ref Value front()
-    {
-        debug enforce(value.type == Value.Type.array, "front is called with non array object. type = " ~ text(value.type));
+    ref Value front() {
+        debug enforce(value.type == Value.Type.array, "front is called with non array object. type = " ~ text(
+                value.type));
         return value.via.array.front;
     }
-
 
     /**
      * InputRange primitive operation that advances the range to its next element.
      */
     @trusted
-    void popFront()
-    {
-        debug enforce(value.type == Value.Type.array, "popFront is called with non array object. type = " ~ text(value.type));
+    void popFront() {
+        debug enforce(value.type == Value.Type.array, "popFront is called with non array object. type = " ~ text(
+                value.type));
         value.via.array.popFront();
     }
 
@@ -98,9 +90,9 @@ struct Unpacked
      *  the deserialized $(D Value) at $(D_PARAM n) position.
      */
     @trusted
-    ref Value opIndex(size_t n)
-    {
-        debug enforce(value.type == Value.Type.array, "opIndex is called with non array object. type = " ~ text(value.type));
+    ref Value opIndex(size_t n) {
+        debug enforce(value.type == Value.Type.array, "opIndex is called with non array object. type = " ~ text(
+                value.type));
         return value.via.array[n];
     }
 
@@ -115,10 +107,10 @@ struct Unpacked
      *  the slice of Values.
      */
     @trusted
-    Value[] opSlice(size_t from, size_t to)
-    {
-        debug enforce(value.type == Value.Type.array, "opSlice is called with non array object. type = " ~ text(value.type));
-        return value.via.array[from..to];
+    Value[] opSlice(size_t from, size_t to) {
+        debug enforce(value.type == Value.Type.array, "opSlice is called with non array object. type = " ~ text(
+                value.type));
+        return value.via.array[from .. to];
     }
 
     /**
@@ -128,19 +120,15 @@ struct Unpacked
      *  the snapshot of this Value.
      */
     @property @safe
-    Unpacked save()
-    {
+    Unpacked save() {
         return Unpacked(value);
     }
 }
 
-
-unittest
-{
+unittest {
     static assert(isForwardRange!Unpacked);
     static assert(hasLength!Unpacked);
 }
-
 
 /**
  * This $(D StreamingUnpacker) is a $(D MessagePack) streaming deserializer
@@ -166,14 +154,12 @@ unittest
  *     throw new Exception("Message is too large");
  * -----
  */
-struct StreamingUnpacker
-{
-  private:
+struct StreamingUnpacker {
+private:
     /*
      * Context state of deserialization
      */
-    enum State
-    {
+    enum State {
         HEADER = 0x00,
 
         BIN8 = 0x04,
@@ -212,43 +198,37 @@ struct StreamingUnpacker
         REAL
     }
 
-
     /*
      * Element type of container
      */
-    enum ContainerElement
-    {
+    enum ContainerElement {
         ARRAY_ITEM,
         MAP_KEY,
         MAP_VALUE
     }
 
-
     /*
      * Internal stack context
      */
-    static struct Context
-    {
-        static struct Container
-        {
-            ContainerElement type;   // value container type
-            Value            value;  // current value
-            Value            key;    // for map value
-            size_t           count;  // container length
+    static struct Context {
+        static struct Container {
+            ContainerElement type; // value container type
+            Value value; // current value
+            Value key; // for map value
+            size_t count; // container length
         }
 
-        State       state;  // current state of deserialization
-        size_t      trail;  // current deserializing size
-        size_t      top;    // current index of stack
-        Container[] stack;  // storing values
+        State state; // current state of deserialization
+        size_t trail; // current deserializing size
+        size_t top; // current index of stack
+        Container[] stack; // storing values
     }
 
-    Context context_;  // stack environment for streaming deserialization
+    Context context_; // stack environment for streaming deserialization
 
     mixin InternalBuffer;
 
-
-  public:
+public:
     /**
      * Constructs a $(D StreamingUnpacker).
      *
@@ -257,12 +237,10 @@ struct StreamingUnpacker
      *  bufferSize = size limit of buffer size
      */
     @safe
-    this(in ubyte[] target, in size_t bufferSize = 8192)
-    {
+    this(in ubyte[] target, in size_t bufferSize = 8192) {
         initializeBuffer(target, bufferSize);
         initializeContext();
     }
-
 
     /**
      * Forwards to deserialized object.
@@ -271,23 +249,19 @@ struct StreamingUnpacker
      *  the $(D Unpacked) object contains deserialized value.
      */
     @property @safe
-    Unpacked unpacked()
-    {
+    Unpacked unpacked() {
         return Unpacked(context_.stack[0].value);
     }
-
 
     /**
      * Clears some states for next deserialization.
      */
     @safe
-    nothrow void clear()
-    {
+    nothrow void clear() {
         initializeContext();
 
         parsed_ = 0;
     }
-
 
     /**
      * Convenient method for unpacking and clearing states.
@@ -310,15 +284,13 @@ struct StreamingUnpacker
      *  the $(D Unpacked) object contains deserialized value.
      */
     @safe
-    Unpacked purge()
-    {
+    Unpacked purge() {
         auto result = Unpacked(context_.stack[0].value);
 
         clear();
 
         return result;
     }
-
 
     /**
      * Executes deserialization.
@@ -329,33 +301,31 @@ struct StreamingUnpacker
      * Throws:
      *  $(D UnpackException) when parse error occurs.
      */
-    bool execute()
-    {
+    bool execute() {
         /*
          * Current implementation is very dirty(goto! goto!! goto!!!).
          * This Complexity for performance(avoid function call).
          */
 
-        bool   ret;
+        bool ret;
         size_t cur = offset_;
         Value obj;
 
         // restores before state
-        auto state =  context_.state;
-        auto trail =  context_.trail;
-        auto top   =  context_.top;
+        auto state = context_.state;
+        auto trail = context_.trail;
+        auto top = context_.top;
         auto stack = &context_.stack;
 
         /*
          * Helper for container deserialization
          */
-        void startContainer(string Type)(ContainerElement type, size_t length)
-        {
+        void startContainer(string Type)(ContainerElement type, size_t length) {
             mixin("callback" ~ Type ~ "((*stack)[top].value, length);");
 
-            (*stack)[top].type  = type;
+            (*stack)[top].type = type;
             (*stack)[top].count = length;
-            (*stack).length     = ++top + 1;
+            (*stack).length = ++top + 1;
         }
 
         // non-deserialized data is nothing
@@ -363,27 +333,27 @@ struct StreamingUnpacker
             goto Labort;
 
         do {
-          Lstart:
+        Lstart:
             if (state == State.HEADER) {
                 const header = buffer_[cur];
 
-                if (0x00 <= header && header <= 0x7f) {         // positive
+                if (0x00 <= header && header <= 0x7f) { // positive
                     callbackUInt(obj, header);
                     goto Lpush;
-                } else if (0xe0 <= header && header <= 0xff) {  // negative
-                    callbackInt(obj, cast(byte)header);
+                } else if (0xe0 <= header && header <= 0xff) { // negative
+                    callbackInt(obj, cast(byte) header);
                     goto Lpush;
-                } else if (0xa0 <= header && header <= 0xbf) {  // fix raw
+                } else if (0xa0 <= header && header <= 0xbf) { // fix raw
                     trail = header & 0x1f;
                     state = State.RAW;
                     cur++;
                     continue;
-                } else if (0xd4 <= header && header <= 0xd8) {  // fix ext
+                } else if (0xd4 <= header && header <= 0xd8) { // fix ext
                     trail = 2 ^^ (header - 0xd4) + 1;
                     state = State.EXT_DATA;
                     cur++;
                     continue;
-                } else if (0x90 <= header && header <= 0x9f) {  // fix array
+                } else if (0x90 <= header && header <= 0x9f) { // fix array
                     size_t length = header & 0x0f;
                     if (length == 0) {
                         callbackArray(obj, 0);
@@ -393,7 +363,7 @@ struct StreamingUnpacker
                         cur++;
                         continue;
                     }
-                } else if (0x80 <= header && header <= 0x8f) {  // fix map
+                } else if (0x80 <= header && header <= 0x8f) { // fix map
                     size_t length = header & 0x0f;
                     if (length == 0) {
                         callbackMap(obj, 0);
@@ -406,8 +376,8 @@ struct StreamingUnpacker
                 } else {
                     switch (header) {
                     case Format.UINT8, Format.UINT16, Format.UINT32, Format.UINT64,
-                         Format.INT8, Format.INT16, Format.INT32, Format.INT64,
-                         Format.FLOAT, Format.DOUBLE:
+                        Format.INT8, Format.INT16, Format.INT32, Format.INT64,
+                        Format.FLOAT, Format.DOUBLE:
                         trail = 1 << (header & 0x03); // computes object size
                         state = cast(State)(header & 0x1f);
                         break;
@@ -416,19 +386,19 @@ struct StreamingUnpacker
                         state = State.REAL;
                         break;
                     case Format.ARRAY16, Format.ARRAY32,
-                         Format.MAP16, Format.MAP32:
-                        trail = 2 << (header & 0x01);  // computes container size
+                        Format.MAP16, Format.MAP32:
+                        trail = 2 << (header & 0x01); // computes container size
                         state = cast(State)(header & 0x1f);
                         break;
-                    // raw will become str format in new spec
+                        // raw will become str format in new spec
                     case Format.STR8:
                     case Format.RAW16: // will be STR16
                     case Format.RAW32: // will be STR32
-                        trail = 1 << ((header & 0x03) - 1);  // computes container size
+                        trail = 1 << ((header & 0x03) - 1); // computes container size
                         state = cast(State)(header & 0x1f);
                         break;
                     case Format.BIN8, Format.BIN16, Format.BIN32:
-                        trail = 1 << (header & 0x03);  // computes container size
+                        trail = 1 << (header & 0x03); // computes container size
                         state = cast(State)(header & 0x1f);
                         break;
                     case Format.EXT8:
@@ -464,44 +434,43 @@ struct StreamingUnpacker
                 if (used_ - cur < trail)
                     goto Labort;
 
-                const base = cur; cur += trail - 1;  // fix current position
+                const base = cur;
+                cur += trail - 1; // fix current position
 
                 final switch (state) {
                 case State.FLOAT:
                     _f temp;
 
-                    temp.i = load32To!uint(buffer_[base..base + trail]);
+                    temp.i = load32To!uint(buffer_[base .. base + trail]);
                     callbackFloat(obj, temp.f);
                     goto Lpush;
                 case State.DOUBLE:
                     _d temp;
 
-                    temp.i = load64To!ulong(buffer_[base..base + trail]);
+                    temp.i = load64To!ulong(buffer_[base .. base + trail]);
                     callbackFloat(obj, temp.f);
                     goto Lpush;
                 case State.REAL:
                     const expb = base + ulong.sizeof;
 
-                    version (NonX86)
-                    {
+                    version (NonX86) {
                         CustomFloat!80 temp;
 
-                        const frac = load64To!ulong (buffer_[base..expb]);
-                        const exp  = load16To!ushort(buffer_[expb..expb + ushort.sizeof]);
+                        const frac = load64To!ulong(buffer_[base .. expb]);
+                        const exp = load16To!ushort(buffer_[expb .. expb + ushort.sizeof]);
 
                         temp.significand = frac;
-                        temp.exponent    = exp & 0x7fff;
-                        temp.sign        = exp & 0x8000 ? true : false;
+                        temp.exponent = exp & 0x7fff;
+                        temp.sign = exp & 0x8000 ? true : false;
 
                         // NOTE: temp.get!real is inf on non-x86 when deserialized value is larger than double.max.
                         callbackFloat(obj, temp.get!real);
-                    }
-                    else
-                    {
+                    } else {
                         _r temp;
 
-                        temp.fraction = load64To!(typeof(temp.fraction))(buffer_[base..expb]);
-                        temp.exponent = load16To!(typeof(temp.exponent))(buffer_[expb..expb + temp.exponent.sizeof]);
+                        temp.fraction = load64To!(typeof(temp.fraction))(buffer_[base .. expb]);
+                        temp.exponent = load16To!(typeof(temp.exponent))(
+                            buffer_[expb .. expb + temp.exponent.sizeof]);
 
                         callbackFloat(obj, temp.f);
                     }
@@ -511,35 +480,37 @@ struct StreamingUnpacker
                     callbackUInt(obj, buffer_[base]);
                     goto Lpush;
                 case State.UINT16:
-                    callbackUInt(obj, load16To!ushort(buffer_[base..base + trail]));
+                    callbackUInt(obj, load16To!ushort(buffer_[base .. base + trail]));
                     goto Lpush;
                 case State.UINT32:
-                    callbackUInt(obj, load32To!uint(buffer_[base..base + trail]));
+                    callbackUInt(obj, load32To!uint(buffer_[base .. base + trail]));
                     goto Lpush;
                 case State.UINT64:
-                    callbackUInt(obj, load64To!ulong(buffer_[base..base + trail]));
+                    callbackUInt(obj, load64To!ulong(buffer_[base .. base + trail]));
                     goto Lpush;
                 case State.INT8:
-                    callbackInt(obj, cast(byte)buffer_[base]);
+                    callbackInt(obj, cast(byte) buffer_[base]);
                     goto Lpush;
                 case State.INT16:
-                    callbackInt(obj, load16To!short(buffer_[base..base + trail]));
+                    callbackInt(obj, load16To!short(buffer_[base .. base + trail]));
                     goto Lpush;
                 case State.INT32:
-                    callbackInt(obj, load32To!int(buffer_[base..base + trail]));
+                    callbackInt(obj, load32To!int(buffer_[base .. base + trail]));
                     goto Lpush;
                 case State.INT64:
-                    callbackInt(obj, load64To!long(buffer_[base..base + trail]));
+                    callbackInt(obj, load64To!long(buffer_[base .. base + trail]));
                     goto Lpush;
-                case State.RAW: Lraw:
+                case State.RAW:
+                Lraw:
                     hasRaw_ = true;
-                    callbackRaw(obj, buffer_[base..base + trail]);
+                    callbackRaw(obj, buffer_[base .. base + trail]);
                     goto Lpush;
 
-                case State.EXT_DATA: Lext:
+                case State.EXT_DATA:
+                Lext:
                     hasRaw_ = true;
                     obj.via.ext.type = buffer_[base];
-                    callbackExt(obj, buffer_[base+1..base+trail]);
+                    callbackExt(obj, buffer_[base + 1 .. base + trail]);
                     goto Lpush;
                 case State.EXT8:
                     trail = buffer_[base] + 1;
@@ -549,14 +520,14 @@ struct StreamingUnpacker
                     cur++;
                     goto Lstart;
                 case State.EXT16:
-                    trail = load16To!size_t(buffer_[base..base+trail]) + 1;
+                    trail = load16To!size_t(buffer_[base .. base + trail]) + 1;
                     if (trail == 0)
                         goto Lext;
                     state = State.EXT_DATA;
                     cur++;
                     goto Lstart;
                 case State.EXT32:
-                    trail = load32To!size_t(buffer_[base..base+trail]) + 1;
+                    trail = load32To!size_t(buffer_[base .. base + trail]) + 1;
                     if (trail == 0)
                         goto Lext;
                     state = State.EXT_DATA;
@@ -571,21 +542,21 @@ struct StreamingUnpacker
                     cur++;
                     goto Lstart;
                 case State.RAW16, State.BIN16:
-                    trail = load16To!size_t(buffer_[base..base + trail]);
+                    trail = load16To!size_t(buffer_[base .. base + trail]);
                     if (trail == 0)
                         goto Lraw;
                     state = State.RAW;
                     cur++;
                     goto Lstart;
                 case State.RAW32, State.BIN32:
-                    trail = load32To!size_t(buffer_[base..base + trail]);
+                    trail = load32To!size_t(buffer_[base .. base + trail]);
                     if (trail == 0)
                         goto Lraw;
                     state = State.RAW;
                     cur++;
                     goto Lstart;
                 case State.ARRAY16:
-                    size_t length = load16To!size_t(buffer_[base..base + trail]);
+                    size_t length = load16To!size_t(buffer_[base .. base + trail]);
                     if (length == 0) {
                         callbackArray(obj, 0);
                         goto Lpush;
@@ -596,7 +567,7 @@ struct StreamingUnpacker
                         continue;
                     }
                 case State.ARRAY36:
-                    size_t length = load32To!size_t(buffer_[base..base + trail]);
+                    size_t length = load32To!size_t(buffer_[base .. base + trail]);
                     if (length == 0) {
                         callbackArray(obj, 0);
                         goto Lpush;
@@ -607,7 +578,7 @@ struct StreamingUnpacker
                         continue;
                     }
                 case State.MAP16:
-                    size_t length = load16To!size_t(buffer_[base..base + trail]);
+                    size_t length = load16To!size_t(buffer_[base .. base + trail]);
                     if (length == 0) {
                         callbackMap(obj, 0);
                         goto Lpush;
@@ -618,7 +589,7 @@ struct StreamingUnpacker
                         continue;
                     }
                 case State.MAP32:
-                    size_t length = load32To!size_t(buffer_[base..base + trail]);
+                    size_t length = load32To!size_t(buffer_[base .. base + trail]);
                     if (length == 0) {
                         callbackMap(obj, 0);
                         goto Lpush;
@@ -633,7 +604,7 @@ struct StreamingUnpacker
                 }
             }
 
-          Lpush:
+        Lpush:
             if (top == 0)
                 goto Lfinish;
 
@@ -649,7 +620,7 @@ struct StreamingUnpacker
                 }
                 break;
             case ContainerElement.MAP_KEY:
-                container.key  = obj;
+                container.key = obj;
                 container.type = ContainerElement.MAP_VALUE;
                 break;
             case ContainerElement.MAP_VALUE:
@@ -664,36 +635,35 @@ struct StreamingUnpacker
 
             state = State.HEADER;
             cur++;
-        } while (cur < used_);
+        }
+        while (cur < used_);
 
         goto Labort;
 
-      Lfinish:
+    Lfinish:
         (*stack)[0].value = obj;
         ret = true;
         cur++;
         goto Lend;
 
-      Labort:
+    Labort:
         ret = false;
 
-      Lend:
+    Lend:
         context_.state = state;
         context_.trail = trail;
-        context_.top   = top;
-        parsed_       += cur - offset_;
-        offset_        = cur;
+        context_.top = top;
+        parsed_ += cur - offset_;
+        offset_ = cur;
 
         return ret;
     }
-
 
     /**
      * supports foreach. One loop provides $(D Unpacked) object contains execute() result.
      * This is convenient in case that $(D MessagePack) values are continuous.
      */
-    int opApply(scope int delegate(ref Unpacked) dg)
-    {
+    int opApply(scope int delegate(ref Unpacked) dg) {
         int result;
 
         while (execute()) {
@@ -708,38 +678,37 @@ struct StreamingUnpacker
         return result;
     }
 
-
-  private:
+private:
     /*
      * initializes internal stack environment.
      */
     @safe
-    nothrow void initializeContext()
-    {
-        context_.state        = State.HEADER;
-        context_.trail        = 0;
-        context_.top          = 0;
+    nothrow void initializeContext() {
+        context_.state = State.HEADER;
+        context_.trail = 0;
+        context_.top = 0;
         context_.stack.length = 1;
     }
 }
 
-
-unittest
-{
-    import msgpack.packer;
+unittest {
+    import utility.msgpack.packer;
 
     {
         // serialize
         mixin DefinePacker;
 
-        packer.packArray(null, true, 1, -2, "Hi!", [1], [1:1], double.max, ExtValue(7, [1,2,3,4]));
+        packer.packArray(null, true, 1, -2, "Hi!", [1], [1: 1], double.max, ExtValue(7, [
+            1, 2, 3, 4
+        ]));
 
         // deserialize
-        auto unpacker = StreamingUnpacker(packer.stream.data); unpacker.execute();
+        auto unpacker = StreamingUnpacker(packer.stream.data);
+        unpacker.execute();
         auto unpacked = unpacker.purge();
 
         // Range test
-        foreach (unused; 0..2) {
+        foreach (unused; 0 .. 2) {
             uint i;
 
             foreach (obj; unpacked)
@@ -750,15 +719,15 @@ unittest
 
         auto result = unpacked.via.array;
 
-        assert(result[0].type          == Value.Type.nil);
-        assert(result[1].via.boolean   == true);
-        assert(result[2].via.uinteger  == 1);
-        assert(result[3].via.integer   == -2);
-        assert(result[4].via.raw       == [72, 105, 33]);
-        assert(result[5].as!(int[])    == [1]);
-        assert(result[6].as!(int[int]) == [1:1]);
-        assert(result[7].as!(double)   == double.max);
-        assert(result[8].as!(ExtValue) == ExtValue(7, [1,2,3,4]));
+        assert(result[0].type == Value.Type.nil);
+        assert(result[1].via.boolean == true);
+        assert(result[2].via.uinteger == 1);
+        assert(result[3].via.integer == -2);
+        assert(result[4].via.raw == [72, 105, 33]);
+        assert(result[5].as!(int[]) == [1]);
+        assert(result[6].as!(int[int]) == [1: 1]);
+        assert(result[7].as!(double) == double.max);
+        assert(result[8].as!(ExtValue) == ExtValue(7, [1, 2, 3, 4]));
     }
 
     // Test many combinations of EXT
@@ -766,7 +735,7 @@ unittest
         mixin DefinePacker;
 
         alias Lengths = TypeTuple!(0, 1, 2, 3, 4, 5, 8, 15, 16, 31,
-                                   255, 256, 2^^16, 2^^32);
+            255, 256, 2 ^^ 16, 2 ^^ 32);
 
         // Initialize a bunch of ExtValues and pack them
         ExtValue[Lengths.length] values;
@@ -774,7 +743,8 @@ unittest
             values[I] = ExtValue(7, new ubyte[](L));
         packer.pack(values);
 
-        auto unpacker = StreamingUnpacker(packer.stream.data); unpacker.execute();
+        auto unpacker = StreamingUnpacker(packer.stream.data);
+        unpacker.execute();
         auto unpacked = unpacker.purge();
 
         // Compare unpacked values to originals
@@ -784,10 +754,8 @@ unittest
     }
 }
 
-
 private:
 @trusted:
-
 
 /**
  * Sets value type and value.
@@ -796,111 +764,95 @@ private:
  *  value = the value to set
  *  number = the content to set
  */
-void callbackUInt(ref Value value, ulong number)
-{
-    value.type         = Value.Type.unsigned;
+void callbackUInt(ref Value value, ulong number) {
+    value.type = Value.Type.unsigned;
     value.via.uinteger = number;
 }
 
-
 /// ditto
-void callbackInt(ref Value value, long number)
-{
-    value.type        = Value.Type.signed;
+void callbackInt(ref Value value, long number) {
+    value.type = Value.Type.signed;
     value.via.integer = number;
 }
 
-
 /// ditto
-void callbackFloat(ref Value value, real number)
-{
-    value.type         = Value.Type.floating;
+void callbackFloat(ref Value value, real number) {
+    value.type = Value.Type.floating;
     value.via.floating = number;
 }
 
-
 /// ditto
-void callbackRaw(ref Value value, ubyte[] raw)
-{
-    value.type    = Value.Type.raw;
+void callbackRaw(ref Value value, ubyte[] raw) {
+    value.type = Value.Type.raw;
     value.via.raw = raw;
 }
 
 /// ditto
-void callbackExt(ref Value value, ubyte[] raw)
-{
-    value.type    = Value.Type.ext;
+void callbackExt(ref Value value, ubyte[] raw) {
+    value.type = Value.Type.ext;
     value.via.ext.data = raw;
 }
 
 /// ditto
-void callbackArray(ref Value value, size_t length)
-{
+void callbackArray(ref Value value, size_t length) {
     value.type = Value.Type.array;
     value.via.array.length = 0;
     value.via.array.reserve(length);
 }
 
-
 /// ditto
-void callbackMap(ref Value value, lazy size_t length)
-{
-    value.type    = Value.Type.map;
-    value.via.map = null;  // clears previous result avoiding 'Access Violation'
+void callbackMap(ref Value value, lazy size_t length) {
+    value.type = Value.Type.map;
+    value.via.map = null; // clears previous result avoiding 'Access Violation'
 }
 
-
 /// ditto
-void callbackNil(ref Value value)
-{
+void callbackNil(ref Value value) {
     value.type = Value.Type.nil;
 }
 
-
 /// ditto
-void callbackBool(ref Value value, bool boolean)
-{
-    value.type        = Value.Type.boolean;
+void callbackBool(ref Value value, bool boolean) {
+    value.type = Value.Type.boolean;
     value.via.boolean = boolean;
 }
 
-
-unittest
-{
+unittest {
     Value value;
 
     // Unsigned integer
     callbackUInt(value, uint.max);
-    assert(value.type         == Value.Type.unsigned);
+    assert(value.type == Value.Type.unsigned);
     assert(value.via.uinteger == uint.max);
 
     // Signed integer
     callbackInt(value, int.min);
-    assert(value.type        == Value.Type.signed);
+    assert(value.type == Value.Type.signed);
     assert(value.via.integer == int.min);
 
     // Floating point
     callbackFloat(value, real.max);
-    assert(value.type         == Value.Type.floating);
+    assert(value.type == Value.Type.floating);
     assert(value.via.floating == real.max);
 
     // Raw
     callbackRaw(value, cast(ubyte[])[1]);
-    assert(value.type    == Value.Type.raw);
+    assert(value.type == Value.Type.raw);
     assert(value.via.raw == cast(ubyte[])[1]);
 
     // Array
-    Value[] array; array.reserve(16);
+    Value[] array;
+    array.reserve(16);
 
     callbackArray(value, 16);
-    assert(value.type               == Value.Type.array);
+    assert(value.type == Value.Type.array);
     assert(value.via.array.capacity == array.capacity);
 
     // Map
     Value[Value] map;
 
     callbackMap(value, 16);
-    assert(value.type    == Value.Type.map);
+    assert(value.type == Value.Type.map);
     assert(value.via.map == null);
 
     // NIL
@@ -909,6 +861,6 @@ unittest
 
     // Bool
     callbackBool(value, true);
-    assert(value.type        == Value.Type.boolean);
+    assert(value.type == Value.Type.boolean);
     assert(value.via.boolean == true);
 }

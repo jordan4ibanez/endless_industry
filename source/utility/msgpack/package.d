@@ -28,26 +28,25 @@
  * License:   <a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
  * Authors:   Masahiro Nakagawa
  */
-module msgpack;
+module utility.msgpack;
 
 public:
 
-import msgpack.common;
-import msgpack.attribute;
-import msgpack.buffer;
-import msgpack.exception;
-import msgpack.packer;
-import msgpack.unpacker;
-import msgpack.streaming_unpacker;
-import msgpack.register;
-import msgpack.value;
+import utility.msgpack.attribute;
+import utility.msgpack.buffer;
+import utility.msgpack.common;
+import utility.msgpack.exception;
+import utility.msgpack.packer;
+import utility.msgpack.register;
+import utility.msgpack.streaming_unpacker;
+import utility.msgpack.unpacker;
+import utility.msgpack.value;
 
-version(Windows) {
+version (Windows) {
     pragma(lib, "WS2_32");
 }
 
 @trusted:
-
 
 /**
  * Serializes $(D_PARAM args).
@@ -61,9 +60,8 @@ version(Windows) {
  * Returns:
  *  a serialized data.
  */
-ubyte[] pack(bool withFieldName = false, Args...)(in Args args)
-{
-    auto packer = Packer(withFieldName);
+ubyte[] pack(bool withFieldName = false, Args...)(in Args args) {
+    Packer packer = Packer(withFieldName);
 
     static if (Args.length == 1)
         packer.pack(args[0]);
@@ -72,7 +70,6 @@ ubyte[] pack(bool withFieldName = false, Args...)(in Args args)
 
     return packer.stream.data;
 }
-
 
 /**
  * Deserializes $(D_PARAM buffer) using stream deserializer.
@@ -86,8 +83,7 @@ ubyte[] pack(bool withFieldName = false, Args...)(in Args args)
  * Throws:
  *  UnpackException if deserialization doesn't succeed.
  */
-Unpacked unpack(in ubyte[] buffer)
-{
+Unpacked unpack(in ubyte[] buffer) {
     auto unpacker = StreamingUnpacker(buffer);
 
     if (!unpacker.execute())
@@ -95,7 +91,6 @@ Unpacked unpack(in ubyte[] buffer)
 
     return unpacker.unpacked;
 }
-
 
 /**
  * Deserializes $(D_PARAM buffer) using direct-conversion deserializer.
@@ -107,8 +102,7 @@ Unpacked unpack(in ubyte[] buffer)
  *  buffer = the buffer to deserialize.
  *  args   = the references of values to assign.
  */
-void unpack(bool withFieldName = false, Args...)(in ubyte[] buffer, ref Args args)
-{
+void unpack(bool withFieldName = false, Args...)(in ubyte[] buffer, ref Args args) {
     auto unpacker = Unpacker(buffer, buffer.length, withFieldName);
 
     static if (Args.length == 1)
@@ -117,12 +111,10 @@ void unpack(bool withFieldName = false, Args...)(in ubyte[] buffer, ref Args arg
         unpacker.unpackArray(args);
 }
 
-
 /**
  * Return value version
  */
-Type unpack(Type, bool withFieldName = false)(in ubyte[] buffer)
-{
+Type unpack(Type, bool withFieldName = false)(in ubyte[] buffer) {
     auto unpacker = Unpacker(buffer, buffer.length, withFieldName);
 
     Type result;
@@ -130,9 +122,7 @@ Type unpack(Type, bool withFieldName = false)(in ubyte[] buffer)
     return result;
 }
 
-
-unittest
-{
+unittest {
     auto serialized = pack(false);
 
     assert(serialized[0] == Format.FALSE);
@@ -145,9 +135,7 @@ unittest
     assert(deserialized.via.array[2].type == Value.Type.raw);
 }
 
-
-unittest
-{
+unittest {
     import std.typecons;
 
     { // stream
@@ -174,11 +162,12 @@ unittest
         assert(data.unpack!(Tuple!(uint, string)) == test);
     }
     { // serialize object as a Map
-        static class C
-        {
+        static class C {
             int num;
 
-            this(int num) { this.num = num; }
+            this(int num) {
+                this.num = num;
+            }
         }
 
         auto test = new C(10);
@@ -189,15 +178,13 @@ unittest
     }
 }
 
-
-unittest
-{
+unittest {
     import std.typetuple;
 
     // unittest for https://github.com/msgpack/msgpack-d/issues/8
     foreach (Type; TypeTuple!(byte, short, int, long)) {
         foreach (i; [-33, -20, -1, 0, 1, 20, 33]) {
-            Type a = cast(Type)i;
+            Type a = cast(Type) i;
             Type b;
             unpack(pack(a), b);
             assert(a == b);
@@ -205,14 +192,12 @@ unittest
     }
 }
 
-
-unittest
-{
+unittest {
     import std.typetuple;
 
     // char types
     foreach (Type; TypeTuple!(char, wchar, dchar)) {
-        foreach (i; [Type.init, Type.min, Type.max, cast(Type)'j']) {
+        foreach (i; [Type.init, Type.min, Type.max, cast(Type) 'j']) {
             Type a = i;
             Type b;
             unpack(pack(a), b);
@@ -221,18 +206,17 @@ unittest
     }
 }
 
-unittest
-{
+unittest {
     // ext type
-    auto result = unpack(pack(ExtValue(7, [1,2,3,4])));
-    assert(result == ExtValue(7, [1,2,3,4]));
+    auto result = unpack(pack(ExtValue(7, [1, 2, 3, 4])));
+    assert(result == ExtValue(7, [1, 2, 3, 4]));
 }
 
 unittest {
-    import std.exception: assertThrown;
+    import std.exception : assertThrown;
 
     struct Version {
-        int major= -1;
+        int major = -1;
         int minor = -1;
     }
 
@@ -240,8 +224,7 @@ unittest {
         string[] topicComponents;
     }
 
-    struct SubscriptionSender
-    {
+    struct SubscriptionSender {
         string hostName;
         string biosName;
     }
@@ -261,19 +244,20 @@ unittest {
         string value;
     }
 
-    ubyte[] bytes = [149, 146, 255, 255,   0, 146, 164, 104,
-                     111, 115, 116, 164,  98, 105, 111, 115,
-                     145, 221, 171, 105, 110, 116, 101, 114,
-                     101, 115, 116, 105, 110, 103, 165, 116,
-                     111, 112, 105,  99, 167, 112,  97, 121,
-                     108, 111,  97, 100, 158, 142, 210,  31,
-                     127,  81, 149, 125, 183, 108,  86,  17,
-                     100,  35, 168];
+    ubyte[] bytes = [
+        149, 146, 255, 255, 0, 146, 164, 104,
+        111, 115, 116, 164, 98, 105, 111, 115,
+        145, 221, 171, 105, 110, 116, 101, 114,
+        101, 115, 116, 105, 110, 103, 165, 116,
+        111, 112, 105, 99, 167, 112, 97, 121,
+        108, 111, 97, 100, 158, 142, 210, 31,
+        127, 81, 149, 125, 183, 108, 86, 17,
+        100, 35, 168
+    ];
 
     // should not throw OutOfMemoryError
     assertThrown!MessagePackException(unpack!PubSubMessage(bytes));
 }
-
 
 /**
  * Handy helper for creating MessagePackable object.
@@ -295,8 +279,7 @@ unittest {
  *
  * Defines those methods manually if you treat complex data-structure.
  */
-mixin template MessagePackable(Members...)
-{
+mixin template MessagePackable(Members...) {
     static if (Members.length == 0) {
         /**
          * Serializes members using $(D_PARAM packer).
@@ -304,8 +287,7 @@ mixin template MessagePackable(Members...)
          * Params:
          *  packer = the serializer to pack.
          */
-        void toMsgpack(Packer)(ref Packer packer, bool withFieldName = false) const
-        {
+        void toMsgpack(Packer)(ref Packer packer, bool withFieldName = false) const {
             if (withFieldName) {
                 packer.beginMap(this.tupleof.length);
                 foreach (i, member; this.tupleof) {
@@ -319,7 +301,6 @@ mixin template MessagePackable(Members...)
             }
         }
 
-
         /**
          * Deserializes $(D MessagePack) object to members using Value.
          *
@@ -329,8 +310,7 @@ mixin template MessagePackable(Members...)
          * Throws:
          *  MessagePackException if $(D_PARAM value) is not an Array type.
          */
-        void fromMsgpack(Value value)
-        {
+        void fromMsgpack(Value value) {
             // enables if std.contracts.enforce is moved to object_.d
             // enforceEx!MessagePackException(value.type == Value.Type.array, "Value must be Array type");
             if (value.type != Value.Type.array)
@@ -342,7 +322,6 @@ mixin template MessagePackable(Members...)
                 this.tupleof[i] = value.via.array[i].as!(typeof(member));
         }
 
-
         /**
          * Deserializes $(D MessagePack) object to members using direct-conversion deserializer.
          *
@@ -352,8 +331,7 @@ mixin template MessagePackable(Members...)
          * Throws:
          *  MessagePackException if the size of deserialized value is mismatched.
          */
-        void fromMsgpack(ref Unpacker unpacker)
-        {
+        void fromMsgpack(ref Unpacker unpacker) {
             auto length = unpacker.beginArray();
             if (length != this.tupleof.length)
                 throw new MessagePackException("The size of deserialized value is mismatched");
@@ -365,8 +343,7 @@ mixin template MessagePackable(Members...)
         /**
          * Member selecting version of toMsgpack.
          */
-        void toMsgpack(Packer)(ref Packer packer, bool withFieldName = false) const
-        {
+        void toMsgpack(Packer)(ref Packer packer, bool withFieldName = false) const {
             if (withFieldName) {
                 packer.beginMap(Members.length);
                 foreach (member; Members) {
@@ -380,12 +357,10 @@ mixin template MessagePackable(Members...)
             }
         }
 
-
         /**
          * Member selecting version of fromMsgpack for Value.
          */
-        void fromMsgpack(Value value)
-        {
+        void fromMsgpack(Value value) {
             if (value.type != Value.Type.array)
                 throw new MessagePackException("Value must be an Array type");
             if (value.via.array.length != Members.length)
@@ -395,12 +370,10 @@ mixin template MessagePackable(Members...)
                 mixin(member ~ "= value.via.array[i].as!(typeof(" ~ member ~ "));");
         }
 
-
         /**
          * Member selecting version of fromMsgpack for direct-converion deserializer.
          */
-        void fromMsgpack(ref Unpacker unpacker)
-        {
+        void fromMsgpack(ref Unpacker unpacker) {
             auto length = unpacker.beginArray();
             if (length != Members.length)
                 throw new MessagePackException("The size of deserialized value is mismatched");
@@ -411,27 +384,28 @@ mixin template MessagePackable(Members...)
     }
 }
 
-
-unittest
-{
+unittest {
     { // all members
         /*
-         * Comment out because "src/msgpack.d(4048): Error: struct msgpack.__unittest16.S no size yet for forward reference" occurs
+         * Comment out because "src/msgpack.d(4048): Error: struct utility.msgpack__unittest16.S no size yet for forward reference" occurs
          */
-        static struct S
-        {
-            uint num; string str;
+        static struct S {
+            uint num;
+            string str;
             mixin MessagePackable;
         }
 
         mixin DefinePacker;
 
-        S orig = S(10, "Hi!"); orig.toMsgpack(packer);
+        S orig = S(10, "Hi!");
+        orig.toMsgpack(packer);
 
         { // stream
-            auto unpacker = StreamingUnpacker(packer.stream.data); unpacker.execute();
+            auto unpacker = StreamingUnpacker(packer.stream.data);
+            unpacker.execute();
 
-            S result; result.fromMsgpack(unpacker.unpacked);
+            S result;
+            result.fromMsgpack(unpacker.unpacked);
 
             assert(result.num == 10);
             assert(result.str == "Hi!");
@@ -439,73 +413,78 @@ unittest
         { // direct conversion
             auto unpacker = Unpacker(packer.stream.data);
 
-            S result; unpacker.unpack(result);
+            S result;
+            unpacker.unpack(result);
 
             assert(result.num == 10);
             assert(result.str == "Hi!");
         }
     }
     { // member select
-        static class C
-        {
-            uint num; string str;
+        static class C {
+            uint num;
+            string str;
 
-            this() {}
-            this(uint n, string s) { num = n; str = s; }
+            this() {
+            }
+
+            this(uint n, string s) {
+                num = n;
+                str = s;
+            }
 
             mixin MessagePackable!("num");
         }
 
         mixin DefinePacker;
 
-        C orig = new C(10, "Hi!"); orig.toMsgpack(packer);
+        C orig = new C(10, "Hi!");
+        orig.toMsgpack(packer);
 
         { // stream
-            auto unpacker = StreamingUnpacker(packer.stream.data); unpacker.execute();
+            auto unpacker = StreamingUnpacker(packer.stream.data);
+            unpacker.execute();
 
-            C result = new C; result.fromMsgpack(unpacker.unpacked);
+            C result = new C;
+            result.fromMsgpack(unpacker.unpacked);
 
             assert(result.num == 10);
         }
         { // direct conversion
             auto unpacker = Unpacker(packer.stream.data);
 
-            C result; unpacker.unpack(result);
+            C result;
+            unpacker.unpack(result);
 
             assert(result.num == 10);
         }
     }
 }
 
+unittest {
+    import std.datetime : Clock, SysTime;
+    import utility.msgpack.packer;
+    import utility.msgpack.unpacker;
 
-unittest
-{
-    import std.datetime: Clock, SysTime;
-    import msgpack.packer, msgpack.unpacker;
-
-    static struct SysTimePackProxy
-    {
-        static void serialize(ref Packer p, ref in SysTime tim)
-        {
+    static struct SysTimePackProxy {
+        static void serialize(ref Packer p, ref in SysTime tim) {
             p.pack(tim.toISOExtString());
         }
 
-        static void deserialize(ref Unpacker u, ref SysTime tim)
-        {
+        static void deserialize(ref Unpacker u, ref SysTime tim) {
             string tmp;
             u.unpack(tmp);
             tim = SysTime.fromISOExtString(tmp);
         }
     }
-    static struct LogData
-    {
+
+    static struct LogData {
         string msg;
         string file;
-        ulong  line;
+        ulong line;
         @serializedAs!SysTimePackProxy SysTime timestamp;
 
-        this(string message, string file = __FILE__, ulong line = __LINE__)
-        {
+        this(string message, string file = __FILE__, ulong line = __LINE__) {
             this.msg = message;
             this.file = file;
             this.line = line;

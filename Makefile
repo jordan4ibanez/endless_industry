@@ -11,5 +11,8 @@ install:
 	dub upgrade
 	dub run raylib-d:install
 
+test:
+	dub -b unittest
+
 clean:
 	dub clean
