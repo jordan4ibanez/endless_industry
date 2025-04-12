@@ -31,7 +31,6 @@ void main() {
 		TextureHandler.terminate();
 		Window.terminate();
 		CameraHandler.terminate();
-		Map.terminate();
 	}
 
 	validateRaylibBinding();
@@ -112,6 +111,7 @@ void main() {
 
 		}
 		EndDrawing();
-
 	}
+
+	Map.terminate();
 }
