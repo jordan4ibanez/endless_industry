@@ -95,6 +95,14 @@ public: //* BEGIN PUBLIC API.
         return currentGUIScale;
     }
 
+    void initialize() {
+        FontHandler.initialize();
+    }
+
+    void terminate() {
+        FontHandler.terminate();
+    }
+
     void __update(Vec2d newWindowSize) {
         // Find out which GUI scale is smaller so things can be scaled around it.
 
