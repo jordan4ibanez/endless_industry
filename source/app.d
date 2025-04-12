@@ -26,10 +26,10 @@ void main() {
 	scope (exit) {
 		// FontHandler.terminate();
 		// ShaderHandler.terminate();
+		CameraHandler.terminate();
 		MeshHandler.terminate();
 		TextureHandler.terminate();
 		Window.terminate();
-		CameraHandler.terminate();
 	}
 
 	validateRaylibBinding();
