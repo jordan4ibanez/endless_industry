@@ -91,9 +91,11 @@ public: //* BEGIN PUBLIC API.
 
     void mapSave() {
         writeln("Saving map.");
+        Save.prepareWriteMapChunk();
         foreach (key, value; database) {
             Save.writeMapChunk(key, value);
         }
+        Save.completeWriteMapChunk();
     }
 
     /// This is a specialty function which works with Save to reload the map.
@@ -101,7 +103,7 @@ public: //* BEGIN PUBLIC API.
         thisChunk.modelID = 0;
         generateChunkMesh(thisChunk);
         database[chunkID] = thisChunk;
-        writeln("loaded ", chunkID);
+        // writeln("loaded ", chunkID);
     }
 
     void draw() {
