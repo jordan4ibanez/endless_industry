@@ -84,6 +84,7 @@ private: //* BEGIN INTERNAL API.
     }
 
     ResultRange readFromPlayerTable(string key) {
+        checkOpened();
         return database.execute(
             "select * from playerdata where \"key\" = :key", key);
     }
