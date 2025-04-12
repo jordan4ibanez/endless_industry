@@ -12,6 +12,8 @@
 
 - Link the game's logic to the FPS so that the game's logic can be accelerated with a mod
 
+- Unload map meshes within a certain distance to save GPU memory
+
 
 
 
