@@ -62,6 +62,8 @@ void main() {
 
 		CameraHandler.centerToPlayer();
 
+		Map.onTick(delta);
+
 		BeginDrawing();
 		{
 			//! Note: DrawTexture and DrawTexturePro are batched as long as you use the same texture.
