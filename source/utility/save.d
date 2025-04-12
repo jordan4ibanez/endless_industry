@@ -32,7 +32,8 @@ public: //* BEGIN PUBLIC API.
     }
 
     void readMapChunk(Vec2i chunkID) {
-
+        const ubyte[] packedChunkID = pack(chunkID);
+        readFromMapTable(packedChunkID);
     }
 
     void writeMapChunk(Vec2i chunkID, Chunk chunk) {
@@ -90,6 +91,12 @@ public: //* BEGIN PUBLIC API.
 
 private: //* BEGIN INTERNAL API.
 
+    ResultRange readFromMapTable(const ubyte[] key) {
+        checkOpened();
+        return database.execute(
+            "select * from mapdata where \"key\" = :key", key);
+    }
+
     ResultRange readFromMapTable(const string key) {
         checkOpened();
         return database.execute(
@@ -110,6 +117,12 @@ private: //* BEGIN INTERNAL API.
             "insert or replace into mapdata (key, value) " ~
                 "values (:key, :value)")
             .inject(key, value);
+    }
+
+    ResultRange readFromPlayerTable(const ubyte[] key) {
+        checkOpened();
+        return database.execute(
+            "select * from playerdata where \"key\" = :key", key);
     }
 
     ResultRange readFromPlayerTable(const string key) {
