@@ -10,6 +10,7 @@ import graphics.render;
 import graphics.shader;
 import graphics.texture;
 import graphics.window;
+import gui.gui;
 import math.vec2d;
 import math.vec2i;
 import mods.api;
@@ -26,6 +27,7 @@ void main() {
 	scope (exit) {
 		// FontHandler.terminate();
 		// ShaderHandler.terminate();
+		GUI.terminate();
 		CameraHandler.terminate();
 		MeshHandler.terminate();
 		TextureHandler.terminate();
@@ -44,6 +46,8 @@ void main() {
 
 	// SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
 	// SetTargetFPS(100);
+
+	GUI.initialize();
 
 	CameraHandler.initialize();
 
