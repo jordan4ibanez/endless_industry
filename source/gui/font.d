@@ -14,6 +14,7 @@ private:
     Font font;
     const double spacing = -1;
     double currentFontSize = 1;
+    const int baseFontSize = 128;
 
 public: //* BEGIN PUBLIC API.
 
@@ -23,22 +24,24 @@ public: //* BEGIN PUBLIC API.
             "\\;:'\",<.>©";
 
         font = LoadFontEx(
-            toStringz("font/roboto_condensed.ttf"), 64, cast(int*) codePointString, 0);
+            toStringz("font/roboto_condensed.ttf"), baseFontSize, cast(int*) codePointString, 0);
 
         writeln("Loaded font roboto_condensed.ttf");
     }
 
-    Vector2 getTextSize(string text) {
-        return MeasureTextEx(font, toStringz(text), currentFontSize, spacing);
+    Vector2 getTextSize(string text, double fontScale = 1.0) {
+        return MeasureTextEx(font, toStringz(text), currentFontSize * fontScale, spacing);
     }
 
-    void draw(string text, double x, double y, Color color = Colors.BLACK) {
-        DrawTextEx(font, toStringz(text), Vector2(x, y), currentFontSize, spacing, color);
+    void draw(string text, double x, double y, double fontScale = 1.0, Color color = Colors.BLACK) {
+        DrawTextEx(font, toStringz(text), Vector2(x, y), currentFontSize * fontScale, spacing, color);
     }
 
-    void drawShadowed(string text, double x, double y, Color foregroundColor = Colors.WHITE) {
-        DrawTextEx(font, toStringz(text), Vector2(x, y), currentFontSize, spacing, Colors.BLACK);
-        DrawTextEx(font, toStringz(text), Vector2(x - 1, y - 1), currentFontSize, spacing, foregroundColor);
+    void drawShadowed(string text, double x, double y, double fontScale = 1.0, Color foregroundColor = Colors
+            .WHITE) {
+        DrawTextEx(font, toStringz(text), Vector2(x, y), currentFontSize * fontScale, spacing, Colors
+                .BLACK);
+        DrawTextEx(font, toStringz(text), Vector2(x - 1, y - 1), currentFontSize * fontScale, spacing, foregroundColor);
     }
 
     void terminate() {
@@ -46,8 +49,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     void __update() {
-        // This allows the font to look slightly off, like it's a texture font.
-        currentFontSize = font.baseSize * (GUI.getGUIScale() * 0.75);
+        currentFontSize = font.baseSize * GUI.getGUIScale();
     }
 
 private: //* BEGIN INTERNAL API.
