@@ -77,6 +77,13 @@ public: //* BEGIN PUBLIC API.
         Save.close();
     }
 
+    void mapSave() {
+        writeln("Saving map.");
+        foreach (key, value; database) {
+            Save.writeMapChunk(key, value);
+        }
+    }
+
     void draw() {
 
         //? Screen draws, bottom left to top right.
