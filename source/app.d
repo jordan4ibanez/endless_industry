@@ -5,7 +5,6 @@ import controls.mouse;
 import game.map;
 import game.player;
 import graphics.camera;
-import graphics.font;
 import graphics.mesh;
 import graphics.render;
 import graphics.shader;
