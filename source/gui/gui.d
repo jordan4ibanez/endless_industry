@@ -3,6 +3,7 @@ module gui.gui;
 import graphics.colors;
 import math.vec2d;
 import math.vec2i;
+import std.stdio;
 
 /*
 *
@@ -41,6 +42,7 @@ import math.vec2i;
 *       - MessageBox    --> Window, Label, Button
 *       - TextInputBox  --> Window, Label, TextBox, Button
 */
+
 class Element {
 
 }
@@ -52,11 +54,21 @@ class Container {
     Vec2i position;
     Vec2i size;
 
-    // The infill color of the window.
-    Color infillColor = Colors.GRAY;
+    // General solid colors.
+
+    // The color of the work area.
+    Color workAreaColor = Colors.GRAY;
     // The border color of the window. (All border components.)
     Color borderColor = Colors.BLACK;
+    // The status bar background color.
+    Color statusBarColor = Colors.BLUE;
 
+    // General text colors.
+
+    // The text below the status bar.
+    Color workAreaTextColor = Colors.BLACK;
+    // The status bar text color.
+    Color statusBarTextColor = Colors.WHITE;
 }
 
 static final const class GUI {
@@ -70,6 +82,13 @@ private:
     Container[string] interfaces;
 
 public: //* BEGIN PUBLIC API.
+
+    void drawVisible() {
+        foreach (value; interfaces) {
+            writeln(value);
+
+        }
+    }
 
     double getGUIScale() {
         return currentGUIScale;
