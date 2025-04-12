@@ -48,8 +48,12 @@ class Element {
 
 }
 
+// This is the basis of any GUI component, the container.
 class Container {
     bool visible = true;
+
+    // What this container is called.
+    string containerName = null;
 
     // Position is top left of container.
     Vec2i position;
@@ -85,10 +89,20 @@ private:
 public: //* BEGIN PUBLIC API.
 
     void drawVisible() {
-        foreach (value; interfaces) {
-            writeln(value);
+        foreach (key, value; interfaces) {
+            writeln(key, " ", value, " ", value.containerName);
 
         }
+    }
+
+    void debugTest() {
+
+        Container testContainer = new Container();
+
+        testContainer.containerName = "Test container";
+
+        interfaces["testMenu"] = testContainer;
+
     }
 
     double getGUIScale() {
@@ -97,6 +111,7 @@ public: //* BEGIN PUBLIC API.
 
     void initialize() {
         FontHandler.initialize();
+        debugTest();
     }
 
     void terminate() {
