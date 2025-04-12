@@ -79,8 +79,18 @@ public: //* BEGIN PUBLIC API.
 
 private: //* BEGIN INTERNAL API.
 
-    void writeIntoMapTable() {
+    ResultRange readFromMapTable(string key) {
+        checkOpened();
+        return database.execute(
+            "select * from mapdata where \"key\" = :key", key);
+    }
 
+    void writeIntoMapTable(string key, const ubyte[] value) {
+        checkOpened();
+        database.prepare(
+            "insert or replace into mapdata (key, value) " ~
+                "values (:key, :value)")
+            .inject(key, value);
     }
 
     ResultRange readFromPlayerTable(string key) {
