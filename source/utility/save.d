@@ -36,7 +36,7 @@ public: //* BEGIN PUBLIC API.
 
         const ubyte[] packedPosition = pack(position);
         const ubyte[] packedChunk = pack(chunk);
-        writeIntoMapTable(packedPosition, packedChunk);
+        writeToMapTable(packedPosition, packedChunk);
 
     }
 
@@ -52,7 +52,7 @@ public: //* BEGIN PUBLIC API.
 
     void writePlayerPosition(Vec2d position) {
         const ubyte[] packedPosition = pack(position);
-        writeIntoPlayerTable("singleplayerposition", packedPosition);
+        writeToPlayerTable("singleplayerposition", packedPosition);
     }
 
     // void testRead() {
@@ -95,7 +95,7 @@ private: //* BEGIN INTERNAL API.
             "select * from mapdata where \"key\" = :key", key);
     }
 
-    void writeIntoMapTable(const ubyte[] key, const ubyte[] value) {
+    void writeToMapTable(const ubyte[] key, const ubyte[] value) {
         checkOpened();
         database.prepare(
             "insert or replace into mapdata (key, value) " ~
@@ -103,7 +103,7 @@ private: //* BEGIN INTERNAL API.
             .inject(key, value);
     }
 
-    void writeIntoMapTable(const string key, const ubyte[] value) {
+    void writeToMapTable(const string key, const ubyte[] value) {
         checkOpened();
         database.prepare(
             "insert or replace into mapdata (key, value) " ~
@@ -117,7 +117,7 @@ private: //* BEGIN INTERNAL API.
             "select * from playerdata where \"key\" = :key", key);
     }
 
-    void writeIntoPlayerTable(const string key, const ubyte[] value) {
+    void writeToPlayerTable(const string key, const ubyte[] value) {
         checkOpened();
         database.prepare(
             "insert or replace into playerdata (key, value) " ~
