@@ -117,6 +117,14 @@ private: //* BEGIN INTERNAL API.
             "select * from playerdata where \"key\" = :key", key);
     }
 
+    void writeToPlayerTable(const ubyte[] key, const ubyte[] value) {
+        checkOpened();
+        database.prepare(
+            "insert or replace into playerdata (key, value) " ~
+                "values (:key, :value)")
+            .inject(key, value);
+    }
+
     void writeToPlayerTable(const string key, const ubyte[] value) {
         checkOpened();
         database.prepare(
