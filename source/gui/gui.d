@@ -4,6 +4,8 @@ import graphics.colors;
 import gui.font;
 import math.vec2d;
 import math.vec2i;
+import raylib;
+import std.math.rounding;
 import std.stdio;
 
 /*
@@ -55,6 +57,9 @@ class Container {
     // What this container is called.
     string containerName = null;
 
+    // What this container's title says.
+    string containerTitle = null;
+
     // Position is top left of container.
     Vec2i position;
     Vec2i size;
@@ -89,9 +94,29 @@ private:
 public: //* BEGIN PUBLIC API.
 
     void drawVisible() {
-        foreach (key, value; interfaces) {
-            writeln(key, " ", value, " ", value.containerName);
+        foreach (key, container; interfaces) {
+            int posX = cast(int) floor(container.position.x * currentGUIScale);
+            int posY = cast(int) floor(container.position.y * currentGUIScale);
+            int sizeX = cast(int) floor(container.size.x * currentGUIScale);
+            int sizeY = cast(int) floor(container.size.y * currentGUIScale);
+            int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
+            // Work area background.
+            DrawRectangle(posX, posY, sizeX, sizeY, container.workAreaColor);
+            // Status area background.
+            DrawRectangle(posX, posX, sizeX, statusAreaHeight, container.statusBarColor);
+
+            // Work area outline.
+            DrawRectangleLines(posX, posY, sizeX, sizeY, container.borderColor);
+
+            // Status area outline.
+            DrawRectangleLines(posX, posY, sizeX, statusAreaHeight, container.borderColor);
+
+            const string title = container.containerTitle;
+            if (title !is null) {
+                FontHandler.draw(title, posX + (currentGUIScale * 2), posY, 0.25, container
+                        .statusBarTextColor);
+            }
         }
     }
 
@@ -100,6 +125,12 @@ public: //* BEGIN PUBLIC API.
         Container testContainer = new Container();
 
         testContainer.containerName = "Test container";
+        testContainer.containerTitle = "Test Container";
+        testContainer.size.x = 400;
+        testContainer.size.y = 400;
+
+        testContainer.position.x = 100;
+        testContainer.position.y = 100;
 
         interfaces["testMenu"] = testContainer;
 
