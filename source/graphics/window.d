@@ -1,11 +1,10 @@
 module graphics.window;
 
 import graphics.camera;
-import graphics.font;
+import gui.gui;
 import math.vec2d;
 import raylib;
 import utility.delta;
-import gui.gui;
 
 static final const class Window {
 static:
@@ -80,9 +79,8 @@ private: //* BEGIN INTERNAL API.
 
     void updateSystem() {
         Delta.__calculateDelta();
-        GUI.__update(getSize());
         CameraHandler.__update();
-        // FontHandler.__update();
+        GUI.__update(getSize());
     }
 
 }
