@@ -31,9 +31,15 @@ public: //* BEGIN PUBLIC API.
         opened = false;
     }
 
-    void readMapChunk(Vec2i chunkID) {
+    Option!Chunk readMapChunk(Vec2i chunkID) {
+        Option!Chunk result;
         const ubyte[] packedChunkID = pack(chunkID);
-        readFromMapTable(packedChunkID);
+        foreach (Row row; readFromMapTable(packedChunkID)) {
+            const ubyte[] chunkPacked = row.peek!(ubyte[])(1);
+            Chunk thisChunk = unpack!Chunk(chunkPacked);
+            result = result.Some(thisChunk);
+        }
+        return result;
     }
 
     void writeMapChunk(Vec2i chunkID, Chunk chunk) {
