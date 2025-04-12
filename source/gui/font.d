@@ -3,6 +3,7 @@ module gui.font;
 import gui.gui;
 import raylib;
 import std.math.rounding;
+import std.stdio;
 import std.string;
 
 static final const class FontHandler {
@@ -23,6 +24,8 @@ public: //* BEGIN PUBLIC API.
 
         font = LoadFontEx(
             toStringz("font/roboto_condensed.ttf"), 64, cast(int*) codePointString, 0);
+
+        writeln("Loaded font roboto_condensed.ttf");
     }
 
     Vector2 getTextSize(string text) {
