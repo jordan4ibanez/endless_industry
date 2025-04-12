@@ -11,11 +11,9 @@ static final const class Mouse {
 static:
 private:
 
-public:
+    bool focusedOnGUI = false;
 
-    //? I like to have specific modules for things.
-
-    //* BEGIN PUBLIC API.
+public: //* BEGIN PUBLIC API.
 
     Vec2d getDelta() {
         return Vec2d(GetMouseDelta());
@@ -37,6 +35,14 @@ public:
         return IsMouseButtonDown(button);
     }
 
-    //* BEGIN INTERNAL API.
+    bool isFocusedOnGUI() {
+        return focusedOnGUI;
+    }
+
+    void __setFocusedOnGUI(bool f) {
+        focusedOnGUI = f;
+    }
+
+private: //* BEGIN INTERNAL API.
 
 }
