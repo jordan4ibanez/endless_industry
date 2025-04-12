@@ -74,6 +74,8 @@ public: //* BEGIN PUBLIC API.
 
         writeln("Saving map " ~ "world");
 
+        mapSave();
+
         Save.close();
     }
 
