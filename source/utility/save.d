@@ -14,6 +14,7 @@ private:
 
     bool opened = false;
     Database database;
+    Statement saveStatement;
 
 public: //* BEGIN PUBLIC API.
 
@@ -56,10 +57,22 @@ public: //* BEGIN PUBLIC API.
         return result;
     }
 
+    void prepareWriteMapChunk() {
+        database.prepare("begin transaction").inject();
+        saveStatement = database.prepare(
+            "insert or replace into mapdata (key, value) " ~
+                "values (:key, :value)");
+    }
+
     void writeMapChunk(Vec2i chunkID, Chunk chunk) {
         const ubyte[] packedChunkID = pack(chunkID);
         const ubyte[] packedChunk = pack(chunk);
-        writeToMapTable(packedChunkID, packedChunk);
+        saveStatement.inject(packedChunkID, packedChunk);
+    }
+
+    void completeWriteMapChunk() {
+        saveStatement.finalize();
+        database.prepare("commit").inject();
     }
 
     Option!Vec2d readPlayerPosition() {
