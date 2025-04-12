@@ -36,10 +36,20 @@ module gui.gui;
 *       - MessageBox    --> Window, Label, Button
 *       - TextInputBox  --> Window, Label, TextBox, Button
 */
+class Element {
+
+}
+
+class Container {
+    bool visible = true;
+
+}
 
 static final const class Gui {
 static:
 private:
+
+    Container[string] interfaces;
 
 public: //* BEGIN PUBLIC API.
 
