@@ -32,7 +32,7 @@ public: //* BEGIN PUBLIC API.
 
     Option!Vec2d readPlayerPosition() {
         Option!Vec2d result;
-        foreach (Row row; readFromPlayerDatabase("singleplayerposition")) {
+        foreach (Row row; readFromPlayerTable("singleplayerposition")) {
             const ubyte[] playerPositionPacked = row.peek!(ubyte[])(1);
             Vec2d playerPosition = unpack!Vec2d(playerPositionPacked);
             result = result.Some(playerPosition);
@@ -42,7 +42,7 @@ public: //* BEGIN PUBLIC API.
 
     void writePlayerPosition(Vec2d position) {
         const ubyte[] packedPosition = pack(position);
-        writeIntoPlayerDatabase("singleplayerposition", packedPosition);
+        writeIntoPlayerTable("singleplayerposition", packedPosition);
     }
 
     // void testRead() {
@@ -79,12 +79,16 @@ public: //* BEGIN PUBLIC API.
 
 private: //* BEGIN INTERNAL API.
 
-    ResultRange readFromPlayerDatabase(string key) {
+    void writeIntoMapTable() {
+
+    }
+
+    ResultRange readFromPlayerTable(string key) {
         return database.execute(
             "select * from playerdata where \"key\" = :key", key);
     }
 
-    void writeIntoPlayerDatabase(string key, const ubyte[] value) {
+    void writeIntoPlayerTable(string key, const ubyte[] value) {
         checkOpened();
         database.prepare(
             "insert or replace into playerdata (key, value) " ~
