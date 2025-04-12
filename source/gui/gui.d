@@ -1,6 +1,7 @@
 module gui.gui;
 
 import graphics.colors;
+import gui.font;
 import math.vec2d;
 import math.vec2i;
 import std.stdio;
@@ -104,6 +105,8 @@ public: //* BEGIN PUBLIC API.
         } else {
             currentGUIScale = scales.x;
         }
+
+        FontHandler.__update();
     }
 
 private: //* BEGIN INTERNAL API.
