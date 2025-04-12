@@ -31,13 +31,14 @@ public: //* BEGIN PUBLIC API.
         opened = false;
     }
 
-    void writeMapChunk(Vec2i position, Chunk chunk) {
-        writeln("savetest!");
+    void readMapChunk(Vec2i chunkID) {
 
-        const ubyte[] packedPosition = pack(position);
+    }
+
+    void writeMapChunk(Vec2i chunkID, Chunk chunk) {
+        const ubyte[] packedChunkID = pack(chunkID);
         const ubyte[] packedChunk = pack(chunk);
-        writeToMapTable(packedPosition, packedChunk);
-
+        writeToMapTable(packedChunkID, packedChunk);
     }
 
     Option!Vec2d readPlayerPosition() {
