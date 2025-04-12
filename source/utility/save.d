@@ -31,6 +31,20 @@ public: //* BEGIN PUBLIC API.
         opened = false;
     }
 
+    /// This is a specialty function that loads up all chunks from the database
+    /// when the world first starts.
+    void initialLoadAllChunksInDatabase() {
+        checkOpened();
+        ResultRange mapRows = database.execute("select key, value from mapdata");
+        foreach (Row row; mapRows) {
+            const ubyte[] chunkIDPacked = row.peek!(ubyte[])(0);
+            Vec2i thisChunkID = unpack!Vec2i(chunkIDPacked);
+            const ubyte[] chunkPacked = row.peek!(ubyte[])(1);
+            Chunk thisChunk = unpack!Chunk(chunkPacked);
+            Map.receiveMapChunkFromDatabase(thisChunkID, thisChunk);
+        }
+    }
+
     Option!Chunk readMapChunk(Vec2i chunkID) {
         Option!Chunk result;
         const ubyte[] packedChunkID = pack(chunkID);
