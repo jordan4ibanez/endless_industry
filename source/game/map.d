@@ -51,6 +51,8 @@ private:
 
     Chunk[Vec2i] database;
     FNLState noise;
+    double saveTimer = 0;
+    double saveInterval = 30.0;
 
 public: //* BEGIN PUBLIC API.
 
