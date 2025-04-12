@@ -77,6 +77,7 @@ public: //* BEGIN PUBLIC API.
 
 private: //* BEGIN INTERNAL API.
 
+    // This is and always will be the first thing that is run in the main loop.
     void updateSystem() {
         Delta.__calculateDelta();
         CameraHandler.__update();
