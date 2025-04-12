@@ -3,6 +3,7 @@ module utility.save;
 import d2sqlite3;
 import game.map;
 import math.vec2d;
+import math.vec2i;
 import optibrev;
 import std.stdio;
 import utility.msgpack;
@@ -28,6 +29,15 @@ public: //* BEGIN PUBLIC API.
     void close() {
         database.close();
         opened = false;
+    }
+
+    void writeMapChunk(Vec2i position, Chunk chunk) {
+        writeln("savetest!");
+
+        const ubyte[] packedPosition = pack(position);
+        const ubyte[] packedChunk = pack(chunk);
+        writeIntoMapTable(packedPosition, packedChunk);
+
     }
 
     Option!Vec2d readPlayerPosition() {
@@ -79,13 +89,13 @@ public: //* BEGIN PUBLIC API.
 
 private: //* BEGIN INTERNAL API.
 
-    ResultRange readFromMapTable(string key) {
+    ResultRange readFromMapTable(const string key) {
         checkOpened();
         return database.execute(
             "select * from mapdata where \"key\" = :key", key);
     }
 
-    void writeIntoMapTable(string key, const ubyte[] value) {
+    void writeIntoMapTable(const ubyte[] key, const ubyte[] value) {
         checkOpened();
         database.prepare(
             "insert or replace into mapdata (key, value) " ~
@@ -93,13 +103,21 @@ private: //* BEGIN INTERNAL API.
             .inject(key, value);
     }
 
-    ResultRange readFromPlayerTable(string key) {
+    void writeIntoMapTable(const string key, const ubyte[] value) {
+        checkOpened();
+        database.prepare(
+            "insert or replace into mapdata (key, value) " ~
+                "values (:key, :value)")
+            .inject(key, value);
+    }
+
+    ResultRange readFromPlayerTable(const string key) {
         checkOpened();
         return database.execute(
             "select * from playerdata where \"key\" = :key", key);
     }
 
-    void writeIntoPlayerTable(string key, const ubyte[] value) {
+    void writeIntoPlayerTable(const string key, const ubyte[] value) {
         checkOpened();
         database.prepare(
             "insert or replace into playerdata (key, value) " ~
