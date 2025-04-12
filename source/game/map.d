@@ -60,6 +60,8 @@ public: //* BEGIN PUBLIC API.
 
         writeln("Loading map " ~ "world");
 
+        Save.initialLoadAllChunksInDatabase();
+
         Option!Vec2d playerPosition = Save.readPlayerPosition();
         if (playerPosition.isSome) {
             writeln("Loaded player position ", playerPosition.unwrap);
