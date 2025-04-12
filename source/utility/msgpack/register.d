@@ -1,9 +1,10 @@
-module utility.msgpack.register;
+module msgpack.register;
 
-import utility.msgpack.packer;
-import utility.msgpack.unpacker;
+import msgpack.packer;
+import msgpack.unpacker;
 
 import std.array;
+
 
 /**
  * Register a serialization handler for $(D_PARAM T) type
@@ -13,9 +14,11 @@ import std.array;
  * registerPackHandler!(Foo, fooPackHandler);
  * -----
  */
-void registerPackHandler(T, alias Handler, Stream = Appender!(ubyte[]))() {
+void registerPackHandler(T, alias Handler, Stream = Appender!(ubyte[]))()
+{
     PackerImpl!(Stream).registerHandler!(T, Handler);
 }
+
 
 /**
  * Register a deserialization handler for $(D_PARAM T) type
@@ -25,9 +28,11 @@ void registerPackHandler(T, alias Handler, Stream = Appender!(ubyte[]))() {
  * registerUnackHandler!(Foo, fooUnackHandler);
  * -----
  */
-void registerUnpackHandler(T, alias Handler)() {
+void registerUnpackHandler(T, alias Handler)()
+{
     Unpacker.registerHandler!(T, Handler);
 }
+
 
 /**
  * Register derived class for (de)serialization
@@ -37,7 +42,8 @@ void registerUnpackHandler(T, alias Handler)() {
  * registerClass!(DerivedClass);
  * -----
  */
-void registerClass(T, Stream = Appender!(ubyte[]))() {
+void registerClass(T, Stream = Appender!(ubyte[]))()
+{
     PackerImpl!(Stream).register!(T);
     Unpacker.register!(T);
 }

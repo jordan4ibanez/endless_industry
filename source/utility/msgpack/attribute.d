@@ -1,7 +1,8 @@
-module utility.msgpack.attribute;
+module msgpack.attribute;
 
+import std.typetuple; // will use std.meta
 import std.traits;
-import std.typetuple;
+
 
 /**
  * Attribute for specifying non pack/unpack field.
@@ -17,13 +18,14 @@ import std.typetuple;
  * }
  * -----
  */
-struct nonPacked {
+struct nonPacked {}
+
+
+package template isPackedField(alias field)
+{
+    enum isPackedField = (staticIndexOf!(nonPacked, __traits(getAttributes, field)) == -1) && (!isSomeFunction!(typeof(field)));
 }
 
-package template isPackedField(alias field) {
-    enum isPackedField = (staticIndexOf!(nonPacked, __traits(getAttributes, field)) == -1) && (
-            !isSomeFunction!(typeof(field)));
-}
 
 /**
  * Attribute for specifying serialize/deserialize proxy for pack/unpack field.
@@ -45,50 +47,46 @@ package template isPackedField(alias field) {
  * }
  * -----
  */
-struct serializedAs(T) {
-}
+struct serializedAs(T){}
 
 package enum bool isSerializedAs(A) = is(A : serializedAs!T, T);
 package alias getSerializedAs(T : serializedAs!Proxy, Proxy) = Proxy;
-package alias ProxyList(alias value) = staticMap!(getSerializedAs, Filter!(
-        isSerializedAs, __traits(getAttributes, value)));
-package template isSerializedAs(alias value) {
-    static if (__traits(compiles, __traits(getAttributes, value))) {
+package alias ProxyList(alias value) = staticMap!(getSerializedAs, Filter!(isSerializedAs, __traits(getAttributes, value)));
+package template isSerializedAs(alias value)
+{
+    static if ( __traits(compiles, __traits(getAttributes, value)) ) {
         enum bool isSerializedAs = ProxyList!value.length > 0;
     } else {
         enum bool isSerializedAs = false;
     }
 }
-
-package template getSerializedAs(alias value) {
+package template getSerializedAs(alias value)
+{
     private alias _list = ProxyList!value;
     static assert(_list.length <= 1, `Only single serialization proxy is allowed`);
     alias getSerializedAs = _list[0];
 }
-
-package template hasSerializedAs(alias value) {
+package template hasSerializedAs(alias value)
+{
     private enum _listLength = ProxyList!value.length;
     static assert(_listLength <= 1, `Only single serialization proxy is allowed`);
     enum bool hasSerializedAs = _listLength == 1;
 }
 
-unittest {
-    import utility.msgpack.packer, utility.msgpack.unpacker;
-
-    struct Proxy {
-        static void serialize(ref Packer p, ref int value) {
-        }
-
-        static void deserialize(ref Unpacker u, ref int value) {
-        }
+unittest
+{
+    import msgpack.packer, msgpack.unpacker;
+    struct Proxy
+    {
+        static void serialize(ref Packer p, ref int value) {}
+        static void deserialize(ref Unpacker u, ref int value) {}
     }
-
-    struct A {
+    struct A
+    {
         @serializedAs!Proxy int a;
         @(42) int b;
         @(42) @serializedAs!Proxy int c;
     }
-
     static assert(is(getSerializedAs!(A.a) == Proxy));
     static assert(isSerializedAs!(__traits(getAttributes, A.a)[0]));
     static assert(hasSerializedAs!(A.a));

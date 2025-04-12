@@ -91,11 +91,11 @@ void main() {
 
 				Player.draw();
 
-				if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-					Map.setTileAtWorldPositionByID(Mouse.getWorldPosition(), 0);
-				} else if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) {
-					Map.setTileAtWorldPositionByName(Mouse.getWorldPosition(), "endless_industry.water_0");
-				}
+				// if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
+				// 	Map.setTileAtWorldPositionByID(Mouse.getWorldPosition(), 0);
+				// } else if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) {
+				// 	Map.setTileAtWorldPositionByName(Mouse.getWorldPosition(), "endless_industry.water_0");
+				// }
 
 			}
 			CameraHandler.end();
