@@ -1,6 +1,3 @@
-
-- sql saving on a green thread to be non blocking
-
 - raygui - translate it to D
 
 - Use the ubuntu font set cause why not
@@ -15,11 +12,9 @@
 - Unload map meshes within a certain distance to save GPU memory
 
 
-
-
 Later:
 
-
+- sql saving on a green thread to be non blocking
 
 - greedy meshing (this will need a fundamental rework on the texture atlas to allow repeating textures)
 
