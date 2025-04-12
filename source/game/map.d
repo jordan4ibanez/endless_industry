@@ -74,7 +74,7 @@ public: //* BEGIN PUBLIC API.
     void terminate() {
         Save.writePlayerPosition(Player.getPosition());
 
-        writeln("Saving map " ~ "world");
+        writeln("Saving map " ~ "world" ~ ".");
 
         mapSave();
 
@@ -85,12 +85,12 @@ public: //* BEGIN PUBLIC API.
         saveTimer += delta;
         if (saveTimer >= saveInterval) {
             saveTimer -= saveInterval;
+            writeln("Autosaving map.");
             mapSave();
         }
     }
 
     void mapSave() {
-        writeln("Saving map.");
         Save.prepareWriteMapChunk();
         foreach (key, value; database) {
             Save.writeMapChunk(key, value);
