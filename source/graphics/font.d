@@ -1,9 +1,9 @@
 module graphics.font;
 
-import graphics.gui;
 import raylib;
 import std.math.rounding;
 import std.string;
+import gui.gui;
 
 static final const class FontHandler {
 static:

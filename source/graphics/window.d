@@ -2,10 +2,10 @@ module graphics.window;
 
 import graphics.camera;
 import graphics.font;
-import graphics.gui;
 import math.vec2d;
 import raylib;
 import utility.delta;
+import gui.gui;
 
 static final const class Window {
 static:

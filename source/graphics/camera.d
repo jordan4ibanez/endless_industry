@@ -2,8 +2,8 @@ module graphics.camera;
 
 import controls.mouse;
 import game.player;
-import graphics.gui;
 import graphics.window;
+import gui.gui;
 import math.vec2d;
 import raylib;
 import std.stdio;
