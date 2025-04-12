@@ -13,3 +13,6 @@ install:
 
 clean:
 	dub clean
+
+test:
+	dub -b unittest
