@@ -79,6 +79,14 @@ public: //* BEGIN PUBLIC API.
         Save.close();
     }
 
+    void onTick(double delta) {
+        saveTimer += delta;
+        if (saveTimer >= saveInterval) {
+            saveTimer -= saveInterval;
+            mapSave();
+        }
+    }
+
     void mapSave() {
         writeln("Saving map.");
         foreach (key, value; database) {
