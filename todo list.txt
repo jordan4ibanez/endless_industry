@@ -1,4 +1,4 @@
-- raygui - translate it to D
+- Build a GUI library in raylib using stock D architectural components
 
 - Use the ubuntu font set cause why not
 
