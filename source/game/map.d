@@ -42,7 +42,7 @@ struct TileData {
 final class Chunk {
     TileData[CHUNK_WIDTH][CHUNK_WIDTH] data;
     int modelID = 0;
-    void* entitiesInChunk = null;
+    // void* entitiesInChunk = null;
 }
 
 static final const class Map {
