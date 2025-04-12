@@ -81,7 +81,7 @@ void main() {
 
 				// Render.circle(Mouse.getWorldPosition(), 0.1, Colors.RED);
 
-				{
+				if (!Mouse.isFocusedOnGUI()) {
 					import std.math.rounding;
 
 					Vec2d mousePos = Mouse.getWorldPosition();
@@ -93,11 +93,12 @@ void main() {
 				}
 
 				Player.draw();
-
-				if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-					Map.setTileAtWorldPositionByID(Mouse.getWorldPosition(), 0);
-				} else if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) {
-					Map.setTileAtWorldPositionByName(Mouse.getWorldPosition(), "endless_industry.water_0");
+				if (!Mouse.isFocusedOnGUI()) {
+					if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
+						Map.setTileAtWorldPositionByID(Mouse.getWorldPosition(), 0);
+					} else if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) {
+						Map.setTileAtWorldPositionByName(Mouse.getWorldPosition(), "endless_industry.water_0");
+					}
 				}
 			}
 			CameraHandler.end();
