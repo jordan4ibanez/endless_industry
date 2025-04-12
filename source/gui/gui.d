@@ -1,5 +1,6 @@
 module gui.gui;
 
+import controls.mouse;
 import graphics.colors;
 import gui.font;
 import math.vec2d;
@@ -120,6 +121,12 @@ public: //* BEGIN PUBLIC API.
         }
     }
 
+    void updateGUIs() {
+        bool mouseFocusedOnGUI = false;
+
+        Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
+    }
+
     void debugTest() {
 
         Container testContainer = new Container();
@@ -151,7 +158,6 @@ public: //* BEGIN PUBLIC API.
 
     void __update(Vec2d newWindowSize) {
         // Find out which GUI scale is smaller so things can be scaled around it.
-
         Vec2d scales = Vec2d(newWindowSize.x / standardSize.x, newWindowSize.y / standardSize.y);
 
         if (scales.x >= scales.y) {
@@ -161,6 +167,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         FontHandler.__update();
+        updateGUIs();
     }
 
 private: //* BEGIN INTERNAL API.
