@@ -1,4 +1,4 @@
-module graphics.font;
+module gui.font;
 
 import gui.gui;
 import raylib;
