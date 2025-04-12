@@ -59,7 +59,7 @@ class Container {
 
 }
 
-static final const class Gui {
+static final const class GUI {
 static:
 private:
 
