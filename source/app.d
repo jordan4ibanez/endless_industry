@@ -99,7 +99,6 @@ void main() {
 				} else if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) {
 					Map.setTileAtWorldPositionByName(Mouse.getWorldPosition(), "endless_industry.water_0");
 				}
-
 			}
 			CameraHandler.end();
 
@@ -131,6 +130,8 @@ void main() {
 			Vec2i inChunk = Player.inWhichChunk();
 			worker = "chunk: " ~ to!string(inChunk.x) ~ " | " ~ to!string(inChunk.y);
 			FontHandler.drawShadowed(worker, xPos, yPos, 0.5);
+
+			GUI.drawVisible();
 
 		}
 		EndDrawing();
