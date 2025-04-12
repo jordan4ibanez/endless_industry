@@ -1,3 +1,3 @@
 module graphics.colors;
 
-public import raylib : Colors;
+public import raylib : Color, Colors;
