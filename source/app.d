@@ -69,7 +69,6 @@ void main() {
 
 		BeginDrawing();
 		{
-			//! Note: DrawTexture and DrawTexturePro are batched as long as you use the same texture.
 
 			ClearBackground(Colors.BLACK);
 
