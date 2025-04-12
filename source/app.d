@@ -10,6 +10,7 @@ import graphics.render;
 import graphics.shader;
 import graphics.texture;
 import graphics.window;
+import gui.font;
 import gui.gui;
 import math.vec2d;
 import math.vec2i;
@@ -102,10 +103,11 @@ void main() {
 			}
 			CameraHandler.end();
 
-			Vec2d center = vec2dMultiply(Window.getSize(), Vec2d(0.5, 0.5));
-			DrawCircle(cast(int) center.x, cast(int) center.y, 4, Colors.RED);
+			// Vec2d center = vec2dMultiply(Window.getSize(), Vec2d(0.5, 0.5));
+			// DrawCircle(cast(int) center.x, cast(int) center.y, 4, Colors.RED);
 
-			DrawText(toStringz("fps:" ~ to!string(GetFPS())), 0, 0, 120, Colors.WHITE);
+			FontHandler.drawShadowed("fps: " ~ to!string(GetFPS()), 0, 0, 0.5);
+
 			Vec2d playerPos = Player.getPosition();
 			DrawText(toStringz("y: " ~ to!string(playerPos.y)), 0, 120, 120, Colors.WHITE);
 			DrawText(toStringz("x: " ~ to!string(playerPos.x)), 0, 240, 120, Colors.WHITE);
