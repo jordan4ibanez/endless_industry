@@ -295,72 +295,69 @@ public: //* BEGIN PUBLIC API.
 
         } else {
 
-            foreach (key, container; windows) {
+            int posX = cast(int) floor(currentWindow.position.x * currentGUIScale);
+            int posY = cast(int) floor(currentWindow.position.y * currentGUIScale);
+            int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
+            int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
 
-                int posX = cast(int) floor(container.position.x * currentGUIScale);
-                int posY = cast(int) floor(container.position.y * currentGUIScale);
-                int sizeX = cast(int) floor(container.size.x * currentGUIScale);
-                int sizeY = cast(int) floor(container.size.y * currentGUIScale);
+            Rectangle windowRectangle = Rectangle(posX, posY, sizeX, sizeY);
 
-                Rectangle windowRectangle = Rectangle(posX, posY, sizeX, sizeY);
+            currentWindow.mouseHoveringStatusBar = false;
+            currentWindow.mouseHoveringCloseButton = false;
+            currentWindow.mouseHoveringResizeButton = false;
 
-                container.mouseHoveringStatusBar = false;
-                container.mouseHoveringCloseButton = false;
-                container.mouseHoveringResizeButton = false;
+            //? Collide with the entire window.
 
-                //? Collide with the entire window.
+            // No collision with this window occured.
+            if (!CheckCollisionPointRec(mousePos, windowRectangle)) {
+                return;
+            }
 
-                // No collision with this window occured.
-                if (!CheckCollisionPointRec(mousePos, windowRectangle)) {
-                    continue;
+            mouseFocusedOnGUI = true;
+
+            int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+
+            Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
+
+            //? Check if the mouse is hovering over the status bar.
+            if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
+
+                currentWindow.mouseHoveringStatusBar = true;
+
+                // The mouse is not trying to drag a window.
+                // It is just hovering over a window.
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    // The mouse is now dragging a window.
+                    currentWindow.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
+                    dragging = true;
+                    return;
                 }
+            }
 
-                mouseFocusedOnGUI = true;
+            Rectangle closeButtonRectangle = Rectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight,
+                statusAreaHeight);
 
-                int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+            //? Check if the mouse is hovering over the close button.
+            if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
+                currentWindow.mouseHoveringCloseButton = true;
 
-                Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
-
-                //? Check if the mouse is hovering over the status bar.
-                if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
-
-                    container.mouseHoveringStatusBar = true;
-
-                    // The mouse is not trying to drag a window.
-                    // It is just hovering over a window.
-                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        // The mouse is now dragging a window.
-                        container.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
-                        dragging = true;
-                        break;
-                    }
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    currentWindow = null;
                 }
+            }
 
-                Rectangle closeButtonRectangle = Rectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight,
-                    statusAreaHeight);
+            //? Check if the mouse is hovering over the resize button.
 
-                //? Check if the mouse is hovering over the close button.
-                if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
-                    container.mouseHoveringCloseButton = true;
+            const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
 
-                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        currentWindow = null;
-                    }
-                }
+            Rectangle resizeButtonRectangle = Rectangle(
+                posX + sizeX - halfStatusAreaHeight,
+                posY + sizeY - halfStatusAreaHeight,
+                halfStatusAreaHeight,
+                halfStatusAreaHeight);
 
-                //? Check if the mouse is hovering over the resize button.
-
-                const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
-
-                Rectangle resizeButtonRectangle = Rectangle(
-                    posX + sizeX - halfStatusAreaHeight,
-                    posY + sizeY - halfStatusAreaHeight,
-                    halfStatusAreaHeight,
-                    halfStatusAreaHeight);
-
-                if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
-                    container.mouseHoveringResizeButton = true;
-                }
+            if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
+                currentWindow.mouseHoveringResizeButton = true;
             }
         }
 
