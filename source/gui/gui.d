@@ -298,8 +298,8 @@ public: //* BEGIN PUBLIC API.
 
             mouseFocusedOnGUI = true;
 
-            int posX = cast(int) floor(currentWindow.position.x * currentGUIScale);
-            int posY = cast(int) floor(currentWindow.position.y * currentGUIScale);
+            int posX = currentWindow.position.x;
+            int posY = currentWindow.position.y;
 
             double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
             double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
