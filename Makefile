@@ -2,7 +2,7 @@ default:
 	@dub run
 
 fast:
-	@dub run --build=release
+	@DFLAGS="--O3" dub run --build=release
 
 debug:
 	DFLAGS="-g -gc -d-debug" dub build  && gdb -q -ex run ./endless_industry
