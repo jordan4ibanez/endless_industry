@@ -94,7 +94,7 @@ public: //* BEGIN PUBLIC API.
             realZoom = 100;
         }
 
-        camera.zoom = realZoom * GUI.getGUIScale();
+        camera.zoom = realZoom * GUI.getGraphicsScale();
 
     }
 

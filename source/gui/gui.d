@@ -128,6 +128,7 @@ private:
     const Vec2d standardSize = Vec2d(1920.0, 1080.0);
     double currentGUIScale = 1.0;
     double inverseCurrentGUIScale = 1.0;
+    double masterGUIScale = 1.0;
 
     Container[string] interfaces;
     Container currentDrag = null;
@@ -354,6 +355,8 @@ public: //* BEGIN PUBLIC API.
         } else {
             currentGUIScale = scales.x;
         }
+
+        currentGUIScale *= masterGUIScale;
 
         inverseCurrentGUIScale = 1.0 / currentGUIScale;
 
