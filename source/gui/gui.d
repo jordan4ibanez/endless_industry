@@ -401,6 +401,8 @@ public: //* BEGIN PUBLIC API.
 
         windows["testMenu"] = testContainer;
 
+        currentWindow = testContainer;
+
     }
 
     void bringBackDebugTest() {
