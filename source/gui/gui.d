@@ -58,7 +58,7 @@ class Element {
 }
 
 // This is the basis of any GUI component, the container.
-class Window {
+class GUIWindow {
 
     // The higher the layer, the higher priority it has.
     // If it's a window and covers another window, it gets priority over the other if it's higher.
@@ -82,9 +82,6 @@ class Window {
     // Position is top left of container.
     Vec2i position;
     Vec2i size;
-
-    // If this is interactive and drawn.
-    bool visible = true;
 
     // If the mouse is hovering over the status bar.
     bool mouseHoveringStatusBar = false;
@@ -147,18 +144,14 @@ private:
     // Mainly this is used for the camera's zoom.
     double graphicsScale = 1.0;
 
-    Window[string] windows;
+    GUIWindow[string] windows;
     bool dragging = true;
-    Window currentWindow = null;
+    GUIWindow currentWindow = null;
 
 public: //* BEGIN PUBLIC API.
 
     void drawCurrentWindowGUI() {
         foreach (key, container; windows) {
-            // This container is "asleep".
-            if (!container.visible) {
-                continue;
-            }
 
             int posX = cast(int) floor(container.position.x * currentGUIScale);
             int posY = cast(int) floor(container.position.y * currentGUIScale);
@@ -309,10 +302,6 @@ public: //* BEGIN PUBLIC API.
         } else {
 
             foreach (key, container; windows) {
-                // This container is "asleep".
-                if (!container.visible) {
-                    continue;
-                }
 
                 int posX = cast(int) floor(container.position.x * currentGUIScale);
                 int posY = cast(int) floor(container.position.y * currentGUIScale);
@@ -361,7 +350,7 @@ public: //* BEGIN PUBLIC API.
                     container.mouseHoveringCloseButton = true;
 
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        container.visible = false;
+                        currentWindow = null;
                     }
                 }
 
@@ -386,7 +375,7 @@ public: //* BEGIN PUBLIC API.
 
     void debugTest() {
 
-        Window testContainer = new Window();
+        GUIWindow testContainer = new GUIWindow();
 
         testContainer.containerTitle = "Pause Menu";
         testContainer.size.x = 400;
@@ -401,7 +390,7 @@ public: //* BEGIN PUBLIC API.
 
     void bringBackDebugTest() {
         if (Keyboard.isPressed(KeyboardKey.KEY_ONE)) {
-            windows["testMenu"].visible = true;
+            currentWindow = windows["testMenu"];
         }
     }
 
