@@ -59,8 +59,6 @@ class Element {
 
 // This is the basis of any GUI component, the container.
 class Container {
-    // If this is interactive and drawn.
-    bool visible = true;
 
     // The higher the layer, the higher priority it has.
     // If it's a window and covers another window, it gets priority over the other if it's higher.
@@ -70,6 +68,9 @@ class Container {
     // The behavior and styling this container will have.
     ContainerType type = ContainerType.Window;
 
+    // If it's a window, this defines if you can resize it.
+    bool resizeable = true;
+
     // This allows Windows to be moved around.
     Vec2d mouseDelta;
 
@@ -78,6 +79,11 @@ class Container {
 
     // What this container's title says.
     string containerTitle = null;
+
+    //? State behavior.
+
+    // If this is interactive and drawn.
+    bool visible = true;
 
     // If the mouse is hovering over the status bar.
     bool mouseHoveringStatusBar = false;
@@ -104,6 +110,9 @@ class Container {
 
     // The close button background color.
     Color closeButtonBackgroundColor = Colors.GRAY;
+
+    // The resize button background color.
+    Color resizeButtonBackgroundColor = Colors.GRAY;
 
     //? General text/icon colors.
 
