@@ -154,10 +154,10 @@ public: //* BEGIN PUBLIC API.
 
             mouseFocusedOnGUI = true;
 
-            double scaledDeltaX = currentDrag.mouseDelta.x * invCurrentScale;
-            double scaledDeltaY = currentDrag.mouseDelta.y * invCurrentScale;
-            double scaledMousePosX = mousePos.x * invCurrentScale;
-            double scaledMousePosY = mousePos.y * invCurrentScale;
+            double scaledDeltaX = currentDrag.mouseDelta.x * invCurrentGUIScale;
+            double scaledDeltaY = currentDrag.mouseDelta.y * invCurrentGUIScale;
+            double scaledMousePosX = mousePos.x * invCurrentGUIScale;
+            double scaledMousePosY = mousePos.y * invCurrentGUIScale;
 
             currentDrag.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
             currentDrag.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
