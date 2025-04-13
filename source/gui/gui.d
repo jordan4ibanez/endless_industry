@@ -53,7 +53,7 @@ class Element {
 }
 
 // This is the basis of any GUI component, the container.
-class GUIWindow {
+class WindowGUI {
 
     // If it's a window, this defines if you can resize it.
     bool resizeable = true;
@@ -131,9 +131,9 @@ private:
     // Mainly this is used for the camera's zoom.
     double graphicsScale = 1.0;
 
-    GUIWindow[string] windows;
+    WindowGUI[string] windows;
     bool dragging = true;
-    GUIWindow currentWindow = null;
+    WindowGUI currentWindow = null;
 
 public: //* BEGIN PUBLIC API.
 
@@ -361,7 +361,7 @@ public: //* BEGIN PUBLIC API.
 
     void debugTest() {
 
-        GUIWindow testContainer = new GUIWindow();
+        WindowGUI testContainer = new WindowGUI();
 
         testContainer.containerTitle = "Pause Menu";
         testContainer.size.x = 400;
