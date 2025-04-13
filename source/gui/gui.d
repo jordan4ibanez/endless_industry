@@ -170,6 +170,47 @@ public: //* BEGIN PUBLIC API.
 
             EndScissorMode();
 
+            //? Draw the close button.
+
+            // I just like using the scissor mode. :D
+            BeginScissorMode(posX + sizeX - statusAreaHeight - 1, posY - 1, statusAreaHeight + 1, statusAreaHeight + 1);
+
+            // Background and border.
+            DrawRectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, container
+                    .closeButtonBackgroundColor);
+            DrawRectangleLines(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, container
+                    .borderColor);
+
+            const double closeTrim = 4 * currentGUIScale;
+            const double closeThickness = 1 * currentGUIScale;
+
+            // The X.
+
+            // This: /
+            DrawLineEx(
+                Vector2(
+                    floor(posX + sizeX - statusAreaHeight + closeTrim),
+                    floor(posY + statusAreaHeight - closeTrim)),
+                Vector2(
+                    floor(posX + sizeX - closeTrim),
+                    floor(posY + closeTrim)),
+                closeThickness,
+                container.closeButtonXColor);
+
+            // This: \
+            DrawLineEx(
+                Vector2(
+                    floor(posX + sizeX - statusAreaHeight + closeTrim),
+                    floor(posY + closeTrim)),
+                Vector2(
+                    floor(posX + sizeX - closeTrim),
+                    floor(posY + statusAreaHeight - closeTrim)),
+                closeThickness,
+                container.closeButtonXColor
+            );
+
+            EndScissorMode();
+
         }
     }
 
