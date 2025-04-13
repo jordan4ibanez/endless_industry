@@ -259,14 +259,14 @@ public: //* BEGIN PUBLIC API.
 
                 Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
 
-                // If the mouse is not hovering over the status bar.
+                // If the mouse is hovering over the status bar.
                 if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
 
                     container.mouseHoveringStatusBar = true;
 
                     // The mouse is not trying to drag a window.
                     // It is just hovering over a window.
-                    if (!Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         // The mouse is now dragging a window.
                         container.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
                         currentDrag = container;
