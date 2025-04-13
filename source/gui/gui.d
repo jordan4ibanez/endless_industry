@@ -239,6 +239,17 @@ public: //* BEGIN PUBLIC API.
 
             EndScissorMode();
 
+            //? Draw the resize button.
+
+            const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
+
+            DrawRectangleLines(
+                posX + sizeX - halfStatusAreaHeight,
+                posY + sizeY - halfStatusAreaHeight,
+                halfStatusAreaHeight,
+                halfStatusAreaHeight,
+                container.borderColor);
+
         }
     }
 
