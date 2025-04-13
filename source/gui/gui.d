@@ -310,6 +310,15 @@ public: //* BEGIN PUBLIC API.
             currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
             currentWindow.size.y = cast(int) floor((scaledMousePosY + scaledDeltaY) - posY);
 
+            if (currentWindow.size.x < 100) {
+                currentWindow.size.x = 100;
+            }
+            if (currentWindow.size.y < 100) {
+                currentWindow.size.y = 100;
+            }
+
+            writeln(currentWindow.size);
+
         } else {
 
             int posX = cast(int) floor(currentWindow.position.x * currentGUIScale);
