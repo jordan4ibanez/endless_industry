@@ -126,9 +126,14 @@ private:
 
     // We standardize the GUI with 1080p.
     const Vec2d standardSize = Vec2d(1920.0, 1080.0);
+    // The scale of GUI components.
     double currentGUIScale = 1.0;
+    // Used to divide using multiplication.
     double inverseCurrentGUIScale = 1.0;
+    // This will be an options menu component to adjust the size of the GUI.
     double masterGUIScale = 1.0;
+    // This is the scale of the graphics components.
+    // Mainly this is used for the camera's zoom.
     double graphicsScale = 1.0;
 
     Container[string] interfaces;
