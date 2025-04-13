@@ -257,7 +257,7 @@ public: //* BEGIN PUBLIC API.
 
                 int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
-                Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX, statusAreaHeight);
+                Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
 
                 // If the mouse is not hovering over this but is still trying to do something so, continue.
                 if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
