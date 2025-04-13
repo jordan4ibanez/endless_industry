@@ -68,6 +68,8 @@ class WindowGUI {
 
     // Position is top left of container.
     Vec2i position;
+
+    // The current size of the window. (It will always be scaled to GUI scaling)
     Vec2i size;
 
     // If the mouse is hovering over the status bar.
