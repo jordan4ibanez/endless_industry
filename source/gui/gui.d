@@ -74,9 +74,6 @@ class Window {
     // This allows Windows to be moved around.
     Vec2d mouseDelta;
 
-    // What this container is called.
-    string containerName = null;
-
     // What this container's title says.
     string containerTitle = null;
 
@@ -391,7 +388,6 @@ public: //* BEGIN PUBLIC API.
 
         Window testContainer = new Window();
 
-        testContainer.containerName = "Pause Menu";
         testContainer.containerTitle = "Pause Menu";
         testContainer.size.x = 400;
         testContainer.size.y = 400;
