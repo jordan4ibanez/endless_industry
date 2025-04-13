@@ -1,5 +1,6 @@
 module gui.gui;
 
+import controls.keyboard;
 import controls.mouse;
 import graphics.colors;
 import gui.font;
@@ -325,6 +326,12 @@ public: //* BEGIN PUBLIC API.
 
     }
 
+    void bringBackDebugTest() {
+        if (Keyboard.isPressed(KeyboardKey.KEY_ONE)) {
+            interfaces["testMenu"].visible = true;
+        }
+    }
+
     double getGUIScale() {
         return currentGUIScale;
     }
@@ -352,6 +359,8 @@ public: //* BEGIN PUBLIC API.
 
         FontHandler.__update();
         updateGUIs();
+
+        bringBackDebugTest();
     }
 
 private: //* BEGIN INTERNAL API.
