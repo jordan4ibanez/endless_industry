@@ -96,10 +96,10 @@ class Container {
     // The status bar background color.
     Color statusBarColor = Colors.BLUE;
     // The status bar background color when hovered over.
-    Color statusBarHoverColor = Color(40, 100, 255, 255);
+    Color statusBarHoverColor = Color(40, 50, 255, 255);
 
     // The close button background color.
-    Color closeButtonBackgroundColor = Colors.DARKGRAY;
+    Color closeButtonBackgroundColor = Colors.GRAY;
 
     //? General text/icon colors.
 
