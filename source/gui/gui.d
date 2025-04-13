@@ -150,14 +150,14 @@ private:
     // Mainly this is used for the camera's zoom.
     double graphicsScale = 1.0;
 
-    Container[string] interfaces;
+    Container[string] windows;
     bool dragging = true;
     Container currentWindow = null;
 
 public: //* BEGIN PUBLIC API.
 
     void drawCurrentWindowGUI() {
-        foreach (key, container; interfaces) {
+        foreach (key, container; windows) {
             // This container is "asleep".
             if (!container.visible) {
                 continue;
@@ -311,7 +311,7 @@ public: //* BEGIN PUBLIC API.
 
         } else {
 
-            foreach (key, container; interfaces) {
+            foreach (key, container; windows) {
                 // This container is "asleep".
                 if (!container.visible) {
                     continue;
@@ -399,13 +399,13 @@ public: //* BEGIN PUBLIC API.
         testContainer.position.x = 100;
         testContainer.position.y = 100;
 
-        interfaces["testMenu"] = testContainer;
+        windows["testMenu"] = testContainer;
 
     }
 
     void bringBackDebugTest() {
         if (Keyboard.isPressed(KeyboardKey.KEY_ONE)) {
-            interfaces["testMenu"].visible = true;
+            windows["testMenu"].visible = true;
         }
     }
 
