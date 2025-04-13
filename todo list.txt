@@ -1,5 +1,7 @@
 - Build a GUI library in raylib using stock D architectural components
 
+Only one window open at a time
+
 - Use the ubuntu font set cause why not
 
 - at a certain zoom out distance, things go into either solid colors or it goes into a half sized atlas
