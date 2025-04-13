@@ -23,6 +23,10 @@ public: //* BEGIN PUBLIC API.
         return GetMouseWheelMove();
     }
 
+    Vec2d getPosition() {
+        return Vec2d(GetMousePosition());
+    }
+
     Vec2d getWorldPosition() {
         return CameraHandler.screenToWorld(Vec2d(GetMousePosition()));
     }
