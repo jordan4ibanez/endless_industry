@@ -167,7 +167,7 @@ public: //* BEGIN PUBLIC API.
 
             const string title = container.containerTitle;
             if (title !is null) {
-                FontHandler.draw(title, posX + (currentGUIScale * 2), posY, 0.25, container
+                FontHandler.drawShadowed(title, posX + (currentGUIScale * 2), posY, 0.25, container
                         .statusBarTextColor);
             }
 
