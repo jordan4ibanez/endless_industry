@@ -108,6 +108,7 @@ private:
     double currentGUIScale = 1.0;
 
     Container[string] interfaces;
+    Container currentDrag = null;
 
 public: //* BEGIN PUBLIC API.
 
@@ -122,7 +123,7 @@ public: //* BEGIN PUBLIC API.
             // Work area background.
             DrawRectangle(posX, posY, sizeX, sizeY, container.workAreaColor);
             // Status area background.
-            DrawRectangle(posX, posX, sizeX, statusAreaHeight, container.statusBarColor);
+            DrawRectangle(posX, posY, sizeX, statusAreaHeight, container.statusBarColor);
 
             // Work area outline.
             DrawRectangleLines(posX, posY, sizeX, sizeY, container.borderColor);
@@ -140,6 +141,59 @@ public: //* BEGIN PUBLIC API.
 
     void updateGUIs() {
         bool mouseFocusedOnGUI = false;
+
+        Vector2 mousePos = Mouse.getPosition().toRaylib();
+
+        if (currentDrag !is null) {
+
+            if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
+                currentDrag = null;
+                return;
+            }
+
+            mouseFocusedOnGUI = true;
+
+            currentDrag.position.x = cast(int) floor(currentDrag.mouseDelta.x + mousePos.x);
+            currentDrag.position.y = cast(int) floor(currentDrag.mouseDelta.y + mousePos.y);
+
+        } else {
+
+            foreach (key, container; interfaces) {
+                int posX = cast(int) floor(container.position.x * currentGUIScale);
+                int posY = cast(int) floor(container.position.y * currentGUIScale);
+                int sizeX = cast(int) floor(container.size.x * currentGUIScale);
+                int sizeY = cast(int) floor(container.size.y * currentGUIScale);
+
+                Rectangle windowRectangle = Rectangle(posX, posY, sizeX, sizeY);
+
+                // No collision with this window occured.
+                if (!CheckCollisionPointRec(mousePos, windowRectangle)) {
+                    continue;
+                }
+
+                mouseFocusedOnGUI = true;
+
+                // The mouse is not trying to drag a window.
+                // It is just hovering over a window.
+                if (!Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    break;
+                }
+
+                int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+
+                Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX, statusAreaHeight);
+
+                // If the mouse is not hovering over this but is still trying to do something so, continue.
+                if (!CheckCollisionPointRec(mousePos, statusBarRectangle)) {
+                    continue;
+                }
+
+                // The mouse is now dragging a window.
+                container.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
+                currentDrag = container;
+                break;
+            }
+        }
 
         Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
     }
