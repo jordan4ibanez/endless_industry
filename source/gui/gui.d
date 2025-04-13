@@ -85,23 +85,35 @@ class Container {
     Vec2i position;
     Vec2i size;
 
-    // General solid colors.
+    //? General solid colors.
 
     // The color of the work area.
     Color workAreaColor = Colors.GRAY;
+
     // The border color of the window. (All border components.)
     Color borderColor = Colors.BLACK;
+
     // The status bar background color.
     Color statusBarColor = Colors.BLUE;
     // The status bar background color when hovered over.
-    Color statusBarHoverColor = Color(40, 121, 255, 255);
+    Color statusBarHoverColor = Color(40, 100, 255, 255);
 
-    // General text colors.
+    // The close button background color.
+    Color closeButtonBackgroundColor = Colors.DARKGRAY;
+
+    //? General text/icon colors.
 
     // The text below the status bar.
     Color workAreaTextColor = Colors.BLACK;
+
     // The status bar text color.
     Color statusBarTextColor = Colors.WHITE;
+
+    // The close button X color.
+    Color closeButtonXColor = Colors.BLACK;
+    // The close button X color when hovered over.
+    Color closeButtonXHoverColor = Colors.RED;
+
 }
 
 static final const class GUI {
