@@ -151,10 +151,17 @@ public: //* BEGIN PUBLIC API.
                 return;
             }
 
+            const double invCurrentScale = 1 / currentGUIScale;
+
             mouseFocusedOnGUI = true;
 
-            currentDrag.position.x = cast(int) floor(currentDrag.mouseDelta.x + mousePos.x);
-            currentDrag.position.y = cast(int) floor(currentDrag.mouseDelta.y + mousePos.y);
+            double scaledDeltaX = currentDrag.mouseDelta.x * invCurrentScale;
+            double scaledDeltaY = currentDrag.mouseDelta.y * invCurrentScale;
+            double scaledMousePosX = mousePos.x * invCurrentScale;
+            double scaledMousePosY = mousePos.y * invCurrentScale;
+
+            currentDrag.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
+            currentDrag.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
 
         } else {
 
