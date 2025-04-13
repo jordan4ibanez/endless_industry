@@ -289,6 +289,27 @@ public: //* BEGIN PUBLIC API.
             currentWindow.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
             currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
 
+        } else if (resizing) {
+
+            if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
+                resizing = false;
+                return;
+            }
+
+            mouseFocusedOnGUI = true;
+
+            int posX = cast(int) floor(currentWindow.position.x * currentGUIScale);
+            int posY = cast(int) floor(currentWindow.position.y * currentGUIScale);
+
+            double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
+            double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
+
+            double scaledMousePosX = mousePos.x * inverseCurrentGUIScale;
+            double scaledMousePosY = mousePos.y * inverseCurrentGUIScale;
+
+            currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
+            currentWindow.size.y = cast(int) floor((scaledMousePosY + scaledDeltaY) - posY);
+
         } else {
 
             int posX = cast(int) floor(currentWindow.position.x * currentGUIScale);
@@ -357,6 +378,7 @@ public: //* BEGIN PUBLIC API.
 
                 // The user is resizing a window.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    currentWindow.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY), mousePos));
                     resizing = true;
                     return;
                 }
