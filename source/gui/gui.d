@@ -297,6 +297,10 @@ public: //* BEGIN PUBLIC API.
                 // If the mouse is hovering over the close button.
                 if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
                     container.mouseHoveringCloseButton = true;
+
+                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        container.visible = false;
+                    }
                 }
 
             }
