@@ -48,11 +48,6 @@ import std.stdio;
 *       - TextInputBox  --> Window, Label, TextBox, Button
 */
 
-enum ContainerType {
-    Window,
-    Box,
-}
-
 class Element {
 
 }
@@ -64,9 +59,6 @@ class GUIWindow {
     // If it's a window and covers another window, it gets priority over the other if it's higher.
     // If they're the same priority, it's random.
     int layer = 0;
-
-    // The behavior and styling this container will have.
-    ContainerType type = ContainerType.Window;
 
     // If it's a window, this defines if you can resize it.
     bool resizeable = true;
