@@ -47,13 +47,30 @@ import std.stdio;
 *       - TextInputBox  --> Window, Label, TextBox, Button
 */
 
+enum ContainerType {
+    Window,
+    Box,
+}
+
 class Element {
 
 }
 
 // This is the basis of any GUI component, the container.
 class Container {
+    // If this is interactive and drawn.
     bool visible = true;
+
+    // The higher the layer, the higher priority it has.
+    // If it's a window and covers another window, it gets priority over the other if it's higher.
+    // If they're the same priority, it's random.
+    int layer = 0;
+
+    // The behavior and styling this container will have.
+    ContainerType type = ContainerType.Window;
+
+    // This allows Windows to be moved around.
+    Vec2d mouseDelta;
 
     // What this container is called.
     string containerName = null;
