@@ -253,6 +253,7 @@ public: //* BEGIN PUBLIC API.
                 Rectangle windowRectangle = Rectangle(posX, posY, sizeX, sizeY);
 
                 container.mouseHoveringStatusBar = false;
+                container.mouseHoveringCloseButton = false;
 
                 // No collision with this window occured.
                 if (!CheckCollisionPointRec(mousePos, windowRectangle)) {
