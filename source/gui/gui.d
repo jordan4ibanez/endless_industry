@@ -58,7 +58,7 @@ class Element {
 }
 
 // This is the basis of any GUI component, the container.
-class Container {
+class Window {
 
     // The higher the layer, the higher priority it has.
     // If it's a window and covers another window, it gets priority over the other if it's higher.
@@ -150,9 +150,9 @@ private:
     // Mainly this is used for the camera's zoom.
     double graphicsScale = 1.0;
 
-    Container[string] windows;
+    Window[string] windows;
     bool dragging = true;
-    Container currentWindow = null;
+    Window currentWindow = null;
 
 public: //* BEGIN PUBLIC API.
 
@@ -389,7 +389,7 @@ public: //* BEGIN PUBLIC API.
 
     void debugTest() {
 
-        Container testContainer = new Container();
+        Window testContainer = new Window();
 
         testContainer.containerName = "Pause Menu";
         testContainer.containerTitle = "Pause Menu";

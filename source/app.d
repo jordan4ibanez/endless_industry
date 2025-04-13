@@ -132,7 +132,7 @@ void main() {
 			worker = "chunk: " ~ to!string(inChunk.x) ~ " | " ~ to!string(inChunk.y);
 			FontHandler.drawShadowed(worker, xPos, yPos, 0.5);
 
-			GUI.drawVisible();
+			GUI.drawCurrentWindowGUI();
 
 		}
 		EndDrawing();
