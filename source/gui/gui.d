@@ -145,6 +145,8 @@ public: //* BEGIN PUBLIC API.
 
     void drawCurrentWindowGUI() {
 
+        debugCenterOfGUI();
+
         if (currentWindow is null) {
             return;
         }
@@ -416,6 +418,10 @@ public: //* BEGIN PUBLIC API.
         windows["testMenu"] = testContainer;
 
         currentWindow = testContainer;
+
+    }
+
+    void debugCenterOfGUI() {
 
     }
 
