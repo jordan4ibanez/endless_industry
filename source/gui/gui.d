@@ -313,9 +313,10 @@ public: //* BEGIN PUBLIC API.
 
             int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
+            //? Check if the mouse is hovering over the status bar.
+
             Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
 
-            //? Check if the mouse is hovering over the status bar.
             if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
 
                 currentWindow.mouseHoveringStatusBar = true;
@@ -328,10 +329,10 @@ public: //* BEGIN PUBLIC API.
                 }
             }
 
+            //? Check if the mouse is hovering over the close button.
             Rectangle closeButtonRectangle = Rectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight,
                 statusAreaHeight);
 
-            //? Check if the mouse is hovering over the close button.
             if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
                 currentWindow.mouseHoveringCloseButton = true;
 
