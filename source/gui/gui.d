@@ -138,6 +138,9 @@ public: //* BEGIN PUBLIC API.
             int sizeY = cast(int) floor(container.size.y * currentGUIScale);
             int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
+            // Stop from drawing out of bounds.
+            BeginScissorMode(posX - 1, posY - 1, sizeX + 1, sizeY + 1);
+
             // Work area background.
             DrawRectangle(posX, posY, sizeX, sizeY, container.workAreaColor);
 
@@ -154,11 +157,19 @@ public: //* BEGIN PUBLIC API.
             // Status area outline.
             DrawRectangleLines(posX, posY, sizeX, statusAreaHeight, container.borderColor);
 
+            EndScissorMode();
+
+            // Capture excessively long window titles.
+            BeginScissorMode(posX, posY, sizeX - 1, statusAreaHeight);
+
             const string title = container.containerTitle;
             if (title !is null) {
                 FontHandler.draw(title, posX + (currentGUIScale * 2), posY, 0.25, container
                         .statusBarTextColor);
             }
+
+            EndScissorMode();
+
         }
     }
 
@@ -234,7 +245,7 @@ public: //* BEGIN PUBLIC API.
         Container testContainer = new Container();
 
         testContainer.containerName = "Test container";
-        testContainer.containerTitle = "Test Container";
+        testContainer.containerTitle = "a_really_long_title_that_should_stop_before_the_close_button";
         testContainer.size.x = 400;
         testContainer.size.y = 400;
 
