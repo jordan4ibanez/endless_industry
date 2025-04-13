@@ -82,6 +82,10 @@ class Container {
 
     //? State behavior.
 
+    // Position is top left of container.
+    Vec2i position;
+    Vec2i size;
+
     // If this is interactive and drawn.
     bool visible = true;
 
@@ -91,9 +95,8 @@ class Container {
     // If the mouse is hovering over the close button.
     bool mouseHoveringCloseButton = false;
 
-    // Position is top left of container.
-    Vec2i position;
-    Vec2i size;
+    // If the mouse is hovering over the resize button.
+    bool mouseHoveringResizeButton = false;
 
     //? General solid colors.
 
@@ -113,6 +116,8 @@ class Container {
 
     // The resize button background color.
     Color resizeButtonBackgroundColor = Colors.GRAY;
+    // The resize button background color when hovered over.
+    Color resizeButtonBackgroundColorHovered = Colors.DARKGRAY;
 
     //? General text/icon colors.
 
@@ -243,12 +248,36 @@ public: //* BEGIN PUBLIC API.
 
             const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
 
+            BeginScissorMode(
+                posX + sizeX - halfStatusAreaHeight - 1,
+                posY + sizeY - halfStatusAreaHeight - 1,
+                halfStatusAreaHeight + 1,
+                halfStatusAreaHeight + 1);
+
+            if (container.mouseHoveringResizeButton) {
+                DrawRectangle(
+                    posX + sizeX - halfStatusAreaHeight,
+                    posY + sizeY - halfStatusAreaHeight,
+                    halfStatusAreaHeight,
+                    halfStatusAreaHeight,
+                    container.resizeButtonBackgroundColorHovered);
+            } else {
+                DrawRectangle(
+                    posX + sizeX - halfStatusAreaHeight,
+                    posY + sizeY - halfStatusAreaHeight,
+                    halfStatusAreaHeight,
+                    halfStatusAreaHeight,
+                    container.resizeButtonBackgroundColor);
+            }
+
             DrawRectangleLines(
                 posX + sizeX - halfStatusAreaHeight,
                 posY + sizeY - halfStatusAreaHeight,
                 halfStatusAreaHeight,
                 halfStatusAreaHeight,
                 container.borderColor);
+
+            EndScissorMode();
 
         }
     }
@@ -292,6 +321,9 @@ public: //* BEGIN PUBLIC API.
 
                 container.mouseHoveringStatusBar = false;
                 container.mouseHoveringCloseButton = false;
+                container.mouseHoveringResizeButton = false;
+
+                //? Collide with the entire window.
 
                 // No collision with this window occured.
                 if (!CheckCollisionPointRec(mousePos, windowRectangle)) {
@@ -304,7 +336,7 @@ public: //* BEGIN PUBLIC API.
 
                 Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
 
-                // If the mouse is hovering over the status bar.
+                //? Check if the mouse is hovering over the status bar.
                 if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
 
                     container.mouseHoveringStatusBar = true;
@@ -322,7 +354,7 @@ public: //* BEGIN PUBLIC API.
                 Rectangle closeButtonRectangle = Rectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight,
                     statusAreaHeight);
 
-                // If the mouse is hovering over the close button.
+                //? Check if the mouse is hovering over the close button.
                 if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
                     container.mouseHoveringCloseButton = true;
 
@@ -331,6 +363,19 @@ public: //* BEGIN PUBLIC API.
                     }
                 }
 
+                //? Check if the mouse is hovering over the resize button.
+
+                const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
+
+                Rectangle resizeButtonRectangle = Rectangle(
+                    posX + sizeX - halfStatusAreaHeight,
+                    posY + sizeY - halfStatusAreaHeight,
+                    halfStatusAreaHeight,
+                    halfStatusAreaHeight);
+
+                if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
+                    container.mouseHoveringResizeButton = true;
+                }
             }
         }
 
@@ -341,8 +386,8 @@ public: //* BEGIN PUBLIC API.
 
         Container testContainer = new Container();
 
-        testContainer.containerName = "Test container";
-        testContainer.containerTitle = "a_really_long_title_that_should_stop_before_the_close_button";
+        testContainer.containerName = "Pause Menu";
+        testContainer.containerTitle = "Pause Menu";
         testContainer.size.x = 400;
         testContainer.size.y = 400;
 
