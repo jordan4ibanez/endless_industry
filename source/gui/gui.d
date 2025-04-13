@@ -138,7 +138,7 @@ public: //* BEGIN PUBLIC API.
             int sizeY = cast(int) floor(container.size.y * currentGUIScale);
             int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
-            // Stop from drawing out of bounds.
+            //? Stop from drawing out of bounds.
             BeginScissorMode(posX - 1, posY - 1, sizeX + 1, sizeY + 1);
 
             // Work area background.
@@ -159,8 +159,8 @@ public: //* BEGIN PUBLIC API.
 
             EndScissorMode();
 
-            // Capture excessively long window titles.
             BeginScissorMode(posX, posY, sizeX - 1, statusAreaHeight);
+            //? Capture excessively long window titles.
 
             const string title = container.containerTitle;
             if (title !is null) {
