@@ -129,6 +129,7 @@ private:
     double currentGUIScale = 1.0;
     double inverseCurrentGUIScale = 1.0;
     double masterGUIScale = 1.0;
+    double graphicsScale = 1.0;
 
     Container[string] interfaces;
     Container currentDrag = null;
@@ -337,6 +338,10 @@ public: //* BEGIN PUBLIC API.
         return currentGUIScale;
     }
 
+    double getGraphicsScale() {
+        return graphicsScale;
+    }
+
     void initialize() {
         FontHandler.initialize();
         debugTest();
@@ -355,6 +360,8 @@ public: //* BEGIN PUBLIC API.
         } else {
             currentGUIScale = scales.x;
         }
+
+        graphicsScale = currentGUIScale;
 
         currentGUIScale *= masterGUIScale;
 
