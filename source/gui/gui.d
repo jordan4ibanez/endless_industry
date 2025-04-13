@@ -189,6 +189,9 @@ public: //* BEGIN PUBLIC API.
 
             // The X.
 
+            Color closeButtonBackgroundColor = container.mouseHoveringCloseButton ? container.closeButtonXHoverColor
+                : container.closeButtonXColor;
+
             // This: /
             DrawLineEx(
                 Vector2(
@@ -198,7 +201,7 @@ public: //* BEGIN PUBLIC API.
                     floor(posX + sizeX - closeTrim),
                     floor(posY + closeTrim)),
                 closeThickness,
-                container.closeButtonXColor);
+                closeButtonBackgroundColor);
 
             // This: \
             DrawLineEx(
@@ -209,7 +212,7 @@ public: //* BEGIN PUBLIC API.
                     floor(posX + sizeX - closeTrim),
                     floor(posY + statusAreaHeight - closeTrim)),
                 closeThickness,
-                container.closeButtonXColor
+                closeButtonBackgroundColor
             );
 
             EndScissorMode();
