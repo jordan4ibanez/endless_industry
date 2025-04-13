@@ -106,6 +106,7 @@ private:
     // We standardize the GUI with 1080p.
     const Vec2d standardSize = Vec2d(1920.0, 1080.0);
     double currentGUIScale = 1.0;
+    double invCurrentGUIScale = 1.0;
 
     Container[string] interfaces;
     Container currentDrag = null;
@@ -150,8 +151,6 @@ public: //* BEGIN PUBLIC API.
                 currentDrag = null;
                 return;
             }
-
-            const double invCurrentScale = 1 / currentGUIScale;
 
             mouseFocusedOnGUI = true;
 
@@ -243,6 +242,8 @@ public: //* BEGIN PUBLIC API.
         } else {
             currentGUIScale = scales.x;
         }
+
+        invCurrentGUIScale = 1.0 / currentGUIScale;
 
         FontHandler.__update();
         updateGUIs();
