@@ -335,6 +335,7 @@ public: //* BEGIN PUBLIC API.
             if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
                 currentWindow.mouseHoveringCloseButton = true;
 
+                // The user closed the window.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     currentWindow = null;
                 }
