@@ -267,13 +267,12 @@ public: //* BEGIN PUBLIC API.
                     // The mouse is not trying to drag a window.
                     // It is just hovering over a window.
                     if (!Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        writeln("pressed");
+                        // The mouse is now dragging a window.
+                        container.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
+                        currentDrag = container;
                         break;
                     }
-
-                    // The mouse is now dragging a window.
-                    container.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
-                    currentDrag = container;
-                    break;
                 }
             }
         }
