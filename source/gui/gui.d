@@ -72,6 +72,9 @@ class WindowGUI {
     // The current size of the window. (It will always be scaled to GUI scaling)
     Vec2i size;
 
+    // The minimum size of the window. (It will always be scaled to GUI scaling)
+    Vec2i minSize = Vec2i(100, 100);
+
     // If the mouse is hovering over the status bar.
     bool mouseHoveringStatusBar = false;
 
