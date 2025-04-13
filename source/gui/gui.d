@@ -106,7 +106,7 @@ private:
     // We standardize the GUI with 1080p.
     const Vec2d standardSize = Vec2d(1920.0, 1080.0);
     double currentGUIScale = 1.0;
-    double invCurrentGUIScale = 1.0;
+    double inverseCurrentGUIScale = 1.0;
 
     Container[string] interfaces;
     Container currentDrag = null;
@@ -154,10 +154,10 @@ public: //* BEGIN PUBLIC API.
 
             mouseFocusedOnGUI = true;
 
-            double scaledDeltaX = currentDrag.mouseDelta.x * invCurrentGUIScale;
-            double scaledDeltaY = currentDrag.mouseDelta.y * invCurrentGUIScale;
-            double scaledMousePosX = mousePos.x * invCurrentGUIScale;
-            double scaledMousePosY = mousePos.y * invCurrentGUIScale;
+            double scaledDeltaX = currentDrag.mouseDelta.x * inverseCurrentGUIScale;
+            double scaledDeltaY = currentDrag.mouseDelta.y * inverseCurrentGUIScale;
+            double scaledMousePosX = mousePos.x * inverseCurrentGUIScale;
+            double scaledMousePosY = mousePos.y * inverseCurrentGUIScale;
 
             currentDrag.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
             currentDrag.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
@@ -243,7 +243,7 @@ public: //* BEGIN PUBLIC API.
             currentGUIScale = scales.x;
         }
 
-        invCurrentGUIScale = 1.0 / currentGUIScale;
+        inverseCurrentGUIScale = 1.0 / currentGUIScale;
 
         FontHandler.__update();
         updateGUIs();
