@@ -135,6 +135,11 @@ public: //* BEGIN PUBLIC API.
 
     void drawVisible() {
         foreach (key, container; interfaces) {
+            // This container is "asleep".
+            if (!container.visible) {
+                continue;
+            }
+
             int posX = cast(int) floor(container.position.x * currentGUIScale);
             int posY = cast(int) floor(container.position.y * currentGUIScale);
             int sizeX = cast(int) floor(container.size.x * currentGUIScale);
@@ -245,6 +250,11 @@ public: //* BEGIN PUBLIC API.
         } else {
 
             foreach (key, container; interfaces) {
+                // This container is "asleep".
+                if (!container.visible) {
+                    continue;
+                }
+
                 int posX = cast(int) floor(container.position.x * currentGUIScale);
                 int posY = cast(int) floor(container.position.y * currentGUIScale);
                 int sizeX = cast(int) floor(container.size.x * currentGUIScale);
