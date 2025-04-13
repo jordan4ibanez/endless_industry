@@ -132,8 +132,8 @@ private:
     double graphicsScale = 1.0;
 
     WindowGUI[string] windows;
-    bool dragging = true;
-    bool resizing = true;
+    bool dragging = false;
+    bool resizing = false;
     WindowGUI currentWindow = null;
 
 public: //* BEGIN PUBLIC API.
