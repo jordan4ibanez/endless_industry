@@ -133,6 +133,7 @@ private:
 
     WindowGUI[string] windows;
     bool dragging = true;
+    bool resizing = true;
     WindowGUI currentWindow = null;
 
 public: //* BEGIN PUBLIC API.
@@ -321,7 +322,6 @@ public: //* BEGIN PUBLIC API.
 
                 // The user is dragging a window.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    // The mouse is now dragging a window.
                     currentWindow.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
                     dragging = true;
                     return;
@@ -353,6 +353,12 @@ public: //* BEGIN PUBLIC API.
 
             if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
                 currentWindow.mouseHoveringResizeButton = true;
+
+                // The user is resizing a window.
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    resizing = true;
+                    return;
+                }
             }
         }
 
