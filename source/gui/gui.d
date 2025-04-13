@@ -78,6 +78,9 @@ class Container {
     // What this container's title says.
     string containerTitle = null;
 
+    // If the mouse is hovering over the status bar.
+    bool mouseHoveringStatusBar = false;
+
     // Position is top left of container.
     Vec2i position;
     Vec2i size;
@@ -90,6 +93,8 @@ class Container {
     Color borderColor = Colors.BLACK;
     // The status bar background color.
     Color statusBarColor = Colors.BLUE;
+    // The status bar background color when hovered over.
+    Color statusBarHoverColor = Color(10, 10, 255, 255);
 
     // General text colors.
 
@@ -172,6 +177,8 @@ public: //* BEGIN PUBLIC API.
 
                 Rectangle windowRectangle = Rectangle(posX, posY, sizeX, sizeY);
 
+                container.mouseHoveringStatusBar = false;
+
                 // No collision with this window occured.
                 if (!CheckCollisionPointRec(mousePos, windowRectangle)) {
                     continue;
@@ -179,25 +186,26 @@ public: //* BEGIN PUBLIC API.
 
                 mouseFocusedOnGUI = true;
 
-                // The mouse is not trying to drag a window.
-                // It is just hovering over a window.
-                if (!Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    break;
-                }
-
                 int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
                 Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX, statusAreaHeight);
 
                 // If the mouse is not hovering over this but is still trying to do something so, continue.
-                if (!CheckCollisionPointRec(mousePos, statusBarRectangle)) {
-                    continue;
-                }
+                if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
 
-                // The mouse is now dragging a window.
-                container.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
-                currentDrag = container;
-                break;
+                    container.mouseHoveringStatusBar = true;
+
+                    // The mouse is not trying to drag a window.
+                    // It is just hovering over a window.
+                    if (!Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        break;
+                    }
+
+                    // The mouse is now dragging a window.
+                    container.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
+                    currentDrag = container;
+                    break;
+                }
             }
         }
 
