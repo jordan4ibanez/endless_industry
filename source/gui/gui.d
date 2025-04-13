@@ -159,8 +159,8 @@ public: //* BEGIN PUBLIC API.
 
             EndScissorMode();
 
-            BeginScissorMode(posX, posY, sizeX - 1, statusAreaHeight);
             //? Capture excessively long window titles.
+            BeginScissorMode(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight - 1);
 
             const string title = container.containerTitle;
             if (title !is null) {
