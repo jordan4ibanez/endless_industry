@@ -151,11 +151,12 @@ private:
     double graphicsScale = 1.0;
 
     Container[string] interfaces;
-    Container currentDrag = null;
+    bool dragging = true;
+    Container currentWindow = null;
 
 public: //* BEGIN PUBLIC API.
 
-    void drawVisible() {
+    void drawCurrentWindowGUI() {
         foreach (key, container; interfaces) {
             // This container is "asleep".
             if (!container.visible) {
@@ -282,27 +283,31 @@ public: //* BEGIN PUBLIC API.
         }
     }
 
-    void updateGUIs() {
+    void updateCurrentWindowGUI() {
         bool mouseFocusedOnGUI = false;
+
+        if (currentWindow is null) {
+            return;
+        }
 
         Vector2 mousePos = Mouse.getPosition().toRaylib();
 
-        if (currentDrag !is null) {
+        if (dragging) {
 
             if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-                currentDrag = null;
+                dragging = false;
                 return;
             }
 
             mouseFocusedOnGUI = true;
 
-            double scaledDeltaX = currentDrag.mouseDelta.x * inverseCurrentGUIScale;
-            double scaledDeltaY = currentDrag.mouseDelta.y * inverseCurrentGUIScale;
+            double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
+            double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
             double scaledMousePosX = mousePos.x * inverseCurrentGUIScale;
             double scaledMousePosY = mousePos.y * inverseCurrentGUIScale;
 
-            currentDrag.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
-            currentDrag.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
+            currentWindow.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
+            currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
 
         } else {
 
@@ -346,7 +351,7 @@ public: //* BEGIN PUBLIC API.
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         // The mouse is now dragging a window.
                         container.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
-                        currentDrag = container;
+                        dragging = true;
                         break;
                     }
                 }
@@ -438,7 +443,7 @@ public: //* BEGIN PUBLIC API.
         inverseCurrentGUIScale = 1.0 / currentGUIScale;
 
         FontHandler.__update();
-        updateGUIs();
+        updateCurrentWindowGUI();
 
         bringBackDebugTest();
     }
