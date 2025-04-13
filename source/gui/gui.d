@@ -143,126 +143,128 @@ private:
 public: //* BEGIN PUBLIC API.
 
     void drawCurrentWindowGUI() {
-        foreach (key, container; windows) {
 
-            int posX = cast(int) floor(container.position.x * currentGUIScale);
-            int posY = cast(int) floor(container.position.y * currentGUIScale);
-            int sizeX = cast(int) floor(container.size.x * currentGUIScale);
-            int sizeY = cast(int) floor(container.size.y * currentGUIScale);
-            int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+        if (currentWindow is null) {
+            return;
+        }
 
-            //? Stop from drawing out of bounds.
-            BeginScissorMode(posX - 1, posY - 1, sizeX + 1, sizeY + 1);
+        int posX = cast(int) floor(currentWindow.position.x * currentGUIScale);
+        int posY = cast(int) floor(currentWindow.position.y * currentGUIScale);
+        int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
+        int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
+        int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
-            // Work area background.
-            DrawRectangle(posX, posY, sizeX, sizeY, container.workAreaColor);
+        //? Stop from drawing out of bounds.
+        BeginScissorMode(posX - 1, posY - 1, sizeX + 1, sizeY + 1);
 
-            // Status area background.
-            if (container.mouseHoveringStatusBar) {
-                DrawRectangle(posX, posY, sizeX, statusAreaHeight, container.statusBarHoverColor);
-            } else {
-                DrawRectangle(posX, posY, sizeX, statusAreaHeight, container.statusBarColor);
-            }
+        // Work area background.
+        DrawRectangle(posX, posY, sizeX, sizeY, currentWindow.workAreaColor);
 
-            // Work area outline.
-            DrawRectangleLines(posX, posY, sizeX, sizeY, container.borderColor);
+        // Status area background.
+        if (currentWindow.mouseHoveringStatusBar) {
+            DrawRectangle(posX, posY, sizeX, statusAreaHeight, currentWindow.statusBarHoverColor);
+        } else {
+            DrawRectangle(posX, posY, sizeX, statusAreaHeight, currentWindow.statusBarColor);
+        }
 
-            // Status area outline.
-            DrawRectangleLines(posX, posY, sizeX, statusAreaHeight, container.borderColor);
+        // Work area outline.
+        DrawRectangleLines(posX, posY, sizeX, sizeY, currentWindow.borderColor);
 
-            EndScissorMode();
+        // Status area outline.
+        DrawRectangleLines(posX, posY, sizeX, statusAreaHeight, currentWindow.borderColor);
 
-            //? Capture excessively long window titles.
-            BeginScissorMode(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight - 1);
+        EndScissorMode();
 
-            const string title = container.containerTitle;
-            if (title !is null) {
-                FontHandler.drawShadowed(title, posX + (currentGUIScale * 2), posY, 0.25, container
-                        .statusBarTextColor);
-            }
+        //? Capture excessively long window titles.
+        BeginScissorMode(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight - 1);
 
-            EndScissorMode();
+        const string title = currentWindow.containerTitle;
+        if (title !is null) {
+            FontHandler.drawShadowed(title, posX + (currentGUIScale * 2), posY, 0.25, currentWindow
+                    .statusBarTextColor);
+        }
 
-            //? Draw the close button.
+        EndScissorMode();
 
-            // I just like using the scissor mode. :D
-            BeginScissorMode(posX + sizeX - statusAreaHeight - 1, posY - 1, statusAreaHeight + 1, statusAreaHeight + 1);
+        //? Draw the close button.
 
-            // Background and border.
-            DrawRectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, container
-                    .closeButtonBackgroundColor);
-            DrawRectangleLines(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, container
-                    .borderColor);
+        // I just like using the scissor mode. :D
+        BeginScissorMode(posX + sizeX - statusAreaHeight - 1, posY - 1, statusAreaHeight + 1, statusAreaHeight + 1);
 
-            const double closeTrim = 4 * currentGUIScale;
-            const double closeThickness = 1 * currentGUIScale;
+        // Background and border.
+        DrawRectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, currentWindow
+                .closeButtonBackgroundColor);
+        DrawRectangleLines(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, currentWindow
+                .borderColor);
 
-            // The X.
+        const double closeTrim = 4 * currentGUIScale;
+        const double closeThickness = 1 * currentGUIScale;
 
-            Color closeButtonBackgroundColor = container.mouseHoveringCloseButton ? container.closeButtonXHoverColor
-                : container.closeButtonXColor;
+        // The X.
 
-            // This: /
-            DrawLineEx(
-                Vector2(
-                    floor(posX + sizeX - statusAreaHeight + closeTrim),
-                    floor(posY + statusAreaHeight - closeTrim)),
-                Vector2(
-                    floor(posX + sizeX - closeTrim),
-                    floor(posY + closeTrim)),
-                closeThickness,
-                closeButtonBackgroundColor);
+        Color closeButtonBackgroundColor = currentWindow.mouseHoveringCloseButton ? currentWindow
+            .closeButtonXHoverColor : currentWindow.closeButtonXColor;
 
-            // This: \
-            DrawLineEx(
-                Vector2(
-                    floor(posX + sizeX - statusAreaHeight + closeTrim),
-                    floor(posY + closeTrim)),
-                Vector2(
-                    floor(posX + sizeX - closeTrim),
-                    floor(posY + statusAreaHeight - closeTrim)),
-                closeThickness,
-                closeButtonBackgroundColor
-            );
+        // This: /
+        DrawLineEx(
+            Vector2(
+                floor(posX + sizeX - statusAreaHeight + closeTrim),
+                floor(posY + statusAreaHeight - closeTrim)),
+            Vector2(
+                floor(posX + sizeX - closeTrim),
+                floor(posY + closeTrim)),
+            closeThickness,
+            closeButtonBackgroundColor);
 
-            EndScissorMode();
+        // This: \
+        DrawLineEx(
+            Vector2(
+                floor(posX + sizeX - statusAreaHeight + closeTrim),
+                floor(posY + closeTrim)),
+            Vector2(
+                floor(posX + sizeX - closeTrim),
+                floor(posY + statusAreaHeight - closeTrim)),
+            closeThickness,
+            closeButtonBackgroundColor
+        );
 
-            //? Draw the resize button.
+        EndScissorMode();
 
-            const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
+        //? Draw the resize button.
 
-            BeginScissorMode(
-                posX + sizeX - halfStatusAreaHeight - 1,
-                posY + sizeY - halfStatusAreaHeight - 1,
-                halfStatusAreaHeight + 1,
-                halfStatusAreaHeight + 1);
+        const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
 
-            if (container.mouseHoveringResizeButton) {
-                DrawRectangle(
-                    posX + sizeX - halfStatusAreaHeight,
-                    posY + sizeY - halfStatusAreaHeight,
-                    halfStatusAreaHeight,
-                    halfStatusAreaHeight,
-                    container.resizeButtonBackgroundColorHovered);
-            } else {
-                DrawRectangle(
-                    posX + sizeX - halfStatusAreaHeight,
-                    posY + sizeY - halfStatusAreaHeight,
-                    halfStatusAreaHeight,
-                    halfStatusAreaHeight,
-                    container.resizeButtonBackgroundColor);
-            }
+        BeginScissorMode(
+            posX + sizeX - halfStatusAreaHeight - 1,
+            posY + sizeY - halfStatusAreaHeight - 1,
+            halfStatusAreaHeight + 1,
+            halfStatusAreaHeight + 1);
 
-            DrawRectangleLines(
+        if (currentWindow.mouseHoveringResizeButton) {
+            DrawRectangle(
                 posX + sizeX - halfStatusAreaHeight,
                 posY + sizeY - halfStatusAreaHeight,
                 halfStatusAreaHeight,
                 halfStatusAreaHeight,
-                container.borderColor);
-
-            EndScissorMode();
-
+                currentWindow.resizeButtonBackgroundColorHovered);
+        } else {
+            DrawRectangle(
+                posX + sizeX - halfStatusAreaHeight,
+                posY + sizeY - halfStatusAreaHeight,
+                halfStatusAreaHeight,
+                halfStatusAreaHeight,
+                currentWindow.resizeButtonBackgroundColor);
         }
+
+        DrawRectangleLines(
+            posX + sizeX - halfStatusAreaHeight,
+            posY + sizeY - halfStatusAreaHeight,
+            halfStatusAreaHeight,
+            halfStatusAreaHeight,
+            currentWindow.borderColor);
+
+        EndScissorMode();
+
     }
 
     void updateCurrentWindowGUI() {
