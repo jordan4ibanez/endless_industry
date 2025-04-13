@@ -259,7 +259,7 @@ public: //* BEGIN PUBLIC API.
 
                 Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
 
-                // If the mouse is not hovering over this but is still trying to do something so, continue.
+                // If the mouse is not hovering over the status bar.
                 if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
 
                     container.mouseHoveringStatusBar = true;
