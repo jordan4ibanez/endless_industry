@@ -94,7 +94,7 @@ class Container {
     // The status bar background color.
     Color statusBarColor = Colors.BLUE;
     // The status bar background color when hovered over.
-    Color statusBarHoverColor = Color(10, 10, 255, 255);
+    Color statusBarHoverColor = Color(40, 121, 255, 255);
 
     // General text colors.
 
@@ -128,8 +128,13 @@ public: //* BEGIN PUBLIC API.
 
             // Work area background.
             DrawRectangle(posX, posY, sizeX, sizeY, container.workAreaColor);
+
             // Status area background.
-            DrawRectangle(posX, posY, sizeX, statusAreaHeight, container.statusBarColor);
+            if (container.mouseHoveringStatusBar) {
+                DrawRectangle(posX, posY, sizeX, statusAreaHeight, container.statusBarHoverColor);
+            } else {
+                DrawRectangle(posX, posY, sizeX, statusAreaHeight, container.statusBarColor);
+            }
 
             // Work area outline.
             DrawRectangleLines(posX, posY, sizeX, sizeY, container.borderColor);
