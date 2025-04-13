@@ -81,6 +81,9 @@ class Container {
     // If the mouse is hovering over the status bar.
     bool mouseHoveringStatusBar = false;
 
+    // If the mouse is hovering over the close button.
+    bool mouseHoveringCloseButton = false;
+
     // Position is top left of container.
     Vec2i position;
     Vec2i size;
@@ -273,6 +276,15 @@ public: //* BEGIN PUBLIC API.
                         break;
                     }
                 }
+
+                Rectangle closeButtonRectangle = Rectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight,
+                    statusAreaHeight);
+
+                // If the mouse is hovering over the close button.
+                if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
+                    container.mouseHoveringCloseButton = true;
+                }
+
             }
         }
 
