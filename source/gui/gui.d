@@ -446,13 +446,11 @@ public: //* BEGIN PUBLIC API.
     }
 
     void updateCurrentWindowGUI() {
-
         bool mouseFocusedOnGUI = false;
-
         if (currentWindow is null) {
+            Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
             return;
         }
-
         if (dragging) {
             windowDragLogic(mouseFocusedOnGUI);
         } else if (resizing) {
@@ -462,7 +460,6 @@ public: //* BEGIN PUBLIC API.
                 windowComponentLogic();
             }
         }
-
         Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
     }
 
