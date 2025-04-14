@@ -130,10 +130,19 @@ public: //* BEGIN PUBLIC API.
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
         //? Stop from drawing out of bounds.
-        BeginScissorMode(posX - 1, posY - 1, sizeX + 1, sizeY + 1);
+        BeginScissorMode(
+            posX - 1,
+            posY - 1,
+            sizeX + 1,
+            sizeY + 1);
 
         // Work area background.
-        DrawRectangle(posX, posY, sizeX, sizeY, currentWindow.workAreaColor);
+        DrawRectangle(
+            posX,
+            posY,
+            sizeX,
+            sizeY,
+            currentWindow.workAreaColor);
 
         // Status area background.
         if (currentWindow.mouseHoveringStatusBar) {
@@ -167,10 +176,19 @@ public: //* BEGIN PUBLIC API.
         BeginScissorMode(posX + sizeX - statusAreaHeight - 1, posY - 1, statusAreaHeight + 1, statusAreaHeight + 1);
 
         // Background and border.
-        DrawRectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, currentWindow
-                .closeButtonBackgroundColor);
-        DrawRectangleLines(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, currentWindow
-                .borderColor);
+        DrawRectangle(
+            posX + sizeX - statusAreaHeight,
+            posY,
+            statusAreaHeight,
+            statusAreaHeight,
+            currentWindow.closeButtonBackgroundColor);
+
+        DrawRectangleLines(
+            posX + sizeX - statusAreaHeight,
+            posY,
+            statusAreaHeight,
+            statusAreaHeight,
+            currentWindow.borderColor);
 
         const double closeTrim = 4 * currentGUIScale;
         const double closeThickness = 1 * currentGUIScale;
