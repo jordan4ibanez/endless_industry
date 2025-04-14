@@ -472,7 +472,6 @@ public: //* BEGIN PUBLIC API.
     void debugTest() {
 
         WindowGUI pauseMenu = new WindowGUI();
-
         pauseMenu.windowTitle = "Pause Menu";
         pauseMenu.size.x = 400;
         pauseMenu.size.y = 400;
