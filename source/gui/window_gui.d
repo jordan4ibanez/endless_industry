@@ -11,9 +11,6 @@ class WindowGUI {
     // If it's a window, this defines if you can resize it.
     bool resizeable = true;
 
-    // This allows Windows to be moved around.
-    Vec2d mouseDelta;
-
     // The ID of this window.
     string windowID = null;
 
