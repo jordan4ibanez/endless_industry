@@ -317,30 +317,6 @@ public: //* BEGIN PUBLIC API.
             currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
 
             // Make sure the window stays on the screen.
-            {
-                const int posX = cast(int) floor(
-                    centerPoint.x + (currentWindow.position.x * currentGUIScale));
-                const int posY = cast(int) floor(
-                    centerPoint.y + (currentWindow.position.y * currentGUIScale));
-                const int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
-
-                if (posX < 0) {
-                    currentWindow.position.x = cast(int) floor(
-                        (-centerPoint.x) * inverseCurrentGUIScale);
-                } else if (posX + sizeX > realSize.x) {
-                    currentWindow.position.x = cast(int) ceil(
-                        (centerPoint.x - sizeX) * inverseCurrentGUIScale);
-                }
-
-                if (posY < 0) {
-                    currentWindow.position.y = cast(int) floor(
-                        (-centerPoint.y) * inverseCurrentGUIScale);
-                } else if (posY + sizeY > realSize.y) {
-                    currentWindow.position.y = cast(int) ceil(
-                        (centerPoint.y - sizeY) * inverseCurrentGUIScale);
-                }
-            }
 
         } else if (resizing) {
 
