@@ -90,6 +90,33 @@ public: //* BEGIN PUBLIC API.
         windows[windowID] = window;
     }
 
+    bool windowXInBounds(WindowGUI window) {
+        bool result = true;
+        const int posX = cast(int) floor(
+            centerPoint.x + (window.position.x * currentGUIScale));
+        const int sizeX = cast(int) floor(window.size.x * currentGUIScale);
+        if (posX < 0) {
+            result = false;
+        } else if (posX + sizeX > realSize.x) {
+            result = false;
+        }
+        return result;
+    }
+
+    bool windowYInBounds(WindowGUI window) {
+        bool result = true;
+        const int posY = cast(int) floor(
+            centerPoint.y + (window.position.y * currentGUIScale));
+        const int sizeY = cast(int) floor(window.size.y * currentGUIScale);
+        if (posY < 0) {
+            result = false;
+        } else if (posY + sizeY > realSize.y) {
+            result = false;
+        }
+
+        return result;
+    }
+
     void drawCurrentWindowGUI() {
 
         if (currentWindow is null) {
