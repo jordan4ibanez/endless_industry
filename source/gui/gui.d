@@ -359,6 +359,7 @@ public: //* BEGIN PUBLIC API.
         pauseMenu.containerTitle = "Pause Menu";
         pauseMenu.size.x = 400;
         pauseMenu.size.y = 400;
+        pauseMenu.center();
 
         registerWindow("pause_menu", pauseMenu);
 
