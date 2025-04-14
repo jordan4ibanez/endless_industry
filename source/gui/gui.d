@@ -292,10 +292,12 @@ public: //* BEGIN PUBLIC API.
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
         const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
         BeginScissorMode(
-            posX + sizeX - halfStatusAreaHeight - 1,
-            posY + sizeY - halfStatusAreaHeight - 1,
-            halfStatusAreaHeight + 1,
-            halfStatusAreaHeight + 1);
+            posX,
+            posY + statusAreaHeight,
+            sizeX - 1,
+            sizeY - statusAreaHeight - 1);
+
+        
 
         EndScissorMode();
     }
