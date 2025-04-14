@@ -346,57 +346,57 @@ public: //* BEGIN PUBLIC API.
 
             mouseFocusedOnGUI = true;
 
-            int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+            // int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
-            //? Check if the mouse is hovering over the status bar.
+            // //? Check if the mouse is hovering over the status bar.
 
-            Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
+            // Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
 
-            if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
+            // if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
 
-                currentWindow.mouseHoveringStatusBar = true;
+            //     currentWindow.mouseHoveringStatusBar = true;
 
-                // The user is dragging a window.
-                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    currentWindow.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
-                    dragging = true;
-                    return;
-                }
-            }
+            //     // The user is dragging a window.
+            //     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+            //         currentWindow.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
+            //         dragging = true;
+            //         return;
+            //     }
+            // }
 
-            //? Check if the mouse is hovering over the close button.
-            Rectangle closeButtonRectangle = Rectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight,
-                statusAreaHeight);
+            // //? Check if the mouse is hovering over the close button.
+            // Rectangle closeButtonRectangle = Rectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight,
+            //     statusAreaHeight);
 
-            if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
-                currentWindow.mouseHoveringCloseButton = true;
+            // if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
+            //     currentWindow.mouseHoveringCloseButton = true;
 
-                // The user closed the window.
-                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    currentWindow = null;
-                }
-            }
+            //     // The user closed the window.
+            //     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+            //         currentWindow = null;
+            //     }
+            // }
 
-            //? Check if the mouse is hovering over the resize button.
+            // //? Check if the mouse is hovering over the resize button.
 
-            const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
+            // const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
 
-            Rectangle resizeButtonRectangle = Rectangle(
-                posX + sizeX - halfStatusAreaHeight,
-                posY + sizeY - halfStatusAreaHeight,
-                halfStatusAreaHeight,
-                halfStatusAreaHeight);
+            // Rectangle resizeButtonRectangle = Rectangle(
+            //     posX + sizeX - halfStatusAreaHeight,
+            //     posY + sizeY - halfStatusAreaHeight,
+            //     halfStatusAreaHeight,
+            //     halfStatusAreaHeight);
 
-            if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
-                currentWindow.mouseHoveringResizeButton = true;
+            // if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
+            //     currentWindow.mouseHoveringResizeButton = true;
 
-                // The user is resizing a window.
-                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    currentWindow.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY), mousePos));
-                    resizing = true;
-                    return;
-                }
-            }
+            //     // The user is resizing a window.
+            //     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+            //         currentWindow.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY), mousePos));
+            //         resizing = true;
+            //         return;
+            //     }
+            // }
         }
 
         Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
