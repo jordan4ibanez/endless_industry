@@ -71,9 +71,6 @@ public:
 
     //? General text/icon colors.
 
-    /// The text below the status bar.
-    Color workAreaTextColor = Colors.BLACK;
-
     /// The status bar text color.
     Color statusBarTextColor = Colors.WHITE;
 
