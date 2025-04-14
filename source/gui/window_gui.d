@@ -71,7 +71,7 @@ class WindowGUI {
     // The close button X color when hovered over.
     Color closeButtonXHoverColor = Colors.RED;
 
-    void centerWindow() {
+    void center() {
 
         double halfWindowSizeX = size.x * 0.5;
         double halfWindowSizeY = size.y * 0.5;

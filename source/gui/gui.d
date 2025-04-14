@@ -369,7 +369,7 @@ public: //* BEGIN PUBLIC API.
             currentWindow = windows["pause_menu"];
         }
         if (Keyboard.isPressed(KeyboardKey.KEY_TWO)) {
-            windows["pause_menu"].centerWindow();
+            windows["pause_menu"].center();
         }
     }
 
