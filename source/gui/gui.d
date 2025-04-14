@@ -436,9 +436,13 @@ public: //* BEGIN PUBLIC API.
         return okayToCheckComponents;
     }
 
-    int iasf = 0;
+    /// This will only run when the mouse is in the work area.
     void windowComponentLogic() {
-        writeln("window component logic is running", iasf++);
+        foreach (thisComponent; currentWindow.componentsInOrder) {
+            if (auto buttonComponent = instanceof!Button(thisComponent)) {
+
+            }
+        }
     }
 
     void updateCurrentWindowGUI() {
