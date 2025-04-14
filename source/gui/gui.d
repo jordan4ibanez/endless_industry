@@ -287,11 +287,9 @@ public: //* BEGIN PUBLIC API.
             return;
         }
 
-        Vector2 mousePos = Mouse.getPosition().toRaylib();
+        Vector2 mousePos = Mouse.getPosition.toRaylib();
 
         if (dragging) {
-
-            writeln("dragging");
 
             if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
                 dragging = false;
@@ -300,17 +298,17 @@ public: //* BEGIN PUBLIC API.
 
             mouseFocusedOnGUI = true;
 
+            const Vector2 mousePosInGUI = getMousePositionInGUI();
+
             double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
             double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
-            double scaledMousePosX = mousePos.x * inverseCurrentGUIScale;
-            double scaledMousePosY = mousePos.y * inverseCurrentGUIScale;
+            double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
+            double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
 
             currentWindow.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
             currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
 
         } else if (resizing) {
-
-            writeln("resizing");
 
             if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
                 resizing = false;
@@ -322,11 +320,12 @@ public: //* BEGIN PUBLIC API.
             int posX = currentWindow.position.x;
             int posY = currentWindow.position.y;
 
+            const Vector2 mousePosInGUI = getMousePositionInGUI();
+
             double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
             double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
-
-            double scaledMousePosX = mousePos.x * inverseCurrentGUIScale;
-            double scaledMousePosY = mousePos.y * inverseCurrentGUIScale;
+            double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
+            double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
 
             currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
             currentWindow.size.y = cast(int) floor((scaledMousePosY + scaledDeltaY) - posY);
