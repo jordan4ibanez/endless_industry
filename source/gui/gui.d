@@ -436,6 +436,11 @@ public: //* BEGIN PUBLIC API.
         return okayToCheckComponents;
     }
 
+    int iasf = 0;
+    void windowComponentLogic() {
+        writeln("window component logic is running", iasf++);
+    }
+
     void updateCurrentWindowGUI() {
 
         bool mouseFocusedOnGUI = false;
@@ -450,7 +455,7 @@ public: //* BEGIN PUBLIC API.
             windowResizeLogic(mouseFocusedOnGUI);
         } else {
             if (generalWindowLogic(mouseFocusedOnGUI)) {
-                // todo: Component logic function here.
+                windowComponentLogic();
             }
         }
 
