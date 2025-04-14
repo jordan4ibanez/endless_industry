@@ -368,12 +368,17 @@ public: //* BEGIN PUBLIC API.
 
     void bringBackDebugTest() {
 
-        if (Keyboard.isPressed(KeyboardKey.KEY_ONE)) {
-            currentWindow = windows["pause_menu"];
+        if (Keyboard.isPressed(KeyboardKey.KEY_ESCAPE)) {
+            if (currentWindow is null) {
+                currentWindow = windows["pause_menu"];
+            } else {
+                currentWindow = null;
+            }
+
         }
-        if (Keyboard.isPressed(KeyboardKey.KEY_TWO)) {
-            windows["pause_menu"].center();
-        }
+        // if (Keyboard.isPressed(KeyboardKey.KEY_TWO)) {
+        //     windows["pause_menu"].center();
+        // }
     }
 
     double getGUIScale() {
