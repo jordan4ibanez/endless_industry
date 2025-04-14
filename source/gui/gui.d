@@ -316,7 +316,7 @@ public: //* BEGIN PUBLIC API.
         return mousePos;
     }
 
-    /// This is the logic when you drag a window around.
+    /// The logic for when a window is dragged around.
     void windowDragLogic(ref bool mouseFocusedOnGUI) {
         if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
             dragging = false;
@@ -334,6 +334,7 @@ public: //* BEGIN PUBLIC API.
         sweepWindowIntoBounds(currentWindow);
     }
 
+    /// The logic for when a window is resized.
     void windowResizeLogic(ref bool mouseFocusedOnGUI) {
         if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
             resizing = false;
