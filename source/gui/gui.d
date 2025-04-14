@@ -147,6 +147,10 @@ private:
 
 public: //* BEGIN PUBLIC API.
 
+    void registerWindow(string windowID, WindowGUI window) {
+        windows[windowID] = window;
+    }
+
     void drawCurrentWindowGUI() {
 
         if (currentWindow is null) {
