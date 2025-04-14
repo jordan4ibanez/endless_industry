@@ -148,24 +148,43 @@ public: //* BEGIN PUBLIC API.
         const Color statusBarColor = currentWindow.mouseHoveringStatusBar ? currentWindow.statusBarHoverColor
             : currentWindow.statusBarColor;
 
-        DrawRectangle(posX, posY, sizeX, statusAreaHeight, statusBarColor);
+        DrawRectangle(
+            posX,
+            posY,
+            sizeX,
+            statusAreaHeight,
+            statusBarColor);
 
         // Work area outline.
-        DrawRectangleLines(posX, posY, sizeX, sizeY, currentWindow.borderColor);
+        DrawRectangleLines(
+            posX,
+            posY,
+            sizeX,
+            sizeY,
+            currentWindow.borderColor);
 
         // Status area outline.
-        DrawRectangleLines(posX, posY, sizeX, statusAreaHeight, currentWindow.borderColor);
+        DrawRectangleLines(
+            posX,
+            posY,
+            sizeX,
+            statusAreaHeight,
+            currentWindow.borderColor);
 
         EndScissorMode();
 
         //? Capture excessively long window titles.
-        BeginScissorMode(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight - 1);
+        BeginScissorMode(
+            posX,
+            posY,
+            sizeX - statusAreaHeight - 1,
+            statusAreaHeight - 1);
 
-        const string title = currentWindow.containerTitle;
-        if (title !is null) {
-            FontHandler.drawShadowed(title, posX + (currentGUIScale * 2), posY, 0.25, currentWindow
-                    .statusBarTextColor);
-        }
+        const string title = (currentWindow.containerTitle is null) ? "UNNAMED WINDOW"
+            : currentWindow.containerTitle;
+
+        FontHandler.drawShadowed(title, posX + (currentGUIScale * 2), posY, 0.25, currentWindow
+                .statusBarTextColor);
 
         EndScissorMode();
 
