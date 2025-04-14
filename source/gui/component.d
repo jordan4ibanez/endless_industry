@@ -4,6 +4,14 @@ import math.vec2d;
 import math.vec2i;
 import raylib : Color, Colors;
 
+/*
+
+Components use the same origin system that the window itself uses.
+
+0,0 is the center of the work area.
+
+*/
+
 class Component {
 package:
 
