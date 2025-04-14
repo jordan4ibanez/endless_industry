@@ -145,11 +145,10 @@ public: //* BEGIN PUBLIC API.
             currentWindow.workAreaColor);
 
         // Status area background.
-        if (currentWindow.mouseHoveringStatusBar) {
-            DrawRectangle(posX, posY, sizeX, statusAreaHeight, currentWindow.statusBarHoverColor);
-        } else {
-            DrawRectangle(posX, posY, sizeX, statusAreaHeight, currentWindow.statusBarColor);
-        }
+        const Color statusBarColor = currentWindow.mouseHoveringStatusBar ? currentWindow.statusBarHoverColor
+            : currentWindow.statusBarColor;
+
+        DrawRectangle(posX, posY, sizeX, statusAreaHeight, statusBarColor);
 
         // Work area outline.
         DrawRectangleLines(posX, posY, sizeX, sizeY, currentWindow.borderColor);
