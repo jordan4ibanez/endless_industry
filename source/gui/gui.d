@@ -272,6 +272,13 @@ public: //* BEGIN PUBLIC API.
 
     }
 
+    Vector2 getMousePositionInGUI() {
+        Vector2 mousePos = GetMousePosition();
+        mousePos.x -= centerPoint.x;
+        mousePos.y -= centerPoint.y;
+        return mousePos;
+    }
+
     void updateCurrentWindowGUI() {
 
         bool mouseFocusedOnGUI = false;
