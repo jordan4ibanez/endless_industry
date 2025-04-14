@@ -364,14 +364,12 @@ public: //* BEGIN PUBLIC API.
 
     }
 
-
-
     void bringBackDebugTest() {
         if (Keyboard.isPressed(KeyboardKey.KEY_ONE)) {
             currentWindow = windows["pause_menu"];
         }
         if (Keyboard.isPressed(KeyboardKey.KEY_TWO)) {
-            centerWindow(windows["pause_menu"]);
+            windows["pause_menu"].centerWindow();
         }
     }
 
