@@ -100,4 +100,13 @@ public:
         componentDatabase[componentID] = component;
     }
 
+    Option!Component getComponent(string componentID) {
+        Option!Component result;
+        Component* thisComponent = componentID in componentDatabase;
+        if (thisComponent !is null) {
+            result = result.Some(*thisComponent);
+        }
+        return result;
+    }
+
 }
