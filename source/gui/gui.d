@@ -366,6 +366,9 @@ public: //* BEGIN PUBLIC API.
         }
     }
 
+    /// This is the general logic of the window itself.
+    /// Not the components inside the window. That is a separate function.
+    /// The mouse collision, drag/resize initialization.
     void generalWindowLogic(ref bool mouseFocusedOnGUI) {
         const Vector2 mousePos = Mouse.getPosition.toRaylib();
         const int posX = cast(int) floor(
@@ -457,6 +460,10 @@ public: //* BEGIN PUBLIC API.
             windowResizeLogic(mouseFocusedOnGUI);
         } else {
             generalWindowLogic(mouseFocusedOnGUI);
+
+            if (mouseFocusedOnGUI) {
+
+            }
         }
 
         Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
