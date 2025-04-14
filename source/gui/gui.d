@@ -215,21 +215,15 @@ public: //* BEGIN PUBLIC API.
             halfStatusAreaHeight + 1,
             halfStatusAreaHeight + 1);
 
-        if (currentWindow.mouseHoveringResizeButton) {
-            DrawRectangle(
-                posX + sizeX - halfStatusAreaHeight,
-                posY + sizeY - halfStatusAreaHeight,
-                halfStatusAreaHeight,
-                halfStatusAreaHeight,
-                currentWindow.resizeButtonBackgroundColorHovered);
-        } else {
-            DrawRectangle(
-                posX + sizeX - halfStatusAreaHeight,
-                posY + sizeY - halfStatusAreaHeight,
-                halfStatusAreaHeight,
-                halfStatusAreaHeight,
-                currentWindow.resizeButtonBackgroundColor);
-        }
+        const resizeButtonColor = currentWindow.mouseHoveringResizeButton ? currentWindow
+            .resizeButtonBackgroundColorHovered : currentWindow.resizeButtonBackgroundColor;
+
+        DrawRectangle(
+            posX + sizeX - halfStatusAreaHeight,
+            posY + sizeY - halfStatusAreaHeight,
+            halfStatusAreaHeight,
+            halfStatusAreaHeight,
+            resizeButtonColor);
 
         DrawRectangleLines(
             posX + sizeX - halfStatusAreaHeight,
