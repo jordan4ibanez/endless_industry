@@ -178,95 +178,95 @@ public: //* BEGIN PUBLIC API.
 
         EndScissorMode();
 
-        //? Capture excessively long window titles.
-        BeginScissorMode(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight - 1);
+        // //? Capture excessively long window titles.
+        // BeginScissorMode(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight - 1);
 
-        const string title = currentWindow.containerTitle;
-        if (title !is null) {
-            FontHandler.drawShadowed(title, posX + (currentGUIScale * 2), posY, 0.25, currentWindow
-                    .statusBarTextColor);
-        }
+        // const string title = currentWindow.containerTitle;
+        // if (title !is null) {
+        //     FontHandler.drawShadowed(title, posX + (currentGUIScale * 2), posY, 0.25, currentWindow
+        //             .statusBarTextColor);
+        // }
 
-        EndScissorMode();
+        // EndScissorMode();
 
-        //? Draw the close button.
+        // //? Draw the close button.
 
-        // I just like using the scissor mode. :D
-        BeginScissorMode(posX + sizeX - statusAreaHeight - 1, posY - 1, statusAreaHeight + 1, statusAreaHeight + 1);
+        // // I just like using the scissor mode. :D
+        // BeginScissorMode(posX + sizeX - statusAreaHeight - 1, posY - 1, statusAreaHeight + 1, statusAreaHeight + 1);
 
-        // Background and border.
-        DrawRectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, currentWindow
-                .closeButtonBackgroundColor);
-        DrawRectangleLines(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, currentWindow
-                .borderColor);
+        // // Background and border.
+        // DrawRectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, currentWindow
+        //         .closeButtonBackgroundColor);
+        // DrawRectangleLines(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, statusAreaHeight, currentWindow
+        //         .borderColor);
 
-        const double closeTrim = 4 * currentGUIScale;
-        const double closeThickness = 1 * currentGUIScale;
+        // const double closeTrim = 4 * currentGUIScale;
+        // const double closeThickness = 1 * currentGUIScale;
 
-        // The X.
+        // // The X.
 
-        Color closeButtonBackgroundColor = currentWindow.mouseHoveringCloseButton ? currentWindow
-            .closeButtonXHoverColor : currentWindow.closeButtonXColor;
+        // Color closeButtonBackgroundColor = currentWindow.mouseHoveringCloseButton ? currentWindow
+        //     .closeButtonXHoverColor : currentWindow.closeButtonXColor;
 
-        // This: /
-        DrawLineEx(
-            Vector2(
-                floor(posX + sizeX - statusAreaHeight + closeTrim),
-                floor(posY + statusAreaHeight - closeTrim)),
-            Vector2(
-                floor(posX + sizeX - closeTrim),
-                floor(posY + closeTrim)),
-            closeThickness,
-            closeButtonBackgroundColor);
+        // // This: /
+        // DrawLineEx(
+        //     Vector2(
+        //         floor(posX + sizeX - statusAreaHeight + closeTrim),
+        //         floor(posY + statusAreaHeight - closeTrim)),
+        //     Vector2(
+        //         floor(posX + sizeX - closeTrim),
+        //         floor(posY + closeTrim)),
+        //     closeThickness,
+        //     closeButtonBackgroundColor);
 
-        // This: \
-        DrawLineEx(
-            Vector2(
-                floor(posX + sizeX - statusAreaHeight + closeTrim),
-                floor(posY + closeTrim)),
-            Vector2(
-                floor(posX + sizeX - closeTrim),
-                floor(posY + statusAreaHeight - closeTrim)),
-            closeThickness,
-            closeButtonBackgroundColor
-        );
+        // // This: \
+        // DrawLineEx(
+        //     Vector2(
+        //         floor(posX + sizeX - statusAreaHeight + closeTrim),
+        //         floor(posY + closeTrim)),
+        //     Vector2(
+        //         floor(posX + sizeX - closeTrim),
+        //         floor(posY + statusAreaHeight - closeTrim)),
+        //     closeThickness,
+        //     closeButtonBackgroundColor
+        // );
 
-        EndScissorMode();
+        // EndScissorMode();
 
-        //? Draw the resize button.
+        // //? Draw the resize button.
 
-        const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
+        // const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
 
-        BeginScissorMode(
-            posX + sizeX - halfStatusAreaHeight - 1,
-            posY + sizeY - halfStatusAreaHeight - 1,
-            halfStatusAreaHeight + 1,
-            halfStatusAreaHeight + 1);
+        // BeginScissorMode(
+        //     posX + sizeX - halfStatusAreaHeight - 1,
+        //     posY + sizeY - halfStatusAreaHeight - 1,
+        //     halfStatusAreaHeight + 1,
+        //     halfStatusAreaHeight + 1);
 
-        if (currentWindow.mouseHoveringResizeButton) {
-            DrawRectangle(
-                posX + sizeX - halfStatusAreaHeight,
-                posY + sizeY - halfStatusAreaHeight,
-                halfStatusAreaHeight,
-                halfStatusAreaHeight,
-                currentWindow.resizeButtonBackgroundColorHovered);
-        } else {
-            DrawRectangle(
-                posX + sizeX - halfStatusAreaHeight,
-                posY + sizeY - halfStatusAreaHeight,
-                halfStatusAreaHeight,
-                halfStatusAreaHeight,
-                currentWindow.resizeButtonBackgroundColor);
-        }
+        // if (currentWindow.mouseHoveringResizeButton) {
+        //     DrawRectangle(
+        //         posX + sizeX - halfStatusAreaHeight,
+        //         posY + sizeY - halfStatusAreaHeight,
+        //         halfStatusAreaHeight,
+        //         halfStatusAreaHeight,
+        //         currentWindow.resizeButtonBackgroundColorHovered);
+        // } else {
+        //     DrawRectangle(
+        //         posX + sizeX - halfStatusAreaHeight,
+        //         posY + sizeY - halfStatusAreaHeight,
+        //         halfStatusAreaHeight,
+        //         halfStatusAreaHeight,
+        //         currentWindow.resizeButtonBackgroundColor);
+        // }
 
-        DrawRectangleLines(
-            posX + sizeX - halfStatusAreaHeight,
-            posY + sizeY - halfStatusAreaHeight,
-            halfStatusAreaHeight,
-            halfStatusAreaHeight,
-            currentWindow.borderColor);
+        // DrawRectangleLines(
+        //     posX + sizeX - halfStatusAreaHeight,
+        //     posY + sizeY - halfStatusAreaHeight,
+        //     halfStatusAreaHeight,
+        //     halfStatusAreaHeight,
+        //     currentWindow.borderColor);
 
-        EndScissorMode();
+        // EndScissorMode();
 
     }
 
