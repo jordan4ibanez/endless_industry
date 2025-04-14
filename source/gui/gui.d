@@ -478,6 +478,9 @@ public: //* BEGIN PUBLIC API.
         pauseMenu.size.y = 400;
         pauseMenu.center();
 
+        Button continueButton = new Button();
+        continueButton.clickFunction = () { writeln("hello I am a button"); };
+
         registerWindow("pause_menu", pauseMenu);
 
     }
