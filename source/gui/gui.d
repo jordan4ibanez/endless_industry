@@ -1,10 +1,10 @@
 module gui.gui;
 
+public import gui.window_gui;
 import controls.keyboard;
 import controls.mouse;
 import graphics.colors;
 import gui.font;
-import gui.window_gui;
 import math.vec2d;
 import math.vec2i;
 import raylib;
@@ -209,8 +209,8 @@ public: //* BEGIN PUBLIC API.
             sizeX - statusAreaHeight - 1,
             statusAreaHeight - 1);
 
-        const string title = (currentWindow.containerTitle is null) ? "UNNAMED WINDOW"
-            : currentWindow.containerTitle;
+        const string title = (currentWindow.windowTitle is null) ? "UNNAMED WINDOW"
+            : currentWindow.windowTitle;
 
         FontHandler.drawShadowed(
             title,
@@ -473,7 +473,7 @@ public: //* BEGIN PUBLIC API.
 
         WindowGUI pauseMenu = new WindowGUI();
 
-        pauseMenu.containerTitle = "Pause Menu";
+        pauseMenu.windowTitle = "Pause Menu";
         pauseMenu.size.x = 400;
         pauseMenu.size.y = 400;
         pauseMenu.center();
