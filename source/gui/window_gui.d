@@ -97,7 +97,6 @@ public:
         // They both point to the same thing.
         componentsInOrder ~= component;
         componentDatabase[componentID] = component;
-
     }
 
 }
