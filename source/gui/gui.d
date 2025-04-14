@@ -183,15 +183,23 @@ public: //* BEGIN PUBLIC API.
         const string title = (currentWindow.containerTitle is null) ? "UNNAMED WINDOW"
             : currentWindow.containerTitle;
 
-        FontHandler.drawShadowed(title, posX + (currentGUIScale * 2), posY, 0.25, currentWindow
-                .statusBarTextColor);
+        FontHandler.drawShadowed(
+            title,
+            posX + (currentGUIScale * 2),
+            posY,
+            0.25,
+            currentWindow.statusBarTextColor);
 
         EndScissorMode();
 
         //? Draw the close button.
 
         // I just like using the scissor mode. :D
-        BeginScissorMode(posX + sizeX - statusAreaHeight - 1, posY - 1, statusAreaHeight + 1, statusAreaHeight + 1);
+        BeginScissorMode(
+            posX + sizeX - statusAreaHeight - 1,
+            posY - 1,
+            statusAreaHeight + 1,
+            statusAreaHeight + 1);
 
         // Background and border.
         DrawRectangle(
