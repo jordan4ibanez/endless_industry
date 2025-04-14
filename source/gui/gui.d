@@ -49,10 +49,6 @@ import std.stdio;
 *       - TextInputBox  --> Window, Label, TextBox, Button
 */
 
-class Element {
-
-}
-
 pragma(inline, true)
 T instanceof(T)(Object o) if (is(T == class)) {
     return cast(T) o;
