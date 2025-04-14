@@ -345,10 +345,12 @@ public: //* BEGIN PUBLIC API.
 
         } else {
 
-            int posX = cast(int) floor(centerPoint.x + (currentWindow.position.x * currentGUIScale));
-            int posY = cast(int) floor(centerPoint.y + (currentWindow.position.y * currentGUIScale));
-            int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
-            int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
+            const int posX = cast(int) floor(
+                centerPoint.x + (currentWindow.position.x * currentGUIScale));
+            const int posY = cast(int) floor(
+                centerPoint.y + (currentWindow.position.y * currentGUIScale));
+            const int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
 
             Rectangle windowRectangle = Rectangle(posX, posY, sizeX, sizeY);
 
