@@ -421,18 +421,13 @@ public: //* BEGIN PUBLIC API.
 
     void debugTest() {
 
-        WindowGUI testContainer = new WindowGUI();
+        WindowGUI pauseMenu = new WindowGUI();
 
-        testContainer.containerTitle = "Pause Menu";
-        testContainer.size.x = 400;
-        testContainer.size.y = 400;
+        pauseMenu.containerTitle = "Pause Menu";
+        pauseMenu.size.x = 400;
+        pauseMenu.size.y = 400;
 
-        testContainer.position.x = 0;
-        testContainer.position.y = 0;
-
-        windows["testMenu"] = testContainer;
-
-        currentWindow = testContainer;
+        
 
     }
 
