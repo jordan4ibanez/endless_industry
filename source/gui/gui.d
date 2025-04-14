@@ -401,13 +401,15 @@ public: //* BEGIN PUBLIC API.
 
             if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
 
+                okayToCheckComponents = false;
+
                 currentWindow.mouseHoveringStatusBar = true;
 
                 // The user is dragging a window.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
                     dragging = true;
-                    return;
+                    return okayToCheckComponents;
                 }
             }
 
