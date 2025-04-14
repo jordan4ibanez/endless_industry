@@ -215,7 +215,7 @@ public: //* BEGIN PUBLIC API.
             halfStatusAreaHeight + 1,
             halfStatusAreaHeight + 1);
 
-        const resizeButtonColor = currentWindow.mouseHoveringResizeButton ? currentWindow
+        const Color resizeButtonColor = currentWindow.mouseHoveringResizeButton ? currentWindow
             .resizeButtonBackgroundColorHovered : currentWindow.resizeButtonBackgroundColor;
 
         DrawRectangle(
