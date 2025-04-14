@@ -427,7 +427,7 @@ public: //* BEGIN PUBLIC API.
         pauseMenu.size.x = 400;
         pauseMenu.size.y = 400;
 
-        
+        registerWindow("pause_menu", pauseMenu);
 
     }
 
@@ -445,10 +445,10 @@ public: //* BEGIN PUBLIC API.
 
     void bringBackDebugTest() {
         if (Keyboard.isPressed(KeyboardKey.KEY_ONE)) {
-            currentWindow = windows["testMenu"];
+            currentWindow = windows["pause_menu"];
         }
         if (Keyboard.isPressed(KeyboardKey.KEY_TWO)) {
-            centerWindow(windows["testMenu"]);
+            centerWindow(windows["pause_menu"]);
         }
     }
 
