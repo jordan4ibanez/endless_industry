@@ -91,4 +91,13 @@ public:
         position.y = newPositionY;
     }
 
+    void addComponent(string componentID, Component component) {
+        component.componentID = componentID;
+
+        // They both point to the same thing.
+        componentsInOrder ~= component;
+        componentDatabase[componentID] = component;
+
+    }
+
 }
