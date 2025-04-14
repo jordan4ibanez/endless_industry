@@ -316,7 +316,7 @@ public: //* BEGIN PUBLIC API.
         return mousePos;
     }
 
-    void draggingLogic(ref bool mouseFocusedOnGUI) {
+    void windowDraggingLogic(ref bool mouseFocusedOnGUI) {
         if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
             dragging = false;
             return;
@@ -349,7 +349,7 @@ public: //* BEGIN PUBLIC API.
         Vector2 mousePos = Mouse.getPosition.toRaylib();
 
         if (dragging) {
-            draggingLogic(mouseFocusedOnGUI);
+            windowDraggingLogic(mouseFocusedOnGUI);
 
         } else if (resizing) {
 
