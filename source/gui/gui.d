@@ -53,6 +53,11 @@ class Element {
 
 }
 
+pragma(inline, true)
+T instanceof(T)(Object o) if (is(T == class)) {
+    return cast(T) o;
+}
+
 static final const class GUI {
 static:
 private:
