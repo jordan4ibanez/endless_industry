@@ -117,7 +117,8 @@ public: //* BEGIN PUBLIC API.
         return result;
     }
 
-    void sweepWindowIntoBounds(WindowGUI window) {
+    bool sweepWindowIntoBounds(WindowGUI window) {
+        bool result = false;
         const int posX = cast(int) floor(
             centerPoint.x + (window.position.x * currentGUIScale));
         const int posY = cast(int) floor(
@@ -128,18 +129,23 @@ public: //* BEGIN PUBLIC API.
         if (posX < 0) {
             window.position.x = cast(int) floor(
                 (-centerPoint.x) * inverseCurrentGUIScale);
+            result = true;
         } else if (posX + sizeX > realSize.x) {
             window.position.x = cast(int) ceil(
                 (centerPoint.x - sizeX) * inverseCurrentGUIScale);
+            result = true;
         }
 
         if (posY < 0) {
             window.position.y = cast(int) floor(
                 (-centerPoint.y) * inverseCurrentGUIScale);
+            result = true;
         } else if (posY + sizeY > realSize.y) {
             window.position.y = cast(int) ceil(
                 (centerPoint.y - sizeY) * inverseCurrentGUIScale);
+            result = true;
         }
+        return result;
     }
 
     void drawCurrentWindowGUI() {
