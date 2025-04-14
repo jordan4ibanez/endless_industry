@@ -117,6 +117,31 @@ public: //* BEGIN PUBLIC API.
         return result;
     }
 
+    void sweepWindowIntoBounds(WindowGUI window) {
+        const int posX = cast(int) floor(
+            centerPoint.x + (window.position.x * currentGUIScale));
+        const int posY = cast(int) floor(
+            centerPoint.y + (window.position.y * currentGUIScale));
+        const int sizeX = cast(int) floor(window.size.x * currentGUIScale);
+        const int sizeY = cast(int) floor(window.size.y * currentGUIScale);
+
+        if (posX < 0) {
+            window.position.x = cast(int) floor(
+                (-centerPoint.x) * inverseCurrentGUIScale);
+        } else if (posX + sizeX > realSize.x) {
+            window.position.x = cast(int) ceil(
+                (centerPoint.x - sizeX) * inverseCurrentGUIScale);
+        }
+
+        if (posY < 0) {
+            window.position.y = cast(int) floor(
+                (-centerPoint.y) * inverseCurrentGUIScale);
+        } else if (posY + sizeY > realSize.y) {
+            window.position.y = cast(int) ceil(
+                (centerPoint.y - sizeY) * inverseCurrentGUIScale);
+        }
+    }
+
     void drawCurrentWindowGUI() {
 
         if (currentWindow is null) {
@@ -317,6 +342,7 @@ public: //* BEGIN PUBLIC API.
             currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
 
             // Make sure the window stays on the screen.
+            sweepWindowIntoBounds(currentWindow);
 
         } else if (resizing) {
 
