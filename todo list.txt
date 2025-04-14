@@ -1,5 +1,19 @@
 - Build a GUI library in raylib using stock D architectural components
 
+button
+
+textbox
+
+dropdownbox
+
+label
+
+toggle
+
+imagelabel
+
+inventory
+
 
 - Use the ubuntu font set cause why not
 
