@@ -123,11 +123,11 @@ public: //* BEGIN PUBLIC API.
             return;
         }
 
-        int posX = cast(int) floor(centerPoint.x + (currentWindow.position.x * currentGUIScale));
-        int posY = cast(int) floor(centerPoint.y + (currentWindow.position.y * currentGUIScale));
-        int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
-        int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
-        int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+        const int posX = cast(int) floor(centerPoint.x + (currentWindow.position.x * currentGUIScale));
+        const int posY = cast(int) floor(centerPoint.y + (currentWindow.position.y * currentGUIScale));
+        const int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
+        const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
+        const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
         //? Stop from drawing out of bounds.
         BeginScissorMode(posX - 1, posY - 1, sizeX + 1, sizeY + 1);
@@ -177,7 +177,7 @@ public: //* BEGIN PUBLIC API.
 
         // The X.
 
-        Color closeButtonBackgroundColor = currentWindow.mouseHoveringCloseButton ? currentWindow
+        const Color closeButtonBackgroundColor = currentWindow.mouseHoveringCloseButton ? currentWindow
             .closeButtonXHoverColor : currentWindow.closeButtonXColor;
 
         // This: /
@@ -384,8 +384,8 @@ public: //* BEGIN PUBLIC API.
                 }
 
                 //? Check if the mouse is hovering over the close button.
-                Rectangle closeButtonRectangle = Rectangle(posX + sizeX - statusAreaHeight, posY, statusAreaHeight,
-                    statusAreaHeight);
+                const Rectangle closeButtonRectangle = Rectangle(posX + sizeX - statusAreaHeight, posY,
+                    statusAreaHeight, statusAreaHeight);
 
                 if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
                     currentWindow.mouseHoveringCloseButton = true;
