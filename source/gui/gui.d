@@ -369,7 +369,9 @@ public: //* BEGIN PUBLIC API.
     /// This is the general logic of the window itself.
     /// Not the components inside the window. That is a separate function.
     /// The mouse collision, drag/resize initialization.
-    void generalWindowLogic(ref bool mouseFocusedOnGUI) {
+    /// This returns if it's okay to proceed to checking window components in the work area.
+    bool generalWindowLogic(ref bool mouseFocusedOnGUI) {
+        bool okayToCheckComponents = true;
         const Vector2 mousePos = Mouse.getPosition.toRaylib();
         const int posX = cast(int) floor(
             centerPoint.x + (currentWindow.position.x * currentGUIScale));
