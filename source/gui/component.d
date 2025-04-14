@@ -53,5 +53,7 @@ class Button : Component {
     /// The button text color.
     Color textColor = Colors.WHITE;
 
-    abstract void clickFunction();
+    /// What the button does when clicked.
+    /// By default, this does nothing.
+    void function() clickFunction = () {};
 }
