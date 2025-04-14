@@ -450,7 +450,9 @@ public: //* BEGIN PUBLIC API.
 
     void __update(Vec2d newWindowSize) {
         // Find out which GUI scale is smaller so things can be scaled around it.
-        Vec2d scales = Vec2d(newWindowSize.x / standardSize.x, newWindowSize.y / standardSize.y);
+        const Vec2d scales = Vec2d(
+            newWindowSize.x / standardSize.x,
+            newWindowSize.y / standardSize.y);
 
         if (scales.x >= scales.y) {
             currentGUIScale = scales.y;
