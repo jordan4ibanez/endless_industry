@@ -1,25 +1,33 @@
 module gui.window_gui;
 
+public import gui.component;
 import math.vec2d;
 import math.vec2i;
 import raylib;
 import std.math.rounding;
 
-// This is the basis of any GUI component, the container.
+// This is the basis of any GUI component, the window.
 class WindowGUI {
-
-    // If it's a window, this defines if you can resize it.
-    bool resizeable = true;
+package:
 
     // The ID of this window.
     string windowID = null;
 
-    // What this container's title says.
-    string containerTitle = null;
+    // These are hidden because they're kept in rendering order.
+    Component[] componentsInOrder;
+    Component[string] componentDatabase;
+
+public:
+
+    // If it's a window, this defines if you can resize it.
+    bool resizeable = true;
+
+    // What this window's title says.
+    string windowTitle = null;
 
     //? State behavior.
 
-    // Position is top left of container.
+    // Position is top left of window.
     Vec2i position;
 
     // The current size of the window. (It will always be scaled to GUI scaling)
