@@ -548,6 +548,8 @@ public: //* BEGIN PUBLIC API.
                     // writeln("swept " ~ window.windowID ~ " into bounds");
                 }
             }
+        }
+
         FontHandler.__update();
         updateCurrentWindowGUI();
 
