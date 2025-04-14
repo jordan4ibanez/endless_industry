@@ -2,6 +2,7 @@ module gui.component;
 
 import math.vec2d;
 import math.vec2i;
+import raylib : Color, Colors;
 
 class Component {
 package:
@@ -16,11 +17,33 @@ public:
 }
 
 class Button : Component {
-    double width = 100;
-    double height = 32;
-
     /// What this button says on it.
     string buttonText = null;
+
+    //? State behavior.
+
+    /// The size of the button.
+    Vec2i size = Vec2i(100, 32);
+
+    /// If the mouse is hovering over the button.
+    bool mouseHovering = false;
+
+    //? General solid colors.
+
+    /// The border color of the button.
+    Color borderColor = Colors.BLACK;
+    /// The border color of the button when hovered over.
+    Color borderColorHover = Colors.BLACK;
+
+    /// The background color of the button.
+    Color backgroundColor = Colors.LIGHTGRAY;
+    /// The background color of the button when hovered over.
+    Color backgroundColorHover = Colors.MAGENTA;
+
+    //? General text/icon colors.
+
+    /// The button text color.
+    Color textColor = Colors.WHITE;
 
     abstract void clickFunction();
 }
