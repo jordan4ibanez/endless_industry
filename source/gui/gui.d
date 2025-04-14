@@ -306,7 +306,6 @@ public: //* BEGIN PUBLIC API.
             currentWindow.borderColor);
 
         EndScissorMode();
-
     }
 
     Vector2 getMousePositionInGUI() {
@@ -438,9 +437,10 @@ public: //* BEGIN PUBLIC API.
 
     /// This will only run when the mouse is in the work area.
     void windowComponentLogic() {
-        foreach (thisComponent; currentWindow.componentsInOrder) {
-            if (auto buttonComponent = instanceof!Button(thisComponent)) {
 
+        foreach (thisComponent; currentWindow.componentsInOrder) {
+            if (Button buttonComponent = instanceof!Button(thisComponent)) {
+                writeln("this is a button: ", buttonComponent.componentID);
             }
         }
     }
