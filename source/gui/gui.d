@@ -442,15 +442,19 @@ public: //* BEGIN PUBLIC API.
             if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
                 currentWindow.mouseHoveringResizeButton = true;
 
+                okayToCheckComponents = false;
+
                 // The user is resizing a window.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY),
                             mousePos));
                     resizing = true;
-                    return;
+                    return okayToCheckComponents;
                 }
             }
         }
+
+        return okayToCheckComponents;
     }
 
     void updateCurrentWindowGUI() {
