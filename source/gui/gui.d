@@ -270,22 +270,22 @@ public: //* BEGIN PUBLIC API.
 
             const Vector2 mousePosInGUI = getMousePositionInGUI();
 
-            double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
-            double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
-            double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
-            double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
+            const double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
+            const double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
+            const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
+            const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
 
             currentWindow.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
             currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
 
             // Make sure the window stays on the screen.
             {
-                int posX = cast(int) floor(
+                const int posX = cast(int) floor(
                     centerPoint.x + (currentWindow.position.x * currentGUIScale));
-                int posY = cast(int) floor(
+                const int posY = cast(int) floor(
                     centerPoint.y + (currentWindow.position.y * currentGUIScale));
-                int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
-                int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
+                const int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
 
                 if (posX < 0) {
                     currentWindow.position.x = cast(int) floor((-centerPoint.x) * currentGUIScale);
@@ -311,18 +311,18 @@ public: //* BEGIN PUBLIC API.
 
             mouseFocusedOnGUI = true;
 
-            int posX = currentWindow.position.x;
-            int posY = currentWindow.position.y;
+            const int posX = currentWindow.position.x;
+            const int posY = currentWindow.position.y;
 
             const Vector2 mousePosInGUI = getMousePositionInGUI();
 
-            double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
-            double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
-            double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
-            double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
+            const double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
+            const double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
+            const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
+            const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
 
-            int oldSizeX = currentWindow.size.x;
-            int oldSizeY = currentWindow.size.y;
+            const int oldSizeX = currentWindow.size.x;
+            const int oldSizeY = currentWindow.size.y;
 
             currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
 
@@ -352,7 +352,7 @@ public: //* BEGIN PUBLIC API.
             const int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
             const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
 
-            Rectangle windowRectangle = Rectangle(posX, posY, sizeX, sizeY);
+            const Rectangle windowRectangle = Rectangle(posX, posY, sizeX, sizeY);
 
             currentWindow.mouseHoveringStatusBar = false;
             currentWindow.mouseHoveringCloseButton = false;
@@ -365,7 +365,7 @@ public: //* BEGIN PUBLIC API.
 
                 mouseFocusedOnGUI = true;
 
-                int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+                const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
                 //? Check if the mouse is hovering over the status bar.
 
@@ -400,7 +400,7 @@ public: //* BEGIN PUBLIC API.
 
                 const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
 
-                Rectangle resizeButtonRectangle = Rectangle(
+                const Rectangle resizeButtonRectangle = Rectangle(
                     posX + sizeX - halfStatusAreaHeight,
                     posY + sizeY - halfStatusAreaHeight,
                     halfStatusAreaHeight,
