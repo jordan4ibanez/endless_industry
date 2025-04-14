@@ -77,6 +77,8 @@ private:
     // This is the scale of the graphics components.
     // Mainly this is used for the camera's zoom.
     double graphicsScale = 1.0;
+    // For dragging and resizing windows.
+    Vec2d mouseWindowDelta;
 
     WindowGUI[string] windows;
     bool dragging = false;
@@ -339,8 +341,8 @@ public: //* BEGIN PUBLIC API.
 
             const Vector2 mousePosInGUI = getMousePositionInGUI();
 
-            const double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
-            const double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
+            const double scaledDeltaX = mouseWindowDelta.x * inverseCurrentGUIScale;
+            const double scaledDeltaY = mouseWindowDelta.y * inverseCurrentGUIScale;
             const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
             const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
 
@@ -364,8 +366,8 @@ public: //* BEGIN PUBLIC API.
 
             const Vector2 mousePosInGUI = getMousePositionInGUI();
 
-            const double scaledDeltaX = currentWindow.mouseDelta.x * inverseCurrentGUIScale;
-            const double scaledDeltaY = currentWindow.mouseDelta.y * inverseCurrentGUIScale;
+            const double scaledDeltaX = mouseWindowDelta.x * inverseCurrentGUIScale;
+            const double scaledDeltaY = mouseWindowDelta.y * inverseCurrentGUIScale;
             const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
             const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
 
@@ -425,7 +427,7 @@ public: //* BEGIN PUBLIC API.
 
                     // The user is dragging a window.
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        currentWindow.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
+                        mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
                         dragging = true;
                         return;
                     }
@@ -459,7 +461,7 @@ public: //* BEGIN PUBLIC API.
 
                     // The user is resizing a window.
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        currentWindow.mouseDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY),
+                        mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY),
                                 mousePos));
                         resizing = true;
                         return;
