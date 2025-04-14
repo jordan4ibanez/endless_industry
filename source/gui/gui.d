@@ -470,10 +470,8 @@ public: //* BEGIN PUBLIC API.
         } else if (resizing) {
             windowResizeLogic(mouseFocusedOnGUI);
         } else {
-            generalWindowLogic(mouseFocusedOnGUI);
-
-            if (mouseFocusedOnGUI) {
-
+            if (generalWindowLogic(mouseFocusedOnGUI)) {
+                // todo: Component logic function here.
             }
         }
 
