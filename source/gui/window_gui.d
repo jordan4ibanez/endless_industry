@@ -1,0 +1,73 @@
+module gui.window_gui;
+
+import math.vec2d;
+import math.vec2i;
+import raylib;
+
+// This is the basis of any GUI component, the container.
+class WindowGUI {
+
+    // If it's a window, this defines if you can resize it.
+    bool resizeable = true;
+
+    // This allows Windows to be moved around.
+    Vec2d mouseDelta;
+
+    // What this container's title says.
+    string containerTitle = null;
+
+    //? State behavior.
+
+    // Position is top left of container.
+    Vec2i position;
+
+    // The current size of the window. (It will always be scaled to GUI scaling)
+    Vec2i size;
+
+    // The minimum size of the window. (It will always be scaled to GUI scaling)
+    Vec2i minSize = Vec2i(100, 100);
+
+    // If the mouse is hovering over the status bar.
+    bool mouseHoveringStatusBar = false;
+
+    // If the mouse is hovering over the close button.
+    bool mouseHoveringCloseButton = false;
+
+    // If the mouse is hovering over the resize button.
+    bool mouseHoveringResizeButton = false;
+
+    //? General solid colors.
+
+    // The color of the work area.
+    Color workAreaColor = Colors.GRAY;
+
+    // The border color of the window. (All border components.)
+    Color borderColor = Colors.BLACK;
+
+    // The status bar background color.
+    Color statusBarColor = Colors.BLUE;
+    // The status bar background color when hovered over.
+    Color statusBarHoverColor = Color(40, 50, 255, 255);
+
+    // The close button background color.
+    Color closeButtonBackgroundColor = Colors.GRAY;
+
+    // The resize button background color.
+    Color resizeButtonBackgroundColor = Colors.GRAY;
+    // The resize button background color when hovered over.
+    Color resizeButtonBackgroundColorHovered = Colors.DARKGRAY;
+
+    //? General text/icon colors.
+
+    // The text below the status bar.
+    Color workAreaTextColor = Colors.BLACK;
+
+    // The status bar text color.
+    Color statusBarTextColor = Colors.WHITE;
+
+    // The close button X color.
+    Color closeButtonXColor = Colors.BLACK;
+    // The close button X color when hovered over.
+    Color closeButtonXHoverColor = Colors.RED;
+
+}
