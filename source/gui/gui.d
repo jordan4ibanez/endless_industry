@@ -147,20 +147,17 @@ public: //* BEGIN PUBLIC API.
     }
 
     void drawWindowFrame() {
-
         const int posX = cast(int) floor(centerPoint.x + (currentWindow.position.x * currentGUIScale));
         const int posY = cast(int) floor(centerPoint.y + (currentWindow.position.y * currentGUIScale));
         const int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
         const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
-
         //? Stop from drawing out of bounds.
         BeginScissorMode(
             posX - 1,
             posY - 1,
             sizeX + 1,
             sizeY + 1);
-
         // Work area background.
         DrawRectangle(
             posX,
@@ -168,18 +165,15 @@ public: //* BEGIN PUBLIC API.
             sizeX,
             sizeY,
             currentWindow.workAreaColor);
-
         // Status area background.
         const Color statusBarColor = currentWindow.mouseHoveringStatusBar ? currentWindow.statusBarHoverColor
             : currentWindow.statusBarColor;
-
         DrawRectangle(
             posX,
             posY,
             sizeX,
             statusAreaHeight,
             statusBarColor);
-
         // Work area outline.
         DrawRectangleLines(
             posX,
@@ -187,7 +181,6 @@ public: //* BEGIN PUBLIC API.
             sizeX,
             sizeY,
             currentWindow.borderColor);
-
         // Status area outline.
         DrawRectangleLines(
             posX,
@@ -195,37 +188,29 @@ public: //* BEGIN PUBLIC API.
             sizeX,
             statusAreaHeight,
             currentWindow.borderColor);
-
         EndScissorMode();
-
         //? Capture excessively long window titles.
         BeginScissorMode(
             posX,
             posY,
             sizeX - statusAreaHeight - 1,
             statusAreaHeight - 1);
-
         const string title = (currentWindow.windowTitle is null) ? "UNDEFINED"
             : currentWindow.windowTitle;
-
         FontHandler.drawShadowed(
             title,
             posX + (currentGUIScale * 2),
             posY,
             0.25,
             currentWindow.statusBarTextColor);
-
         EndScissorMode();
-
         //? Draw the close button.
-
         // I just like using the scissor mode. :D
         BeginScissorMode(
             posX + sizeX - statusAreaHeight - 1,
             posY - 1,
             statusAreaHeight + 1,
             statusAreaHeight + 1);
-
         // Background and border.
         DrawRectangle(
             posX + sizeX - statusAreaHeight,
@@ -233,22 +218,17 @@ public: //* BEGIN PUBLIC API.
             statusAreaHeight,
             statusAreaHeight,
             currentWindow.closeButtonBackgroundColor);
-
         DrawRectangleLines(
             posX + sizeX - statusAreaHeight,
             posY,
             statusAreaHeight,
             statusAreaHeight,
             currentWindow.borderColor);
-
         const double closeTrim = 4 * currentGUIScale;
         const double closeThickness = 1 * currentGUIScale;
-
         // The X.
-
         const Color closeButtonBackgroundColor = currentWindow.mouseHoveringCloseButton ? currentWindow
             .closeButtonXHoverColor : currentWindow.closeButtonXColor;
-
         // This: /
         DrawLineEx(
             Vector2(
@@ -259,7 +239,6 @@ public: //* BEGIN PUBLIC API.
                 floor(posY + closeTrim)),
             closeThickness,
             closeButtonBackgroundColor);
-
         // This: \
         DrawLineEx(
             Vector2(
@@ -271,7 +250,6 @@ public: //* BEGIN PUBLIC API.
             closeThickness,
             closeButtonBackgroundColor
         );
-
         EndScissorMode();
     }
 
