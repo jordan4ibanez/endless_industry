@@ -371,7 +371,7 @@ public: //* BEGIN PUBLIC API.
     /// The mouse collision, drag/resize initialization.
     /// This returns if it's okay to proceed to checking window components in the work area.
     bool generalWindowLogic(ref bool mouseFocusedOnGUI) {
-        bool okayToCheckComponents = true;
+        bool okayToCheckComponents = false;
         const Vector2 mousePos = Mouse.getPosition.toRaylib();
         const int posX = cast(int) floor(
             centerPoint.x + (currentWindow.position.x * currentGUIScale));
@@ -386,6 +386,7 @@ public: //* BEGIN PUBLIC API.
         //? Collide with the entire window.
         // No collision with this window occured.
         if (CheckCollisionPointRec(mousePos, windowRectangle)) {
+            okayToCheckComponents = true;
             mouseFocusedOnGUI = true;
             const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
             //? Check if the mouse is hovering over the status bar.
