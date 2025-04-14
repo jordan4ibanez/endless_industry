@@ -434,14 +434,11 @@ public: //* BEGIN PUBLIC API.
 
     void centerWindow(WindowGUI window) {
 
-        double x = floor((realSize.x * 0.5) * inverseCurrentGUIScale);
-        double y = floor((realSize.y * 0.5) * inverseCurrentGUIScale);
-
         double halfWindowSizeX = window.size.x * 0.5;
         double halfWindowSizeY = window.size.y * 0.5;
 
-        int newPositionX = cast(int) floor(x - halfWindowSizeX);
-        int newPositionY = cast(int) floor(y - halfWindowSizeY);
+        int newPositionX = cast(int) floor(-halfWindowSizeX);
+        int newPositionY = cast(int) floor(-halfWindowSizeY);
 
         window.position.x = newPositionX;
         window.position.y = newPositionY;
