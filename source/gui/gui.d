@@ -326,17 +326,19 @@ public: //* BEGIN PUBLIC API.
                 const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
 
                 if (posX < 0) {
-                    currentWindow.position.x = cast(int) floor((-centerPoint.x) * currentGUIScale);
-                } else if (posX + sizeX > realSize.x) {
                     currentWindow.position.x = cast(int) floor(
-                        (centerPoint.x - sizeX) * currentGUIScale);
+                        (-centerPoint.x) * inverseCurrentGUIScale);
+                } else if (posX + sizeX > realSize.x) {
+                    currentWindow.position.x = cast(int) ceil(
+                        (centerPoint.x - sizeX) * inverseCurrentGUIScale);
                 }
 
                 if (posY < 0) {
-                    currentWindow.position.y = cast(int) floor((-centerPoint.y) * currentGUIScale);
-                } else if (posY + sizeY > realSize.y) {
                     currentWindow.position.y = cast(int) floor(
-                        (centerPoint.y - sizeY) * currentGUIScale);
+                        (-centerPoint.y) * inverseCurrentGUIScale);
+                } else if (posY + sizeY > realSize.y) {
+                    currentWindow.position.y = cast(int) ceil(
+                        (centerPoint.y - sizeY) * inverseCurrentGUIScale);
                 }
             }
 
