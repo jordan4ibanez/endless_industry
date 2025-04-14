@@ -1,7 +1,5 @@
 - Build a GUI library in raylib using stock D architectural components
 
-sweep the windows in bounds
-
 move the mouse delta into the class itself
 
 
