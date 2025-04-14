@@ -16,8 +16,11 @@ public:
 }
 
 class Button : Component {
-    double width = 10;
-    double height = 10;
+    double width = 100;
+    double height = 32;
+
+    /// What this button says on it.
+    string buttonText = null;
 
     abstract void clickFunction();
 }
