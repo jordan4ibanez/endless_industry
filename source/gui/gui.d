@@ -316,6 +316,28 @@ public: //* BEGIN PUBLIC API.
         return mousePos;
     }
 
+    void draggingLogic(ref bool mouseFocusedOnGUI) {
+        if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
+            dragging = false;
+            return;
+        }
+
+        mouseFocusedOnGUI = true;
+
+        const Vector2 mousePosInGUI = getMousePositionInGUI();
+
+        const double scaledDeltaX = mouseWindowDelta.x * inverseCurrentGUIScale;
+        const double scaledDeltaY = mouseWindowDelta.y * inverseCurrentGUIScale;
+        const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
+        const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
+
+        currentWindow.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
+        currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
+
+        // Make sure the window stays on the screen.
+        sweepWindowIntoBounds(currentWindow);
+    }
+
     void updateCurrentWindowGUI() {
 
         bool mouseFocusedOnGUI = false;
@@ -327,26 +349,7 @@ public: //* BEGIN PUBLIC API.
         Vector2 mousePos = Mouse.getPosition.toRaylib();
 
         if (dragging) {
-
-            if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-                dragging = false;
-                return;
-            }
-
-            mouseFocusedOnGUI = true;
-
-            const Vector2 mousePosInGUI = getMousePositionInGUI();
-
-            const double scaledDeltaX = mouseWindowDelta.x * inverseCurrentGUIScale;
-            const double scaledDeltaY = mouseWindowDelta.y * inverseCurrentGUIScale;
-            const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
-            const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
-
-            currentWindow.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
-            currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
-
-            // Make sure the window stays on the screen.
-            sweepWindowIntoBounds(currentWindow);
+            draggingLogic(mouseFocusedOnGUI);
 
         } else if (resizing) {
 
