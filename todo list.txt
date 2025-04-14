@@ -1,5 +1,7 @@
 - Build a GUI library in raylib using stock D architectural components
 
+rework the GUI to work from the center of the window to allow resizing without issue.
+
 move the mouse delta into the class itself
 
 
