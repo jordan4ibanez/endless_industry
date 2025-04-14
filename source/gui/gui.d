@@ -317,7 +317,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     /// This is the logic when you drag a window around.
-    void windowDraggingLogic(ref bool mouseFocusedOnGUI) {
+    void windowDragLogic(ref bool mouseFocusedOnGUI) {
         if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
             dragging = false;
             return;
@@ -334,6 +334,47 @@ public: //* BEGIN PUBLIC API.
         sweepWindowIntoBounds(currentWindow);
     }
 
+    void windowResizeLogic(ref bool mouseFocusedOnGUI) {
+        if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
+            resizing = false;
+            return;
+        }
+
+        mouseFocusedOnGUI = true;
+
+        const int posX = currentWindow.position.x;
+        const int posY = currentWindow.position.y;
+
+        const Vector2 mousePosInGUI = getMousePositionInGUI();
+
+        const double scaledDeltaX = mouseWindowDelta.x * inverseCurrentGUIScale;
+        const double scaledDeltaY = mouseWindowDelta.y * inverseCurrentGUIScale;
+        const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
+        const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
+
+        const int oldSizeX = currentWindow.size.x;
+        const int oldSizeY = currentWindow.size.y;
+
+        currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
+
+        if (!windowXInBounds(currentWindow)) {
+            currentWindow.size.x = oldSizeX;
+        }
+
+        currentWindow.size.y = cast(int) floor((scaledMousePosY + scaledDeltaY) - posY);
+
+        if (!windowYInBounds(currentWindow)) {
+            currentWindow.size.y = oldSizeY;
+        }
+
+        if (currentWindow.size.x < currentWindow.minSize.x) {
+            currentWindow.size.x = currentWindow.minSize.x;
+        }
+        if (currentWindow.size.y < currentWindow.minSize.y) {
+            currentWindow.size.y = currentWindow.minSize.y;
+        }
+    }
+
     void updateCurrentWindowGUI() {
 
         bool mouseFocusedOnGUI = false;
@@ -345,48 +386,9 @@ public: //* BEGIN PUBLIC API.
         Vector2 mousePos = Mouse.getPosition.toRaylib();
 
         if (dragging) {
-            windowDraggingLogic(mouseFocusedOnGUI);
+            windowDragLogic(mouseFocusedOnGUI);
         } else if (resizing) {
-
-            if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-                resizing = false;
-                return;
-            }
-
-            mouseFocusedOnGUI = true;
-
-            const int posX = currentWindow.position.x;
-            const int posY = currentWindow.position.y;
-
-            const Vector2 mousePosInGUI = getMousePositionInGUI();
-
-            const double scaledDeltaX = mouseWindowDelta.x * inverseCurrentGUIScale;
-            const double scaledDeltaY = mouseWindowDelta.y * inverseCurrentGUIScale;
-            const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
-            const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
-
-            const int oldSizeX = currentWindow.size.x;
-            const int oldSizeY = currentWindow.size.y;
-
-            currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
-
-            if (!windowXInBounds(currentWindow)) {
-                currentWindow.size.x = oldSizeX;
-            }
-
-            currentWindow.size.y = cast(int) floor((scaledMousePosY + scaledDeltaY) - posY);
-
-            if (!windowYInBounds(currentWindow)) {
-                currentWindow.size.y = oldSizeY;
-            }
-
-            if (currentWindow.size.x < currentWindow.minSize.x) {
-                currentWindow.size.x = currentWindow.minSize.x;
-            }
-            if (currentWindow.size.y < currentWindow.minSize.y) {
-                currentWindow.size.y = currentWindow.minSize.y;
-            }
-
+            windowResizeLogic(mouseFocusedOnGUI);
         } else {
 
             const int posX = cast(int) floor(
