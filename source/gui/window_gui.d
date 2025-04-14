@@ -1,6 +1,7 @@
 module gui.window_gui;
 
 public import gui.component;
+public import optibrev;
 import math.vec2d;
 import math.vec2i;
 import raylib;
