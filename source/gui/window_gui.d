@@ -14,6 +14,9 @@ class WindowGUI {
     // This allows Windows to be moved around.
     Vec2d mouseDelta;
 
+    // The ID of this window.
+    string windowID = null;
+
     // What this container's title says.
     string containerTitle = null;
 

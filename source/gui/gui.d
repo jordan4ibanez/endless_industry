@@ -81,6 +81,7 @@ private:
 public: //* BEGIN PUBLIC API.
 
     void registerWindow(string windowID, WindowGUI window) {
+        window.windowID = windowID;
         windows[windowID] = window;
     }
 
@@ -366,6 +367,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     void bringBackDebugTest() {
+
         if (Keyboard.isPressed(KeyboardKey.KEY_ONE)) {
             currentWindow = windows["pause_menu"];
         }
