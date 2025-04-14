@@ -79,8 +79,8 @@ public:
     // The close button X color when hovered over.
     Color closeButtonXHoverColor = Colors.RED;
 
+    /// Center the window.
     void center() {
-
         double halfWindowSizeX = size.x * 0.5;
         double halfWindowSizeY = size.y * 0.5;
 
