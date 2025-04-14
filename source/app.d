@@ -132,7 +132,8 @@ void main() {
 			worker = "chunk: " ~ to!string(inChunk.x) ~ " | " ~ to!string(inChunk.y);
 			FontHandler.drawShadowed(worker, xPos, yPos, 0.5);
 
-			GUI.drawCurrentWindowGUI();
+			// The current window covers everything else in the GUI.
+			GUI.drawCurrentWindow();
 
 		}
 		EndDrawing();
