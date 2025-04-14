@@ -209,7 +209,7 @@ public: //* BEGIN PUBLIC API.
             sizeX - statusAreaHeight - 1,
             statusAreaHeight - 1);
 
-        const string title = (currentWindow.windowTitle is null) ? "UNNAMED WINDOW"
+        const string title = (currentWindow.windowTitle is null) ? "UNDEFINED"
             : currentWindow.windowTitle;
 
         FontHandler.drawShadowed(
