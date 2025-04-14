@@ -32,6 +32,9 @@ public: //* BEGIN PUBLIC API.
             cast(int) currentMonitorPosition.x + (monitorWidth / 4),
             cast(int) currentMonitorPosition.y + (monitorHeight / 4));
 
+        // Disable escape raylib quit.
+        SetExitKey(0);
+
     }
 
     void terminate() {
