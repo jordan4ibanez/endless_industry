@@ -132,6 +132,8 @@ private:
     double currentGUIScale = 1.0;
     // Used to divide using multiplication.
     double inverseCurrentGUIScale = 1.0;
+    // This is the anchor for all windows. The origin is in the center of the window.
+    Vec2d centerPoint;
     // This will be an options menu component to adjust the size of the GUI.
     double masterGUIScale = 1.0;
     // This is the scale of the graphics components.
@@ -410,8 +412,8 @@ public: //* BEGIN PUBLIC API.
         testContainer.size.x = 400;
         testContainer.size.y = 400;
 
-        testContainer.position.x = 100;
-        testContainer.position.y = 100;
+        testContainer.position.x = 0;
+        testContainer.position.y = 0;
 
         windows["testMenu"] = testContainer;
 
@@ -463,6 +465,9 @@ public: //* BEGIN PUBLIC API.
     void __update(Vec2d newWindowSize) {
         realSize.x = newWindowSize.x;
         realSize.y = newWindowSize.y;
+
+        centerPoint.x = realSize.x * 0.5;
+        centerPoint.y = realSize.y * 0.5;
 
         // Find out which GUI scale is smaller so things can be scaled around it.
         const Vec2d scales = Vec2d(
