@@ -321,8 +321,20 @@ public: //* BEGIN PUBLIC API.
             double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
             double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
 
+            int oldSizeX = currentWindow.size.x;
+            int oldSizeY = currentWindow.size.y;
+
             currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
+
+            if (!windowXInBounds(currentWindow)) {
+                currentWindow.size.x = oldSizeX;
+            }
+
             currentWindow.size.y = cast(int) floor((scaledMousePosY + scaledDeltaY) - posY);
+
+            if (!windowYInBounds(currentWindow)) {
+                currentWindow.size.y = oldSizeY;
+            }
 
             if (currentWindow.size.x < currentWindow.minSize.x) {
                 currentWindow.size.x = currentWindow.minSize.x;
