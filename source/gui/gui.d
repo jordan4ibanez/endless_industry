@@ -246,6 +246,30 @@ public: //* BEGIN PUBLIC API.
             currentWindow.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
             currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
 
+            // Make sure the window stays on the screen.
+            {
+                int posX = cast(int) floor(
+                    centerPoint.x + (currentWindow.position.x * currentGUIScale));
+                int posY = cast(int) floor(
+                    centerPoint.y + (currentWindow.position.y * currentGUIScale));
+                int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
+                int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
+
+                if (posX < 0) {
+                    currentWindow.position.x = cast(int) floor((-centerPoint.x) * currentGUIScale);
+                } else if (posX + sizeX > realSize.x) {
+                    currentWindow.position.x = cast(int) floor(
+                        (centerPoint.x - sizeX) * currentGUIScale);
+                }
+
+                if (posY < 0) {
+                    currentWindow.position.y = cast(int) floor((-centerPoint.y) * currentGUIScale);
+                } else if (posY + sizeY > realSize.y) {
+                    currentWindow.position.y = cast(int) floor(
+                        (centerPoint.y - sizeY) * currentGUIScale);
+                }
+            }
+
         } else if (resizing) {
 
             if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
