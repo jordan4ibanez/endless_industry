@@ -476,6 +476,7 @@ public: //* BEGIN PUBLIC API.
 
         Button continueButton = new Button();
         continueButton.clickFunction = () { writeln("hello I am a button"); };
+        pauseMenu.addComponent("continue_button", continueButton);
 
         registerWindow("pause_menu", pauseMenu);
 
