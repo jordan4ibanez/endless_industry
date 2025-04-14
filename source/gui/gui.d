@@ -544,9 +544,7 @@ public: //* BEGIN PUBLIC API.
 
         if (oldSize != realSize) {
             foreach (window; windows) {
-                if (sweepWindowIntoBounds(window)) {
-                    // writeln("swept " ~ window.windowID ~ " into bounds");
-                }
+                sweepWindowIntoBounds(window);
             }
         }
 
