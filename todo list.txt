@@ -14,6 +14,8 @@ imagelabel
 
 inventory
 
+Then reorganize all the internals into the private section of the class
+
 
 - Use the ubuntu font set cause why not
 
