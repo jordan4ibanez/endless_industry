@@ -517,6 +517,8 @@ public: //* BEGIN PUBLIC API.
     }
 
     void __update(Vec2d newWindowSize) {
+        const Vec2d oldSize = realSize;
+
         realSize.x = newWindowSize.x;
         realSize.y = newWindowSize.y;
 
@@ -540,6 +542,12 @@ public: //* BEGIN PUBLIC API.
 
         inverseCurrentGUIScale = 1.0 / currentGUIScale;
 
+        if (oldSize != realSize) {
+            foreach (window; windows) {
+                if (sweepWindowIntoBounds(window)) {
+                    // writeln("swept " ~ window.windowID ~ " into bounds");
+                }
+            }
         FontHandler.__update();
         updateCurrentWindowGUI();
 
