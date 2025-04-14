@@ -3,6 +3,7 @@ module gui.window_gui;
 import math.vec2d;
 import math.vec2i;
 import raylib;
+import std.math.rounding;
 
 // This is the basis of any GUI component, the container.
 class WindowGUI {
@@ -69,5 +70,17 @@ class WindowGUI {
     Color closeButtonXColor = Colors.BLACK;
     // The close button X color when hovered over.
     Color closeButtonXHoverColor = Colors.RED;
+
+    void centerWindow() {
+
+        double halfWindowSizeX = size.x * 0.5;
+        double halfWindowSizeY = size.y * 0.5;
+
+        int newPositionX = cast(int) floor(-halfWindowSizeX);
+        int newPositionY = cast(int) floor(-halfWindowSizeY);
+
+        position.x = newPositionX;
+        position.y = newPositionY;
+    }
 
 }

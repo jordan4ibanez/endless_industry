@@ -4,6 +4,7 @@ import controls.keyboard;
 import controls.mouse;
 import graphics.colors;
 import gui.font;
+import gui.window_gui;
 import math.vec2d;
 import math.vec2i;
 import raylib;
@@ -51,8 +52,6 @@ import std.stdio;
 class Element {
 
 }
-
-
 
 static final const class GUI {
 static:
@@ -365,17 +364,7 @@ public: //* BEGIN PUBLIC API.
 
     }
 
-    void centerWindow(WindowGUI window) {
 
-        double halfWindowSizeX = window.size.x * 0.5;
-        double halfWindowSizeY = window.size.y * 0.5;
-
-        int newPositionX = cast(int) floor(-halfWindowSizeX);
-        int newPositionY = cast(int) floor(-halfWindowSizeY);
-
-        window.position.x = newPositionX;
-        window.position.y = newPositionY;
-    }
 
     void bringBackDebugTest() {
         if (Keyboard.isPressed(KeyboardKey.KEY_ONE)) {
