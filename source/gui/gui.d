@@ -126,6 +126,8 @@ private:
 
     // We standardize the GUI with 1080p.
     const Vec2d standardSize = Vec2d(1920.0, 1080.0);
+    // This is the real window size.
+    Vec2d realSize = Vec2d(1920.0, 1080.0);
     // The scale of GUI components.
     double currentGUIScale = 1.0;
     // Used to divide using multiplication.
@@ -144,8 +146,6 @@ private:
 public: //* BEGIN PUBLIC API.
 
     void drawCurrentWindowGUI() {
-
-        debugCenterOfGUI();
 
         if (currentWindow is null) {
             return;
@@ -324,8 +324,6 @@ public: //* BEGIN PUBLIC API.
                 currentWindow.size.y = currentWindow.minSize.y;
             }
 
-            writeln(currentWindow.size);
-
         } else {
 
             int posX = cast(int) floor(currentWindow.position.x * currentGUIScale);
@@ -421,13 +419,27 @@ public: //* BEGIN PUBLIC API.
 
     }
 
-    void debugCenterOfGUI() {
+    void centerWindow(WindowGUI window) {
 
+        double x = floor((realSize.x * 0.5) * inverseCurrentGUIScale);
+        double y = floor((realSize.y * 0.5) * inverseCurrentGUIScale);
+
+        double halfWindowSizeX = window.size.x * 0.5;
+        double halfWindowSizeY = window.size.y * 0.5;
+
+        int newPositionX = cast(int) floor(x - halfWindowSizeX);
+        int newPositionY = cast(int) floor(y - halfWindowSizeY);
+
+        window.position.x = newPositionX;
+        window.position.y = newPositionY;
     }
 
     void bringBackDebugTest() {
         if (Keyboard.isPressed(KeyboardKey.KEY_ONE)) {
             currentWindow = windows["testMenu"];
+        }
+        if (Keyboard.isPressed(KeyboardKey.KEY_TWO)) {
+            centerWindow(windows["testMenu"]);
         }
     }
 
@@ -449,6 +461,9 @@ public: //* BEGIN PUBLIC API.
     }
 
     void __update(Vec2d newWindowSize) {
+        realSize.x = newWindowSize.x;
+        realSize.y = newWindowSize.y;
+
         // Find out which GUI scale is smaller so things can be scaled around it.
         const Vec2d scales = Vec2d(
             newWindowSize.x / standardSize.x,
