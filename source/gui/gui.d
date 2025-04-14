@@ -147,14 +147,6 @@ public: //* BEGIN PUBLIC API.
     }
 
     void drawWindowFrame() {
-        
-    }
-
-    void drawCurrentWindow() {
-
-        if (currentWindow is null) {
-            return;
-        }
 
         const int posX = cast(int) floor(centerPoint.x + (currentWindow.position.x * currentGUIScale));
         const int posY = cast(int) floor(centerPoint.y + (currentWindow.position.y * currentGUIScale));
@@ -281,6 +273,13 @@ public: //* BEGIN PUBLIC API.
         );
 
         EndScissorMode();
+    }
+
+    void drawCurrentWindow() {
+
+        if (currentWindow is null) {
+            return;
+        }
 
         //? Draw the resize button.
 
