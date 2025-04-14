@@ -284,6 +284,22 @@ public: //* BEGIN PUBLIC API.
         EndScissorMode();
     }
 
+    void drawComponents() {
+        const int posX = cast(int) floor(centerPoint.x + (currentWindow.position.x * currentGUIScale));
+        const int posY = cast(int) floor(centerPoint.y + (currentWindow.position.y * currentGUIScale));
+        const int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
+        const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
+        const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+        const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
+        BeginScissorMode(
+            posX + sizeX - halfStatusAreaHeight - 1,
+            posY + sizeY - halfStatusAreaHeight - 1,
+            halfStatusAreaHeight + 1,
+            halfStatusAreaHeight + 1);
+
+        EndScissorMode();
+    }
+
     void drawCurrentWindow() {
 
         if (currentWindow is null) {
@@ -292,7 +308,7 @@ public: //* BEGIN PUBLIC API.
 
         drawWindowFrame();
 
-        // todo: do the draw components function here.
+        drawComponents();
 
         drawResizeButton();
 
