@@ -11,6 +11,8 @@ import std.math.rounding;
 class WindowGUI {
 package:
 
+    // These are hidden because the game will probably blow up if they're modified without care.
+
     /// The ID of this window.
     string windowID = null;
 
