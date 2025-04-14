@@ -340,34 +340,24 @@ public: //* BEGIN PUBLIC API.
             resizing = false;
             return;
         }
-
         mouseFocusedOnGUI = true;
-
         const int posX = currentWindow.position.x;
         const int posY = currentWindow.position.y;
-
         const Vector2 mousePosInGUI = getMousePositionInGUI();
-
         const double scaledDeltaX = mouseWindowDelta.x * inverseCurrentGUIScale;
         const double scaledDeltaY = mouseWindowDelta.y * inverseCurrentGUIScale;
         const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
         const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
-
         const int oldSizeX = currentWindow.size.x;
         const int oldSizeY = currentWindow.size.y;
-
         currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
-
         if (!windowXInBounds(currentWindow)) {
             currentWindow.size.x = oldSizeX;
         }
-
         currentWindow.size.y = cast(int) floor((scaledMousePosY + scaledDeltaY) - posY);
-
         if (!windowYInBounds(currentWindow)) {
             currentWindow.size.y = oldSizeY;
         }
-
         if (currentWindow.size.x < currentWindow.minSize.x) {
             currentWindow.size.x = currentWindow.minSize.x;
         }
