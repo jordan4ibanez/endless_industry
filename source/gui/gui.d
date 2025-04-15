@@ -313,7 +313,7 @@ public: //* BEGIN PUBLIC API.
                 const int posX = cast(int) floor(
                     (buttonComponent.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
-                    (buttonComponent.position.y * currentGUIScale) + centerY);
+                    ((-buttonComponent.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(buttonComponent.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(buttonComponent.size.y * currentGUIScale);
                 Color buttonColor = buttonComponent.mouseHovering ? buttonComponent.backgroundColorHover
@@ -511,7 +511,7 @@ public: //* BEGIN PUBLIC API.
                 const int posX = cast(int) floor(
                     (buttonComponent.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
-                    (buttonComponent.position.y * currentGUIScale) + centerY);
+                    ((-buttonComponent.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(buttonComponent.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(buttonComponent.size.y * currentGUIScale);
                 const Rectangle buttonRect = Rectangle(
@@ -562,6 +562,7 @@ public: //* BEGIN PUBLIC API.
         Button continueButton = new Button();
         continueButton.clickFunction = () { closeWindow(); };
         continueButton.size.x = 200;
+        continueButton.position.y = 100;
         continueButton.text = "CONTINUE";
 
         continueButton.centerX();
