@@ -356,7 +356,9 @@ public: //* BEGIN PUBLIC API.
 
         drawWindowComponents();
 
-        drawResizeButton();
+        if (currentWindow.resizeable) {
+            drawResizeButton();
+        }
 
     }
 
@@ -473,21 +475,23 @@ public: //* BEGIN PUBLIC API.
             }
         }
         //? Check if the mouse is hovering over the resize button.
-        const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
-        const Rectangle resizeButtonRectangle = Rectangle(
-            posX + sizeX - halfStatusAreaHeight,
-            posY + sizeY - halfStatusAreaHeight,
-            halfStatusAreaHeight,
-            halfStatusAreaHeight);
-        if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
-            currentWindow.mouseHoveringResizeButton = true;
-            okayToCheckComponents = false;
-            // The user is resizing a window.
-            if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY),
-                        mousePos));
-                resizing = true;
-                return okayToCheckComponents;
+        if (currentWindow.resizeable) {
+            const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
+            const Rectangle resizeButtonRectangle = Rectangle(
+                posX + sizeX - halfStatusAreaHeight,
+                posY + sizeY - halfStatusAreaHeight,
+                halfStatusAreaHeight,
+                halfStatusAreaHeight);
+            if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
+                currentWindow.mouseHoveringResizeButton = true;
+                okayToCheckComponents = false;
+                // The user is resizing a window.
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY),
+                            mousePos));
+                    resizing = true;
+                    return okayToCheckComponents;
+                }
             }
         }
         return okayToCheckComponents;
@@ -557,6 +561,7 @@ public: //* BEGIN PUBLIC API.
         pauseMenu.windowTitle = "Pause Menu";
         pauseMenu.size.x = 400;
         pauseMenu.size.y = 600;
+        pauseMenu.resizeable = false;
         pauseMenu.center();
 
         Button continueButton = new Button();
