@@ -12,6 +12,13 @@ imagelabel
 
 inventory
 
+drop down menu for menu button sounds
+retro - current model f sound
+button - a clack button sound
+off - turn it off
+
+
+
 Then reorganize all the internals into the private section of the class
 
 
