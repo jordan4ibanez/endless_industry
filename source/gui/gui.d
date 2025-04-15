@@ -568,8 +568,10 @@ public: //* BEGIN PUBLIC API.
         pauseMenu.center();
 
         Button continueButton = new Button();
-        continueButton.clickFunction = () { writeln("hello I am a button"); };
+        continueButton.clickFunction = () { closeWindow(); };
         continueButton.size.x = 200;
+        continueButton.text = "CONTINUE";
+
         continueButton.centerX();
         pauseMenu.addComponent("continue_button", continueButton);
 
