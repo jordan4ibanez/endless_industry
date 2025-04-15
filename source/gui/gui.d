@@ -616,6 +616,7 @@ public: //* BEGIN PUBLIC API.
     void bringBackDebugTest() {
 
         if (Keyboard.isPressed(KeyboardKey.KEY_ESCAPE)) {
+            playButtonSound();
             if (currentWindow is null) {
                 currentWindow = windows["pause_menu"];
             } else {
