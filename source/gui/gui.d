@@ -563,7 +563,7 @@ public: //* BEGIN PUBLIC API.
         WindowGUI pauseMenu = new WindowGUI();
         pauseMenu.windowTitle = "Pause Menu";
         pauseMenu.size.x = 400;
-        pauseMenu.size.y = 400;
+        pauseMenu.size.y = 600;
         pauseMenu.center();
 
         Button continueButton = new Button();
