@@ -576,7 +576,7 @@ public: //* BEGIN PUBLIC API.
         pauseMenu.windowTitle = "Pause Menu";
         pauseMenu.size.x = 400;
         pauseMenu.size.y = 600;
-        pauseMenu.resizeable = false;
+        // pauseMenu.resizeable = false;
         pauseMenu.center();
 
         Button continueButton = new Button();
@@ -589,7 +589,7 @@ public: //* BEGIN PUBLIC API.
 
         Button settingsButton = new Button();
         settingsButton.clickFunction = () {
-            writeln("This button doesn't do anything yet lol");
+            writeln("Here's where I'd put a settings menu IF I HAD ONE (╯°□°）╯︵ ┻━┻");
         };
         settingsButton.size.x = 200;
         settingsButton.position.y = 0;
