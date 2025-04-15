@@ -339,7 +339,7 @@ public: //* BEGIN PUBLIC API.
                     posX + (currentGUIScale * 2) + adjustment,
                     posY,
                     0.25,
-                    currentWindow.statusBarTextColor);
+                    buttonComponent.textColor);
 
                 DrawRectangleLines(
                     posX,
