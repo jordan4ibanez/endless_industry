@@ -503,11 +503,8 @@ public: //* BEGIN PUBLIC API.
             centerPoint.y + (currentWindow.position.y * currentGUIScale));
         const int workAreaSizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
         const int workAreaSizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
-        const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
-
         const int centerX = cast(int) floor(workAreaPosX + (workAreaSizeX * 0.5));
         const int centerY = cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5));
-
         const Vector2 mousePos = Mouse.getPosition.toRaylib();
 
         foreach (thisComponent; currentWindow.componentsInOrder) {
