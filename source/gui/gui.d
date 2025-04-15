@@ -329,8 +329,8 @@ public: //* BEGIN PUBLIC API.
                     sizeY,
                     buttonColor);
 
-                const string title = (buttonComponent.buttonText is null) ? "UNDEFINED"
-                    : buttonComponent.buttonText;
+                const string title = (buttonComponent.text is null) ? "UNDEFINED"
+                    : buttonComponent.text;
 
                 const int adjustment = cast(int) floor(FontHandler.getTextSize(title, 0.25).x * 0.25);
 
