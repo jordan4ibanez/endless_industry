@@ -562,9 +562,8 @@ public: //* BEGIN PUBLIC API.
         Button continueButton = new Button();
         continueButton.clickFunction = () { closeWindow(); };
         continueButton.size.x = 200;
-        continueButton.position.y = 100;
+        continueButton.position.y = 200;
         continueButton.text = "CONTINUE";
-
         continueButton.centerX();
         pauseMenu.addComponent("continue_button", continueButton);
 
