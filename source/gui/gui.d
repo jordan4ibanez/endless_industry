@@ -572,7 +572,7 @@ public: //* BEGIN PUBLIC API.
             writeln("This button doesn't do anything yet lol");
         };
         settingsButton.size.x = 200;
-        settingsButton.position.y = 100;
+        settingsButton.position.y = 0;
         settingsButton.text = "SETTINGS";
         settingsButton.centerX();
         pauseMenu.addComponent("settings_button", settingsButton);
