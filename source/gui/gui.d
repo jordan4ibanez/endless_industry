@@ -285,25 +285,48 @@ public: //* BEGIN PUBLIC API.
     }
 
     void drawWindowComponents() {
-        
-        const int posX = cast(int) floor(centerPoint.x + (currentWindow.position.x * currentGUIScale));
-        const int posY = cast(int) floor(centerPoint.y + (currentWindow.position.y * currentGUIScale));
-        const int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
-        const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
+
+        const int workAreaPosX = cast(int) floor(
+            centerPoint.x + (currentWindow.position.x * currentGUIScale));
+        const int workAreaPosY = cast(int) floor(
+            centerPoint.y + (currentWindow.position.y * currentGUIScale));
+        const int workAreaSizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
+        const int workAreaSizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
+        const int centerX = cast(int) floor(workAreaPosX + (workAreaSizeX * 0.5));
+        const int centerY = cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5));
+
+        // All components will only be able to render within the work area.
         BeginScissorMode(
-            posX,
-            posY + statusAreaHeight,
-            sizeX - 1,
-            sizeY - statusAreaHeight - 1);
+            workAreaPosX,
+            workAreaPosY + statusAreaHeight,
+            workAreaSizeX - 1,
+            workAreaSizeY - statusAreaHeight - 1);
+
         foreach (thisComponent; currentWindow.componentsInOrder) {
             if (Button buttonComponent = instanceof!Button(thisComponent)) {
 
-                
+                const int posX = cast(int) floor(
+                    (buttonComponent.position.x * currentGUIScale) + centerX);
+                const int posY = cast(int) floor(
+                    (buttonComponent.position.y * currentGUIScale) + centerY);
+
+                const int sizeX = cast(int) floor(buttonComponent.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(buttonComponent.size.y * currentGUIScale);
+
+                DrawRectangleLines(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    buttonComponent.borderColor);
+
+                DrawCircle(posX, posY, 10, Colors.RED);
 
             }
         }
+
         EndScissorMode();
     }
 
@@ -452,7 +475,7 @@ public: //* BEGIN PUBLIC API.
     void windowComponentLogic() {
         foreach (thisComponent; currentWindow.componentsInOrder) {
             if (Button buttonComponent = instanceof!Button(thisComponent)) {
-                writeln("this is a button: ", buttonComponent.componentID);
+                // writeln("this is a button: ", buttonComponent.componentID);
             }
         }
     }
@@ -489,6 +512,7 @@ public: //* BEGIN PUBLIC API.
 
         registerWindow("pause_menu", pauseMenu);
 
+        currentWindow = windows["pause_menu"];
     }
 
     void bringBackDebugTest() {
