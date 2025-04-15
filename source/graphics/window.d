@@ -11,6 +11,7 @@ static:
 private:
 
     bool maximized = false;
+    bool stayOpen = true;
 
 public: //* BEGIN PUBLIC API.
 
@@ -57,7 +58,7 @@ public: //* BEGIN PUBLIC API.
         // This calls the update system to automatically make common utilities run.
         updateSystem();
 
-        return !WindowShouldClose();
+        return !WindowShouldClose() && stayOpen;
     }
 
     void maximize() {
@@ -76,6 +77,10 @@ public: //* BEGIN PUBLIC API.
         } else {
             maximize();
         }
+    }
+
+    void close() {
+        stayOpen = false;
     }
 
 private: //* BEGIN INTERNAL API.
