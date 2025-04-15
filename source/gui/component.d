@@ -26,7 +26,7 @@ public:
 
 class Button : Component {
     /// What this button says on it.
-    string buttonText = null;
+    string text = null;
 
     //? State behavior.
 
