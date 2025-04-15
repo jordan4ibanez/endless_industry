@@ -336,7 +336,7 @@ public: //* BEGIN PUBLIC API.
 
                 FontHandler.drawShadowed(
                     title,
-                    posX + (currentGUIScale * 2) + adjustment,
+                    posX + adjustment,
                     posY,
                     0.25,
                     buttonComponent.textColor);
