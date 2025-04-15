@@ -347,7 +347,6 @@ public: //* BEGIN PUBLIC API.
                     sizeX,
                     sizeY,
                     buttonComponent.borderColor);
-
             }
         }
 
@@ -497,9 +496,50 @@ public: //* BEGIN PUBLIC API.
 
     /// This will only run when the mouse is in the work area.
     void windowComponentLogic() {
+
+        const int workAreaPosX = cast(int) floor(
+            centerPoint.x + (currentWindow.position.x * currentGUIScale));
+        const int workAreaPosY = cast(int) floor(
+            centerPoint.y + (currentWindow.position.y * currentGUIScale));
+        const int workAreaSizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
+        const int workAreaSizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
+        const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+
+        const int centerX = cast(int) floor(workAreaPosX + (workAreaSizeX * 0.5));
+        const int centerY = cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5));
+
+        const Vector2 mousePos = Mouse.getPosition.toRaylib();
+
         foreach (thisComponent; currentWindow.componentsInOrder) {
             if (Button buttonComponent = instanceof!Button(thisComponent)) {
-                // writeln("this is a button: ", buttonComponent.componentID);
+
+                buttonComponent.mouseHovering = false;
+
+                const int posX = cast(int) floor(
+                    (buttonComponent.position.x * currentGUIScale) + centerX);
+                const int posY = cast(int) floor(
+                    (buttonComponent.position.y * currentGUIScale) + centerY);
+
+                const int sizeX = cast(int) floor(buttonComponent.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(buttonComponent.size.y * currentGUIScale);
+
+                const Rectangle buttonRect = Rectangle(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY);
+
+                // If the mouse is hovering over the button.
+                if (CheckCollisionPointRec(mousePos, buttonRect)) {
+                    buttonComponent.mouseHovering = true;
+
+                    // If the mouse clicks the button.
+                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        buttonComponent.clickFunction();
+                        break;
+                    }
+                }
+
             }
         }
     }
