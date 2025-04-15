@@ -470,6 +470,7 @@ public: //* BEGIN PUBLIC API.
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                 mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
                 dragging = true;
+                playButtonSound();
                 return okayToCheckComponents;
             }
         }
@@ -482,6 +483,7 @@ public: //* BEGIN PUBLIC API.
             // The user closed the window.
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                 currentWindow = null;
+                playButtonSound();
                 return okayToCheckComponents;
             }
         }
@@ -501,6 +503,7 @@ public: //* BEGIN PUBLIC API.
                     mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY),
                             mousePos));
                     resizing = true;
+                    playButtonSound();
                     return okayToCheckComponents;
                 }
             }
@@ -539,6 +542,7 @@ public: //* BEGIN PUBLIC API.
                     buttonComponent.mouseHovering = true;
                     // If the mouse clicks the button.
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        playButtonSound();
                         buttonComponent.clickFunction();
                         break;
                     }
