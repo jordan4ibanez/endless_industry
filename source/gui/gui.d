@@ -84,6 +84,8 @@ private:
     bool resizing = false;
     WindowGUI currentWindow = null;
 
+    Mt19937 rnd;
+
 public: //* BEGIN PUBLIC API.
 
     void registerWindow(string windowID, WindowGUI window) {
@@ -626,6 +628,7 @@ public: //* BEGIN PUBLIC API.
 
     void initialize() {
         FontHandler.initialize();
+        rnd = Random(unpredictableSeed());
         debugTest();
     }
 
