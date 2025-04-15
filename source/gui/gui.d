@@ -304,6 +304,10 @@ public: //* BEGIN PUBLIC API.
             workAreaSizeX - 1,
             workAreaSizeY - statusAreaHeight - 1);
 
+        //! You can't layer scissor.
+        //! So, I'd rather have the components be able to be messed up rather than
+        //! have the components spill out of the work area.
+
         foreach (thisComponent; currentWindow.componentsInOrder) {
             if (Button buttonComponent = instanceof!Button(thisComponent)) {
 
@@ -315,14 +319,34 @@ public: //* BEGIN PUBLIC API.
                 const int sizeX = cast(int) floor(buttonComponent.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(buttonComponent.size.y * currentGUIScale);
 
+                Color buttonColor = buttonComponent.mouseHovering ? buttonComponent.backgroundColorHover
+                    : buttonComponent.backgroundColor;
+
+                DrawRectangle(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    buttonColor);
+
+                const string title = (buttonComponent.buttonText is null) ? "UNDEFINED"
+                    : buttonComponent.buttonText;
+
+                const int adjustment = cast(int) floor(FontHandler.getTextSize(title, 0.25).x * 0.25);
+
+                FontHandler.drawShadowed(
+                    title,
+                    posX + (currentGUIScale * 2) + adjustment,
+                    posY,
+                    0.25,
+                    currentWindow.statusBarTextColor);
+
                 DrawRectangleLines(
                     posX,
                     posY,
                     sizeX,
                     sizeY,
                     buttonComponent.borderColor);
-
-                DrawCircle(posX, posY, 10, Colors.RED);
 
             }
         }
@@ -508,6 +532,8 @@ public: //* BEGIN PUBLIC API.
 
         Button continueButton = new Button();
         continueButton.clickFunction = () { writeln("hello I am a button"); };
+        continueButton.size.x = 200;
+        continueButton.centerX();
         pauseMenu.addComponent("continue_button", continueButton);
 
         registerWindow("pause_menu", pauseMenu);
