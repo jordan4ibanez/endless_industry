@@ -367,6 +367,12 @@ public: //* BEGIN PUBLIC API.
 
     }
 
+    /// Close the currently opened window.
+    /// If no window is opened, this has no effect.
+    void closeWindow() {
+        currentWindow = null;
+    }
+
     Vector2 getMousePositionInGUI() {
         Vector2 mousePos = GetMousePosition();
         mousePos.x -= centerPoint.x;
