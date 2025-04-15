@@ -284,21 +284,26 @@ public: //* BEGIN PUBLIC API.
         EndScissorMode();
     }
 
-    void drawComponents() {
+    void drawWindowComponents() {
+        
         const int posX = cast(int) floor(centerPoint.x + (currentWindow.position.x * currentGUIScale));
         const int posY = cast(int) floor(centerPoint.y + (currentWindow.position.y * currentGUIScale));
         const int sizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
         const int sizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
-        const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
+
         BeginScissorMode(
             posX,
             posY + statusAreaHeight,
             sizeX - 1,
             sizeY - statusAreaHeight - 1);
+        foreach (thisComponent; currentWindow.componentsInOrder) {
+            if (Button buttonComponent = instanceof!Button(thisComponent)) {
 
-        
+                
 
+            }
+        }
         EndScissorMode();
     }
 
@@ -310,7 +315,7 @@ public: //* BEGIN PUBLIC API.
 
         drawWindowFrame();
 
-        drawComponents();
+        drawWindowComponents();
 
         drawResizeButton();
 
