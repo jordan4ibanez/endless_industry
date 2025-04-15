@@ -1,5 +1,6 @@
 import std.stdio;
 
+import audio.audio;
 import controls.keyboard;
 import controls.mouse;
 import game.map;
@@ -32,6 +33,7 @@ void main() {
 		CameraHandler.terminate();
 		MeshHandler.terminate();
 		TextureHandler.terminate();
+		Audio.terminate();
 		Window.terminate();
 	}
 
@@ -57,6 +59,8 @@ void main() {
 	Map.initialize();
 
 	MeshHandler.initialize();
+
+	Audio.initialize();
 
 	while (Window.shouldStayOpen()) {
 

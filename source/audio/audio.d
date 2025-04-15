@@ -18,6 +18,7 @@ public: //* BEGIN PUBLIC API.
         foreach (sound; database) {
             UnloadSound(sound);
         }
+        CloseAudioDevice();
     }
 
     void loadSound(string location) {
