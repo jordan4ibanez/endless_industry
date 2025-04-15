@@ -95,6 +95,10 @@ public:
     void addComponent(string componentID, Component component) {
         component.componentID = componentID;
 
+        if (componentID in componentDatabase) {
+            throw new Error("Trying to override component " ~ componentID ~ ". Please use overrideComponent()");
+        }
+
         // They both point to the same thing.
         componentsInOrder ~= component;
         componentDatabase[componentID] = component;
