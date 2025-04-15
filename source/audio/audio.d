@@ -27,6 +27,16 @@ public: //* BEGIN PUBLIC API.
         CloseAudioDevice();
     }
 
+    /// Play a sound.
+    /// If it's already playing, it will restart.
+    void playSound(string name) {
+        Sound* thisSound = name in database;
+        if (thisSound is null) {
+            throw new Error("Sound " ~ name ~ " does not exist");
+        }
+        PlaySound(*thisSound);
+    }
+
 private: //* BEGIN INTERNAL API.
 
     void loadAllSounds() {
@@ -36,7 +46,6 @@ private: //* BEGIN INTERNAL API.
     }
 
     void loadSound(string location) {
-
         // Extract the file name from the location.
         string fileName = () {
             string[] items = location.split("/");
