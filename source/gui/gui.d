@@ -567,6 +567,16 @@ public: //* BEGIN PUBLIC API.
         continueButton.centerX();
         pauseMenu.addComponent("continue_button", continueButton);
 
+        Button settingsMenu = new Button();
+        settingsMenu.clickFunction = () {
+            writeln("This button doesn't do anything yet lol");
+        };
+        settingsMenu.size.x = 200;
+        settingsMenu.position.y = 100;
+        settingsMenu.text = "SETTINGS";
+        settingsMenu.centerX();
+        pauseMenu.addComponent("settings_button", settingsMenu);
+
         registerWindow("pause_menu", pauseMenu);
 
         currentWindow = windows["pause_menu"];
