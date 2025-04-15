@@ -310,38 +310,30 @@ public: //* BEGIN PUBLIC API.
 
         foreach (thisComponent; currentWindow.componentsInOrder) {
             if (Button buttonComponent = instanceof!Button(thisComponent)) {
-
                 const int posX = cast(int) floor(
                     (buttonComponent.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
                     (buttonComponent.position.y * currentGUIScale) + centerY);
-
                 const int sizeX = cast(int) floor(buttonComponent.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(buttonComponent.size.y * currentGUIScale);
-
                 Color buttonColor = buttonComponent.mouseHovering ? buttonComponent.backgroundColorHover
                     : buttonComponent.backgroundColor;
-
                 DrawRectangle(
                     posX,
                     posY,
                     sizeX,
                     sizeY,
                     buttonColor);
-
                 const string title = (buttonComponent.text is null) ? "UNDEFINED"
                     : buttonComponent.text;
-
                 const int adjustment = cast(int) floor((sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
                         .x * 0.5));
-
                 FontHandler.drawShadowed(
                     title,
                     posX + adjustment,
                     posY,
                     0.25,
                     buttonComponent.textColor);
-
                 DrawRectangleLines(
                     posX,
                     posY,
