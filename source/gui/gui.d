@@ -373,6 +373,12 @@ public: //* BEGIN PUBLIC API.
         currentWindow = null;
     }
 
+    void playButtonSound() {
+        // This is a really unfitting sound but it works for now.
+        int keySelection = uniform(1, 6, rnd);
+        Audio.playSound("keyboard_" ~ to!string(keySelection) ~ ".wav");
+    }
+
     Vector2 getMousePositionInGUI() {
         Vector2 mousePos = GetMousePosition();
         mousePos.x -= centerPoint.x;
