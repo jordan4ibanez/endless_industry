@@ -56,4 +56,9 @@ class Button : Component {
     /// What the button does when clicked.
     /// By default, this does nothing.
     void function() clickFunction = () {};
+
+    /// Center the X position.
+    void centerX() {
+        this.position.x = this.size.x * -0.5;
+    }
 }
