@@ -1,6 +1,7 @@
 module gui.gui;
 
 public import gui.window_gui;
+import audio.audio;
 import controls.keyboard;
 import controls.mouse;
 import graphics.colors;
@@ -8,7 +9,9 @@ import gui.font;
 import math.vec2d;
 import math.vec2i;
 import raylib;
+import std.conv;
 import std.math.rounding;
+import std.random;
 import std.stdio;
 
 /*
