@@ -577,6 +577,17 @@ public: //* BEGIN PUBLIC API.
         settingsButton.centerX();
         pauseMenu.addComponent("settings_button", settingsButton);
 
+        Button exitButton = new Button();
+        exitButton.clickFunction = () { import graphics.window;
+
+        Window.close(); };
+
+        exitButton.size.x = 200;
+        exitButton.position.y = -200;
+        exitButton.text = "EXIT";
+        exitButton.centerX();
+        pauseMenu.addComponent("exit_button", exitButton);
+
         registerWindow("pause_menu", pauseMenu);
 
         currentWindow = windows["pause_menu"];
