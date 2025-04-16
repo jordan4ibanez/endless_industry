@@ -89,9 +89,6 @@ class TextBox : Component {
     /// Where the cursor is in the text.
     int cursorPosition = 0;
 
-    /// The size of the text box.
-    Vec2i size = Vec2i(100, 100);
-
     //? General text/icon colors.
 
     /// The border color.
