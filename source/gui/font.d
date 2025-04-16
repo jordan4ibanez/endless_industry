@@ -15,6 +15,7 @@ private:
     const double spacing = 0;
     double currentFontSize = 1;
     const int baseFontSize = 128;
+    const double inverseBaseFontSize = 1.0 / cast(double) baseFontSize;
     double currentGUIScale = 1.0;
 
 public: //* BEGIN PUBLIC API.
@@ -51,9 +52,9 @@ public: //* BEGIN PUBLIC API.
     double getCharWidth(char character, double fontScale = 1.0) {
         const int codePoint = getCodePoint(character);
         const int charIndex = getGlyphIndex(codePoint);
-        const double scaleFactor = currentFontSize * fontScale;
-        return (font.glyphs[charIndex].advanceX == 0) ? font.recs[charIndex].width * scaleFactor
-            : font.glyphs[charIndex].advanceX * scaleFactor;
+        const double scaleFactor = (currentFontSize * fontScale) * inverseBaseFontSize;
+        return (font.glyphs[charIndex].advanceX == 0) ? cast(double) font.recs[charIndex].width * scaleFactor
+            : cast(double) font.glyphs[charIndex].advanceX * scaleFactor;
     }
 
     /// Draw text on the screen.
