@@ -639,6 +639,16 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.size.x = 800;
             settingsMenu.size.y = 800;
             settingsMenu.center();
+
+            TextBox textBox = new TextBox();
+            textBox.size.x = 400;
+            textBox.size.y = 400;
+
+            textBox.centerX();
+            textBox.centerY();
+
+            settingsMenu.addComponent("text_box", textBox);
+
             registerWindow("settings_menu", settingsMenu);
 
         }
