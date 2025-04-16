@@ -37,7 +37,7 @@ public: //* BEGIN PUBLIC API.
     /// Get the CodePoint of a character.
     pragma(inline, true)
     int getCodePoint(char character) {
-        static int byteCount = 0;
+        int byteCount = 0;
         return GetCodepoint(&character, &byteCount);
     }
 
