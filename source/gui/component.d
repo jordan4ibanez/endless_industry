@@ -22,6 +22,19 @@ public:
 
     // The position this component has in the window's work area.
     Vec2d position;
+
+    /// The size of the button.
+    Vec2i size = Vec2i(100, 100);
+
+    /// Center the X position.
+    void centerX() {
+        this.position.x = this.size.x * -0.5;
+    }
+
+    /// Center the Y position.
+    void centerY() {
+        this.position.y = this.size.y * -0.5;
+    }
 }
 
 class Button : Component {
@@ -29,9 +42,6 @@ class Button : Component {
     string text = null;
 
     //? State behavior.
-
-    /// The size of the button.
-    Vec2i size = Vec2i(100, 32);
 
     /// If the mouse is hovering over the button.
     bool mouseHovering = false;
@@ -59,10 +69,6 @@ class Button : Component {
     /// By default, this does nothing.
     void function() clickFunction = () {};
 
-    /// Center the X position.
-    void centerX() {
-        this.position.x = this.size.x * -0.5;
-    }
 }
 
 class TextBox : Component {
