@@ -523,14 +523,14 @@ public: //* BEGIN PUBLIC API.
         const Vector2 mousePos = Mouse.getPosition.toRaylib();
 
         foreach (thisComponent; currentWindow.componentsInOrder) {
-            if (Button buttonComponent = instanceof!Button(thisComponent)) {
-                buttonComponent.mouseHovering = false;
+            if (Button button = instanceof!Button(thisComponent)) {
+                button.mouseHovering = false;
                 const int posX = cast(int) floor(
-                    (buttonComponent.position.x * currentGUIScale) + centerX);
+                    (button.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
-                    ((-buttonComponent.position.y) * currentGUIScale) + centerY);
-                const int sizeX = cast(int) floor(buttonComponent.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(buttonComponent.size.y * currentGUIScale);
+                    ((-button.position.y) * currentGUIScale) + centerY);
+                const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
                 const Rectangle buttonRect = Rectangle(
                     posX,
                     posY,
@@ -538,11 +538,11 @@ public: //* BEGIN PUBLIC API.
                     sizeY);
                 // If the mouse is hovering over the button.
                 if (CheckCollisionPointRec(mousePos, buttonRect)) {
-                    buttonComponent.mouseHovering = true;
+                    button.mouseHovering = true;
                     // If the mouse clicks the button.
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         playButtonSound();
-                        buttonComponent.clickFunction();
+                        button.clickFunction();
                         break;
                     }
                 }
