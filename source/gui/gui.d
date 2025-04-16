@@ -616,6 +616,14 @@ public: //* BEGIN PUBLIC API.
             registerWindow("pause_menu", pauseMenu);
         }
 
+        // Settings menu.
+        {
+            WindowGUI settingsMenu = new WindowGUI();
+
+            settingsMenu.title = "hi";
+            
+        }
+
         currentWindow = windows["pause_menu"];
     }
 
