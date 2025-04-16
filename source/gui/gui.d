@@ -313,23 +313,23 @@ public: //* BEGIN PUBLIC API.
         //! have the components spill out of the work area.
 
         foreach (thisComponent; currentWindow.componentsInOrder) {
-            if (Button buttonComponent = instanceof!Button(thisComponent)) {
+            if (Button button = instanceof!Button(thisComponent)) {
                 const int posX = cast(int) floor(
-                    (buttonComponent.position.x * currentGUIScale) + centerX);
+                    (button.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
-                    ((-buttonComponent.position.y) * currentGUIScale) + centerY);
-                const int sizeX = cast(int) floor(buttonComponent.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(buttonComponent.size.y * currentGUIScale);
-                Color buttonColor = buttonComponent.mouseHovering ? buttonComponent.backgroundColorHover
-                    : buttonComponent.backgroundColor;
+                    ((-button.position.y) * currentGUIScale) + centerY);
+                const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+                Color buttonColor = button.mouseHovering ? button.backgroundColorHover
+                    : button.backgroundColor;
                 DrawRectangle(
                     posX,
                     posY,
                     sizeX,
                     sizeY,
                     buttonColor);
-                const string title = (buttonComponent.text is null) ? "UNDEFINED"
-                    : buttonComponent.text;
+                const string title = (button.text is null) ? "UNDEFINED"
+                    : button.text;
                 const int adjustment = cast(int) floor((sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
                         .x * 0.5));
                 FontHandler.drawShadowed(
@@ -337,13 +337,13 @@ public: //* BEGIN PUBLIC API.
                     posX + adjustment,
                     posY,
                     0.25,
-                    buttonComponent.textColor);
+                    button.textColor);
                 DrawRectangleLines(
                     posX,
                     posY,
                     sizeX,
                     sizeY,
-                    buttonComponent.borderColor);
+                    button.borderColor);
             }
         }
 
