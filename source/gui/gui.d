@@ -390,6 +390,7 @@ public: //* BEGIN PUBLIC API.
     void windowDragLogic(ref bool mouseFocusedOnGUI) {
         if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
             dragging = false;
+            playButtonSound();
             return;
         }
         mouseFocusedOnGUI = true;
@@ -408,6 +409,7 @@ public: //* BEGIN PUBLIC API.
     void windowResizeLogic(ref bool mouseFocusedOnGUI) {
         if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
             resizing = false;
+            playButtonSound();
             return;
         }
         mouseFocusedOnGUI = true;
