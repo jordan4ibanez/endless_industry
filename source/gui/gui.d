@@ -572,43 +572,49 @@ public: //* BEGIN PUBLIC API.
 
     void debugTest() {
 
-        WindowGUI pauseMenu = new WindowGUI();
-        pauseMenu.windowTitle = "Pause Menu";
-        pauseMenu.size.x = 400;
-        pauseMenu.size.y = 600;
-        // pauseMenu.resizeable = false;
-        pauseMenu.center();
+        // Pause menu.
+        {
+            WindowGUI pauseMenu = new WindowGUI();
+            pauseMenu.windowTitle = "Pause Menu";
+            pauseMenu.size.x = 400;
+            pauseMenu.size.y = 600;
+            // pauseMenu.resizeable = false;
+            pauseMenu.center();
 
-        Button continueButton = new Button();
-        continueButton.clickFunction = () { closeWindow(); };
-        continueButton.size.x = 200;
-        continueButton.position.y = 200;
-        continueButton.text = "CONTINUE";
-        continueButton.centerX();
-        pauseMenu.addComponent("continue_button", continueButton);
+            Button continueButton = new Button();
+            continueButton.clickFunction = () { closeWindow(); };
+            continueButton.size.x = 200;
+            continueButton.position.y = 200;
+            continueButton.text = "CONTINUE";
+            continueButton.centerX();
+            pauseMenu.addComponent("continue_button", continueButton);
 
-        Button settingsButton = new Button();
-        settingsButton.clickFunction = () {
-            writeln("Here's where I'd put a settings menu IF I HAD ONE (╯°□°）╯︵ ┻━┻");
-        };
-        settingsButton.size.x = 200;
-        settingsButton.position.y = 0;
-        settingsButton.text = "SETTINGS";
-        settingsButton.centerX();
-        pauseMenu.addComponent("settings_button", settingsButton);
+            Button settingsButton = new Button();
+            settingsButton.clickFunction = () {
+                writeln(
+                    "Here's where I'd put a settings menu IF I HAD ONE (╯°□°）╯︵ ┻━┻");
+            };
+            settingsButton.size.x = 200;
+            settingsButton.position.y = 0;
+            settingsButton.text = "SETTINGS";
+            settingsButton.centerX();
+            pauseMenu.addComponent("settings_button", settingsButton);
 
-        Button exitButton = new Button();
-        exitButton.clickFunction = () { import graphics.window;
+            Button exitButton = new Button();
+            exitButton.clickFunction = () {
+                import graphics.window;
 
-        Window.close(); };
+                Window.close();
+            };
 
-        exitButton.size.x = 200;
-        exitButton.position.y = -200;
-        exitButton.text = "EXIT";
-        exitButton.centerX();
-        pauseMenu.addComponent("exit_button", exitButton);
+            exitButton.size.x = 200;
+            exitButton.position.y = -200;
+            exitButton.text = "EXIT";
+            exitButton.centerX();
+            pauseMenu.addComponent("exit_button", exitButton);
 
-        registerWindow("pause_menu", pauseMenu);
+            registerWindow("pause_menu", pauseMenu);
+        }
 
         currentWindow = windows["pause_menu"];
     }
