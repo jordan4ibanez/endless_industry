@@ -620,7 +620,7 @@ public: //* BEGIN PUBLIC API.
             WindowGUI settingsMenu = new WindowGUI();
 
             settingsMenu.title = "hi";
-            
+
         }
 
         currentWindow = windows["pause_menu"];
