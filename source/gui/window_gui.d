@@ -26,7 +26,7 @@ public:
     bool resizeable = true;
 
     /// What this window's title says.
-    string windowTitle = null;
+    string title = null;
 
     //? State behavior.
 

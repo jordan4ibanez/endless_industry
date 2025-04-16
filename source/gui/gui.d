@@ -200,8 +200,8 @@ public: //* BEGIN PUBLIC API.
             posY,
             sizeX - statusAreaHeight - 1,
             statusAreaHeight - 1);
-        const string title = (currentWindow.windowTitle is null) ? "UNDEFINED"
-            : currentWindow.windowTitle;
+        const string title = (currentWindow.title is null) ? "UNDEFINED"
+            : currentWindow.title;
         FontHandler.drawShadowed(
             title,
             posX + (currentGUIScale * 2),
@@ -575,7 +575,7 @@ public: //* BEGIN PUBLIC API.
         // Pause menu.
         {
             WindowGUI pauseMenu = new WindowGUI();
-            pauseMenu.windowTitle = "Pause Menu";
+            pauseMenu.title = "Pause Menu";
             pauseMenu.size.x = 400;
             pauseMenu.size.y = 600;
             // pauseMenu.resizeable = false;
