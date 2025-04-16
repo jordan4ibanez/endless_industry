@@ -71,6 +71,9 @@ class TextBox : Component {
 
     //? State behavior.
 
+    /// If the mouse is hovering over.
+    bool mouseHovering = false;
+
     //~ I'm doing it like this cause I have no idea what I'm doing.
     /// This holds the data of the current text entered into it.
     /// This can also be used as default text.
