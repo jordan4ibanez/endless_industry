@@ -638,7 +638,6 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.title = "Settings";
             settingsMenu.size.x = 800;
             settingsMenu.size.y = 800;
-
             settingsMenu.center();
             registerWindow("settings_menu", settingsMenu);
 
