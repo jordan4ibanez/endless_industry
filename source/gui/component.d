@@ -53,6 +53,8 @@ class Button : Component {
     /// The button text color.
     Color textColor = Colors.WHITE;
 
+    //? Functions/methods.
+
     /// What the button does when clicked.
     /// By default, this does nothing.
     void function() clickFunction = () {};
@@ -81,6 +83,19 @@ class TextBox : Component {
     /// The size of the text box.
     Vec2i size = Vec2i(100, 100);
 
+    //? General text/icon colors.
 
+    /// The border color.
+    Color borderColor = Colors.GRAY;
+    /// The border color when hovered over.
+    Color borderColorHover = Colors.BLACK;
+
+    /// The background color.
+    Color backgroundColor = Colors.WHITE;
+
+    /// The text color.
+    Color textColor = Colors.BLACK;
+
+    //? Functions/methods.
 
 }
