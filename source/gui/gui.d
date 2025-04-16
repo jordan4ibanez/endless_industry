@@ -623,12 +623,16 @@ public: //* BEGIN PUBLIC API.
         // Settings menu.
         {
             WindowGUI settingsMenu = new WindowGUI();
+            settingsMenu.title = "Settings";
+            settingsMenu.size.x = 800;
+            settingsMenu.size.y = 800;
 
-            settingsMenu.title = "hi";
+            settingsMenu.center();
+            registerWindow("settings_menu", settingsMenu);
 
         }
 
-        currentWindow = windows["pause_menu"];
+        currentWindow = windows["settings_menu"];
     }
 
     void bringBackDebugTest() {
