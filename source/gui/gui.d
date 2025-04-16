@@ -547,6 +547,8 @@ public: //* BEGIN PUBLIC API.
                     }
                 }
 
+            } else if (TextBox tbox = instanceof!TextBox(thisComponent)) {
+
             }
         }
     }
