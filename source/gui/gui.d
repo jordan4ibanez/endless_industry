@@ -343,6 +343,8 @@ public: //* BEGIN PUBLIC API.
                     sizeX,
                     sizeY,
                     button.borderColor);
+            } else if (TextBox tbox = instanceof!TextBox(thisComponent)) {
+
             }
         }
 
