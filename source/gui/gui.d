@@ -311,6 +311,17 @@ public: //* BEGIN PUBLIC API.
         /// Returns if this component is out of bounds.
         bool scissorComponent(const int posX, const int posY, const int sizeX, const int sizeY) {
 
+            // Do not bother rendering if out of bounds.
+            if (posX > maxX) {
+                return true;
+            } else if (posX + sizeX <= minX) {
+                return true;
+            } else if (posY > maxY) {
+                return true;
+            } else if (posY + sizeY <= minY) {
+                return true;
+            }
+
             BeginScissorMode(
                 workAreaPosX,
                 workAreaPosY + statusAreaHeight,
