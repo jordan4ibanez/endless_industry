@@ -35,9 +35,16 @@ public: //* BEGIN PUBLIC API.
     }
 
     /// Get the CodePoint of a character.
+    pragma(inline, true)
     int getCodePoint(char character) {
         static int byteCount = 0;
         return GetCodepoint(&character, &byteCount);
+    }
+
+    /// Get the glyph index of a character using it's CodePoint.
+    pragma(inline, true)
+    int getGlyphIndex(int codePoint) {
+        return GetGlyphIndex(font, codePoint);
     }
 
     void draw(string text, double x, double y, double fontScale = 1.0, Color color = Colors.BLACK) {
