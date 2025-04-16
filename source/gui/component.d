@@ -96,6 +96,9 @@ class TextBox : Component {
     /// The text color.
     Color textColor = Colors.BLACK;
 
+    /// The cursor color.
+    Color cursorColor = Colors.RED;
+
     //? Functions/methods.
 
 }
