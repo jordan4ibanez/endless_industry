@@ -345,6 +345,8 @@ public: //* BEGIN PUBLIC API.
                     button.borderColor);
             } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
 
+                // This section is powered by Megadeth
+
                 const int posX = cast(int) floor(
                     (textBox.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
@@ -352,6 +354,8 @@ public: //* BEGIN PUBLIC API.
                 const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
                 Color buttonColor = textBox.backgroundColor;
+
+
 
             }
         }
