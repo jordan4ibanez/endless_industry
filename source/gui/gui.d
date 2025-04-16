@@ -200,8 +200,7 @@ public: //* BEGIN PUBLIC API.
             posY,
             sizeX - statusAreaHeight - 1,
             statusAreaHeight - 1);
-        const string title = (currentWindow.title is null) ? "UNDEFINED"
-            : currentWindow.title;
+        const string title = (currentWindow.title is null) ? "UNDEFINED" : currentWindow.title;
         FontHandler.drawShadowed(
             title,
             posX + (currentGUIScale * 2),
