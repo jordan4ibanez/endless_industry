@@ -47,10 +47,12 @@ public: //* BEGIN PUBLIC API.
         return GetGlyphIndex(font, codePoint);
     }
 
+    /// Draw text on the screen.
     void draw(string text, double x, double y, double fontScale = 1.0, Color color = Colors.BLACK) {
         DrawTextEx(font, toStringz(text), Vector2(x, y), currentFontSize * fontScale, spacing, color);
     }
 
+    /// Draw text on the screen with a black shadow.
     void drawShadowed(string text, double x, double y, double fontScale = 1.0, Color foregroundColor = Colors
             .WHITE) {
         DrawTextEx(font, toStringz(text), Vector2(x + (2 * currentGUIScale), y + (
