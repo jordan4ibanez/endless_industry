@@ -302,18 +302,17 @@ public: //* BEGIN PUBLIC API.
         const int centerY = cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5));
 
         // All components will only be able to render within the work area.
-        BeginScissorMode(
-            workAreaPosX,
-            workAreaPosY + statusAreaHeight,
-            workAreaSizeX - 1,
-            workAreaSizeY - statusAreaHeight - 1);
 
-        //! You can't layer scissor.
-        //! So, I'd rather have the components be able to be messed up rather than
-        //! have the components spill out of the work area.
+        void scissorComponent(Component component) {
+            BeginScissorMode(
+                workAreaPosX,
+                workAreaPosY + statusAreaHeight,
+                workAreaSizeX - 1,
+                workAreaSizeY - statusAreaHeight - 1);
+        }
 
-        foreach (thisComponent; currentWindow.componentsInOrder) {
-            if (Button button = instanceof!Button(thisComponent)) {
+        foreach (Component component; currentWindow.componentsInOrder) {
+            if (Button button = instanceof!Button(component)) {
                 const int posX = cast(int) floor(
                     (button.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
@@ -343,9 +342,7 @@ public: //* BEGIN PUBLIC API.
                     sizeX,
                     sizeY,
                     button.borderColor);
-            } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
-
-                // This section is powered by Megadeth
+            } else if (TextBox textBox = instanceof!TextBox(component)) {
 
                 const int posX = cast(int) floor(
                     (textBox.position.x * currentGUIScale) + centerX);
@@ -393,7 +390,7 @@ public: //* BEGIN PUBLIC API.
 
                 }
 
-                FontHandler.draw(textBox.text, posX, posY+32, 0.25);
+                FontHandler.draw(textBox.text, posX, posY + 32, 0.25);
             }
         }
 
