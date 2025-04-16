@@ -88,7 +88,7 @@ class TextBox : Component {
     /// This holds the data of the current text entered into it.
     /// This can also be used as default text.
     /// It is held line by line.
-    string[] currentText = [];
+    string currentText = "";
 
     /// Where the cursor is in the text.
     int cursorPosition = 0;
@@ -96,9 +96,9 @@ class TextBox : Component {
     //? General text/icon colors.
 
     /// The border color.
-    Color borderColor = Colors.GRAY;
+    Color borderColor = Colors.BLACK;
     /// The border color when hovered over.
-    Color borderColorHover = Colors.BLACK;
+    Color borderColorHover = Colors.RED;
 
     /// The background color.
     Color backgroundColor = Colors.WHITE;

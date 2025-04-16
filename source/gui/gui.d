@@ -361,6 +361,16 @@ public: //* BEGIN PUBLIC API.
                     sizeY,
                     textBox.backgroundColor);
 
+                const Color borderColor = textBox.mouseHovering ? textBox.borderColorHover
+                    : textBox.borderColor;
+
+                DrawRectangleLines(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    borderColor);
+
             }
         }
 
@@ -647,6 +657,7 @@ public: //* BEGIN PUBLIC API.
             TextBox textBox = new TextBox();
             textBox.size.x = 400;
             textBox.size.y = 400;
+            textBox.currentText = "this is a test of the textbox. this should probably jump down.";
 
             textBox.centerX();
             textBox.centerY();
