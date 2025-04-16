@@ -303,12 +303,21 @@ public: //* BEGIN PUBLIC API.
 
         // All components will only be able to render within the work area.
 
-        void scissorComponent(Component component) {
+        const int minX = workAreaPosX;
+        const int maxX = workAreaPosX + workAreaSizeX;
+        const int minY = workAreaPosY;
+        const int maxY = workAreaPosY + workAreaSizeY;
+
+        /// Returns if this component is out of bounds.
+        bool scissorComponent(const int posX, const int posY, const int sizeX, const int sizeY) {
+
             BeginScissorMode(
                 workAreaPosX,
                 workAreaPosY + statusAreaHeight,
                 workAreaSizeX - 1,
                 workAreaSizeY - statusAreaHeight - 1);
+
+            return false;
         }
 
         foreach (Component component; currentWindow.componentsInOrder) {
