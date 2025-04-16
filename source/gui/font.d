@@ -47,6 +47,15 @@ public: //* BEGIN PUBLIC API.
         return GetGlyphIndex(font, codePoint);
     }
 
+    /// Get the width of a character.
+    double getCharWidth(char character, double fontScale = 1.0) {
+        const int codePoint = getCodePoint(character);
+        const int charIndex = getGlyphIndex(codePoint);
+        const double scaleFactor = currentFontSize * fontScale;
+        return (font.glyphs[charIndex].advanceX == 0) ? font.recs[charIndex].width * scaleFactor
+            : font.glyphs[charIndex].advanceX * scaleFactor;
+    }
+
     /// Draw text on the screen.
     void draw(string text, double x, double y, double fontScale = 1.0, Color color = Colors.BLACK) {
         DrawTextEx(font, toStringz(text), Vector2(x, y), currentFontSize * fontScale, spacing, color);
