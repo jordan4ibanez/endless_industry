@@ -88,7 +88,7 @@ class TextBox : Component {
     /// This holds the data of the current text entered into it.
     /// This can also be used as default text.
     /// It is held line by line.
-    string currentText = "";
+    string text = "";
 
     /// Where the cursor is in the text.
     int cursorPosition = 0;
