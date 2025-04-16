@@ -69,9 +69,11 @@ class TextBox : Component {
 
     //? State behavior.
 
+    //~ I'm doing it like this cause I have no idea what I'm doing.
     /// This holds the data of the current text entered into it.
     /// This can also be used as default text.
-    string currentText = null;
+    /// It is held line by line.
+    string[] currentText = [];
 
     /// Where the cursor is in the text.
     int cursorPosition = 0;
@@ -79,6 +81,6 @@ class TextBox : Component {
     /// The size of the text box.
     Vec2i size = Vec2i(100, 100);
 
-    
+
 
 }
