@@ -57,6 +57,14 @@ public: //* BEGIN PUBLIC API.
             : cast(double) font.glyphs[charIndex].advanceX * scaleFactor;
     }
 
+    /// Get the height of a character.
+    double getCharHeight(char character, double fontScale = 1.0) {
+        const int codePoint = getCodePoint(character);
+        const int charIndex = getGlyphIndex(codePoint);
+        const double scaleFactor = (currentFontSize * fontScale) * inverseBaseFontSize;
+        return cast(double) font.recs[charIndex].height * scaleFactor;
+    }
+
     /// Draw text on the screen.
     void draw(string text, double x, double y, double fontScale = 1.0, Color color = Colors.BLACK) {
         DrawTextEx(font, toStringz(text), Vector2(x, y), currentFontSize * fontScale, spacing, color);
