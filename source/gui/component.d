@@ -62,3 +62,23 @@ class Button : Component {
         this.position.x = this.size.x * -0.5;
     }
 }
+
+class TextBox : Component {
+    /// What this text box will say when there's no text entered.
+    string placeholderText = "Nothing here";
+
+    //? State behavior.
+
+    /// This holds the data of the current text entered into it.
+    /// This can also be used as default text.
+    string currentText = null;
+
+    /// Where the cursor is in the text.
+    int cursorPosition = 0;
+
+    /// The size of the text box.
+    Vec2i size = Vec2i(100, 100);
+
+    
+
+}
