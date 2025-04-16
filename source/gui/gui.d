@@ -371,6 +371,29 @@ public: //* BEGIN PUBLIC API.
                     sizeY,
                     borderColor);
 
+                // This is ultra extremely inefficient.
+                double currentWidth = 0;
+                int currentHeight = 0;
+
+                foreach (index, thisChar; textBox.text) {
+
+                    FontHandler.draw(to!string(thisChar), posX + currentWidth, posY, 0.25);
+
+                    const double width = FontHandler.getCharWidth(thisChar, 0.25);
+                    const double height = FontHandler.getCharHeight(thisChar, 0.25);
+
+                    DrawRectangleLines(
+                        cast(int) floor(posX + currentWidth),
+                        posY,
+                        cast(int) floor(width),
+                        cast(int) floor(height),
+                        borderColor);
+
+                    currentWidth += width;
+
+                }
+
+                FontHandler.draw(textBox.text, posX, posY+32, 0.25);
             }
         }
 
