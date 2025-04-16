@@ -33,7 +33,7 @@ public:
 
     /// Center the Y position.
     void centerY() {
-        this.position.y = this.size.y * -0.5;
+        this.position.y = this.size.y * 0.5;
     }
 }
 
