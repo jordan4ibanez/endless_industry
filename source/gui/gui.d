@@ -353,9 +353,13 @@ public: //* BEGIN PUBLIC API.
                     ((-textBox.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
-                Color buttonColor = textBox.backgroundColor;
 
-
+                DrawRectangle(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    textBox.backgroundColor);
 
             }
         }
