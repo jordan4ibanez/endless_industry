@@ -34,6 +34,12 @@ public: //* BEGIN PUBLIC API.
         return MeasureTextEx(font, toStringz(text), currentFontSize * fontScale, spacing);
     }
 
+    /// Get the CodePoint of a character.
+    int getCodePoint(char character) {
+        static int byteCount = 0;
+        return GetCodepoint(&character, &byteCount);
+    }
+
     void draw(string text, double x, double y, double fontScale = 1.0, Color color = Colors.BLACK) {
         DrawTextEx(font, toStringz(text), Vector2(x, y), currentFontSize * fontScale, spacing, color);
     }
