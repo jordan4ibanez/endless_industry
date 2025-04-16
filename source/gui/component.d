@@ -69,6 +69,10 @@ class Button : Component {
     /// By default, this does nothing.
     void function() clickFunction = () {};
 
+    this() {
+        size = Vec2i(100, 32);
+    }
+
 }
 
 class TextBox : Component {
@@ -106,5 +110,9 @@ class TextBox : Component {
     Color cursorColor = Colors.RED;
 
     //? Functions/methods.
+
+    this() {
+        size = Vec2i(100, 100);
+    }
 
 }
