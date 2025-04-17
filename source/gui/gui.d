@@ -316,16 +316,16 @@ public: //* BEGIN PUBLIC API.
             const int adjustedMaxY = posY + sizeY + 1;
             // Do not bother rendering if out of bounds.
             if (adjustedMinX >= __maxX) {
-                writeln("max failure X");
+
                 return true;
             } else if (adjustedMaxX - 1 <= __minX) {
-                writeln("min failure X");
+
                 return true;
             } else if (adjustedMinY >= __maxY) {
-                writeln("max failure Y");
+
                 return true;
             } else if (adjustedMaxY - 1 <= __minY) {
-                writeln("min failure Y");
+
                 return true;
             }
             // Now lock the scissor to the work area.
