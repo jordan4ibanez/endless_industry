@@ -430,7 +430,6 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
-        EndScissorMode();
     }
 
     void drawCurrentWindow() {
