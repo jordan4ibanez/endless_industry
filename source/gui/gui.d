@@ -811,12 +811,11 @@ public: //* BEGIN PUBLIC API.
 
         if (Keyboard.isPressed(KeyboardKey.KEY_ESCAPE)) {
             playButtonSound();
-            if (currentWindow is null) {
-                currentWindow = windows["pause_menu"];
+            if (isWindowOpened()) {
+                closeWindow();
             } else {
-                currentWindow = null;
+                openWindow("pause_menu");
             }
-
         }
         // if (Keyboard.isPressed(KeyboardKey.KEY_TWO)) {
         //     windows["pause_menu"].center();
