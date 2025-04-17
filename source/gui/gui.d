@@ -625,7 +625,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     /// This will only run when the mouse is in the work area.
-    void windowComponentLogic() {
+    void windowComponentLogic(ref bool keyboardDoingTextInput) {
         const int workAreaPosX = cast(int) floor(
             centerPoint.x + (currentWindow.position.x * currentGUIScale));
         const int workAreaPosY = cast(int) floor(
@@ -700,7 +700,7 @@ public: //* BEGIN PUBLIC API.
             windowResizeLogic(mouseFocusedOnGUI);
         } else {
             if (generalWindowLogic(mouseFocusedOnGUI)) {
-                windowComponentLogic();
+                windowComponentLogic(keyboardDoingTextInput);
             }
         }
         Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
