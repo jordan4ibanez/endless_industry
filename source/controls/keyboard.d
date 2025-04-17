@@ -11,6 +11,10 @@ private:
 
 public: //* BEGIN PUBLIC API.
 
+    int getCharacterTyped() {
+        return GetCharPressed();
+    }
+
     bool isDown(KeyboardKey key) {
         return IsKeyDown(key);
     }
