@@ -323,7 +323,7 @@ public: //* BEGIN PUBLIC API.
             } else if (adjustedMaxX <= __minX) {
                 writeln("min failure X");
                 return true;
-            } else if (adjustedMinY > __maxY) {
+            } else if (adjustedMinY + 1 > __maxY) {
                 writeln("max failure Y");
                 return true;
             } else if (adjustedMaxY - 1 <= __minY) {
