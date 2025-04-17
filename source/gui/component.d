@@ -105,6 +105,8 @@ class TextBox : Component {
 
     /// The text color.
     Color textColor = Colors.BLACK;
+    /// The placeholder text color.
+    Color placeholderTextColor = Colors.GRAY;
 
     /// The cursor color.
     Color cursorColor = Colors.RED;
