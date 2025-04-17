@@ -1,28 +1,28 @@
 module controls.keyboard;
 
-import raylib;
 public import raylib : KeyboardKey;
+import raylib;
 
 static final const class Keyboard {
 static:
 private:
 
-    //? I like to have specific modules for things.
+    bool doingTextInput = false;
 
-    //* BEGIN PUBLIC API.
+public: //* BEGIN PUBLIC API.
 
-    public bool isDown(KeyboardKey key) {
+    bool isDown(KeyboardKey key) {
         return IsKeyDown(key);
     }
 
-    public bool isPressed(KeyboardKey key) {
+    bool isPressed(KeyboardKey key) {
         return IsKeyPressed(key);
     }
 
-    public bool isReleased(KeyboardKey key) {
+    bool isReleased(KeyboardKey key) {
         return IsKeyReleased(key);
     }
 
-    //* BEGIN INTERNAL API.
+private: //* BEGIN INTERNAL API.
 
 }
