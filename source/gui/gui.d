@@ -93,6 +93,19 @@ public: //* BEGIN PUBLIC API.
         windows[windowID] = window;
     }
 
+    /// Close the currently opened window if any.
+    /// If there is no window opened, this has no effect.
+    void closeWindow() {
+        currentWindow = null;
+    }
+
+    /// Open a window.
+    /// If there's already a window opened, this will replace it.
+    void openWindow(string windowID) {
+        WindowGUI* thisWindow = windowID in windows;
+        // currentWindow = 
+    }
+
     bool windowXInBounds(WindowGUI window) {
         bool result = true;
         const int posX = cast(int) floor(
@@ -476,12 +489,6 @@ public: //* BEGIN PUBLIC API.
             drawResizeButton();
         }
 
-    }
-
-    /// Close the currently opened window.
-    /// If no window is opened, this has no effect.
-    void closeWindow() {
-        currentWindow = null;
     }
 
     void playButtonSound() {
