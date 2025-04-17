@@ -618,7 +618,7 @@ public: //* BEGIN PUBLIC API.
             okayToCheckComponents = false;
             // The user closed the window.
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                currentWindow = null;
+                closeWindow();
                 playButtonSound();
                 return okayToCheckComponents;
             }
