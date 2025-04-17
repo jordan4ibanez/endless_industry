@@ -382,7 +382,7 @@ public: //* BEGIN PUBLIC API.
                     sizeY,
                     button.borderColor);
 
-                EndScissorMode();
+                endScissorComponent();
 
             } else if (TextBox textBox = instanceof!TextBox(component)) {
 
