@@ -663,6 +663,8 @@ public: //* BEGIN PUBLIC API.
 
             } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
 
+                textBox.mouseHovering = false;
+
                 const int posX = cast(int) floor(
                     (textBox.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
@@ -677,15 +679,13 @@ public: //* BEGIN PUBLIC API.
                     sizeY);
 
                 if (CheckCollisionPointRec(mousePos, buttonRect)) {
-                    writeln("Hovering!");
-                } else {
-                    writeln("nope");
+                    textBox.mouseHovering = true;
                 }
             }
         }
     }
 
-    void updateCurrentWindowGUI() {
+    void updateCurrentWindowLogic() {
         bool mouseFocusedOnGUI = false;
         if (currentWindow is null) {
             Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
@@ -842,7 +842,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         FontHandler.__update();
-        updateCurrentWindowGUI();
+        updateCurrentWindowLogic();
 
         bringBackDebugTest();
     }
