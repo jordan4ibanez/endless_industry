@@ -104,7 +104,10 @@ public: //* BEGIN PUBLIC API.
     /// If there's already a window opened, this will replace it.
     void openWindow(string windowID) {
         WindowGUI* thisWindow = windowID in windows;
-        // currentWindow = 
+        if (thisWindow is null) {
+            throw new Error(windowID ~ " is not a valid window");
+        }
+        currentWindow = *thisWindow;
     }
 
     /// Get the current ID of the opened window. (if any)
