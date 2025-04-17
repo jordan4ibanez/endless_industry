@@ -225,26 +225,31 @@ public: //* BEGIN PUBLIC API.
         input.y = 0;
 
         //? Controls first.
-        if (Keyboard.isDown(KeyboardKey.KEY_D)) {
-            moving = true;
-            input.x = 1;
-            velocity.x = topSpeed;
-        } else if (Keyboard.isDown(KeyboardKey.KEY_A)) {
-            moving = true;
-            input.x = -1;
-            velocity.x = -topSpeed;
+        if (!Keyboard.isDoingTextInput()) {
+            if (Keyboard.isDown(KeyboardKey.KEY_D)) {
+                moving = true;
+                input.x = 1;
+                velocity.x = topSpeed;
+            } else if (Keyboard.isDown(KeyboardKey.KEY_A)) {
+                moving = true;
+                input.x = -1;
+                velocity.x = -topSpeed;
+            } else {
+                velocity.x = 0;
+            }
+            if (Keyboard.isDown(KeyboardKey.KEY_W)) {
+                moving = true;
+                input.y = 1;
+                velocity.y = topSpeed;
+            } else if (Keyboard.isDown(KeyboardKey.KEY_S)) {
+                moving = true;
+                input.y = -1;
+                velocity.y = -topSpeed;
+            } else {
+                velocity.y = 0;
+            }
         } else {
             velocity.x = 0;
-        }
-        if (Keyboard.isDown(KeyboardKey.KEY_W)) {
-            moving = true;
-            input.y = 1;
-            velocity.y = topSpeed;
-        } else if (Keyboard.isDown(KeyboardKey.KEY_S)) {
-            moving = true;
-            input.y = -1;
-            velocity.y = -topSpeed;
-        } else {
             velocity.y = 0;
         }
 
