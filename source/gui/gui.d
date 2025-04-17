@@ -107,6 +107,15 @@ public: //* BEGIN PUBLIC API.
         // currentWindow = 
     }
 
+    /// Get the current ID of the opened window. (if any)
+    Option!string getCurrentWindowID() {
+        Option!string result;
+        if (currentWindow !is null) {
+            result = result.Some(currentWindow.windowID);
+        }
+        return result;
+    }
+
     bool windowXInBounds(WindowGUI window) {
         bool result = true;
         const int posX = cast(int) floor(
