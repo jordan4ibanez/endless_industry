@@ -303,10 +303,10 @@ public: //* BEGIN PUBLIC API.
 
         // All components will only be able to render within the work area.
 
-        const int minX = workAreaPosX;
-        const int maxX = workAreaPosX + workAreaSizeX;
-        const int minY = workAreaPosY;
-        const int maxY = workAreaPosY + workAreaSizeY;
+        const int __minX = workAreaPosX;
+        const int __maxX = workAreaPosX + workAreaSizeX - 1;
+        const int __minY = workAreaPosY + statusAreaHeight;
+        const int __maxY = workAreaPosY + workAreaSizeY - 1;
 
         /// Returns if this component is out of bounds.
         bool scissorComponent(const int posX, const int posY, const int sizeX, const int sizeY) {
