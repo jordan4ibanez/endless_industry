@@ -661,8 +661,26 @@ public: //* BEGIN PUBLIC API.
                     }
                 }
 
-            } else if (TextBox tbox = instanceof!TextBox(thisComponent)) {
+            } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
 
+                const int posX = cast(int) floor(
+                    (textBox.position.x * currentGUIScale) + centerX);
+                const int posY = cast(int) floor(
+                    ((-textBox.position.y) * currentGUIScale) + centerY);
+                const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
+
+                const Rectangle buttonRect = Rectangle(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY);
+
+                if (CheckCollisionPointRec(mousePos, buttonRect)) {
+                    writeln("Hovering!");
+                } else {
+                    writeln("nope");
+                }
             }
         }
     }
