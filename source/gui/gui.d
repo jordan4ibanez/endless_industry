@@ -391,6 +391,10 @@ public: //* BEGIN PUBLIC API.
                 const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
 
+                if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+                    continue;
+                }
+
                 DrawRectangle(
                     posX,
                     posY,
@@ -452,6 +456,7 @@ public: //* BEGIN PUBLIC API.
                         }
                     }
                 }
+                endScissorComponent();
             }
         }
 
