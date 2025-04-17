@@ -723,7 +723,7 @@ public: //* BEGIN PUBLIC API.
 
         }
 
-        currentWindow = windows["settings_menu"];
+        currentWindow = windows["pause_menu"];
     }
 
     void bringBackDebugTest() {
