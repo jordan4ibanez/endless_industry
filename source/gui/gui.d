@@ -317,13 +317,13 @@ public: //* BEGIN PUBLIC API.
             const int adjustedMaxY = posY + sizeY + 1;
 
             // Do not bother rendering if out of bounds.
-            if (adjustedMinX > __maxX) {
+            if (adjustedMinX >= __maxX) {
                 writeln("max failure X");
                 return true;
-            } else if (adjustedMaxX <= __minX) {
+            } else if (adjustedMaxX - 1 <= __minX) {
                 writeln("min failure X");
                 return true;
-            } else if (adjustedMinY + 1 > __maxY) {
+            } else if (adjustedMinY >= __maxY) {
                 writeln("max failure Y");
                 return true;
             } else if (adjustedMaxY - 1 <= __minY) {
