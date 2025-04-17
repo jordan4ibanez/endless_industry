@@ -363,7 +363,8 @@ public: //* BEGIN PUBLIC API.
                     sizeY,
                     buttonColor);
                 const string title = (button.text is null) ? "UNDEFINED" : button.text;
-                const int adjustment = cast(int) floor((sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
+                const int adjustment = cast(int) floor(
+                    (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
                         .x * 0.5));
                 FontHandler.drawShadowed(
                     title,
