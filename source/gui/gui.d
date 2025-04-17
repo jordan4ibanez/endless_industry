@@ -831,7 +831,11 @@ public: //* BEGIN PUBLIC API.
         if (Keyboard.isPressed(KeyboardKey.KEY_ESCAPE)) {
             playButtonSound();
             if (isWindowOpened()) {
-                closeWindow();
+                if (focusedTextBox !is null) {
+                    focusedTextBox = null;
+                } else {
+                    closeWindow();
+                }
             } else {
                 openWindow("pause_menu");
             }
