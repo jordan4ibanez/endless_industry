@@ -452,8 +452,6 @@ public: //* BEGIN PUBLIC API.
                 int currentHeight = 0;
                 ulong currentIndexInString = 0;
 
-                // todo: if text length == 0 then use placeholder if there.
-
                 bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
 
                 const string text = (usePlaceHolder) ? textBox.placeholderText : textBox.text;
@@ -727,6 +725,10 @@ public: //* BEGIN PUBLIC API.
 
                 if (focusedTextBox == textBox) {
                     keyboardDoingTextInput = true;
+                    const int input = Keyboard.getCharacterTyped();
+                    if (input != 0) {
+                        textBox.text ~= cast(char) input;
+                    }
                 }
             }
         }
