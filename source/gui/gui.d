@@ -351,7 +351,9 @@ public: //* BEGIN PUBLIC API.
                 const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
 
-                startScissorComponent(posX, posY, sizeX, sizeY);
+                if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+                    continue;
+                }
 
                 Color buttonColor = button.mouseHovering ? button.backgroundColorHover
                     : button.backgroundColor;
