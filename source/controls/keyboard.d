@@ -23,6 +23,14 @@ public: //* BEGIN PUBLIC API.
         return IsKeyReleased(key);
     }
 
+    bool isDoingTextInput() {
+        return doingTextInput;
+    }
+
+    void __setDoingTextInput(bool doingTextInput) {
+        this.doingTextInput = doingTextInput;
+    }
+
 private: //* BEGIN INTERNAL API.
 
 }
