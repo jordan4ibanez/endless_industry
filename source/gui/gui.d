@@ -310,12 +310,10 @@ public: //* BEGIN PUBLIC API.
 
         /// Returns if this component is out of bounds.
         bool startScissorComponent(const int posX, const int posY, const int sizeX, const int sizeY) {
-
             const int adjustedMinX = posX - 1;
             const int adjustedMaxX = posX + sizeX + 1;
             const int adjustedMinY = posY - 1;
             const int adjustedMaxY = posY + sizeY + 1;
-
             // Do not bother rendering if out of bounds.
             if (adjustedMinX >= __maxX) {
                 writeln("max failure X");
@@ -330,19 +328,16 @@ public: //* BEGIN PUBLIC API.
                 writeln("min failure Y");
                 return true;
             }
-
             // Now lock the scissor to the work area.
             const int finalPosX = (adjustedMinX >= __minX) ? adjustedMinX : __minX;
             const int finalPosY = (adjustedMinY >= __minY) ? adjustedMinY : __minY;
             const int finalSizeX = (adjustedMaxX <= __maxX) ? sizeX + 1 : (__maxX - finalPosX);
             const int finalSizeY = (adjustedMaxY <= __maxY) ? sizeY + 1 : (__maxY - finalPosY);
-
             BeginScissorMode(
                 finalPosX,
                 finalPosY,
                 finalSizeX,
                 finalSizeY);
-
             return false;
         }
 
