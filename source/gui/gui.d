@@ -309,24 +309,39 @@ public: //* BEGIN PUBLIC API.
         const int __maxY = workAreaPosY + workAreaSizeY - 1;
 
         /// Returns if this component is out of bounds.
-        bool scissorComponent(const int posX, const int posY, const int sizeX, const int sizeY) {
+        bool startScissorComponent(const int posX, const int posY, const int sizeX, const int sizeY) {
+
+            const int adjustedMinX = posX - 1;
+            const int adjustedMaxX = posX + sizeX + 1;
+            const int adjustedMinY = posY - 1;
+            const int adjustedMaxY = posY + sizeY + 1;
 
             // Do not bother rendering if out of bounds.
-            if (posX > maxX) {
+            if (adjustedMinX > __maxX) {
+                writeln("max failure X");
                 return true;
-            } else if (posX + sizeX <= minX) {
+            } else if (adjustedMaxX <= __minX) {
+                writeln("min failure X");
                 return true;
-            } else if (posY > maxY) {
+            } else if (adjustedMinY > __maxY) {
+                writeln("max failure Y");
                 return true;
-            } else if (posY + sizeY <= minY) {
+            } else if (adjustedMaxY - 1 <= __minY) {
+                writeln("min failure Y");
                 return true;
             }
 
+            // Now lock the scissor to the work area.
+            const int finalPosX = (adjustedMinX >= __minX) ? adjustedMinX : __minX;
+            const int finalPosY = (adjustedMinY >= __minY) ? adjustedMinY : __minY;
+            const int finalSizeX = (adjustedMaxX <= __maxX) ? sizeX + 1 : (__maxX - finalPosX);
+            const int finalSizeY = (adjustedMaxY <= __maxY) ? sizeY + 1 : (__maxY - finalPosY);
+
             BeginScissorMode(
-                workAreaPosX,
-                workAreaPosY + statusAreaHeight,
-                workAreaSizeX - 1,
-                workAreaSizeY - statusAreaHeight - 1);
+                finalPosX,
+                finalPosY,
+                finalSizeX,
+                finalSizeY);
 
             return false;
         }
