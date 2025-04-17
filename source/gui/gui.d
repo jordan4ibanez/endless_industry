@@ -122,6 +122,11 @@ public: //* BEGIN PUBLIC API.
         return result;
     }
 
+    /// Check if a window is currently opened.
+    bool isWindowOpened() {
+        return currentWindow !is null;
+    }
+
     bool windowXInBounds(WindowGUI window) {
         bool result = true;
         const int posX = cast(int) floor(
