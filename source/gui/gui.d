@@ -341,6 +341,11 @@ public: //* BEGIN PUBLIC API.
             return false;
         }
 
+        pragma(inline, true)
+        void endScissorComponent() {
+            EndScissorMode();
+        }
+
         foreach (Component component; currentWindow.componentsInOrder) {
             if (Button button = instanceof!Button(component)) {
                 const int posX = cast(int) floor(
