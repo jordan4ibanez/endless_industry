@@ -687,8 +687,11 @@ public: //* BEGIN PUBLIC API.
 
     void updateCurrentWindowLogic() {
         bool mouseFocusedOnGUI = false;
+        bool keyboardDoingTextInput = false;
+
         if (currentWindow is null) {
             Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
+            Keyboard.__setDoingTextInput(keyboardDoingTextInput);
             return;
         }
         if (dragging) {
@@ -701,6 +704,7 @@ public: //* BEGIN PUBLIC API.
             }
         }
         Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
+        Keyboard.__setDoingTextInput(keyboardDoingTextInput);
     }
 
     void debugTest() {
