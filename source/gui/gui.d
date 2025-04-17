@@ -597,6 +597,9 @@ public: //* BEGIN PUBLIC API.
         //? Collide with the entire window.
         // No collision with this window occured.
         if (!CheckCollisionPointRec(mousePos, windowRectangle)) {
+            if (focusedTextBox !is null) {
+                okayToCheckComponents = true;
+            }
             return okayToCheckComponents;
         }
         okayToCheckComponents = true;
@@ -708,6 +711,22 @@ public: //* BEGIN PUBLIC API.
 
                 if (CheckCollisionPointRec(mousePos, buttonRect)) {
                     textBox.mouseHovering = true;
+                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        playButtonSound();
+                        focusedTextBox = textBox;
+                    }
+                } else {
+                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        if (focusedTextBox == textBox) {
+                            playButtonSound();
+                            keyboardDoingTextInput = false;
+                            focusedTextBox = null;
+                        }
+                    }
+                }
+
+                if (focusedTextBox == textBox) {
+                    keyboardDoingTextInput = true;
                 }
             }
         }
