@@ -83,6 +83,7 @@ private:
     bool dragging = false;
     bool resizing = false;
     WindowGUI currentWindow = null;
+    Component focusedTextBox = null;
 
     Mt19937 rnd;
 
