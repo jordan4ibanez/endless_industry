@@ -414,12 +414,14 @@ public: //* BEGIN PUBLIC API.
                 int currentHeight = 0;
                 ulong currentIndexInString = 0;
 
-                const ulong lastIndex = (textBox.text.length == 0) ? 0 : (textBox.text.length) - 1;
-
                 // todo: if text length == 0 then use placeholder if there.
 
-                const string text = (textBox.text is null || textBox.text.length == 0) ? textBox.placeholderText
-                    : textBox.text;
+                bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
+
+                const string text = (usePlaceHolder) ? textBox.placeholderText : textBox.text;
+                const ulong lastIndex = (text.length == 0) ? 0 : (text.length) - 1;
+                const Color textColor = (usePlaceHolder) ? textBox.placeholderTextColor
+                    : textBox.textColor;
 
                 if (text !is null && text.length > 0) {
                     for (int i = 0; i < text.length; i++) {
@@ -432,21 +434,21 @@ public: //* BEGIN PUBLIC API.
 
                         if (thisChar == '\n') {
                             // If newline is reached, it must jump over it.
-                            FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
-                                0.25);
+                            FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
+                                0.25, textColor);
                             currentWidth = 0;
                             currentHeight += cast(int) floor(32 * currentGUIScale);
                             i++;
                             currentIndexInString = i;
                         } else if (currentWidth >= sizeX) {
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
-                                0.25);
+                                0.25, textColor);
                             currentWidth = 0;
                             currentHeight += cast(int) floor(32 * currentGUIScale);
                             currentIndexInString = i;
                         } else if (i == lastIndex) {
-                            FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
-                                0.25);
+                            FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
+                                0.25, textColor);
                         }
                     }
                 }
