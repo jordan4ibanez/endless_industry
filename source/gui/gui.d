@@ -409,28 +409,47 @@ public: //* BEGIN PUBLIC API.
                     borderColor);
 
                 // This is ultra extremely inefficient.
+                // But, it works, probably.
                 double currentWidth = 0;
                 int currentHeight = 0;
+                ulong currentIndexInString = 0;
 
-                foreach (index, thisChar; textBox.text) {
+                const ulong lastIndex = (textBox.text.length == 0) ? 0 : (textBox.text.length) - 1;
 
-                    FontHandler.draw(to!string(thisChar), posX + currentWidth, posY, 0.25);
+                // todo: if text length == 0 then use placeholder if there.
 
-                    const double width = FontHandler.getCharWidth(thisChar, 0.25);
-                    const double height = FontHandler.getCharHeight(thisChar, 0.25);
+                const string text = (textBox.text is null || textBox.text.length == 0) ? textBox.placeholderText
+                    : textBox.text;
 
-                    DrawRectangleLines(
-                        cast(int) floor(posX + currentWidth),
-                        posY,
-                        cast(int) floor(width),
-                        cast(int) floor(height),
-                        borderColor);
+                if (text !is null && text.length > 0) {
+                    for (int i = 0; i < text.length; i++) {
 
-                    currentWidth += width;
+                        const char thisChar = text[i];
 
+                        const double width = FontHandler.getCharWidth(text[i], 0.25);
+
+                        currentWidth += width;
+
+                        if (thisChar == '\n') {
+                            // If newline is reached, it must jump over it.
+                            FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
+                                0.25);
+                            currentWidth = 0;
+                            currentHeight += cast(int) floor(32 * currentGUIScale);
+                            i++;
+                            currentIndexInString = i;
+                        } else if (currentWidth >= sizeX) {
+                            FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
+                                0.25);
+                            currentWidth = 0;
+                            currentHeight += cast(int) floor(32 * currentGUIScale);
+                            currentIndexInString = i;
+                        } else if (i == lastIndex) {
+                            FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
+                                0.25);
+                        }
+                    }
                 }
-
-                FontHandler.draw(textBox.text, posX, posY + 32, 0.25);
             }
         }
 
@@ -716,7 +735,8 @@ public: //* BEGIN PUBLIC API.
             TextBox textBox = new TextBox();
             textBox.size.x = 400;
             textBox.size.y = 400;
-            textBox.text = "this is a test of the textbox. this should probably jump down.";
+            // textBox.text = "this is a test of the textbox. this\nshould probably jump down.";
+            textBox.placeholderText = "this is placeholder text";
 
             textBox.centerX();
             textBox.centerY();
@@ -727,7 +747,7 @@ public: //* BEGIN PUBLIC API.
 
         }
 
-        currentWindow = windows["pause_menu"];
+        currentWindow = windows["settings_menu"];
     }
 
     void bringBackDebugTest() {
