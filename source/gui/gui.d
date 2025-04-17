@@ -98,6 +98,9 @@ public: //* BEGIN PUBLIC API.
     /// If there is no window opened, this has no effect.
     void closeWindow() {
         currentWindow = null;
+        dragging = false;
+        resizing = false;
+        focusedTextBox = null;
     }
 
     /// Open a window.
