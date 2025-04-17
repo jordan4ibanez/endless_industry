@@ -354,6 +354,9 @@ public: //* BEGIN PUBLIC API.
                     ((-button.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+
+                startScissorComponent(posX, posY, sizeX, sizeY);
+
                 Color buttonColor = button.mouseHovering ? button.backgroundColorHover
                     : button.backgroundColor;
                 DrawRectangle(
@@ -378,6 +381,9 @@ public: //* BEGIN PUBLIC API.
                     sizeX,
                     sizeY,
                     button.borderColor);
+
+                EndScissorMode();
+
             } else if (TextBox textBox = instanceof!TextBox(component)) {
 
                 const int posX = cast(int) floor(
