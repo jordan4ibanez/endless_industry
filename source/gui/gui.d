@@ -734,9 +734,7 @@ public: //* BEGIN PUBLIC API.
 
                         if (textBox.cursorPosition > 0 && textBox.text.length > 0) {
                             char[] old = textBox.text.dup;
-
                             old = old.remove(textBox.cursorPosition - 1);
-
                             textBox.text = old.idup;
                         }
                     }
