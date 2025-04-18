@@ -10,6 +10,7 @@ import math.vec2d;
 import math.vec2i;
 import raylib;
 import std.algorithm.mutation;
+import std.array;
 import std.conv;
 import std.math.rounding;
 import std.random;
