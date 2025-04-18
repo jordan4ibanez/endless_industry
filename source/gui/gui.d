@@ -477,6 +477,7 @@ public: //* BEGIN PUBLIC API.
                         currentWidth += width;
 
                         // Draw the cursor if the current focus is on this text box.
+                        // This will draw it before the current character.
                         //! Note: this will cause issues with newlines.
                         //! You cannot select the last character visually in the line.
                         //! It will just skip to the next line.
