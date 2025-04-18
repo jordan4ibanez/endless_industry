@@ -497,12 +497,14 @@ public: //* BEGIN PUBLIC API.
 
                         if (thisChar == '\n') {
                             // If newline is reached, it must jump over it.
-                            FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
+                            FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
                                 0.25, textColor);
-                            currentWidth = 0;
                             currentHeight += cast(int) floor(32 * currentGUIScale);
-                            i++;
-                            currentIndexInString = i;
+                            currentWidth = 0;
+                            currentIndexInString = i + 1;
+
+                            //? This turns it into a cycle of finding \n over and over.
+                            continue;
                         } else if (currentWidth >= sizeX) {
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
                                 0.25, textColor);
