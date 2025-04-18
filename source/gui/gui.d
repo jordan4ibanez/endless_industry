@@ -684,23 +684,27 @@ public: //* BEGIN PUBLIC API.
         const int centerY = cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5));
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
 
-        const Vector2 mousePos = Mouse.getPosition.toRaylib();
+        const Vec2d __preprocessedMousePos = Mouse.getPosition();
+
+        bool dumpMouseIntoTheVoid = false;
 
         if (currentWindow.mouseHoveringResizeButton) {
-            writeln("hovering the resize button");
-        } else if (mousePos.x < workAreaPosX) {
-            writeln("mouse X left", asdf);
-            asdf++;
-        } else if (mousePos.x >= workAreaPosX + workAreaSizeX) {
-            writeln("mouse X right", asdf);
-            asdf++;
-        } else if (mousePos.y < workAreaPosY + statusAreaHeight) {
-            writeln("mouse Y top", asdf);
-            asdf++;
-        } else if (mousePos.y >= workAreaPosY + workAreaSizeY) {
-            writeln("mouse Y bottom", asdf);
-            asdf++;
+            dumpMouseIntoTheVoid = true;
+        } else if (__preprocessedMousePos.x < workAreaPosX) {
+            dumpMouseIntoTheVoid = true;
+        } else if (__preprocessedMousePos.x >= workAreaPosX + workAreaSizeX) {
+            dumpMouseIntoTheVoid = true;
+        } else if (__preprocessedMousePos.y < workAreaPosY + statusAreaHeight) {
+            dumpMouseIntoTheVoid = true;
+        } else if (__preprocessedMousePos.y >= workAreaPosY + workAreaSizeY) {
+            dumpMouseIntoTheVoid = true;
         }
+
+        // If that mouse shouldn't be colliding, get that thing out of here.
+        const static double __mouseDumper = 1_000_000.0;
+        const Vector2 mousePos = (dumpMouseIntoTheVoid) ? Vector2(
+            __preprocessedMousePos.x + __mouseDumper, __preprocessedMousePos.y + __mouseDumper)
+            : __preprocessedMousePos.toRaylib();
 
         foreach (thisComponent; currentWindow.componentsInOrder) {
             if (Button button = instanceof!Button(thisComponent)) {
