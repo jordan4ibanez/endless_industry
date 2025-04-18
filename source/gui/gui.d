@@ -682,7 +682,23 @@ public: //* BEGIN PUBLIC API.
         const int workAreaSizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
         const int centerX = cast(int) floor(workAreaPosX + (workAreaSizeX * 0.5));
         const int centerY = cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5));
+        const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
+
         const Vector2 mousePos = Mouse.getPosition.toRaylib();
+
+        if (mousePos.x < workAreaPosX) {
+            writeln("mouse X left", asdf);
+            asdf++;
+        } else if (mousePos.x >= workAreaPosX + workAreaSizeX) {
+            writeln("mouse X right", asdf);
+            asdf++;
+        } else if (mousePos.y < workAreaPosY + statusAreaHeight) {
+            writeln("mouse Y top", asdf);
+            asdf++;
+        } else if (mousePos.y >= workAreaPosY + workAreaSizeY) {
+            writeln("mouse Y bottom", asdf);
+            asdf++;
+        }
 
         foreach (thisComponent; currentWindow.componentsInOrder) {
             if (Button button = instanceof!Button(thisComponent)) {
