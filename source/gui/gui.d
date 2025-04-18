@@ -686,7 +686,9 @@ public: //* BEGIN PUBLIC API.
 
         const Vector2 mousePos = Mouse.getPosition.toRaylib();
 
-        if (mousePos.x < workAreaPosX) {
+        if (currentWindow.mouseHoveringResizeButton) {
+            writeln("hovering the resize button");
+        } else if (mousePos.x < workAreaPosX) {
             writeln("mouse X left", asdf);
             asdf++;
         } else if (mousePos.x >= workAreaPosX + workAreaSizeX) {
