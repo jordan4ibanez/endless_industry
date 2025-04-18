@@ -470,6 +470,18 @@ public: //* BEGIN PUBLIC API.
 
                         currentWidth += width;
 
+                        // Draw the cursor if the current focus is on this text box.
+                        //! Note: this will cause issues with newlines.
+                        //! You cannot select the last character visually in the line.
+                        //! It will just skip to the next line.
+                        //! It still works the same though. Oh well.
+                        if (focusedTextBox == textBox) {
+                            if (textBox.cursorPosition == i) {
+                                const double w = currentWidth - width;
+                                
+                            }
+                        }
+
                         if (thisChar == '\n') {
                             // If newline is reached, it must jump over it.
                             FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
