@@ -507,7 +507,7 @@ public: //* BEGIN PUBLIC API.
                         } else if (currentWidth >= sizeX) {
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
                                 0.25, textColor);
-                            currentWidth = 0;
+                            currentWidth = width;
                             currentHeight += cast(int) floor(32 * currentGUIScale);
                             currentIndexInString = i;
                         } else if (i == lastIndex) {
