@@ -778,6 +778,10 @@ public: //* BEGIN PUBLIC API.
                             old = old.remove(textBox.cursorPosition - 1);
                             textBox.text = old.idup;
                         }
+                    } else if (Keyboard.isPressed(KeyboardKey.KEY_ENTER)) {
+                        char[] old = textBox.text.dup;
+                        old.insertInPlace(textBox.cursorPosition, '\n');
+                        textBox.text = old.idup;
                     }
                 }
             }
