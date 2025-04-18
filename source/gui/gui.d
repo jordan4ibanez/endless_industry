@@ -482,19 +482,6 @@ public: //* BEGIN PUBLIC API.
                         const double width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
 
-                        // Draw the cursor if the current focus is on this text box.
-                        // This will draw it before the current character.
-                        //! Note: this will cause issues with newlines.
-                        //! You cannot select the last character visually in the line.
-                        //! It will just skip to the next line.
-                        //! It still works the same though. Oh well.
-                        if (focusedTextBox == textBox) {
-                            if (textBox.cursorPosition == i) {
-                                const double w = currentWidth - width;
-                                
-                            }
-                        }
-
                         if (thisChar == '\n') {
                             // If newline is reached, it must jump over it.
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
@@ -515,7 +502,31 @@ public: //* BEGIN PUBLIC API.
                             FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
                                 0.25, textColor);
                         }
-                        {
+
+                        // Draw the cursor if the current focus is on this text box.
+                        // This will draw it before the current character.
+                        //! Note: this will cause issues with newlines.
+                        //! You cannot select the last character visually in the line.
+                        //! It will just skip to the next line.
+                        //! It still works the same though. Oh well.
+                        if (focusedTextBox == textBox) {
+                            if (textBox.cursorPosition == i) {
+                                writeln("drawing cursor");
+                                const double w = currentWidth - width;
+                                if (cursorVisible) {
+
+                                    DrawRectangle(
+                                        cast(int) floor(posX + (currentWidth - width) + (width * 0.01)),
+                                        posY + currentHeight,
+                                        cast(int) floor(1 * currentGUIScale),
+                                        cast(int) floor(32 * currentGUIScale),
+                                        Colors.BLUE);
+
+                                }
+                            }
+                        }
+
+                        if (false) {
                             DrawRectangleLines(
                                 cast(int) floor(posX + (currentWidth - width)),
                                 posY + currentHeight,
