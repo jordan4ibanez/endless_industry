@@ -622,22 +622,20 @@ public: //* BEGIN PUBLIC API.
         //? Collide with the entire window.
         // No collision with this window occured.
         if (!CheckCollisionPointRec(mousePos, windowRectangle)) {
-            return okayToCheckComponents;
+            return;
         }
-        okayToCheckComponents = true;
         mouseFocusedOnGUI = true;
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
         //? Check if the mouse is hovering over the status bar.
         Rectangle statusBarRectangle = Rectangle(posX, posY, sizeX - statusAreaHeight - 1, statusAreaHeight);
         if (CheckCollisionPointRec(mousePos, statusBarRectangle)) {
-            okayToCheckComponents = false;
             currentWindow.mouseHoveringStatusBar = true;
             // The user is dragging a window.
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                 mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX, posY), mousePos));
                 dragging = true;
                 playButtonSound();
-                return okayToCheckComponents;
+                return;
             }
         }
         //? Check if the mouse is hovering over the close button.
@@ -645,12 +643,11 @@ public: //* BEGIN PUBLIC API.
             statusAreaHeight, statusAreaHeight);
         if (CheckCollisionPointRec(mousePos, closeButtonRectangle)) {
             currentWindow.mouseHoveringCloseButton = true;
-            okayToCheckComponents = false;
             // The user closed the window.
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                 closeWindow();
                 playButtonSound();
-                return okayToCheckComponents;
+                return;
             }
         }
         //? Check if the mouse is hovering over the resize button.
@@ -663,18 +660,16 @@ public: //* BEGIN PUBLIC API.
                 halfStatusAreaHeight);
             if (CheckCollisionPointRec(mousePos, resizeButtonRectangle)) {
                 currentWindow.mouseHoveringResizeButton = true;
-                okayToCheckComponents = false;
                 // The user is resizing a window.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     mouseWindowDelta = Vec2d(Vector2Subtract(Vector2(posX + sizeX, posY + sizeY),
                             mousePos));
                     resizing = true;
                     playButtonSound();
-                    return okayToCheckComponents;
+                    return;
                 }
             }
         }
-        return okayToCheckComponents;
     }
 
     /// This will only run when the mouse is in the work area.
