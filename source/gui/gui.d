@@ -81,10 +81,15 @@ private:
     /// For dragging and resizing windows.
     Vec2d mouseWindowDelta;
 
+    /// The window database.
     WindowGUI[string] windows;
+    /// If a window is currently getting dragged.
     bool dragging = false;
+    /// If a window is currently getting resized.
     bool resizing = false;
+    /// The currently opened window.
     WindowGUI currentWindow = null;
+    /// The currently focused text box.
     Component focusedTextBox = null;
 
     Mt19937 rnd;
