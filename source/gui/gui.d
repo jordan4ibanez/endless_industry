@@ -672,7 +672,7 @@ public: //* BEGIN PUBLIC API.
         }
     }
 
-    /// This will only run when the mouse is in the work area.
+    /// Run the component logic.
     void windowComponentLogic(ref bool keyboardDoingTextInput) {
         const int workAreaPosX = cast(int) floor(
             centerPoint.x + (currentWindow.position.x * currentGUIScale));
