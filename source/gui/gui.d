@@ -92,6 +92,12 @@ private:
     WindowGUI currentWindow = null;
     /// The currently focused text box.
     Component focusedTextBox = null;
+    /// The cursor blink state timer.
+    double cursorBlinkTimer = 0;
+    /// If the cursor is visible.
+    bool cursorVisible = true;
+    /// How fast the cursor blinks.
+    double cursorBlinkGoalTime = 0.25;
 
     /// This is the random generator.
     Mt19937 rnd;
