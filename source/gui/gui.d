@@ -672,6 +672,9 @@ public: //* BEGIN PUBLIC API.
 
     /// Run the component logic.
     void windowComponentLogic(ref bool keyboardDoingTextInput) {
+        if (currentWindow is null) {
+            return;
+        }
         const int workAreaPosX = cast(int) floor(
             centerPoint.x + (currentWindow.position.x * currentGUIScale));
         const int workAreaPosY = cast(int) floor(
