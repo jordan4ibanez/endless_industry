@@ -780,9 +780,9 @@ public: //* BEGIN PUBLIC API.
         } else if (resizing) {
             windowResizeLogic(mouseFocusedOnGUI);
         } else {
-            if (generalWindowLogic(mouseFocusedOnGUI)) {
-                windowComponentLogic(keyboardDoingTextInput);
-            }
+            generalWindowLogic(mouseFocusedOnGUI);
+            windowComponentLogic(keyboardDoingTextInput);
+
         }
         Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
         Keyboard.__setDoingTextInput(keyboardDoingTextInput);
