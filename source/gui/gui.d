@@ -701,6 +701,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         // If that mouse shouldn't be colliding, get that thing out of here.
+        // This allows the components to do their logic without blocking.
         const static double __mouseDumper = 1_000_000.0;
         const Vector2 mousePos = (dumpMouseIntoTheVoid) ? Vector2(
             __preprocessedMousePos.x + __mouseDumper, __preprocessedMousePos.y + __mouseDumper)
