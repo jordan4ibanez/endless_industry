@@ -93,6 +93,7 @@ private:
     /// The currently focused text box.
     Component focusedTextBox = null;
 
+    /// This is the random generator.
     Mt19937 rnd;
 
 public: //* BEGIN PUBLIC API.
