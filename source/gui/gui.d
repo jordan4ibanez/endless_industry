@@ -63,22 +63,22 @@ static final const class GUI {
 static:
 private:
 
-    // We standardize the GUI with 1080p.
+    /// We standardize the GUI with 1080p.
     const Vec2d standardSize = Vec2d(1920.0, 1080.0);
-    // This is the real window size.
+    /// This is the real window size.
     Vec2d realSize = Vec2d(1920.0, 1080.0);
-    // The scale of GUI components.
+    /// The scale of GUI components.
     double currentGUIScale = 1.0;
-    // Used to divide using multiplication.
+    /// Used to divide using multiplication.
     double inverseCurrentGUIScale = 1.0;
-    // This is the anchor for all windows. The origin is in the center of the window.
+    /// This is the anchor for all windows. The origin is in the center of the window.
     Vec2d centerPoint;
-    // This will be an options menu component to adjust the size of the GUI.
+    /// This will be an options menu component to adjust the size of the GUI.
     double masterGUIScale = 1.0;
-    // This is the scale of the graphics components.
-    // Mainly this is used for the camera's zoom.
+    /// This is the scale of the graphics components.
+    /// Mainly this is used for the camera's zoom.
     double graphicsScale = 1.0;
-    // For dragging and resizing windows.
+    /// For dragging and resizing windows.
     Vec2d mouseWindowDelta;
 
     WindowGUI[string] windows;
