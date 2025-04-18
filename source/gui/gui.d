@@ -478,9 +478,7 @@ public: //* BEGIN PUBLIC API.
                     for (int i = 0; i < text.length; i++) {
 
                         const char thisChar = text[i];
-
-                        const double width = FontHandler.getCharWidth(text[i], 0.25);
-
+                        const double width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
 
                         // Draw the cursor if the current focus is on this text box.
