@@ -770,9 +770,9 @@ public: //* BEGIN PUBLIC API.
                     keyboardDoingTextInput = true;
                     const int input = Keyboard.getCharacterTyped();
                     if (input != 0) {
+                        // todo: insert in place!
                         textBox.text ~= cast(char) input;
                     } else if (Keyboard.isPressed(KeyboardKey.KEY_BACKSPACE)) {
-
                         if (textBox.cursorPosition > 0 && textBox.text.length > 0) {
                             char[] old = textBox.text.dup;
                             old = old.remove(textBox.cursorPosition - 1);
