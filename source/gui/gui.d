@@ -826,10 +826,7 @@ public: //* BEGIN PUBLIC API.
             pauseMenu.addComponent("continue_button", continueButton);
 
             Button settingsButton = new Button();
-            settingsButton.clickFunction = () {
-                writeln(
-                    "Here's where I'd put a settings menu IF I HAD ONE (╯°□°）╯︵ ┻━┻");
-            };
+            settingsButton.clickFunction = () { openWindow("settings_menu"); };
             settingsButton.size.x = 200;
             settingsButton.position.y = 0;
             settingsButton.text = "SETTINGS";
