@@ -23,6 +23,14 @@ public: //* BEGIN PUBLIC API.
         return IsKeyPressed(key);
     }
 
+    bool isKeyRepeating(KeyboardKey key) {
+        return IsKeyPressedRepeat(key);
+    }
+
+    bool isKeyPressedOrRepeating(KeyboardKey key) {
+        return IsKeyPressed(key) || IsKeyPressedRepeat(key);
+    }
+
     bool isReleased(KeyboardKey key) {
         return IsKeyReleased(key);
     }
