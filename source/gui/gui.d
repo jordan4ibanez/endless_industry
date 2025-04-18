@@ -9,10 +9,12 @@ import gui.font;
 import math.vec2d;
 import math.vec2i;
 import raylib;
+import std.algorithm.mutation;
 import std.conv;
 import std.math.rounding;
 import std.random;
 import std.stdio;
+import std.string;
 
 /*
 *
@@ -728,6 +730,15 @@ public: //* BEGIN PUBLIC API.
                     const int input = Keyboard.getCharacterTyped();
                     if (input != 0) {
                         textBox.text ~= cast(char) input;
+                    } else if (Keyboard.isPressed(KeyboardKey.KEY_BACKSPACE)) {
+
+                        if (textBox.cursorPosition > 0 && textBox.text.length > 0) {
+                            char[] old = textBox.text.dup;
+
+                            old = old.remove(textBox.cursorPosition - 1);
+
+                            textBox.text = old.idup;
+                        }
                     }
                 }
             }
