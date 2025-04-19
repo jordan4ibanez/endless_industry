@@ -33,13 +33,13 @@ public:
 
     /// Center the Y position.
     void centerY() {
-        this.position.y = this.size.y * 0.5;
+        this.position.y = (this.size.y * 0.5) - 16;
     }
 
     /// Center both X and Y position;
     void center() {
         this.position.x = this.size.x * -0.5;
-        this.position.y = this.size.y * 0.5;
+        this.position.y = (this.size.y * 0.5) - 16;
     }
 
     void function(Vec2i) onWindowResize = (Vec2i newSize) {};
