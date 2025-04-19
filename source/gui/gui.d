@@ -843,6 +843,7 @@ public: //* BEGIN PUBLIC API.
                             char[] old = textBox.text.dup;
                             old = old.remove(textBox.cursorPosition - 1);
                             textBox.text = old.idup;
+                            textBox.cursorPosition--;
                             cursorMovedUpdate();
                         }
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_ENTER)) {
