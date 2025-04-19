@@ -581,14 +581,14 @@ public: //* BEGIN PUBLIC API.
                 endScissorComponent();
 
                 //? Text box.
-            } else if (TextBox textPad = instanceof!TextBox(component)) {
+            } else if (TextBox textBox = instanceof!TextBox(component)) {
 
                 const int posX = cast(int) floor(
-                    (textPad.position.x * currentGUIScale) + centerX);
+                    (textBox.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
-                    ((-textPad.position.y) * currentGUIScale) + centerY);
-                const int sizeX = cast(int) floor(textPad.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(textPad.size.y * currentGUIScale);
+                    ((-textBox.position.y) * currentGUIScale) + centerY);
+                const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
 
                 if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                     continue;
@@ -599,10 +599,10 @@ public: //* BEGIN PUBLIC API.
                     posY,
                     sizeX,
                     sizeY,
-                    textPad.backgroundColor);
+                    textBox.backgroundColor);
 
-                const Color borderColor = textPad.mouseHovering ? textPad.borderColorHover
-                    : textPad.borderColor;
+                const Color borderColor = textBox.mouseHovering ? textBox.borderColorHover
+                    : textBox.borderColor;
 
                 DrawRectangleLines(
                     posX,
@@ -616,17 +616,17 @@ public: //* BEGIN PUBLIC API.
                 double currentWidth = 0;
                 double width = 0;
 
-                bool usePlaceHolder = (textPad.text is null || textPad.text.length == 0);
+                bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
 
-                const string text = (usePlaceHolder) ? textPad.placeholderText : textPad.text;
-                const Color textColor = (usePlaceHolder) ? textPad.placeholderTextColor
-                    : textPad.textColor;
+                const string text = (usePlaceHolder) ? textBox.placeholderText : textBox.text;
+                const Color textColor = (usePlaceHolder) ? textBox.placeholderTextColor
+                    : textBox.textColor;
 
                 if (text !is null && text.length > 0) {
                     for (int i = 0; i < text.length; i++) {
 
                         bool shouldDrawCursor() {
-                            return cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == i;
+                            return cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == i;
                         }
 
                         const char thisChar = text[i];
@@ -667,7 +667,7 @@ public: //* BEGIN PUBLIC API.
                 }
 
                 // If the text pad cursor is at the literal last position, it needs to be drawn here.
-                if (!usePlaceHolder && cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == textPad
+                if (!usePlaceHolder && cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == textBox
                     .text.length) {
                     const double w = currentWidth;
                     DrawRectangle(
