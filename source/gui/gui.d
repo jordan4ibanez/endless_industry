@@ -548,17 +548,17 @@ public: //* BEGIN PUBLIC API.
                                 Colors.BLUE);
                         }
 
-                        if (false) {
-                            DrawRectangleLines(
-                                cast(int) floor(posX + (currentWidth - width)),
-                                posY + currentHeight,
-                                cast(int) floor(width),
-                                cast(int) floor(32 * currentGUIScale),
-                                Colors.BLUE);
+                        // if (true) {
+                        //     DrawRectangleLines(
+                        //         cast(int) floor(posX + (currentWidth - width)),
+                        //         posY + currentHeight,
+                        //         cast(int) floor(width),
+                        //         cast(int) floor(32 * currentGUIScale),
+                        //         Colors.BLUE);
 
-                            FontHandler.draw(to!string(i), posX + (currentWidth - width), posY + currentHeight,
-                                0.05, Colors.GREEN);
-                        }
+                        //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY + currentHeight,
+                        //         0.05, Colors.GREEN);
+                        // }
 
                     }
                 }
