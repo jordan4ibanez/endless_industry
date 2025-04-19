@@ -1081,6 +1081,8 @@ public: //* BEGIN PUBLIC API.
 
             settingsMenu.addComponent("text_box", textBox);
 
+            settingsMenu.onClose = () { openWindow("pause_menu"); };
+
             registerWindow("settings_menu", settingsMenu);
 
         }
