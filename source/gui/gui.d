@@ -186,7 +186,7 @@ public: //* BEGIN PUBLIC API.
         const int sizeY = cast(int) floor(window.size.y * currentGUIScale);
 
         if (posX < 0) {
-            window.position.x = cast(int) floor(
+            window.position.x = cast(int) round(
                 (-centerPoint.x) * inverseCurrentGUIScale);
             result = true;
         } else if (posX + sizeX > realSize.x) {
@@ -196,7 +196,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         if (posY < 0) {
-            window.position.y = cast(int) floor(
+            window.position.y = cast(int) round(
                 (-centerPoint.y) * inverseCurrentGUIScale);
             result = true;
         } else if (posY + sizeY > realSize.y) {
