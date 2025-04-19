@@ -512,18 +512,15 @@ public: //* BEGIN PUBLIC API.
                         //! It still works the same though. Oh well.
                         if (focusedTextBox == textBox) {
                             if (textBox.cursorPosition == i) {
-
                                 const double w = currentWidth - width;
 
                                 if (cursorVisible) {
-
                                     DrawRectangle(
                                         cast(int) floor(posX + w + (currentGUIScale * 0.5)),
                                         posY + currentHeight,
                                         cast(int) floor(2 * currentGUIScale),
                                         cast(int) floor(32 * currentGUIScale),
                                         Colors.BLUE);
-
                                 }
                             }
                         }
