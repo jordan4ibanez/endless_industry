@@ -709,6 +709,23 @@ public: //* BEGIN PUBLIC API.
         }
     }
 
+    /// This is the blinking text cursor logic.
+    void runBlinkingCursorLogic() {
+        // Do not calculate anything if there's no text box.
+        if (focusedTextBox is null) {
+            return;
+        }
+
+        // Utilizing the delta will stop the cursor from becoming invisible even if
+        // the game logic is fast forwarded.
+        const double delta = Delta.getDelta();
+
+        cursorBlinkTimer += delta;
+        if (cursorBlinkTimer >= cursorBlinkGoalTime) {
+            cursorBlinkTimer -= cursorBlinkGoalTime;
+            cursorVisible = !cursorVisible;
+        }
+    }
     /// Run the component logic.
     void windowComponentLogic(ref bool keyboardDoingTextInput) {
         if (currentWindow is null) {
