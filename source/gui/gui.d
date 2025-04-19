@@ -531,7 +531,7 @@ public: //* BEGIN PUBLIC API.
                                 0.25, textColor);
                         }
 
-                        // Draw the cursor if the current focus is on this text box.
+                        // Draw the cursor if the current focus is on this text pad.
                         // This will draw it before the current character.
                         //! Note: this will cause issues with newlines.
                         //! You cannot select the last character visually in the line.
@@ -566,7 +566,7 @@ public: //* BEGIN PUBLIC API.
                     }
                 }
 
-                // If the text box cursor is at the literal last position, it needs to be drawn here.
+                // If the text pad cursor is at the literal last position, it needs to be drawn here.
                 if (!usePlaceHolder && cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == textPad
                     .text.length) {
                     const double w = currentWidth;
@@ -836,7 +836,7 @@ public: //* BEGIN PUBLIC API.
                     }
                 }
 
-                //? Text box.
+                //? Text pad.
             } else if (TextPad textPad = instanceof!TextPad(thisComponent)) {
 
                 textPad.mouseHovering = false;
@@ -1074,7 +1074,6 @@ public: //* BEGIN PUBLIC API.
             TextPad textPad = new TextPad();
             textPad.size.x = 400;
             textPad.size.y = 400;
-            // textBox.text = "this is a test of the textbox. this should probably jump down. I think it would be really nice if this text were to drop";
             textPad.placeholderText = "Type something in here.";
 
             textPad.centerX();
