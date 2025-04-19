@@ -530,21 +530,18 @@ public: //* BEGIN PUBLIC API.
                         //! You cannot select the last character visually in the line.
                         //! It will just skip to the next line.
                         //! It still works the same though. Oh well.
-                        if (!skipDrawCursor && focusedTextBox == textBox) {
-                            if (textBox.cursorPosition == i) {
-                                if (cursorVisible) {
-                                    double w = currentWidth - width;
-                                    if (w < 0) {
-                                        w = 0;
-                                    }
-                                    DrawRectangle(
-                                        cast(int) floor(posX + w + (currentGUIScale * 0.5)),
-                                        posY + currentHeight,
-                                        cast(int) floor(2 * currentGUIScale),
-                                        cast(int) floor(32 * currentGUIScale),
-                                        Colors.BLUE);
-                                }
+                        if (!skipDrawCursor && shouldDrawCursor()) {
+
+                            double w = currentWidth - width;
+                            if (w < 0) {
+                                w = 0;
                             }
+                            DrawRectangle(
+                                cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                                posY + currentHeight,
+                                cast(int) floor(2 * currentGUIScale),
+                                cast(int) floor(32 * currentGUIScale),
+                                Colors.BLUE);
                         }
 
                         if (false) {
