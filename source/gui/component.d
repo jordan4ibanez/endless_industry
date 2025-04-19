@@ -140,7 +140,7 @@ class TextBox : Component {
     string placeholderText = "Nothing here";
 
     /// The maximum amount of characters this text box can have.
-    ulong maxCharacters = 32;
+    ulong maxCharacters = 16;
 
     /// Where the cursor is in the text.
     int cursorPosition = 0;
