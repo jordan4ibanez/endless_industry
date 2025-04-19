@@ -1023,29 +1023,33 @@ public: //* BEGIN PUBLIC API.
             // pauseMenu.resizeable = false;
             pauseMenu.center();
 
-            Button continueButton = new Button();
-            continueButton.clickFunction = () { closeWindow(); };
-            continueButton.size.x = 200;
-            continueButton.position.y = 200;
-            continueButton.text = "CONTINUE";
-            continueButton.centerX();
-            pauseMenu.addComponent("continue_button", continueButton);
+            TextBox textBox = new TextBox();
+            textBox.placeholderText = "Username goes here.";
+            pauseMenu.addComponent("text_box", textBox);
 
-            Button notepadButton = new Button();
-            notepadButton.clickFunction = () { openWindow("notepad_menu"); };
-            notepadButton.size.x = 200;
-            notepadButton.position.y = 75;
-            notepadButton.text = "NOTEPAD";
-            notepadButton.centerX();
-            pauseMenu.addComponent("notepad_button", notepadButton);
+            // Button continueButton = new Button();
+            // continueButton.clickFunction = () { closeWindow(); };
+            // continueButton.size.x = 200;
+            // continueButton.position.y = 200;
+            // continueButton.text = "CONTINUE";
+            // continueButton.centerX();
+            // pauseMenu.addComponent("continue_button", continueButton);
 
-            Button settingsButton = new Button();
-            settingsButton.clickFunction = () { openWindow("settings_menu"); };
-            settingsButton.size.x = 200;
-            settingsButton.position.y = -75;
-            settingsButton.text = "SETTINGS";
-            settingsButton.centerX();
-            pauseMenu.addComponent("settings_button", settingsButton);
+            // Button notepadButton = new Button();
+            // notepadButton.clickFunction = () { openWindow("notepad_menu"); };
+            // notepadButton.size.x = 200;
+            // notepadButton.position.y = 75;
+            // notepadButton.text = "NOTEPAD";
+            // notepadButton.centerX();
+            // pauseMenu.addComponent("notepad_button", notepadButton);
+
+            // Button settingsButton = new Button();
+            // settingsButton.clickFunction = () { openWindow("settings_menu"); };
+            // settingsButton.size.x = 200;
+            // settingsButton.position.y = -75;
+            // settingsButton.text = "SETTINGS";
+            // settingsButton.centerX();
+            // pauseMenu.addComponent("settings_button", settingsButton);
 
             Button exitButton = new Button();
             exitButton.clickFunction = () {
