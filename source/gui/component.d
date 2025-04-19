@@ -84,8 +84,8 @@ class Button : Component {
 
 }
 
-class TextBox : Component {
-    /// What this text box will say when there's no text entered.
+class TextPad : Component {
+    /// What this text pad will say when there's no text entered.
     string placeholderText = "Nothing here";
 
     //? State behavior.
