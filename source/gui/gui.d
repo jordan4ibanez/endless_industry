@@ -492,8 +492,6 @@ public: //* BEGIN PUBLIC API.
                             currentWidth = 0;
                             currentIndexInString = i + 1;
 
-                            //? This turns it into a cycle of finding \n over and over.
-                            continue;
                         } else if (currentWidth >= sizeX) {
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
                                 0.25, textColor);
