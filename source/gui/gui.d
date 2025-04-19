@@ -1197,11 +1197,13 @@ public: //* BEGIN PUBLIC API.
                     keyboardDoingTextInput = true;
                     const int input = Keyboard.getCharacterTyped();
                     if (input != 0) {
-                        char[] old = textBox.text.dup;
-                        old.insertInPlace(textBox.cursorPosition, cast(char) input);
-                        textBox.text = old.idup;
-                        cursorMovedUpdate();
-                        textBox.cursorPosition++;
+                        if (textBox.text.length < textBox.maxCharacters) {
+                            char[] old = textBox.text.dup;
+                            old.insertInPlace(textBox.cursorPosition, cast(char) input);
+                            textBox.text = old.idup;
+                            cursorMovedUpdate();
+                            textBox.cursorPosition++;
+                        }
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_BACKSPACE)) {
                         if (textBox.cursorPosition > 0 && textBox.text.length > 0) {
                             char[] old = textBox.text.dup;
@@ -1269,7 +1271,10 @@ public: //* BEGIN PUBLIC API.
             pauseMenu.center();
 
             TextBox textBox = new TextBox();
-            textBox.placeholderText = "Username goes here.";
+            textBox.placeholderText = "Username here.";
+            textBox.maxCharacters = 24;
+            textBox.size.x = 200;
+            textBox.centerX();
             pauseMenu.addComponent("text_box", textBox);
 
             // Button continueButton = new Button();
