@@ -1154,7 +1154,6 @@ public: //* BEGIN PUBLIC API.
 
                                         // Hit a character.
                                         if (CheckCollisionPointRec(mousePos, charRect)) {
-                                            writeln("hit");
                                             // Break it into two to find out which side to move the cursor into.
                                             Rectangle charLeft = Rectangle(
                                                 charRect.x,
