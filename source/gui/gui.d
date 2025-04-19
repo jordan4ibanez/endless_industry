@@ -638,6 +638,14 @@ public: //* BEGIN PUBLIC API.
                 endScissorComponent();
             }
         }
+
+        // Post process. Things that can cover other things need to go here.
+        // DropDown, etc.
+        foreach (Component component; currentWindow.componentsInOrder) {
+            if (DropDown textPad = instanceof!DropDown(component)) {
+
+            }
+        }
     }
 
     void drawCurrentWindow() {
