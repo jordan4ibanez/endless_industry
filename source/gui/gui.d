@@ -581,6 +581,7 @@ public: //* BEGIN PUBLIC API.
                     if (totalSize > sizeX) {
                         adjustment = cast(int) round((totalSize - sizeX) + (3 * currentGUIScale));
                     }
+                    FontHandler.draw(text, posX - adjustment, posY, 0.25, textColor);
                     for (int i = 0; i < text.length; i++) {
                         bool shouldDrawCursor() {
                             return cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == i;
@@ -589,7 +590,7 @@ public: //* BEGIN PUBLIC API.
                         const char thisChar = text[i];
                         width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
-                        FontHandler.draw(text, posX - adjustment, posY, 0.25, textColor);
+
                         // Draw the cursor if the current focus is on this text pad.
                         // This will draw it before the current character.
                         if (shouldDrawCursor()) {
