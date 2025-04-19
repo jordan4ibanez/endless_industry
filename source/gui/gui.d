@@ -470,6 +470,7 @@ public: //* BEGIN PUBLIC API.
                         bool shouldDrawCursor() {
                             return cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == i;
                         }
+
                         const char thisChar = text[i];
                         width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
@@ -592,6 +593,7 @@ public: //* BEGIN PUBLIC API.
                         bool shouldDrawCursor() {
                             return cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == i;
                         }
+
                         const char thisChar = text[i];
                         width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
