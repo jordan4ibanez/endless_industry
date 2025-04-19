@@ -480,6 +480,10 @@ public: //* BEGIN PUBLIC API.
                 if (text !is null && text.length > 0) {
                     for (int i = 0; i < text.length; i++) {
 
+                        bool shouldDrawCursor() {
+                            return cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == i;
+                        }
+
                         const char thisChar = text[i];
                         width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
