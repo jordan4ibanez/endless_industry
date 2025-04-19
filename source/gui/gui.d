@@ -521,7 +521,9 @@ public: //* BEGIN PUBLIC API.
                             currentWidth = width;
                             currentHeight += cast(int) floor(32 * currentGUIScale);
                             currentIndexInString = i;
-                        } else if (i == lastIndex) {
+                        }
+                        // Catch all.
+                        if (i == lastIndex) {
                             FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
                                 0.25, textColor);
                         }
