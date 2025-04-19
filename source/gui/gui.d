@@ -1162,7 +1162,6 @@ public: //* BEGIN PUBLIC API.
                                                 charRect.width / 2,
                                                 charRect.height
                                             );
-
                                             // If it's not left it's right.
                                             if (CheckCollisionPointRec(mousePos, charLeft)) {
                                                 textBox.cursorPosition = i;
@@ -1180,7 +1179,6 @@ public: //* BEGIN PUBLIC API.
                                 }
                             }
                         }
-
                         focusedTextBox = textBox;
                     }
                 } else {
@@ -1192,7 +1190,6 @@ public: //* BEGIN PUBLIC API.
                         }
                     }
                 }
-
                 if (focusedTextBox == textBox) {
                     keyboardDoingTextInput = true;
                     const int input = Keyboard.getCharacterTyped();
@@ -1253,7 +1250,6 @@ public: //* BEGIN PUBLIC API.
         } else {
             generalWindowLogic(mouseFocusedOnGUI);
             windowComponentLogic(keyboardDoingTextInput);
-
         }
         Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
         Keyboard.__setDoingTextInput(keyboardDoingTextInput);
