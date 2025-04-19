@@ -727,7 +727,8 @@ public: //* BEGIN PUBLIC API.
 
         if (oldSizeX != currentWindow.size.x || oldSizeY != currentWindow.size.y) {
             Vec2i newSize = currentWindow.size;
-            newSize.y -= 32;
+            newSize.y -= 32 + 1;
+            newSize.x += 1;
             foreach (component; currentWindow.componentDatabase) {
                 component.onWindowResize(component, newSize);
             }
@@ -1269,8 +1270,8 @@ public: //* BEGIN PUBLIC API.
             notepadMenu.onClose = () { openWindow("pause_menu"); };
 
             TextPad notepad = new TextPad();
-            notepad.size.x = 800;
-            notepad.size.y = 800 - 32;
+            notepad.size.x = 800 + 1;
+            notepad.size.y = 800 - 32 + 1;
             notepad.placeholderText = "Here is where you can take notes.";
             notepad.center();
 
