@@ -776,8 +776,10 @@ public: //* BEGIN PUBLIC API.
         }
 
         if (oldSizeX != currentWindow.size.x || oldSizeY != currentWindow.size.y) {
+            Vec2i newSize = currentWindow.size;
+            newSize.y -= 32;
             foreach (component; currentWindow.componentDatabase) {
-                component.onWindowResize(component, currentWindow.size);
+                component.onWindowResize(component, newSize);
             }
         }
     }
@@ -1351,7 +1353,7 @@ public: //* BEGIN PUBLIC API.
 
             notepad.onWindowResize = (Component self, Vec2i newSize) {
                 self.size.x = newSize.x;
-                self.size.y = newSize.y - 32;
+                self.size.y = newSize.y;
                 self.center();
             };
 
