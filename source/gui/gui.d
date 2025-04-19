@@ -567,14 +567,6 @@ public: //* BEGIN PUBLIC API.
                     sizeX,
                     sizeY,
                     textBox.backgroundColor);
-                const Color borderColor = textBox.mouseHovering ? textBox.borderColorHover
-                    : textBox.borderColor;
-                DrawRectangleLines(
-                    posX,
-                    posY,
-                    sizeX,
-                    sizeY,
-                    borderColor);
                 // This is ultra extremely inefficient.
                 // But, it works, probably.
                 double currentWidth = 0;
@@ -635,6 +627,14 @@ public: //* BEGIN PUBLIC API.
                         cast(int) floor(32 * currentGUIScale),
                         Colors.BLUE);
                 }
+                const Color borderColor = textBox.mouseHovering ? textBox.borderColorHover
+                    : textBox.borderColor;
+                DrawRectangleLines(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    borderColor);
                 endScissorComponent();
             }
         }
