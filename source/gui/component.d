@@ -164,7 +164,7 @@ class TextBox : Component {
     //? Functions/methods.
 
     this() {
-        size = Vec2i(100, 32);
+        size = Vec2i(200, 32);
     }
 
 }
