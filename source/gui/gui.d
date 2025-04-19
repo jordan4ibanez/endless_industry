@@ -977,7 +977,7 @@ public: //* BEGIN PUBLIC API.
                                     : textPad.text;
                                 if (text !is null && text.length > 0) {
                                     bool foundChar = false;
-                                    COLLISION_LOOP: for (int i = 0; i < text.length;
+                                    COLLISION_LOOP_PAD: for (int i = 0; i < text.length;
                                         i++) {
                                         const char thisChar = text[i];
                                         width = FontHandler.getCharWidth(thisChar, 0.25);
@@ -1017,7 +1017,7 @@ public: //* BEGIN PUBLIC API.
                                                 textPad.cursorPosition = i + 1;
                                             }
                                             foundChar = true;
-                                            break COLLISION_LOOP;
+                                            break COLLISION_LOOP_PAD;
                                         }
                                     }
                                     // If it hit nothing, just shove it into the last position.
