@@ -174,7 +174,8 @@ class TextBox : Component {
 
 }
 
-class DropDown : Component {
+/// In webdev, this is called "Dropdown menu".
+class DropMenu : Component {
 
     //? State behavior.
 
@@ -208,11 +209,11 @@ class DropDown : Component {
     //? Functions/methods.
 
     /// This is run when the window gets closed.
-    void function(DropDown) onWindowClose = (DropDown self) {};
+    void function(DropMenu) onWindowClose = (DropMenu self) {};
 
     this() {
         size = Vec2i(200, 32);
-        this.onWindowClose = (DropDown self) { self.droppedDown = false; };
+        this.onWindowClose = (DropMenu self) { self.droppedDown = false; };
     }
 
 }
