@@ -67,7 +67,7 @@ class Button : Component {
 
     /// What the button does when clicked.
     /// By default, this does nothing.
-    void function() clickFunction = () {};
+    void function() @safe clickFunction = () {};
 
     this() {
         size = Vec2i(100, 32);
