@@ -36,7 +36,7 @@ public:
         this.position.y = this.size.y * 0.5;
     }
 
-    void function(Vec2d) onWindowResize = (Vec2d newSize) {};
+    void function(Vec2i) onWindowResize = (Vec2i newSize) {};
 }
 
 class Button : Component {

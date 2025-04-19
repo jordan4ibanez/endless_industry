@@ -665,6 +665,12 @@ public: //* BEGIN PUBLIC API.
         if (currentWindow.size.y < currentWindow.minSize.y) {
             currentWindow.size.y = currentWindow.minSize.y;
         }
+
+        if (oldSizeX != currentWindow.size.x || oldSizeY != currentWindow.size.y) {
+            foreach (component; currentWindow.componentDatabase) {
+                component.onWindowResize(currentWindow.size);
+            }
+        }
     }
 
     /// This is the general logic of the window itself.
@@ -1038,7 +1044,7 @@ public: //* BEGIN PUBLIC API.
             settingsButton.centerX();
             pauseMenu.addComponent("settings_button", settingsButton);
 
-            settingsButton.onWindowResize = (Vec2d newSize) {
+            settingsButton.onWindowResize = (Vec2i newSize) {
                 writeln("hi ", newSize.x, ", ", newSize.y);
             };
 
