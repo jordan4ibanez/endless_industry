@@ -1114,7 +1114,7 @@ public: //* BEGIN PUBLIC API.
 
         }
 
-        currentWindow = windows["notepad_menu"];
+        currentWindow = windows["pause_menu"];
     }
 
     void bringBackDebugTest() {
