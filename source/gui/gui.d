@@ -799,13 +799,13 @@ public: //* BEGIN PUBLIC API.
                     if (input != 0) {
                         // todo: insert in place!
                         textBox.text ~= cast(char) input;
-                    } else if (Keyboard.isPressed(KeyboardKey.KEY_BACKSPACE)) {
+                    } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_BACKSPACE)) {
                         if (textBox.cursorPosition > 0 && textBox.text.length > 0) {
                             char[] old = textBox.text.dup;
                             old = old.remove(textBox.cursorPosition - 1);
                             textBox.text = old.idup;
                         }
-                    } else if (Keyboard.isPressed(KeyboardKey.KEY_ENTER)) {
+                    } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_ENTER)) {
                         char[] old = textBox.text.dup;
                         old.insertInPlace(textBox.cursorPosition, '\n');
                         textBox.text = old.idup;
