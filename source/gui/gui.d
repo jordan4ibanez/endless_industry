@@ -1031,7 +1031,7 @@ public: //* BEGIN PUBLIC API.
             pauseMenu.addComponent("continue_button", continueButton);
 
             Button notepadButton = new Button();
-            notepadButton.clickFunction = () { closeWindow(); };
+            notepadButton.clickFunction = () { openWindow("notepad_menu"); };
             notepadButton.size.x = 200;
             notepadButton.position.y = 75;
             notepadButton.text = "NOTEPAD";
@@ -1084,6 +1084,19 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
             registerWindow("settings_menu", settingsMenu);
+
+        }
+
+        // Notepad.
+        {
+            WindowGUI notepadMenu = new WindowGUI();
+            notepadMenu.title = "Notepad";
+            notepadMenu.size = Vec2i(800, 800);
+            notepadMenu.center();
+
+            notepadMenu.onClose = () { openWindow("pause_menu"); };
+
+            registerWindow("notepad_menu", notepadMenu);
 
         }
 
