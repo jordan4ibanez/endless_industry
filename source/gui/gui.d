@@ -132,6 +132,7 @@ public: //* BEGIN PUBLIC API.
             throw new Error(windowID ~ " is not a valid window");
         }
         currentWindow = *thisWindow;
+        currentWindow.center();
     }
 
     /// Get the current ID of the opened window. (if any)
