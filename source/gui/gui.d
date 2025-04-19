@@ -560,7 +560,7 @@ public: //* BEGIN PUBLIC API.
                 }
 
                 // If the text box cursor is at the literal last position, it needs to be drawn here.
-                if (!usePlaceHolder && cursorVisible && textBox.cursorPosition == textBox
+                if (!usePlaceHolder && cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == textBox
                     .text.length) {
                     const double w = currentWidth;
                     DrawRectangle(
