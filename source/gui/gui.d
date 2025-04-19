@@ -843,18 +843,22 @@ public: //* BEGIN PUBLIC API.
                             char[] old = textBox.text.dup;
                             old = old.remove(textBox.cursorPosition - 1);
                             textBox.text = old.idup;
+                            cursorMovedUpdate();
                         }
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_ENTER)) {
                         char[] old = textBox.text.dup;
                         old.insertInPlace(textBox.cursorPosition, '\n');
                         textBox.text = old.idup;
+                        cursorMovedUpdate();
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_RIGHT)) {
                         if (textBox.cursorPosition < textBox.text.length) {
                             textBox.cursorPosition++;
+                            cursorMovedUpdate();
                         }
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_LEFT)) {
                         if (textBox.cursorPosition > 0) {
                             textBox.cursorPosition--;
+                            cursorMovedUpdate();
                         }
                     }
                 }
