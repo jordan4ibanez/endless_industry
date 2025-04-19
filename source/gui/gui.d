@@ -1025,7 +1025,7 @@ public: //* BEGIN PUBLIC API.
             Button settingsButton = new Button();
             settingsButton.clickFunction = () { openWindow("settings_menu"); };
             settingsButton.size.x = 200;
-            settingsButton.position.y = 0;
+            settingsButton.position.y = -75;
             settingsButton.text = "SETTINGS";
             settingsButton.centerX();
             pauseMenu.addComponent("settings_button", settingsButton);
