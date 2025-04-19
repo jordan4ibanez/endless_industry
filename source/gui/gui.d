@@ -494,19 +494,16 @@ public: //* BEGIN PUBLIC API.
                             // If newline is reached, it must jump over it.
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
                                 0.25, textColor);
-                            if (focusedTextBox == textBox) {
-                                if (textBox.cursorPosition == i) {
-                                    if (cursorVisible) {
-                                        double w = 0;
-                                        DrawRectangle(
-                                            cast(int) floor(posX + w + (currentGUIScale * 0.5)),
-                                            posY + currentHeight,
-                                            cast(int) floor(2 * currentGUIScale),
-                                            cast(int) floor(32 * currentGUIScale),
-                                            Colors.BLUE);
-                                        skipDrawCursor = true;
-                                    }
-                                }
+
+                            if (shouldDrawCursor()) {
+                                double w = 0;
+                                DrawRectangle(
+                                    cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                                    posY + currentHeight,
+                                    cast(int) floor(2 * currentGUIScale),
+                                    cast(int) floor(32 * currentGUIScale),
+                                    Colors.BLUE);
+                                skipDrawCursor = true;
                             }
                             currentHeight += cast(int) floor(32 * currentGUIScale);
                             currentWidth = 0;
