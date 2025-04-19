@@ -1022,6 +1022,14 @@ public: //* BEGIN PUBLIC API.
             continueButton.centerX();
             pauseMenu.addComponent("continue_button", continueButton);
 
+            Button notepadButton = new Button();
+            notepadButton.clickFunction = () { closeWindow(); };
+            notepadButton.size.x = 200;
+            notepadButton.position.y = 75;
+            notepadButton.text = "NOTEPAD";
+            notepadButton.centerX();
+            pauseMenu.addComponent("notepad_button", notepadButton);
+
             Button settingsButton = new Button();
             settingsButton.clickFunction = () { openWindow("settings_menu"); };
             settingsButton.size.x = 200;
