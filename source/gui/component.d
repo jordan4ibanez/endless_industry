@@ -126,8 +126,6 @@ class TextPad : Component {
 }
 
 class TextBox : Component {
-    /// What this text box will say when there's no text entered.
-    string placeholderText = "Nothing here";
 
     //? State behavior.
 
@@ -136,6 +134,8 @@ class TextBox : Component {
 
     /// This holds the data of the current text entered into it.
     string text = "";
+    /// What this text pad will say when there's no text entered.
+    string placeholderText = "Nothing here";
 
     /// Where the cursor is in the text.
     int cursorPosition = 0;
