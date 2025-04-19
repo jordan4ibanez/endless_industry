@@ -579,6 +579,106 @@ public: //* BEGIN PUBLIC API.
                 }
 
                 endScissorComponent();
+
+                //? Text box.
+            } else if (TextBox textPad = instanceof!TextBox(component)) {
+
+                const int posX = cast(int) floor(
+                    (textPad.position.x * currentGUIScale) + centerX);
+                const int posY = cast(int) floor(
+                    ((-textPad.position.y) * currentGUIScale) + centerY);
+                const int sizeX = cast(int) floor(textPad.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(textPad.size.y * currentGUIScale);
+
+                if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+                    continue;
+                }
+
+                DrawRectangle(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    textPad.backgroundColor);
+
+                const Color borderColor = textPad.mouseHovering ? textPad.borderColorHover
+                    : textPad.borderColor;
+
+                DrawRectangleLines(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    borderColor);
+
+                // This is ultra extremely inefficient.
+                // But, it works, probably.
+                double currentWidth = 0;
+                double width = 0;
+
+                bool usePlaceHolder = (textPad.text is null || textPad.text.length == 0);
+
+                const string text = (usePlaceHolder) ? textPad.placeholderText : textPad.text;
+                const Color textColor = (usePlaceHolder) ? textPad.placeholderTextColor
+                    : textPad.textColor;
+
+                if (text !is null && text.length > 0) {
+                    for (int i = 0; i < text.length; i++) {
+
+                        bool shouldDrawCursor() {
+                            return cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == i;
+                        }
+
+                        const char thisChar = text[i];
+                        width = FontHandler.getCharWidth(thisChar, 0.25);
+                        currentWidth += width;
+
+                        FontHandler.draw(text, posX, posY, 0.25, textColor);
+
+                        // Draw the cursor if the current focus is on this text pad.
+                        // This will draw it before the current character.
+                        if (shouldDrawCursor()) {
+
+                            double w = currentWidth - width;
+                            if (w < 0) {
+                                w = 0;
+                            }
+                            DrawRectangle(
+                                cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                                posY,
+                                cast(int) floor(2 * currentGUIScale),
+                                cast(int) floor(32 * currentGUIScale),
+                                Colors.BLUE);
+                        }
+
+                        // if (true) {
+                        //     DrawRectangleLines(
+                        //         cast(int) floor(posX + (currentWidth - width)),
+                        //         posY + currentHeight,
+                        //         cast(int) floor(width),
+                        //         cast(int) floor(32 * currentGUIScale),
+                        //         Colors.BLUE);
+
+                        //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY + currentHeight,
+                        //         0.05, Colors.GREEN);
+                        // }
+
+                    }
+                }
+
+                // If the text pad cursor is at the literal last position, it needs to be drawn here.
+                if (!usePlaceHolder && cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == textPad
+                    .text.length) {
+                    const double w = currentWidth;
+                    DrawRectangle(
+                        cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                        posY,
+                        cast(int) floor(2 * currentGUIScale),
+                        cast(int) floor(32 * currentGUIScale),
+                        Colors.BLUE);
+                }
+
+                endScissorComponent();
             }
         }
 
