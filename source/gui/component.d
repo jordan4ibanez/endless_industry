@@ -85,7 +85,48 @@ class Button : Component {
 }
 
 class TextPad : Component {
+
+    //? State behavior.
+
+    /// If the mouse is hovering over.
+    bool mouseHovering = false;
+
+    /// This holds the data of the current text entered into it.
+    string text = "";
     /// What this text pad will say when there's no text entered.
+    string placeholderText = "Nothing here";
+
+    /// Where the cursor is in the text.
+    int cursorPosition = 0;
+
+    //? General text/icon colors.
+
+    /// The border color.
+    Color borderColor = Colors.BLACK;
+    /// The border color when hovered over.
+    Color borderColorHover = Colors.RED;
+
+    /// The background color.
+    Color backgroundColor = Colors.WHITE;
+
+    /// The text color.
+    Color textColor = Colors.BLACK;
+    /// The placeholder text color.
+    Color placeholderTextColor = Colors.GRAY;
+
+    /// The cursor color.
+    Color cursorColor = Colors.RED;
+
+    //? Functions/methods.
+
+    this() {
+        size = Vec2i(100, 100);
+    }
+
+}
+
+class TextBox : Component {
+    /// What this text box will say when there's no text entered.
     string placeholderText = "Nothing here";
 
     //? State behavior.
@@ -93,10 +134,7 @@ class TextPad : Component {
     /// If the mouse is hovering over.
     bool mouseHovering = false;
 
-    //~ I'm doing it like this cause I have no idea what I'm doing.
     /// This holds the data of the current text entered into it.
-    /// This can also be used as default text.
-    /// It is held line by line.
     string text = "";
 
     /// Where the cursor is in the text.
