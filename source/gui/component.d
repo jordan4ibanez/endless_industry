@@ -170,3 +170,39 @@ class TextBox : Component {
     }
 
 }
+
+class DropBox : Component {
+
+    //? State behavior.
+
+    /// If the mouse is hovering over.
+    bool mouseHovering = false;
+
+    /// This holds the items to select.
+    string[] items = [];
+
+    /// What this text box will say when there's no text entered.
+    string placeholderText = "Nothing here";
+
+    //? General text/icon colors.
+
+    /// The border color.
+    Color borderColor = Colors.BLACK;
+    /// The border color when hovered over.
+    Color borderColorHover = Colors.RED;
+
+    /// The background color.
+    Color backgroundColor = Colors.GRAY;
+
+    /// The text color.
+    Color textColor = Colors.BLACK;
+    /// The placeholder text color.
+    Color placeholderTextColor = Colors.DARKGRAY;
+
+    //? Functions/methods.
+
+    this() {
+        size = Vec2i(200, 32);
+    }
+
+}
