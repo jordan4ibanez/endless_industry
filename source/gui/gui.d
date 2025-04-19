@@ -345,7 +345,6 @@ public: //* BEGIN PUBLIC API.
     }
 
     void drawWindowComponents() {
-
         const int workAreaPosX = cast(int) floor(
             centerPoint.x + (currentWindow.position.x * currentGUIScale));
         const int workAreaPosY = cast(int) floor(
@@ -353,17 +352,13 @@ public: //* BEGIN PUBLIC API.
         const int workAreaSizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
         const int workAreaSizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
-
         const int centerX = cast(int) floor(workAreaPosX + (workAreaSizeX * 0.5));
         const int centerY = cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5));
-
         // All components will only be able to render within the work area.
-
         const int __minX = workAreaPosX;
         const int __maxX = workAreaPosX + workAreaSizeX - 1;
         const int __minY = workAreaPosY + statusAreaHeight;
         const int __maxY = workAreaPosY + workAreaSizeY - 1;
-
         /// Returns if this component is out of bounds.
         bool startScissorComponent(const int posX, const int posY, const int sizeX, const int sizeY) {
             const int adjustedMinX = posX - 1;
