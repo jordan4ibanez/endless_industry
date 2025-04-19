@@ -35,6 +35,8 @@ public:
     void centerY() {
         this.position.y = this.size.y * 0.5;
     }
+
+    void function(Vec2d) @safe onWindowResize = (Vec2d newSize) {};
 }
 
 class Button : Component {
