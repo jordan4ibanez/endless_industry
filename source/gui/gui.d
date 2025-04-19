@@ -875,6 +875,7 @@ public: //* BEGIN PUBLIC API.
                         char[] old = textBox.text.dup;
                         old.insertInPlace(textBox.cursorPosition, '\n');
                         textBox.text = old.idup;
+                        textBox.cursorPosition++;
                         cursorMovedUpdate();
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_RIGHT)) {
                         if (textBox.cursorPosition < textBox.text.length) {
