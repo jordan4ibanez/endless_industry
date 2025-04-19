@@ -187,21 +187,21 @@ public: //* BEGIN PUBLIC API.
 
         if (posX < 0) {
             window.position.x = cast(int) round(
-                (-centerPoint.x) * inverseCurrentGUIScale);
+                (-centerPoint.x) * inverseCurrentGUIScale) + 1;
             result = true;
         } else if (posX + sizeX > realSize.x) {
             window.position.x = cast(int) ceil(
-                (centerPoint.x - sizeX) * inverseCurrentGUIScale);
+                (centerPoint.x - sizeX) * inverseCurrentGUIScale) - 1;
             result = true;
         }
 
         if (posY < 0) {
             window.position.y = cast(int) round(
-                (-centerPoint.y) * inverseCurrentGUIScale);
+                (-centerPoint.y) * inverseCurrentGUIScale) + 1;
             result = true;
         } else if (posY + sizeY > realSize.y) {
             window.position.y = cast(int) ceil(
-                (centerPoint.y - sizeY) * inverseCurrentGUIScale);
+                (centerPoint.y - sizeY) * inverseCurrentGUIScale) - 1;
             result = true;
         }
         return result;
