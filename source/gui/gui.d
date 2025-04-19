@@ -807,6 +807,14 @@ public: //* BEGIN PUBLIC API.
                         char[] old = textBox.text.dup;
                         old.insertInPlace(textBox.cursorPosition, '\n');
                         textBox.text = old.idup;
+                    } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_RIGHT)) {
+                        if (textBox.cursorPosition < textBox.text.length) {
+                            textBox.cursorPosition++;
+                        }
+                    } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_LEFT)) {
+                        if (textBox.cursorPosition > 0) {
+                            textBox.cursorPosition--;
+                        }
                     }
                 }
             }
