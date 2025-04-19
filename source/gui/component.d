@@ -207,8 +207,12 @@ class DropDown : Component {
 
     //? Functions/methods.
 
+    /// This is run when the window gets closed.
+    void function(DropDown) onWindowClose = (DropDown self) {};
+
     this() {
         size = Vec2i(200, 32);
+        this.onWindowClose = (DropDown self) { self.droppedDown = false; };
     }
 
 }
