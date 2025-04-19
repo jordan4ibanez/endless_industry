@@ -882,9 +882,7 @@ public: //* BEGIN PUBLIC API.
         if (currentWindow is null) {
             return;
         }
-
         runBlinkingCursorLogic();
-
         const int workAreaPosX = cast(int) floor(
             centerPoint.x + (currentWindow.position.x * currentGUIScale));
         const int workAreaPosY = cast(int) floor(
@@ -894,11 +892,8 @@ public: //* BEGIN PUBLIC API.
         const int centerX = cast(int) floor(workAreaPosX + (workAreaSizeX * 0.5));
         const int centerY = cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5));
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
-
         const Vec2d __preprocessedMousePos = Mouse.getPosition();
-
         bool dumpMouseIntoTheVoid = false;
-
         if (currentWindow.mouseHoveringResizeButton) {
             dumpMouseIntoTheVoid = true;
         } else if (__preprocessedMousePos.x < workAreaPosX) {
@@ -910,7 +905,6 @@ public: //* BEGIN PUBLIC API.
         } else if (__preprocessedMousePos.y >= workAreaPosY + workAreaSizeY) {
             dumpMouseIntoTheVoid = true;
         }
-
         // If that mouse shouldn't be colliding, get that thing out of here.
         // This allows the components to do their logic without blocking.
         const static double __mouseDumper = 1_000_000.0;
@@ -943,32 +937,26 @@ public: //* BEGIN PUBLIC API.
                         break;
                     }
                 }
-
                 //? Text pad.
             } else if (TextPad textPad = instanceof!TextPad(thisComponent)) {
-
                 textPad.mouseHovering = false;
-
                 const int posX = cast(int) floor(
                     (textPad.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
                     ((-textPad.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(textPad.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(textPad.size.y * currentGUIScale);
-
                 const Rectangle buttonRect = Rectangle(
                     posX,
                     posY,
                     sizeX,
                     sizeY);
-
                 if (CheckCollisionPointRec(mousePos, buttonRect)) {
                     textPad.mouseHovering = true;
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         if (focusedTextBox != textPad) {
                             playButtonSound();
                         }
-
                         {
                             // Find which character mouse just clicked (if any)
                             bool usePlaceHolder = (textPad.text is null || textPad.text.length == 0);
@@ -990,7 +978,6 @@ public: //* BEGIN PUBLIC API.
                                         const char thisChar = text[i];
                                         width = FontHandler.getCharWidth(thisChar, 0.25);
                                         currentWidth += width;
-
                                         if (thisChar == '\n') {
                                             // If newline is reached, it must jump over it.
                                             currentHeight += cast(int) floor(32 * currentGUIScale);
@@ -1001,13 +988,11 @@ public: //* BEGIN PUBLIC API.
                                             currentHeight += cast(int) floor(32 * currentGUIScale);
                                             currentIndexInString = i;
                                         }
-
                                         Rectangle charRect = Rectangle(
                                             cast(int) floor(posX + (currentWidth - width)),
                                             posY + currentHeight,
                                             cast(int) floor(width),
                                             cast(int) floor(32 * currentGUIScale));
-
                                         // Hit a character.
                                         if (CheckCollisionPointRec(mousePos, charRect)) {
                                             // Break it into two to find out which side to move the cursor into.
@@ -1017,7 +1002,6 @@ public: //* BEGIN PUBLIC API.
                                                 charRect.width / 2,
                                                 charRect.height
                                             );
-
                                             // If it's not left it's right.
                                             if (CheckCollisionPointRec(mousePos, charLeft)) {
                                                 textPad.cursorPosition = i;
@@ -1035,7 +1019,6 @@ public: //* BEGIN PUBLIC API.
                                 }
                             }
                         }
-
                         focusedTextBox = textPad;
                     }
                 } else {
@@ -1047,7 +1030,6 @@ public: //* BEGIN PUBLIC API.
                         }
                     }
                 }
-
                 if (focusedTextBox == textPad) {
                     keyboardDoingTextInput = true;
                     const int input = Keyboard.getCharacterTyped();
@@ -1093,36 +1075,30 @@ public: //* BEGIN PUBLIC API.
                 }
                 //? Text box.
             } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
-
                 textBox.mouseHovering = false;
-
                 const int posX = cast(int) floor(
                     (textBox.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
                     ((-textBox.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
-
                 const Rectangle buttonRect = Rectangle(
                     posX,
                     posY,
                     sizeX,
                     sizeY);
-
                 if (CheckCollisionPointRec(mousePos, buttonRect)) {
                     textBox.mouseHovering = true;
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         if (focusedTextBox != textBox) {
                             playButtonSound();
                         }
-
                         {
                             // Find which character mouse just clicked (if any)
                             bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
                             if (usePlaceHolder) {
                                 textBox.cursorPosition = 0;
                             } else {
-
                                 // This is ultra extremely inefficient.
                                 // But, it works, probably.
                                 double currentWidth = 0;
@@ -1137,21 +1113,18 @@ public: //* BEGIN PUBLIC API.
                                         adjustment = cast(int) round(
                                             (totalSize - sizeX) + (3 * currentGUIScale));
                                     }
-
                                     bool foundChar = false;
                                     COLLISION_LOOP_BOX: for (int i = 0; i < text.length;
                                         i++) {
                                         const char thisChar = text[i];
                                         width = FontHandler.getCharWidth(thisChar, 0.25);
                                         currentWidth += width;
-
                                         Rectangle charRect = Rectangle(
                                             cast(int) floor(
                                                 posX + (currentWidth - width)) - adjustment,
                                             posY,
                                             cast(int) floor(width),
                                             cast(int) floor(32 * currentGUIScale));
-
                                         // Hit a character.
                                         if (CheckCollisionPointRec(mousePos, charRect)) {
                                             // Break it into two to find out which side to move the cursor into.
