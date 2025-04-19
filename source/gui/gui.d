@@ -726,6 +726,13 @@ public: //* BEGIN PUBLIC API.
             cursorVisible = !cursorVisible;
         }
     }
+
+    void cursorMovedUpdate() {
+        cursorVisible = true;
+        // Some time for the user to focus on the solid cursor. 
+        cursorBlinkTimer = -cursorBlinkGoalTime;
+    }
+
     /// Run the component logic.
     void windowComponentLogic(ref bool keyboardDoingTextInput) {
         if (currentWindow is null) {
