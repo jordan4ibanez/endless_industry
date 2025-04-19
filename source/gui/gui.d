@@ -654,12 +654,12 @@ public: //* BEGIN PUBLIC API.
                         // if (true) {
                         //     DrawRectangleLines(
                         //         cast(int) floor(posX + (currentWidth - width)),
-                        //         posY + currentHeight,
+                        //         posY,
                         //         cast(int) floor(width),
                         //         cast(int) floor(32 * currentGUIScale),
                         //         Colors.BLUE);
 
-                        //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY + currentHeight,
+                        //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY,
                         //         0.05, Colors.GREEN);
                         // }
 
