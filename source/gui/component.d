@@ -171,7 +171,7 @@ class TextBox : Component {
 
 }
 
-class DropBox : Component {
+class DropDown : Component {
 
     //? State behavior.
 
@@ -182,7 +182,7 @@ class DropBox : Component {
     string[] items = [];
 
     /// What this text box will say when there's no text entered.
-    string placeholderText = "Nothing here";
+    string placeholderText = "UNDEFINED";
 
     //? General text/icon colors.
 
