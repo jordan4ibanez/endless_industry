@@ -855,7 +855,7 @@ public: //* BEGIN PUBLIC API.
                     const int input = Keyboard.getCharacterTyped();
                     if (input != 0) {
                         char[] old = textBox.text.dup;
-                        old.insertInPlace(textBox.cursorPosition, cast(char)input);
+                        old.insertInPlace(textBox.cursorPosition, cast(char) input);
                         textBox.text = old.idup;
                         cursorMovedUpdate();
                         textBox.cursorPosition++;
