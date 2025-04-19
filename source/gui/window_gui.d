@@ -115,6 +115,7 @@ public:
         return result;
     }
 
+    /// When the window is closed, this will run.
     void function() onClose = () {};
 
 }
