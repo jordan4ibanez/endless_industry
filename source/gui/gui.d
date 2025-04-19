@@ -401,11 +401,9 @@ public: //* BEGIN PUBLIC API.
                     ((-button.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
-
                 if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                     continue;
                 }
-
                 Color buttonColor = button.mouseHovering ? button.backgroundColorHover
                     : button.backgroundColor;
                 DrawRectangle(
@@ -430,71 +428,56 @@ public: //* BEGIN PUBLIC API.
                     sizeX,
                     sizeY,
                     button.borderColor);
-
                 endScissorComponent();
 
             } else if (TextPad textPad = instanceof!TextPad(component)) {
-
                 const int posX = cast(int) floor(
                     (textPad.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
                     ((-textPad.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(textPad.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(textPad.size.y * currentGUIScale);
-
                 if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                     continue;
                 }
-
                 DrawRectangle(
                     posX,
                     posY,
                     sizeX,
                     sizeY,
                     textPad.backgroundColor);
-
                 const Color borderColor = textPad.mouseHovering ? textPad.borderColorHover
                     : textPad.borderColor;
-
                 DrawRectangleLines(
                     posX,
                     posY,
                     sizeX,
                     sizeY,
                     borderColor);
-
                 // This is ultra extremely inefficient.
                 // But, it works, probably.
                 double currentWidth = 0;
                 double width = 0;
                 int currentHeight = 0;
                 ulong currentIndexInString = 0;
-
                 bool usePlaceHolder = (textPad.text is null || textPad.text.length == 0);
-
                 const string text = (usePlaceHolder) ? textPad.placeholderText : textPad.text;
                 const ulong lastIndex = (text.length == 0) ? 0 : (text.length) - 1;
                 const Color textColor = (usePlaceHolder) ? textPad.placeholderTextColor
                     : textPad.textColor;
-
                 if (text !is null && text.length > 0) {
                     for (int i = 0; i < text.length; i++) {
-
                         bool shouldDrawCursor() {
                             return cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == i;
                         }
-
                         const char thisChar = text[i];
                         width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
-
                         bool skipDrawCursor = false;
-
                         if (thisChar == '\n') {
                             // If newline is reached, it must jump over it.
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
                                 0.25, textColor);
-
                             //? This needs to be inline because \n creates some complex situations.
                             if (shouldDrawCursor()) {
                                 double w = currentWidth - width;
@@ -512,7 +495,6 @@ public: //* BEGIN PUBLIC API.
                             currentHeight += cast(int) floor(32 * currentGUIScale);
                             currentWidth = 0;
                             currentIndexInString = i + 1;
-
                         } else if (currentWidth >= sizeX) {
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
                                 0.25, textColor);
@@ -525,7 +507,6 @@ public: //* BEGIN PUBLIC API.
                             FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
                                 0.25, textColor);
                         }
-
                         // Draw the cursor if the current focus is on this text pad.
                         // This will draw it before the current character.
                         //! Note: this will cause issues with newlines.
@@ -533,7 +514,6 @@ public: //* BEGIN PUBLIC API.
                         //! It will just skip to the next line.
                         //! It still works the same though. Oh well.
                         if (!skipDrawCursor && shouldDrawCursor()) {
-
                             double w = currentWidth - width;
                             if (w < 0) {
                                 w = 0;
@@ -545,7 +525,6 @@ public: //* BEGIN PUBLIC API.
                                 cast(int) floor(32 * currentGUIScale),
                                 Colors.BLUE);
                         }
-
                         // if (true) {
                         //     DrawRectangleLines(
                         //         cast(int) floor(posX + (currentWidth - width)),
@@ -553,14 +532,11 @@ public: //* BEGIN PUBLIC API.
                         //         cast(int) floor(width),
                         //         cast(int) floor(32 * currentGUIScale),
                         //         Colors.BLUE);
-
                         //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY + currentHeight,
                         //         0.05, Colors.GREEN);
                         // }
-
                     }
                 }
-
                 // If the text pad cursor is at the literal last position, it needs to be drawn here.
                 if (!usePlaceHolder && cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == textPad
                     .text.length) {
@@ -572,74 +548,57 @@ public: //* BEGIN PUBLIC API.
                         cast(int) floor(32 * currentGUIScale),
                         Colors.BLUE);
                 }
-
                 endScissorComponent();
-
                 //? Text box.
             } else if (TextBox textBox = instanceof!TextBox(component)) {
-
                 const int posX = cast(int) floor(
                     (textBox.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
                     ((-textBox.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
-
                 if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                     continue;
                 }
-
                 DrawRectangle(
                     posX,
                     posY,
                     sizeX,
                     sizeY,
                     textBox.backgroundColor);
-
                 const Color borderColor = textBox.mouseHovering ? textBox.borderColorHover
                     : textBox.borderColor;
-
                 DrawRectangleLines(
                     posX,
                     posY,
                     sizeX,
                     sizeY,
                     borderColor);
-
                 // This is ultra extremely inefficient.
                 // But, it works, probably.
                 double currentWidth = 0;
                 double width = 0;
-
                 bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
-
                 const string text = (usePlaceHolder) ? textBox.placeholderText : textBox.text;
                 const Color textColor = (usePlaceHolder) ? textBox.placeholderTextColor
                     : textBox.textColor;
                 int adjustment = 0;
-
                 if (text !is null && text.length > 0) {
                     const double totalSize = FontHandler.getTextSize(textBox.text, 0.25).x;
                     if (totalSize > sizeX) {
                         adjustment = cast(int) round((totalSize - sizeX) + (3 * currentGUIScale));
                     }
-
                     for (int i = 0; i < text.length; i++) {
-
                         bool shouldDrawCursor() {
                             return cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == i;
                         }
-
                         const char thisChar = text[i];
                         width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
-
                         FontHandler.draw(text, posX - adjustment, posY, 0.25, textColor);
-
                         // Draw the cursor if the current focus is on this text pad.
                         // This will draw it before the current character.
                         if (shouldDrawCursor()) {
-
                             double w = currentWidth - width;
                             if (w < 0) {
                                 w = 0;
@@ -651,7 +610,6 @@ public: //* BEGIN PUBLIC API.
                                 cast(int) floor(32 * currentGUIScale),
                                 Colors.BLUE);
                         }
-
                         // if (true) {
                         //     DrawRectangleLines(
                         //         cast(int) floor(posX + (currentWidth - width)),
@@ -659,14 +617,11 @@ public: //* BEGIN PUBLIC API.
                         //         cast(int) floor(width),
                         //         cast(int) floor(32 * currentGUIScale),
                         //         Colors.BLUE);
-
                         //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY,
                         //         0.05, Colors.GREEN);
                         // }
-
                     }
                 }
-
                 // If the text pad cursor is at the literal last position, it needs to be drawn here.
                 if (!usePlaceHolder && cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == textBox
                     .text.length) {
@@ -678,11 +633,9 @@ public: //* BEGIN PUBLIC API.
                         cast(int) floor(32 * currentGUIScale),
                         Colors.BLUE);
                 }
-
                 endScissorComponent();
             }
         }
-
     }
 
     void drawCurrentWindow() {
