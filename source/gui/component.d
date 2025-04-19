@@ -36,6 +36,12 @@ public:
         this.position.y = this.size.y * 0.5;
     }
 
+    /// Center both X and Y position;
+    void center() {
+        this.position.x = this.size.x * -0.5;
+        this.position.y = this.size.y * 0.5;
+    }
+
     void function(Vec2i) onWindowResize = (Vec2i newSize) {};
 }
 
