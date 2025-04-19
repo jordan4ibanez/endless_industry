@@ -36,7 +36,7 @@ public:
         this.position.y = this.size.y * 0.5;
     }
 
-    void function(Vec2d) @safe onWindowResize = (Vec2d newSize) {};
+    void function(Vec2d) onWindowResize = (Vec2d newSize) {};
 }
 
 class Button : Component {
@@ -69,7 +69,7 @@ class Button : Component {
 
     /// What the button does when clicked.
     /// By default, this does nothing.
-    void function() @safe clickFunction = () {};
+    void function() clickFunction = () {};
 
     this() {
         size = Vec2i(100, 32);
