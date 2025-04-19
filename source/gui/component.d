@@ -134,8 +134,11 @@ class TextBox : Component {
 
     /// This holds the data of the current text entered into it.
     string text = "";
-    /// What this text pad will say when there's no text entered.
+    /// What this text box will say when there's no text entered.
     string placeholderText = "Nothing here";
+
+    /// The maximum amount of characters this text box can have.
+    ulong maxCharacters = 32;
 
     /// Where the cursor is in the text.
     int cursorPosition = 0;
