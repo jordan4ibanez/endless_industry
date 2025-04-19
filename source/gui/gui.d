@@ -116,10 +116,12 @@ public: //* BEGIN PUBLIC API.
     /// Close the currently opened window if any.
     /// If there is no window opened, this has no effect.
     void closeWindow() {
+        const string oldWindowID = currentWindow.windowID;
         currentWindow = null;
         dragging = false;
         resizing = false;
         focusedTextBox = null;
+        windows[oldWindowID].onClose();
     }
 
     /// Open a window.
