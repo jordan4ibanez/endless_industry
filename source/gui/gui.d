@@ -863,6 +863,14 @@ public: //* BEGIN PUBLIC API.
                             textBox.cursorPosition--;
                             cursorMovedUpdate();
                         }
+                    } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_DELETE)) {
+                        if (textBox.text.length > 0 && textBox.cursorPosition <
+                            textBox.text.length) {
+                            char[] old = textBox.text.dup;
+                            old = old.remove(textBox.cursorPosition);
+                            textBox.text = old.idup;
+                            cursorMovedUpdate();
+                        }
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_ENTER)) {
                         char[] old = textBox.text.dup;
                         old.insertInPlace(textBox.cursorPosition, '\n');
