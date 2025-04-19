@@ -863,6 +863,9 @@ public: //* BEGIN PUBLIC API.
             __preprocessedMousePos.x + __mouseDumper, __preprocessedMousePos.y + __mouseDumper)
             : __preprocessedMousePos.toRaylib();
 
+        // todo: drop menu here
+        // todo: If any of these are hit, then do not foreach the next loop.
+
         foreach (thisComponent; currentWindow.componentsInOrder) {
             //? Button.
             if (Button button = instanceof!Button(thisComponent)) {
