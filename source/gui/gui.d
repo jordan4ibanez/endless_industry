@@ -465,6 +465,7 @@ public: //* BEGIN PUBLIC API.
                 // This is ultra extremely inefficient.
                 // But, it works, probably.
                 double currentWidth = 0;
+                double width = 0;
                 int currentHeight = 0;
                 ulong currentIndexInString = 0;
 
@@ -479,7 +480,7 @@ public: //* BEGIN PUBLIC API.
                     for (int i = 0; i < text.length; i++) {
 
                         const char thisChar = text[i];
-                        const double width = FontHandler.getCharWidth(thisChar, 0.25);
+                        width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
 
                         if (thisChar == '\n') {
