@@ -1120,13 +1120,22 @@ public: //* BEGIN PUBLIC API.
                             if (usePlaceHolder) {
                                 textBox.cursorPosition = 0;
                             } else {
+
                                 // This is ultra extremely inefficient.
                                 // But, it works, probably.
                                 double currentWidth = 0;
                                 double width = 0;
+                                int adjustment = 0;
                                 const string text = (usePlaceHolder) ? textBox.placeholderText
                                     : textBox.text;
                                 if (text !is null && text.length > 0) {
+                                    const double totalSize = FontHandler.getTextSize(textBox.text, 0.25)
+                                        .x;
+                                    if (totalSize > sizeX) {
+                                        adjustment = cast(int) round(
+                                            (totalSize - sizeX) + (3 * currentGUIScale));
+                                    }
+
                                     bool foundChar = false;
                                     COLLISION_LOOP_BOX: for (int i = 0; i < text.length;
                                         i++) {
@@ -1135,7 +1144,8 @@ public: //* BEGIN PUBLIC API.
                                         currentWidth += width;
 
                                         Rectangle charRect = Rectangle(
-                                            cast(int) floor(posX + (currentWidth - width)),
+                                            cast(int) floor(
+                                                posX + (currentWidth - width)) - adjustment,
                                             posY,
                                             cast(int) floor(width),
                                             cast(int) floor(32 * currentGUIScale));
