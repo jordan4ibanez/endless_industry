@@ -975,7 +975,6 @@ public: //* BEGIN PUBLIC API.
                                 ulong currentIndexInString = 0;
                                 const string text = (usePlaceHolder) ? textPad.placeholderText
                                     : textPad.text;
-                                const ulong lastIndex = (text.length == 0) ? 0 : (text.length) - 1;
                                 if (text !is null && text.length > 0) {
                                     bool foundChar = false;
                                     COLLISION_LOOP: for (int i = 0; i < text.length;
