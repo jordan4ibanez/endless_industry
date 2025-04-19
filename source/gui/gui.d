@@ -1096,11 +1096,19 @@ public: //* BEGIN PUBLIC API.
 
             notepadMenu.onClose = () { openWindow("pause_menu"); };
 
+            TextBox notepad = new TextBox();
+            notepad.size.x = 800;
+            notepad.size.y = 800 - 32;
+            notepad.placeholderText = "Here is where you can take notes.";
+            notepad.center();
+
+            notepadMenu.addComponent("notepad", notepad);
+
             registerWindow("notepad_menu", notepadMenu);
 
         }
 
-        currentWindow = windows["pause_menu"];
+        currentWindow = windows["notepad_menu"];
     }
 
     void bringBackDebugTest() {
