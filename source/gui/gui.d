@@ -484,10 +484,26 @@ public: //* BEGIN PUBLIC API.
                         width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
 
+                        bool skipDrawCursor = false;
+
                         if (thisChar == '\n') {
                             // If newline is reached, it must jump over it.
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
                                 0.25, textColor);
+                            if (focusedTextBox == textBox) {
+                                if (textBox.cursorPosition == i) {
+                                    if (cursorVisible) {
+                                        double w = 0;
+                                        DrawRectangle(
+                                            cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                                            posY + currentHeight,
+                                            cast(int) floor(2 * currentGUIScale),
+                                            cast(int) floor(32 * currentGUIScale),
+                                            Colors.BLUE);
+                                        skipDrawCursor = true;
+                                    }
+                                }
+                            }
                             currentHeight += cast(int) floor(32 * currentGUIScale);
                             currentWidth = 0;
                             currentIndexInString = i + 1;
@@ -509,10 +525,13 @@ public: //* BEGIN PUBLIC API.
                         //! You cannot select the last character visually in the line.
                         //! It will just skip to the next line.
                         //! It still works the same though. Oh well.
-                        if (focusedTextBox == textBox) {
+                        if (!skipDrawCursor && focusedTextBox == textBox) {
                             if (textBox.cursorPosition == i) {
                                 if (cursorVisible) {
-                                    const double w = currentWidth - width;
+                                    double w = currentWidth - width;
+                                    if (w < 0) {
+                                        w = 0;
+                                    }
                                     DrawRectangle(
                                         cast(int) floor(posX + w + (currentGUIScale * 0.5)),
                                         posY + currentHeight,
