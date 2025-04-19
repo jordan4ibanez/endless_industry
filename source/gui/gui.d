@@ -1057,8 +1057,8 @@ public: //* BEGIN PUBLIC API.
             TextBox textBox = new TextBox();
             textBox.size.x = 400;
             textBox.size.y = 400;
-            textBox.text = "this is a test of the textbox. this should probably jump down. I think it would be really nice if this text were to drop";
-            // textBox.placeholderText = "this is placeholder text";
+            // textBox.text = "this is a test of the textbox. this should probably jump down. I think it would be really nice if this text were to drop";
+            textBox.placeholderText = "Type something in here.";
 
             textBox.centerX();
             textBox.centerY();
