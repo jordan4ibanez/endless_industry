@@ -187,6 +187,9 @@ class DropDown : Component {
     /// What this text box will say when there's no text entered.
     string placeholderText = "UNDEFINED";
 
+    /// If the drop down menu is...dropped down.
+    bool droppedDown = false;
+
     //? General text/icon colors.
 
     /// The border color.
