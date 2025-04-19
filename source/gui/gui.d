@@ -560,16 +560,15 @@ public: //* BEGIN PUBLIC API.
                 }
 
                 // If the text box cursor is at the literal last position, it needs to be drawn here.
-                if (textBox.cursorPosition == textBox.text.length) {
-                    if (cursorVisible) {
-                        const double w = currentWidth;
-                        DrawRectangle(
-                            cast(int) floor(posX + w + (currentGUIScale * 0.5)),
-                            posY + currentHeight,
-                            cast(int) floor(2 * currentGUIScale),
-                            cast(int) floor(32 * currentGUIScale),
-                            Colors.BLUE);
-                    }
+                if (!usePlaceHolder && cursorVisible && textBox.cursorPosition == textBox
+                    .text.length) {
+                    const double w = currentWidth;
+                    DrawRectangle(
+                        cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                        posY + currentHeight,
+                        cast(int) floor(2 * currentGUIScale),
+                        cast(int) floor(32 * currentGUIScale),
+                        Colors.BLUE);
                 }
 
                 endScissorComponent();
