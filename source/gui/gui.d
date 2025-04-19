@@ -1044,10 +1044,6 @@ public: //* BEGIN PUBLIC API.
             settingsButton.centerX();
             pauseMenu.addComponent("settings_button", settingsButton);
 
-            settingsButton.onWindowResize = (Vec2i newSize) {
-                writeln("hi ", newSize.x, ", ", newSize.y);
-            };
-
             Button exitButton = new Button();
             exitButton.clickFunction = () {
                 import graphics.window;

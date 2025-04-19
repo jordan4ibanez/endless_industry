@@ -115,4 +115,6 @@ public:
         return result;
     }
 
+    void function() onClose = () {};
+
 }
