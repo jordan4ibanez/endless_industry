@@ -802,6 +802,7 @@ public: //* BEGIN PUBLIC API.
             : __preprocessedMousePos.toRaylib();
 
         foreach (thisComponent; currentWindow.componentsInOrder) {
+            //? Button.
             if (Button button = instanceof!Button(thisComponent)) {
                 button.mouseHovering = false;
                 const int posX = cast(int) floor(
@@ -826,6 +827,7 @@ public: //* BEGIN PUBLIC API.
                     }
                 }
 
+                //? Text box.
             } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
 
                 textBox.mouseHovering = false;
