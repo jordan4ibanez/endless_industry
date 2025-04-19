@@ -848,7 +848,9 @@ public: //* BEGIN PUBLIC API.
                 if (CheckCollisionPointRec(mousePos, buttonRect)) {
                     textBox.mouseHovering = true;
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        playButtonSound();
+                        if (focusedTextBox != textBox) {
+                            playButtonSound();
+                        }
 
                         {
                             // Find which character mouse just clicked (if any)
