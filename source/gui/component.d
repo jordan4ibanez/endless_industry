@@ -46,6 +46,9 @@ public:
     /// Please note: You are getting the work area size.
     void function(Component, Vec2i) onWindowResize = (Component self, Vec2i newWorkAreaSize) {
     };
+
+    /// This is run when the window gets closed.
+    void function(Component) onWindowClose = (Component self) {};
 }
 
 class Button : Component {
