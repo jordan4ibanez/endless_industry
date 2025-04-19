@@ -738,6 +738,9 @@ public: //* BEGIN PUBLIC API.
         if (currentWindow is null) {
             return;
         }
+
+        runBlinkingCursorLogic();
+
         const int workAreaPosX = cast(int) floor(
             centerPoint.x + (currentWindow.position.x * currentGUIScale));
         const int workAreaPosY = cast(int) floor(
