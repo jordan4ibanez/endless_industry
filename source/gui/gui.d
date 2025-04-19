@@ -495,6 +495,7 @@ public: //* BEGIN PUBLIC API.
                             FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
                                 0.25, textColor);
 
+                            //? This needs to be inline because \n creates some complex situations.
                             if (shouldDrawCursor()) {
                                 DrawRectangle(
                                     cast(int) floor(posX + 0 + (currentGUIScale * 0.5)),
