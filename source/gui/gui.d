@@ -100,6 +100,8 @@ private:
     bool cursorVisible = true;
     /// How fast the cursor blinks.
     double cursorBlinkGoalTime = 0.25;
+    /// Prevents the button sound playing twice in the same frame.
+    bool buttonSoundPlayed = false;
 
     /// This is the random generator.
     Mt19937 rnd;
@@ -594,9 +596,14 @@ public: //* BEGIN PUBLIC API.
     }
 
     void playButtonSound() {
+        // Prevent overlapping button sounds.
+        if (buttonSoundPlayed) {
+            return;
+        }
         // This is a really unfitting sound but it works for now.
         int keySelection = uniform(1, 6, rnd);
         Audio.playSound("keyboard_" ~ to!string(keySelection) ~ ".wav");
+        buttonSoundPlayed = true;
     }
 
     Vector2 getMousePositionInGUI() {
@@ -900,6 +907,7 @@ public: //* BEGIN PUBLIC API.
     void updateCurrentWindowLogic() {
         bool mouseFocusedOnGUI = false;
         bool keyboardDoingTextInput = false;
+        buttonSoundPlayed = false;
 
         if (currentWindow is null) {
             Mouse.__setFocusedOnGUI(mouseFocusedOnGUI);
