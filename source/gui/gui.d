@@ -621,8 +621,14 @@ public: //* BEGIN PUBLIC API.
                 const string text = (usePlaceHolder) ? textBox.placeholderText : textBox.text;
                 const Color textColor = (usePlaceHolder) ? textBox.placeholderTextColor
                     : textBox.textColor;
+                int adjustment = 0;
 
                 if (text !is null && text.length > 0) {
+                    const double totalSize = FontHandler.getTextSize(textBox.text, 0.25).x;
+                    if (totalSize > sizeX) {
+                        adjustment = cast(int) round((totalSize - sizeX) + (3 * currentGUIScale));
+                    }
+
                     for (int i = 0; i < text.length; i++) {
 
                         bool shouldDrawCursor() {
@@ -633,7 +639,7 @@ public: //* BEGIN PUBLIC API.
                         width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
 
-                        FontHandler.draw(text, posX, posY, 0.25, textColor);
+                        FontHandler.draw(text, posX - adjustment, posY, 0.25, textColor);
 
                         // Draw the cursor if the current focus is on this text pad.
                         // This will draw it before the current character.
@@ -644,7 +650,7 @@ public: //* BEGIN PUBLIC API.
                                 w = 0;
                             }
                             DrawRectangle(
-                                cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                                cast(int) floor(posX + w + (currentGUIScale * 0.5)) - adjustment,
                                 posY,
                                 cast(int) floor(2 * currentGUIScale),
                                 cast(int) floor(32 * currentGUIScale),
@@ -671,7 +677,7 @@ public: //* BEGIN PUBLIC API.
                     .text.length) {
                     const double w = currentWidth;
                     DrawRectangle(
-                        cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                        cast(int) floor(posX + w + (currentGUIScale * 0.5)) - adjustment,
                         posY,
                         cast(int) floor(2 * currentGUIScale),
                         cast(int) floor(32 * currentGUIScale),
