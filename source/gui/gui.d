@@ -496,9 +496,8 @@ public: //* BEGIN PUBLIC API.
                                 0.25, textColor);
 
                             if (shouldDrawCursor()) {
-                                double w = 0;
                                 DrawRectangle(
-                                    cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                                    cast(int) floor(posX + 0 + (currentGUIScale * 0.5)),
                                     posY + currentHeight,
                                     cast(int) floor(2 * currentGUIScale),
                                     cast(int) floor(32 * currentGUIScale),
