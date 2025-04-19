@@ -1351,9 +1351,9 @@ public: //* BEGIN PUBLIC API.
             notepad.placeholderText = "Here is where you can take notes.";
             notepad.center();
 
-            notepad.onWindowResize = (Component self, Vec2i newSize) {
-                self.size.x = newSize.x;
-                self.size.y = newSize.y;
+            notepad.onWindowResize = (Component self, Vec2i newWorkAreaSize) {
+                self.size.x = newWorkAreaSize.x;
+                self.size.y = newWorkAreaSize.y;
                 self.center();
             };
 

@@ -42,7 +42,9 @@ public:
         this.position.y = (this.size.y * 0.5) - 16;
     }
 
-    void function(Component, Vec2i) onWindowResize = (Component self, Vec2i newSize) {
+    /// This is run when the window gets resized.
+    /// Please note: You are getting the work area size.
+    void function(Component, Vec2i) onWindowResize = (Component self, Vec2i newWorkAreaSize) {
     };
 }
 
