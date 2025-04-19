@@ -497,8 +497,12 @@ public: //* BEGIN PUBLIC API.
 
                             //? This needs to be inline because \n creates some complex situations.
                             if (shouldDrawCursor()) {
+                                double w = currentWidth - width;
+                                if (w < 0) {
+                                    w = 0;
+                                }
                                 DrawRectangle(
-                                    cast(int) floor(posX + 0 + (currentGUIScale * 0.5)),
+                                    cast(int) floor(posX + w + (currentGUIScale * 0.5)),
                                     posY + currentHeight,
                                     cast(int) floor(2 * currentGUIScale),
                                     cast(int) floor(32 * currentGUIScale),
