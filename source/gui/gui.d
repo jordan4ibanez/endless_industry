@@ -446,14 +446,6 @@ public: //* BEGIN PUBLIC API.
                     sizeX,
                     sizeY,
                     textPad.backgroundColor);
-                const Color borderColor = textPad.mouseHovering ? textPad.borderColorHover
-                    : textPad.borderColor;
-                DrawRectangleLines(
-                    posX,
-                    posY,
-                    sizeX,
-                    sizeY,
-                    borderColor);
                 // This is ultra extremely inefficient.
                 // But, it works, probably.
                 double currentWidth = 0;
@@ -549,6 +541,14 @@ public: //* BEGIN PUBLIC API.
                         cast(int) floor(32 * currentGUIScale),
                         Colors.BLUE);
                 }
+                const Color borderColor = textPad.mouseHovering ? textPad.borderColorHover
+                    : textPad.borderColor;
+                DrawRectangleLines(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    borderColor);
                 endScissorComponent();
                 //? Text box.
             } else if (TextBox textBox = instanceof!TextBox(component)) {
@@ -590,7 +590,6 @@ public: //* BEGIN PUBLIC API.
                         const char thisChar = text[i];
                         width = FontHandler.getCharWidth(thisChar, 0.25);
                         currentWidth += width;
-
                         // Draw the cursor if the current focus is on this text pad.
                         // This will draw it before the current character.
                         if (shouldDrawCursor()) {
