@@ -23,7 +23,7 @@ public: //* BEGIN PUBLIC API.
     void initialize() {
 
         dstring codePointString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+={[]}|" ~
-            "\\;:'\",<.>© ";
+            "\\;:'\",<.>© /?";
 
         font = LoadFontEx(
             toStringz("font/roboto_condensed.ttf"), baseFontSize, cast(int*) codePointString, 0);
