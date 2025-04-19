@@ -438,14 +438,14 @@ public: //* BEGIN PUBLIC API.
 
                 endScissorComponent();
 
-            } else if (TextBox textBox = instanceof!TextBox(component)) {
+            } else if (TextPad textPad = instanceof!TextPad(component)) {
 
                 const int posX = cast(int) floor(
-                    (textBox.position.x * currentGUIScale) + centerX);
+                    (textPad.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
-                    ((-textBox.position.y) * currentGUIScale) + centerY);
-                const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
+                    ((-textPad.position.y) * currentGUIScale) + centerY);
+                const int sizeX = cast(int) floor(textPad.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(textPad.size.y * currentGUIScale);
 
                 if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                     continue;
@@ -456,10 +456,10 @@ public: //* BEGIN PUBLIC API.
                     posY,
                     sizeX,
                     sizeY,
-                    textBox.backgroundColor);
+                    textPad.backgroundColor);
 
-                const Color borderColor = textBox.mouseHovering ? textBox.borderColorHover
-                    : textBox.borderColor;
+                const Color borderColor = textPad.mouseHovering ? textPad.borderColorHover
+                    : textPad.borderColor;
 
                 DrawRectangleLines(
                     posX,
@@ -475,18 +475,18 @@ public: //* BEGIN PUBLIC API.
                 int currentHeight = 0;
                 ulong currentIndexInString = 0;
 
-                bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
+                bool usePlaceHolder = (textPad.text is null || textPad.text.length == 0);
 
-                const string text = (usePlaceHolder) ? textBox.placeholderText : textBox.text;
+                const string text = (usePlaceHolder) ? textPad.placeholderText : textPad.text;
                 const ulong lastIndex = (text.length == 0) ? 0 : (text.length) - 1;
-                const Color textColor = (usePlaceHolder) ? textBox.placeholderTextColor
-                    : textBox.textColor;
+                const Color textColor = (usePlaceHolder) ? textPad.placeholderTextColor
+                    : textPad.textColor;
 
                 if (text !is null && text.length > 0) {
                     for (int i = 0; i < text.length; i++) {
 
                         bool shouldDrawCursor() {
-                            return cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == i;
+                            return cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == i;
                         }
 
                         const char thisChar = text[i];
@@ -567,7 +567,7 @@ public: //* BEGIN PUBLIC API.
                 }
 
                 // If the text box cursor is at the literal last position, it needs to be drawn here.
-                if (!usePlaceHolder && cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == textBox
+                if (!usePlaceHolder && cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == textPad
                     .text.length) {
                     const double w = currentWidth;
                     DrawRectangle(
@@ -837,16 +837,16 @@ public: //* BEGIN PUBLIC API.
                 }
 
                 //? Text box.
-            } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
+            } else if (TextPad textPad = instanceof!TextPad(thisComponent)) {
 
-                textBox.mouseHovering = false;
+                textPad.mouseHovering = false;
 
                 const int posX = cast(int) floor(
-                    (textBox.position.x * currentGUIScale) + centerX);
+                    (textPad.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
-                    ((-textBox.position.y) * currentGUIScale) + centerY);
-                const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
+                    ((-textPad.position.y) * currentGUIScale) + centerY);
+                const int sizeX = cast(int) floor(textPad.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(textPad.size.y * currentGUIScale);
 
                 const Rectangle buttonRect = Rectangle(
                     posX,
@@ -855,17 +855,17 @@ public: //* BEGIN PUBLIC API.
                     sizeY);
 
                 if (CheckCollisionPointRec(mousePos, buttonRect)) {
-                    textBox.mouseHovering = true;
+                    textPad.mouseHovering = true;
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        if (focusedTextBox != textBox) {
+                        if (focusedTextBox != textPad) {
                             playButtonSound();
                         }
 
                         {
                             // Find which character mouse just clicked (if any)
-                            bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
+                            bool usePlaceHolder = (textPad.text is null || textPad.text.length == 0);
                             if (usePlaceHolder) {
-                                textBox.cursorPosition = 0;
+                                textPad.cursorPosition = 0;
                             } else {
                                 // This is ultra extremely inefficient.
                                 // But, it works, probably.
@@ -873,8 +873,8 @@ public: //* BEGIN PUBLIC API.
                                 double width = 0;
                                 int currentHeight = 0;
                                 ulong currentIndexInString = 0;
-                                const string text = (usePlaceHolder) ? textBox.placeholderText
-                                    : textBox.text;
+                                const string text = (usePlaceHolder) ? textPad.placeholderText
+                                    : textPad.text;
                                 const ulong lastIndex = (text.length == 0) ? 0 : (text.length) - 1;
                                 if (text !is null && text.length > 0) {
                                     bool foundChar = false;
@@ -914,9 +914,9 @@ public: //* BEGIN PUBLIC API.
 
                                             // If it's not left it's right.
                                             if (CheckCollisionPointRec(mousePos, charLeft)) {
-                                                textBox.cursorPosition = i;
+                                                textPad.cursorPosition = i;
                                             } else {
-                                                textBox.cursorPosition = i + 1;
+                                                textPad.cursorPosition = i + 1;
                                             }
                                             foundChar = true;
                                             break COLLISION_LOOP;
@@ -924,17 +924,17 @@ public: //* BEGIN PUBLIC API.
                                     }
                                     // If it hit nothing, just shove it into the last position.
                                     if (!foundChar) {
-                                        textBox.cursorPosition = cast(int) textBox.text.length;
+                                        textPad.cursorPosition = cast(int) textPad.text.length;
                                     }
                                 }
                             }
                         }
 
-                        focusedTextBox = textBox;
+                        focusedTextBox = textPad;
                     }
                 } else {
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        if (focusedTextBox == textBox) {
+                        if (focusedTextBox == textPad) {
                             playButtonSound();
                             keyboardDoingTextInput = false;
                             focusedTextBox = null;
@@ -942,45 +942,45 @@ public: //* BEGIN PUBLIC API.
                     }
                 }
 
-                if (focusedTextBox == textBox) {
+                if (focusedTextBox == textPad) {
                     keyboardDoingTextInput = true;
                     const int input = Keyboard.getCharacterTyped();
                     if (input != 0) {
-                        char[] old = textBox.text.dup;
-                        old.insertInPlace(textBox.cursorPosition, cast(char) input);
-                        textBox.text = old.idup;
+                        char[] old = textPad.text.dup;
+                        old.insertInPlace(textPad.cursorPosition, cast(char) input);
+                        textPad.text = old.idup;
                         cursorMovedUpdate();
-                        textBox.cursorPosition++;
+                        textPad.cursorPosition++;
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_BACKSPACE)) {
-                        if (textBox.cursorPosition > 0 && textBox.text.length > 0) {
-                            char[] old = textBox.text.dup;
-                            old = old.remove(textBox.cursorPosition - 1);
-                            textBox.text = old.idup;
-                            textBox.cursorPosition--;
+                        if (textPad.cursorPosition > 0 && textPad.text.length > 0) {
+                            char[] old = textPad.text.dup;
+                            old = old.remove(textPad.cursorPosition - 1);
+                            textPad.text = old.idup;
+                            textPad.cursorPosition--;
                             cursorMovedUpdate();
                         }
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_DELETE)) {
-                        if (textBox.text.length > 0 && textBox.cursorPosition <
-                            textBox.text.length) {
-                            char[] old = textBox.text.dup;
-                            old = old.remove(textBox.cursorPosition);
-                            textBox.text = old.idup;
+                        if (textPad.text.length > 0 && textPad.cursorPosition <
+                            textPad.text.length) {
+                            char[] old = textPad.text.dup;
+                            old = old.remove(textPad.cursorPosition);
+                            textPad.text = old.idup;
                             cursorMovedUpdate();
                         }
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_ENTER)) {
-                        char[] old = textBox.text.dup;
-                        old.insertInPlace(textBox.cursorPosition, '\n');
-                        textBox.text = old.idup;
-                        textBox.cursorPosition++;
+                        char[] old = textPad.text.dup;
+                        old.insertInPlace(textPad.cursorPosition, '\n');
+                        textPad.text = old.idup;
+                        textPad.cursorPosition++;
                         cursorMovedUpdate();
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_RIGHT)) {
-                        if (textBox.cursorPosition < textBox.text.length) {
-                            textBox.cursorPosition++;
+                        if (textPad.cursorPosition < textPad.text.length) {
+                            textPad.cursorPosition++;
                             cursorMovedUpdate();
                         }
                     } else if (Keyboard.isKeyPressedOrRepeating(KeyboardKey.KEY_LEFT)) {
-                        if (textBox.cursorPosition > 0) {
-                            textBox.cursorPosition--;
+                        if (textPad.cursorPosition > 0) {
+                            textPad.cursorPosition--;
                             cursorMovedUpdate();
                         }
                     }
@@ -1071,16 +1071,16 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.size.y = 800;
             settingsMenu.center();
 
-            TextBox textBox = new TextBox();
-            textBox.size.x = 400;
-            textBox.size.y = 400;
+            TextPad textPad = new TextPad();
+            textPad.size.x = 400;
+            textPad.size.y = 400;
             // textBox.text = "this is a test of the textbox. this should probably jump down. I think it would be really nice if this text were to drop";
-            textBox.placeholderText = "Type something in here.";
+            textPad.placeholderText = "Type something in here.";
 
-            textBox.centerX();
-            textBox.centerY();
+            textPad.centerX();
+            textPad.centerY();
 
-            settingsMenu.addComponent("text_box", textBox);
+            settingsMenu.addComponent("text_pad", textPad);
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
@@ -1097,7 +1097,7 @@ public: //* BEGIN PUBLIC API.
 
             notepadMenu.onClose = () { openWindow("pause_menu"); };
 
-            TextBox notepad = new TextBox();
+            TextPad notepad = new TextPad();
             notepad.size.x = 800;
             notepad.size.y = 800 - 32;
             notepad.placeholderText = "Here is where you can take notes.";
