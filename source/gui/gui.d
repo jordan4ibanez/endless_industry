@@ -1613,17 +1613,37 @@ public: //* BEGIN PUBLIC API.
             dropMenu.center();
             settingsMenu.addComponent("drop_menu", dropMenu);
 
-            DropMenu dropMenu1 = new DropMenu();
-            dropMenu1.size.x = 400;
-            dropMenu1.items ~= [
-                "THIS IS A REALLY LONG TEXT",
-                "These",
-                "are",
-                "some other items"
+            DropMenu difficultySelection = new DropMenu();
+            difficultySelection.size.x = 400;
+            difficultySelection.items ~= [
+                "I'm too young to die",
+                "Hey, not too rough",
+                "Hurt me plenty",
+                "Ultra-Violence",
+                "Nightmare!"
             ];
-            dropMenu1.center();
-            dropMenu1.position.y = -100;
-            settingsMenu.addComponent("drop_menu1", dropMenu1);
+            difficultySelection.selection = 2;
+            difficultySelection.center();
+            difficultySelection.position.y = -100;
+            settingsMenu.addComponent("drop_menu1", difficultySelection);
+
+            DropMenu explainer = new DropMenu();
+            explainer.items ~= [
+                "You'll notice that each",
+                "item can overlap another thing.",
+                "I think this is pretty cool.",
+                "Whatever component is currently",
+                "focused is the one that is drawn",
+                "over everything else. It's neat."
+            ];
+            explainer.size.x = 500;
+            explainer.centerX();
+            explainer.position.y = 100;
+            settingsMenu.addComponent("explainer_menu", explainer);
+
+            
+
+
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
