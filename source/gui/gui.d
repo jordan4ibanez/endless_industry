@@ -1526,6 +1526,18 @@ public: //* BEGIN PUBLIC API.
 
             settingsMenu.addComponent("drop_menu", dropMenu);
 
+            DropMenu dropMenu1 = new DropMenu();
+            dropMenu1.size.x = 400;
+            dropMenu1.items ~= [
+                "THIS IS A REALLY LONG TEXT",
+                "These",
+                "are",
+                "some other items"
+            ];
+            dropMenu1.center();
+            dropMenu1.position.y = -100;
+            settingsMenu.addComponent("drop_menu1", dropMenu1);
+
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
             registerWindow("settings_menu", settingsMenu);
