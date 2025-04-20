@@ -833,7 +833,6 @@ public: //* BEGIN PUBLIC API.
                 drawButton(button);
             } else if (TextPad textPad = instanceof!TextPad(component)) {
                 drawTextPad(textPad);
-                //? Text box.
             } else if (TextBox textBox = instanceof!TextBox(component)) {
                 drawTextBox(textBox);
             } else if (DropMenu dropMenu = instanceof!DropMenu(component)) {
