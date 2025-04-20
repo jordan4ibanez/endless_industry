@@ -116,6 +116,9 @@ public: //* BEGIN PUBLIC API.
     /// Close the currently opened window if any.
     /// If there is no window opened, this has no effect.
     void closeWindow() {
+        if (currentWindow is null) {
+            return;
+        }
         const string oldWindowID = currentWindow.windowID;
         currentWindow = null;
         dragging = false;
@@ -131,6 +134,7 @@ public: //* BEGIN PUBLIC API.
         if (thisWindow is null) {
             throw new Error(windowID ~ " is not a valid window");
         }
+        closeWindow();
         currentWindow = *thisWindow;
         currentWindow.center();
     }
