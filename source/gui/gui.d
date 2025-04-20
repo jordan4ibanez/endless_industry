@@ -154,6 +154,15 @@ public: //* BEGIN PUBLIC API.
         return currentWindow !is null;
     }
 
+    /// Get the current window object. (if any)
+    Option!WindowGUI getCurrentWindow() {
+        Option!WindowGUI result;
+        if (currentWindow !is null) {
+            result = result.Some(currentWindow);
+        }
+        return result;
+    }
+
     bool windowXInBounds(WindowGUI window) {
         bool result = true;
         const int posX = cast(int) floor(
