@@ -81,16 +81,19 @@ private:
 
     /// The window database.
     WindowGUI[string] windows;
+
     /// If a window is currently getting dragged.
     bool dragging = false;
     /// If a window is currently getting resized.
     bool resizing = false;
+
     /// The currently opened window.
     WindowGUI currentWindow = null;
     /// The currently focused text box.
     Component focusedTextBox = null;
     /// The currently opened DropMenu.
     Component focusedDropMenu = null;
+
     /// The cursor blink state timer.
     double cursorBlinkTimer = 0;
     /// If the cursor is visible.
