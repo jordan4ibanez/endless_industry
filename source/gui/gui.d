@@ -706,6 +706,16 @@ public: //* BEGIN PUBLIC API.
                             posY + statusAreaHeight - __triPadding))
                 ];
 
+                DrawRectangle(
+                    posX + sizeX - statusAreaHeight,
+                    posY,
+                    statusAreaHeight,
+                    statusAreaHeight,
+                    dropMenuColor
+                );
+
+                // Then draw the triangle.
+
                 DrawTriangle(
                     triPoints[0],
                     triPoints[1],
