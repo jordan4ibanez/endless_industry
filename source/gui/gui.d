@@ -469,56 +469,24 @@ public: //* BEGIN PUBLIC API.
             const ulong lastIndex = (text.length == 0) ? 0 : (text.length) - 1;
             const Color textColor = (usePlaceHolder) ? textPad.placeholderTextColor
                 : textPad.textColor;
-            if (text !is null && text.length > 0) {
-                for (int i = 0; i < text.length; i++) {
-                    bool shouldDrawCursor() {
-                        return cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == i;
-                    }
+            if (text is null || text.length <= 0) {
+                goto SKIP_DRAW_TEXT;
+            }
+            for (int i = 0; i < text.length; i++) {
+                bool shouldDrawCursor() {
+                    return cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == i;
+                }
 
-                    const char thisChar = text[i];
-                    width = FontHandler.getCharWidth(thisChar, 0.25);
-                    currentWidth += width;
-                    bool skipDrawCursor = false;
-                    if (thisChar == '\n') {
-                        // If newline is reached, it must jump over it.
-                        FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
-                            0.25, textColor);
-                        //? This needs to be inline because \n creates some complex situations.
-                        if (shouldDrawCursor()) {
-                            double w = currentWidth - width;
-                            if (w < 0) {
-                                w = 0;
-                            }
-                            DrawRectangle(
-                                cast(int) floor(posX + w + (currentGUIScale * 0.5)),
-                                posY + currentHeight,
-                                cast(int) floor(2 * currentGUIScale),
-                                cast(int) floor(32 * currentGUIScale),
-                                Colors.BLUE);
-                            skipDrawCursor = true;
-                        }
-                        currentHeight += cast(int) floor(32 * currentGUIScale);
-                        currentWidth = 0;
-                        currentIndexInString = i + 1;
-                    } else if (currentWidth >= sizeX) {
-                        FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
-                            0.25, textColor);
-                        currentWidth = width;
-                        currentHeight += cast(int) floor(32 * currentGUIScale);
-                        currentIndexInString = i;
-                    }
-                    // Catch all.
-                    if (i == lastIndex) {
-                        FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
-                            0.25, textColor);
-                    }
-                    // Draw the cursor if the current focus is on this text pad.
-                    // This will draw it before the current character.
-                    //! Note: this will cause issues with newlines.
-                    //! You cannot select the last character visually in the line.
-                    //! It will just skip to the next line.
-                    //! It still works the same though. Oh well.
-                    if (!skipDrawCursor && shouldDrawCursor()) {
+                const char thisChar = text[i];
+                width = FontHandler.getCharWidth(thisChar, 0.25);
+                currentWidth += width;
+                bool skipDrawCursor = false;
+                if (thisChar == '\n') {
+                    // If newline is reached, it must jump over it.
+                    FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
+                        0.25, textColor);
+                    //? This needs to be inline because \n creates some complex situations.
+                    if (shouldDrawCursor()) {
                         double w = currentWidth - width;
                         if (w < 0) {
                             w = 0;
@@ -529,19 +497,54 @@ public: //* BEGIN PUBLIC API.
                             cast(int) floor(2 * currentGUIScale),
                             cast(int) floor(32 * currentGUIScale),
                             Colors.BLUE);
+                        skipDrawCursor = true;
                     }
-                    // if (true) {
-                    //     DrawRectangleLines(
-                    //         cast(int) floor(posX + (currentWidth - width)),
-                    //         posY + currentHeight,
-                    //         cast(int) floor(width),
-                    //         cast(int) floor(32 * currentGUIScale),
-                    //         Colors.BLUE);
-                    //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY + currentHeight,
-                    //         0.05, Colors.GREEN);
-                    // }
+                    currentHeight += cast(int) floor(32 * currentGUIScale);
+                    currentWidth = 0;
+                    currentIndexInString = i + 1;
+                } else if (currentWidth >= sizeX) {
+                    FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
+                        0.25, textColor);
+                    currentWidth = width;
+                    currentHeight += cast(int) floor(32 * currentGUIScale);
+                    currentIndexInString = i;
                 }
+                // Catch all.
+                if (i == lastIndex) {
+                    FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
+                        0.25, textColor);
+                }
+                // Draw the cursor if the current focus is on this text pad.
+                // This will draw it before the current character.
+                //! Note: this will cause issues with newlines.
+                //! You cannot select the last character visually in the line.
+                //! It will just skip to the next line.
+                //! It still works the same though. Oh well.
+                if (!skipDrawCursor && shouldDrawCursor()) {
+                    double w = currentWidth - width;
+                    if (w < 0) {
+                        w = 0;
+                    }
+                    DrawRectangle(
+                        cast(int) floor(posX + w + (currentGUIScale * 0.5)),
+                        posY + currentHeight,
+                        cast(int) floor(2 * currentGUIScale),
+                        cast(int) floor(32 * currentGUIScale),
+                        Colors.BLUE);
+                }
+                // if (true) {
+                //     DrawRectangleLines(
+                //         cast(int) floor(posX + (currentWidth - width)),
+                //         posY + currentHeight,
+                //         cast(int) floor(width),
+                //         cast(int) floor(32 * currentGUIScale),
+                //         Colors.BLUE);
+                //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY + currentHeight,
+                //         0.05, Colors.GREEN);
+                // }
             }
+
+        SKIP_DRAW_TEXT:
             // If the text pad cursor is at the literal last position, it needs to be drawn here.
             if (!usePlaceHolder && cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == textPad
                 .text.length) {
