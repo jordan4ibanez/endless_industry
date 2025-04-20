@@ -594,46 +594,52 @@ public: //* BEGIN PUBLIC API.
             const Color textColor = (usePlaceHolder) ? textBox.placeholderTextColor
                 : textBox.textColor;
             int adjustment = 0;
-            if (text !is null && text.length > 0) {
-                const double totalSize = FontHandler.getTextSize(textBox.text, 0.25).x;
-                if (totalSize > sizeX) {
-                    adjustment = cast(int) round((totalSize - sizeX) + (3 * currentGUIScale));
-                }
-                FontHandler.draw(text, posX - adjustment, posY, 0.25, textColor);
-                for (int i = 0; i < text.length; i++) {
-                    bool shouldDrawCursor() {
-                        return cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == i;
-                    }
+            const double totalSize = FontHandler.getTextSize(textBox.text, 0.25).x;
 
-                    const char thisChar = text[i];
-                    width = FontHandler.getCharWidth(thisChar, 0.25);
-                    currentWidth += width;
-                    // Draw the cursor if the current focus is on this text pad.
-                    // This will draw it before the current character.
-                    if (shouldDrawCursor()) {
-                        double w = currentWidth - width;
-                        if (w < 0) {
-                            w = 0;
-                        }
-                        DrawRectangle(
-                            cast(int) floor(posX + w + (currentGUIScale * 0.5)) - adjustment,
-                            posY,
-                            cast(int) floor(2 * currentGUIScale),
-                            cast(int) floor(32 * currentGUIScale),
-                            Colors.BLUE);
-                    }
-                    // if (true) {
-                    //     DrawRectangleLines(
-                    //         cast(int) floor(posX + (currentWidth - width)),
-                    //         posY,
-                    //         cast(int) floor(width),
-                    //         cast(int) floor(32 * currentGUIScale),
-                    //         Colors.BLUE);
-                    //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY,
-                    //         0.05, Colors.GREEN);
-                    // }
-                }
+            if (text is null || text.length <= 0) {
+                goto SKIP_DRAW_TEXT_IN_BOX;
             }
+
+            if (totalSize > sizeX) {
+                adjustment = cast(int) round((totalSize - sizeX) + (3 * currentGUIScale));
+            }
+            FontHandler.draw(text, posX - adjustment, posY, 0.25, textColor);
+            for (int i = 0; i < text.length; i++) {
+                bool shouldDrawCursor() {
+                    return cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == i;
+                }
+
+                const char thisChar = text[i];
+                width = FontHandler.getCharWidth(thisChar, 0.25);
+                currentWidth += width;
+                // Draw the cursor if the current focus is on this text pad.
+                // This will draw it before the current character.
+                if (shouldDrawCursor()) {
+                    double w = currentWidth - width;
+                    if (w < 0) {
+                        w = 0;
+                    }
+                    DrawRectangle(
+                        cast(int) floor(posX + w + (currentGUIScale * 0.5)) - adjustment,
+                        posY,
+                        cast(int) floor(2 * currentGUIScale),
+                        cast(int) floor(32 * currentGUIScale),
+                        Colors.BLUE);
+                }
+                // if (true) {
+                //     DrawRectangleLines(
+                //         cast(int) floor(posX + (currentWidth - width)),
+                //         posY,
+                //         cast(int) floor(width),
+                //         cast(int) floor(32 * currentGUIScale),
+                //         Colors.BLUE);
+                //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY,
+                //         0.05, Colors.GREEN);
+                // }
+            }
+
+        SKIP_DRAW_TEXT_IN_BOX:
+
             // If the text pad cursor is at the literal last position, it needs to be drawn here.
             if (!usePlaceHolder && cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == textBox
                 .text.length) {
