@@ -969,6 +969,37 @@ public: //* BEGIN PUBLIC API.
             __preprocessedMousePos.x + __mouseDumper, __preprocessedMousePos.y + __mouseDumper)
             : __preprocessedMousePos.toRaylib();
 
+        bool doSecondPass = true;
+
+        foreach (thisComponent; currentWindow.componentsInOrder) {
+            //? DropMenu.
+            if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
+                dropMenu.mouseHovering = false;
+                const int posX = cast(int) floor(
+                    (dropMenu.position.x * currentGUIScale) + centerX);
+                const int posY = cast(int) floor(
+                    ((-dropMenu.position.y) * currentGUIScale) + centerY);
+                const int sizeX = cast(int) floor(dropMenu.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(dropMenu.size.y * currentGUIScale);
+                const Rectangle buttonRect = Rectangle(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY);
+                // If the mouse is hovering over the button.
+                if (CheckCollisionPointRec(mousePos, buttonRect)) {
+                    doSecondPass = false;
+                    dropMenu.mouseHovering = true;
+                    // If the mouse clicks the button.
+                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        playButtonSound();
+                        // dropMenu.clickFunction();
+                        break;
+                    }
+                }
+            }
+        }
+
         // todo: drop menu here
         // todo: If any of these are hit, then do not foreach the next loop.
 
