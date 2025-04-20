@@ -413,6 +413,8 @@ public: //* BEGIN PUBLIC API.
             }
             Color buttonColor = button.mouseHovering ? button.backgroundColorHover
                 : button.backgroundColor;
+            Color borderColor = (button.mouseHovering) ? button.borderColorHover
+                : button.borderColor;
             DrawRectangle(
                 posX,
                 posY,
@@ -434,7 +436,7 @@ public: //* BEGIN PUBLIC API.
                 posY,
                 sizeX,
                 sizeY,
-                button.borderColor);
+                borderColor);
             endScissorComponent();
         }
 
