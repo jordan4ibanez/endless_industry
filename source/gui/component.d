@@ -225,14 +225,6 @@ class DropMenu : Component {
 
     this() {
         size = Vec2i(200, 32);
-        onWindowClose = (Component s) {
-            if (DropMenu self = instanceof!DropMenu(s)) {
-                self.droppedDown = false;
-                self.hoverSelection = -1;
-            } else {
-                throw new Error("How did this happen?");
-            }
-        };
     }
 
 }
