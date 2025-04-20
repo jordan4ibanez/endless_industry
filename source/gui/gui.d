@@ -781,6 +781,13 @@ public: //* BEGIN PUBLIC API.
                         thisSectionColor
                     );
 
+                    FontHandler.drawShadowed(
+                        item,
+                        posX,
+                        posY + yPos,
+                        0.25,
+                        dropMenu.textColor);
+
                     DrawRectangleLines(
                         posX,
                         posY + yPos,
