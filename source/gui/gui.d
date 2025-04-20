@@ -669,7 +669,7 @@ public: //* BEGIN PUBLIC API.
                 DrawRectangle(
                     posX,
                     posY,
-                    sizeX,
+                    sizeX - statusAreaHeight,
                     sizeY,
                     dropMenuColor);
 
@@ -688,7 +688,7 @@ public: //* BEGIN PUBLIC API.
                 DrawRectangleLines(
                     posX,
                     posY,
-                    sizeX,
+                    sizeX - statusAreaHeight,
                     sizeY,
                     dropMenu.borderColor);
 
