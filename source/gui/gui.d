@@ -545,6 +545,7 @@ public: //* BEGIN PUBLIC API.
             }
 
         SKIP_DRAW_TEXT:
+
             // If the text pad cursor is at the literal last position, it needs to be drawn here.
             if (!usePlaceHolder && cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == textPad
                 .text.length) {
