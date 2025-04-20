@@ -1263,6 +1263,8 @@ public: //* BEGIN PUBLIC API.
             dropMenu.items ~= ["TEST", "TEST2"];
             dropMenu.center();
 
+            settingsMenu.addComponent("drop_menu", dropMenu);
+
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
             registerWindow("settings_menu", settingsMenu);
