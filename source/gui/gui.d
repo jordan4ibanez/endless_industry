@@ -1468,6 +1468,9 @@ public: //* BEGIN PUBLIC API.
             return hoverOver;
         }
 
+        //? Focused component gets priority over everything else.
+        //? It can also tell the logic to literally skip everything else in 
+        //? whatever situations it deems necessary.
         bool skipOtherComponents = false;
         if (focusedComponent !is null) {
             if (TextPad textPad = instanceof!TextPad(focusedComponent)) {
