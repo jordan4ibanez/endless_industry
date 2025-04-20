@@ -662,10 +662,171 @@ public: //* BEGIN PUBLIC API.
             endScissorComponent();
         }
 
+        //? DropMenu.
+        void drawDropMenu(const ref DropMenu dropMenu) {
+            const int posX = cast(int) floor(
+                (dropMenu.position.x * currentGUIScale) + centerX);
+            const int posY = cast(int) floor(
+                ((-dropMenu.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) floor(dropMenu.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(dropMenu.size.y * currentGUIScale);
+
+            // At the expense of talking to the GPU twice, check if the entire are is rendered.
+            if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+                return;
+            }
+
+            // Now do the real scissor.
+            // Drawing the button text portion.
+            startScissorComponent(posX, posY, sizeX - statusAreaHeight, sizeY);
+
+            const Color borderColor = (dropMenu.mouseHovering) ? dropMenu.borderColorHover
+                : dropMenu.borderColor;
+
+            const Color dropMenuColor = (dropMenu.mouseHovering) ? dropMenu.backgroundColorHover
+                : dropMenu.backgroundColor;
+
+            DrawRectangle(
+                posX,
+                posY,
+                sizeX - statusAreaHeight,
+                sizeY,
+                dropMenuColor);
+
+            const bool usePlaceHolder = (dropMenu.selection < 0 || dropMenu.selection >= dropMenu
+                    .items.length);
+
+            const string title = (usePlaceHolder) ? ((dropMenu.placeholderText is null) ? "UNDEFINED"
+                    : dropMenu.placeholderText) : dropMenu.items[dropMenu.selection];
+
+            FontHandler.drawShadowed(
+                title,
+                posX,
+                posY,
+                0.25,
+                dropMenu.textColor);
+            DrawRectangleLines(
+                posX,
+                posY,
+                sizeX - statusAreaHeight,
+                sizeY,
+                borderColor);
+
+            // Next, draw the icon that indicates this is a drop menu.
+            startScissorComponent(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, sizeY);
+
+            const double __triPadding = (currentGUIScale * 4);
+
+            // Hold precalculations on the stack.
+            const Vector2[3] triPoints = [
+                Vector2(round(posX + sizeX - statusAreaHeight + __triPadding), round(
+                        posY + __triPadding)),
+                Vector2(round(posX + sizeX - __triPadding), round(posY + __triPadding)),
+                Vector2(round(posX + sizeX - (statusAreaHeight / 2.0)) - 0.25, round(
+                        posY + statusAreaHeight - __triPadding))
+            ];
+
+            // Infill the background.
+
+            DrawRectangle(
+                posX + sizeX - statusAreaHeight,
+                posY,
+                statusAreaHeight,
+                statusAreaHeight,
+                dropMenuColor
+            );
+
+            // Then draw the triangle.
+
+            DrawTriangle(
+                triPoints[0],
+                triPoints[1],
+                triPoints[2],
+                dropMenu.dropTriangleColor
+            );
+
+            DrawTriangleLines(
+                triPoints[0],
+                triPoints[1],
+                triPoints[2],
+                borderColor
+            );
+
+            // Then make it look nice with a border.
+            DrawRectangleLines(
+                posX + sizeX - statusAreaHeight,
+                posY,
+                statusAreaHeight,
+                statusAreaHeight,
+                borderColor
+            );
+
+            endScissorComponent();
+
+            // If the menu is dropped down, each element must be drawn one by one.
+            // This is extremely inefficient but, it is what it is.
+
+            if (!dropMenu.droppedDown) {
+                return;
+            }
+
+            const int incrementer = cast(int) floor(currentGUIScale);
+
+            int yAdjustment = incrementer;
+            ulong i = 0;
+            foreach (__index, item; dropMenu.items) {
+                if (__index == dropMenu.selection) {
+                    continue;
+                }
+                i++;
+                const bool isSelected = dropMenu.hoverSelection == __index;
+                const Color thisBorderColor = (isSelected) ? dropMenu.borderColorHover
+                    : dropMenu.borderColor;
+                const Color thisSectionColor = (isSelected) ? dropMenu
+                    .backgroundColorHover : dropMenu.backgroundColor;
+
+                const int yPos = (sizeY * cast(int) i) + yAdjustment;
+
+                startScissorComponent(
+                    posX,
+                    posY + yPos,
+                    sizeX,
+                    sizeY);
+
+                DrawRectangle(
+                    posX,
+                    posY + yPos,
+                    sizeX,
+                    sizeY,
+                    thisSectionColor
+                );
+
+                FontHandler.drawShadowed(
+                    item,
+                    posX,
+                    posY + yPos,
+                    0.25,
+                    dropMenu.textColor);
+
+                DrawRectangleLines(
+                    posX,
+                    posY + yPos,
+                    sizeX,
+                    sizeY,
+                    thisBorderColor
+                );
+
+                yAdjustment += incrementer;
+            }
+
+            endScissorComponent();
+        }
+
         //! Logic flow begins here.
 
         //? First pass.
         foreach (Component component; currentWindow.componentsInOrder) {
+
             if (Button button = instanceof!Button(component)) {
                 drawButton(button);
             } else if (TextPad textPad = instanceof!TextPad(component)) {
@@ -682,162 +843,7 @@ public: //* BEGIN PUBLIC API.
         foreach (Component component; currentWindow.componentsInOrder) {
             //? DropMenu.
             if (DropMenu dropMenu = instanceof!DropMenu(component)) {
-                const int posX = cast(int) floor(
-                    (dropMenu.position.x * currentGUIScale) + centerX);
-                const int posY = cast(int) floor(
-                    ((-dropMenu.position.y) * currentGUIScale) + centerY);
-                const int sizeX = cast(int) floor(dropMenu.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(dropMenu.size.y * currentGUIScale);
-
-                // At the expense of talking to the GPU twice, check if the entire are is rendered.
-                if (startScissorComponent(posX, posY, sizeX, sizeY)) {
-                    continue;
-                }
-
-                // Now do the real scissor.
-                // Drawing the button text portion.
-                startScissorComponent(posX, posY, sizeX - statusAreaHeight, sizeY);
-
-                const Color borderColor = (dropMenu.mouseHovering) ? dropMenu.borderColorHover
-                    : dropMenu.borderColor;
-
-                const Color dropMenuColor = (dropMenu.mouseHovering) ? dropMenu.backgroundColorHover
-                    : dropMenu.backgroundColor;
-
-                DrawRectangle(
-                    posX,
-                    posY,
-                    sizeX - statusAreaHeight,
-                    sizeY,
-                    dropMenuColor);
-
-                const bool usePlaceHolder = (dropMenu.selection < 0 || dropMenu.selection >= dropMenu
-                        .items.length);
-
-                const string title = (usePlaceHolder) ? ((dropMenu.placeholderText is null) ? "UNDEFINED"
-                        : dropMenu.placeholderText) : dropMenu.items[dropMenu.selection];
-
-                FontHandler.drawShadowed(
-                    title,
-                    posX,
-                    posY,
-                    0.25,
-                    dropMenu.textColor);
-                DrawRectangleLines(
-                    posX,
-                    posY,
-                    sizeX - statusAreaHeight,
-                    sizeY,
-                    borderColor);
-
-                // Next, draw the icon that indicates this is a drop menu.
-                startScissorComponent(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, sizeY);
-
-                const double __triPadding = (currentGUIScale * 4);
-
-                // Hold precalculations on the stack.
-                const Vector2[3] triPoints = [
-                    Vector2(round(posX + sizeX - statusAreaHeight + __triPadding), round(
-                            posY + __triPadding)),
-                    Vector2(round(posX + sizeX - __triPadding), round(posY + __triPadding)),
-                    Vector2(round(posX + sizeX - (statusAreaHeight / 2.0)) - 0.25, round(
-                            posY + statusAreaHeight - __triPadding))
-                ];
-
-                // Infill the background.
-
-                DrawRectangle(
-                    posX + sizeX - statusAreaHeight,
-                    posY,
-                    statusAreaHeight,
-                    statusAreaHeight,
-                    dropMenuColor
-                );
-
-                // Then draw the triangle.
-
-                DrawTriangle(
-                    triPoints[0],
-                    triPoints[1],
-                    triPoints[2],
-                    dropMenu.dropTriangleColor
-                );
-
-                DrawTriangleLines(
-                    triPoints[0],
-                    triPoints[1],
-                    triPoints[2],
-                    borderColor
-                );
-
-                // Then make it look nice with a border.
-                DrawRectangleLines(
-                    posX + sizeX - statusAreaHeight,
-                    posY,
-                    statusAreaHeight,
-                    statusAreaHeight,
-                    borderColor
-                );
-
-                endScissorComponent();
-
-                // If the menu is dropped down, each element must be drawn one by one.
-                // This is extremely inefficient but, it is what it is.
-
-                if (!dropMenu.droppedDown) {
-                    continue;
-                }
-
-                const int incrementer = cast(int) floor(currentGUIScale);
-
-                int yAdjustment = incrementer;
-                ulong i = 0;
-                foreach (__index, item; dropMenu.items) {
-                    if (__index == dropMenu.selection) {
-                        continue;
-                    }
-                    i++;
-                    const bool isSelected = dropMenu.hoverSelection == __index;
-                    const Color thisBorderColor = (isSelected) ? dropMenu.borderColorHover
-                        : dropMenu.borderColor;
-                    const Color thisSectionColor = (isSelected) ? dropMenu
-                        .backgroundColorHover : dropMenu.backgroundColor;
-
-                    const int yPos = (sizeY * cast(int) i) + yAdjustment;
-
-                    startScissorComponent(
-                        posX,
-                        posY + yPos,
-                        sizeX,
-                        sizeY);
-
-                    DrawRectangle(
-                        posX,
-                        posY + yPos,
-                        sizeX,
-                        sizeY,
-                        thisSectionColor
-                    );
-
-                    FontHandler.drawShadowed(
-                        item,
-                        posX,
-                        posY + yPos,
-                        0.25,
-                        dropMenu.textColor);
-
-                    DrawRectangleLines(
-                        posX,
-                        posY + yPos,
-                        sizeX,
-                        sizeY,
-                        thisBorderColor
-                    );
-
-                    yAdjustment += incrementer;
-                }
-
-                endScissorComponent();
+                drawDropMenu(dropMenu);
             }
         }
     }
