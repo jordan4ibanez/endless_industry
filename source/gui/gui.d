@@ -57,8 +57,6 @@ import utility.instance_of;
 *       - TextInputBox  --> Window, Label, TextBox, Button
 */
 
-
-
 static final const class GUI {
 static:
 private:
@@ -1051,9 +1049,6 @@ public: //* BEGIN PUBLIC API.
                 }
             }
         }
-
-        // todo: drop menu here
-        // todo: If any of these are hit, then do not foreach the next loop.
 
         if (!doSecondPass) {
             return;
