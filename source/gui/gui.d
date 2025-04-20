@@ -402,7 +402,7 @@ public: //* BEGIN PUBLIC API.
         //! DO NOT take these functions out of this function.
 
         ///? Button.
-        void drawButton(Button button) {
+        void drawButton(const ref Button button) {
             const int posX = cast(int) floor(
                 (button.position.x * currentGUIScale) + centerX);
             const int posY = cast(int) floor(
@@ -442,7 +442,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         ///? TextPad.
-        void drawTextPad(TextPad textPad) {
+        void drawTextPad(const ref TextPad textPad) {
             const int posX = cast(int) floor(
                 (textPad.position.x * currentGUIScale) + centerX);
             const int posY = cast(int) floor(
