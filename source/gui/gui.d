@@ -663,6 +663,9 @@ public: //* BEGIN PUBLIC API.
                 // Drawing the button text portion.
                 startScissorComponent(posX, posY, sizeX - statusAreaHeight, sizeY);
 
+                Color borderColor = (dropMenu.mouseHovering) ? dropMenu.borderColorHover
+                    : dropMenu.borderColor;
+
                 Color dropMenuColor = dropMenu.mouseHovering ? dropMenu.backgroundColorHover
                     : dropMenu.backgroundColor;
 
@@ -690,7 +693,7 @@ public: //* BEGIN PUBLIC API.
                     posY,
                     sizeX - statusAreaHeight,
                     sizeY,
-                    dropMenu.borderColor);
+                    borderColor);
 
                 // Next, draw the icon that indicates this is a drop menu.
                 startScissorComponent(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, sizeY);
@@ -729,7 +732,7 @@ public: //* BEGIN PUBLIC API.
                     triPoints[0],
                     triPoints[1],
                     triPoints[2],
-                    dropMenu.borderColor
+                    borderColor
                 );
 
                 // Then make it look nice with a border.
@@ -738,7 +741,7 @@ public: //* BEGIN PUBLIC API.
                     posY,
                     statusAreaHeight,
                     statusAreaHeight,
-                    dropMenu.borderColor
+                    borderColor
                 );
 
                 endScissorComponent();
