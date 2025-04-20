@@ -1255,15 +1255,9 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.size.y = 800;
             settingsMenu.center();
 
-            TextPad textPad = new TextPad();
-            textPad.size.x = 400;
-            textPad.size.y = 400;
-            textPad.placeholderText = "Type something in here.";
-
-            textPad.centerX();
-            textPad.centerY();
-
-            settingsMenu.addComponent("text_pad", textPad);
+            DropMenu dropMenu = new DropMenu();
+            dropMenu.items ~= ["TEST", "TEST2"];
+            dropMenu.center();
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
