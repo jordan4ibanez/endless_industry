@@ -742,6 +742,13 @@ public: //* BEGIN PUBLIC API.
                 );
 
                 endScissorComponent();
+
+                // If the menu is dropped down, each element must be drawn one by one.
+                // This is extremely inefficient but, it is what it is.
+
+                if (!dropMenu.droppedDown) {
+                    continue;
+                }
             }
         }
     }
