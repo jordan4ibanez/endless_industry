@@ -1003,6 +1003,10 @@ public: //* BEGIN PUBLIC API.
         // todo: drop menu here
         // todo: If any of these are hit, then do not foreach the next loop.
 
+        if (!doSecondPass) {
+            return;
+        }
+
         foreach (thisComponent; currentWindow.componentsInOrder) {
             //? Button.
             if (Button button = instanceof!Button(thisComponent)) {
