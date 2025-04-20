@@ -760,15 +760,11 @@ public: //* BEGIN PUBLIC API.
 
                 foreach (__index, item; dropMenu.items) {
                     const ulong i = __index + 1;
-
                     const bool isSelected = dropMenu.hoverSelection == __index;
-
                     const Color thisBorderColor = (isSelected) ? dropMenu.borderColorHover
                         : dropMenu.borderColor;
-
                     const Color thisSectionColor = (isSelected) ? dropMenu
                         .backgroundColorHover : dropMenu.backgroundColor;
-
                     const int yPos = (sizeY * cast(int) i) + yAdjustment;
 
                     DrawRectangle(
