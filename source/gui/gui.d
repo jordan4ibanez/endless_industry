@@ -646,6 +646,7 @@ public: //* BEGIN PUBLIC API.
         // If two things overlap, well, that sounds like the GUI needs to be adjusted.
         // DropDown, etc.
         foreach (Component component; currentWindow.componentsInOrder) {
+            //? DropMenu.
             if (DropMenu dropMenu = instanceof!DropMenu(component)) {
                 const int posX = cast(int) floor(
                     (dropMenu.position.x * currentGUIScale) + centerX);
