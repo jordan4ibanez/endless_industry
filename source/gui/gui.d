@@ -662,6 +662,8 @@ public: //* BEGIN PUBLIC API.
             endScissorComponent();
         }
 
+        //! Logic flow begins here.
+
         //? First pass.
         foreach (Component component; currentWindow.componentsInOrder) {
             if (Button button = instanceof!Button(component)) {
