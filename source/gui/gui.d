@@ -395,6 +395,7 @@ public: //* BEGIN PUBLIC API.
             EndScissorMode();
         }
 
+        //? First pass.
         foreach (Component component; currentWindow.componentsInOrder) {
             if (Button button = instanceof!Button(component)) {
                 const int posX = cast(int) floor(
@@ -641,7 +642,8 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
-        // Post process. Things that can cover other things need to go here.
+        //? Second pass. Draw things that need to overlap other things.
+        // If two things overlap, well, that sounds like the GUI needs to be adjusted.
         // DropDown, etc.
         foreach (Component component; currentWindow.componentsInOrder) {
             if (DropMenu dropMenu = instanceof!DropMenu(component)) {
