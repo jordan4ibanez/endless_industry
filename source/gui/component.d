@@ -187,6 +187,8 @@ class DropMenu : Component {
 
     /// This is the current selection.
     int selection = 0;
+    /// This is the current hover selection.
+    int hoverSelection = -1;
 
     /// What this text box will say when there's no text entered.
     string placeholderText = null;
@@ -199,7 +201,7 @@ class DropMenu : Component {
     /// The border color.
     Color borderColor = Colors.BLACK;
     /// The border color when hovered over.
-    Color borderColorHover = Colors.RED;
+    Color borderColorHover = Colors.BLACK;
 
     /// The background color.
     Color backgroundColor = Colors.LIGHTGRAY;
@@ -225,7 +227,10 @@ class DropMenu : Component {
 
     this() {
         size = Vec2i(200, 32);
-        this.onWindowClose = (DropMenu self) { self.droppedDown = false; };
+        this.onWindowClose = (DropMenu self) {
+            self.droppedDown = false;
+            self.hoverSelection = -1;
+        };
     }
 
 }
