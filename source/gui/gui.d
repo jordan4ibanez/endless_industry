@@ -706,6 +706,8 @@ public: //* BEGIN PUBLIC API.
                             posY + statusAreaHeight - __triPadding))
                 ];
 
+                // Infill the background.
+
                 DrawRectangle(
                     posX + sizeX - statusAreaHeight,
                     posY,
