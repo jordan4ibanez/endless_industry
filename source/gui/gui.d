@@ -692,6 +692,9 @@ public: //* BEGIN PUBLIC API.
                     sizeY,
                     dropMenu.borderColor);
 
+                // Next, draw the icon that indicates this is a drop menu.
+                startScissorComponent(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, sizeY);
+
                 const double __triPadding = (currentGUIScale * 4);
 
                 //~ This is not perfect, but it's good enough.
