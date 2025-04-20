@@ -697,12 +697,12 @@ public: //* BEGIN PUBLIC API.
 
                 const double __triPadding = (currentGUIScale * 4);
 
-                //~ This is not perfect, but it's good enough.
+                // Hold precalculations on the stack.
                 const Vector2[3] triPoints = [
                     Vector2(round(posX + sizeX - statusAreaHeight + __triPadding), round(
                             posY + __triPadding)),
                     Vector2(round(posX + sizeX - __triPadding), round(posY + __triPadding)),
-                    Vector2(round(posX + sizeX - (statusAreaHeight / 2.0)), round(
+                    Vector2(round(posX + sizeX - (statusAreaHeight / 2.0)) - 0.5, round(
                             posY + statusAreaHeight - __triPadding))
                 ];
 
