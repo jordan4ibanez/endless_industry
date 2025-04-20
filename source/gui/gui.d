@@ -1252,7 +1252,7 @@ public: //* BEGIN PUBLIC API.
         //? This blocks things that "expand outwards" from causing
         //? strange overlap collisions with other's that are a statici size.
         // Well, it tries to at least.
-        FIRST_PASS_LOOP: foreach (thisComponent; currentWindow.componentsInOrder) {
+        FIRST_PASS_LOOP: foreach (thisComponent; currentWindow.componentDatabase) {
             //? DropMenu.
             if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
                 dropMenu.mouseHovering = false;
