@@ -1523,7 +1523,6 @@ public: //* BEGIN PUBLIC API.
                 "some other items"
             ];
             dropMenu.center();
-
             settingsMenu.addComponent("drop_menu", dropMenu);
 
             DropMenu dropMenu1 = new DropMenu();
