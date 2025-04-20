@@ -702,7 +702,7 @@ public: //* BEGIN PUBLIC API.
                     Vector2(round(posX + sizeX - statusAreaHeight + __triPadding), round(
                             posY + __triPadding)),
                     Vector2(round(posX + sizeX - __triPadding), round(posY + __triPadding)),
-                    Vector2(round(posX + sizeX - (statusAreaHeight / 2.0)) - 0.5, round(
+                    Vector2(round(posX + sizeX - (statusAreaHeight / 2.0)) - 0.25, round(
                             posY + statusAreaHeight - __triPadding))
                 ];
 
