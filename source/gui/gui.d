@@ -1384,103 +1384,92 @@ public: //* BEGIN PUBLIC API.
             return false;
         }
 
-        //? First pass. 
-        //? This blocks things that "expand outwards" from causing
-        //? strange overlap collisions with other's that are a statici size.
-        // Well, it tries to at least.
-        FIRST_PASS_LOOP: foreach (thisComponent; currentWindow.componentDatabase) {
-            //? DropMenu.
-            if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
-                dropMenu.mouseHovering = false;
-                dropMenu.hoverSelection = -1;
-                if (focusedDropMenu != dropMenu) {
-                    dropMenu.droppedDown = false;
-                }
-                const int posX = cast(int) floor(
-                    (dropMenu.position.x * currentGUIScale) + centerX);
-                const int posY = cast(int) floor(
-                    ((-dropMenu.position.y) * currentGUIScale) + centerY);
-                const int sizeX = cast(int) floor(dropMenu.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(dropMenu.size.y * currentGUIScale);
-                const Rectangle buttonRect = Rectangle(
-                    posX,
-                    posY,
-                    sizeX,
-                    sizeY);
-                // If the mouse is hovering over the button.
-                if (CheckCollisionPointRec(mousePos, buttonRect)) {
-                    doSecondPass = false;
-                    dropMenu.mouseHovering = true;
-                    // If the mouse clicks the button.
-                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        playButtonSound();
-                        // This top button is special.
-                        // If you click it it opens the drop menu items.
-                        // But if you click it again, it's canceling your decision and using whatever was there.
-                        if (dropMenu.droppedDown) {
-                            dropMenu.droppedDown = false;
-                            focusedDropMenu = null;
-                        } else {
-                            dropMenu.droppedDown = true;
-                            focusedDropMenu = dropMenu;
-                        }
-
-                        dropMenu.clickFunction(dropMenu);
-                        break FIRST_PASS_LOOP;
+        ///? DropMenu.
+        bool doDropMenuLogic(ref DropMenu dropMenu) {
+            dropMenu.mouseHovering = false;
+            dropMenu.hoverSelection = -1;
+            if (focusedDropMenu != dropMenu) {
+                dropMenu.droppedDown = false;
+            }
+            const int posX = cast(int) floor(
+                (dropMenu.position.x * currentGUIScale) + centerX);
+            const int posY = cast(int) floor(
+                ((-dropMenu.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) floor(dropMenu.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(dropMenu.size.y * currentGUIScale);
+            const Rectangle buttonRect = Rectangle(
+                posX,
+                posY,
+                sizeX,
+                sizeY);
+            // If the mouse is hovering over the button.
+            if (CheckCollisionPointRec(mousePos, buttonRect)) {
+                doSecondPass = false;
+                dropMenu.mouseHovering = true;
+                // If the mouse clicks the button.
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    playButtonSound();
+                    // This top button is special.
+                    // If you click it it opens the drop menu items.
+                    // But if you click it again, it's canceling your decision and using whatever was there.
+                    if (dropMenu.droppedDown) {
+                        dropMenu.droppedDown = false;
+                        focusedDropMenu = null;
+                    } else {
+                        dropMenu.droppedDown = true;
+                        focusedDropMenu = dropMenu;
                     }
-                }
 
-                if (!dropMenu.droppedDown) {
+                    dropMenu.clickFunction(dropMenu);
+                    return true;
+                }
+            }
+
+            if (!dropMenu.droppedDown) {
+                return false;
+            }
+
+            const int incrementer = cast(int) floor(currentGUIScale);
+            int yAdjustment = incrementer;
+            ulong i = 0;
+            foreach (__index, item; dropMenu.items) {
+                if (__index == dropMenu.selection) {
                     continue;
                 }
+                i++;
+                const int yPos = (sizeY * cast(int) i) + yAdjustment;
+                const Rectangle collisionBox = Rectangle(
+                    posX,
+                    posY + yPos,
+                    sizeX,
+                    sizeY);
 
-                const int incrementer = cast(int) floor(currentGUIScale);
-                int yAdjustment = incrementer;
-                ulong i = 0;
-                foreach (__index, item; dropMenu.items) {
-                    if (__index == dropMenu.selection) {
-                        continue;
-                    }
-                    i++;
-                    const int yPos = (sizeY * cast(int) i) + yAdjustment;
-                    const Rectangle collisionBox = Rectangle(
-                        posX,
-                        posY + yPos,
-                        sizeX,
-                        sizeY);
-
-                    if (CheckCollisionPointRec(mousePos, collisionBox)) {
-                        dropMenu.hoverSelection = cast(int) __index;
-                        doSecondPass = false;
-                        if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                            dropMenu.selection = cast(int) __index;
-                            dropMenu.droppedDown = false;
-                            focusedDropMenu = null;
-                            dropMenu.clickFunction(dropMenu);
-                            playButtonSound();
-                            break FIRST_PASS_LOOP;
-                        }
-                    }
-                    yAdjustment += incrementer;
-                }
-
-                //~ If it got here, that means that the player clicked off the entire drop menu.
-                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    dropMenu.droppedDown = false;
-                    focusedDropMenu = null;
+                if (CheckCollisionPointRec(mousePos, collisionBox)) {
+                    dropMenu.hoverSelection = cast(int) __index;
                     doSecondPass = false;
-                    playButtonSound();
+                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        dropMenu.selection = cast(int) __index;
+                        dropMenu.droppedDown = false;
+                        focusedDropMenu = null;
+                        dropMenu.clickFunction(dropMenu);
+                        playButtonSound();
+                        return true;
+                    }
                 }
-
+                yAdjustment += incrementer;
             }
+
+            //~ If it got here, that means that the player clicked off the entire drop menu.
+            if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                dropMenu.droppedDown = false;
+                focusedDropMenu = null;
+                doSecondPass = false;
+                playButtonSound();
+            }
+
+            return false;
         }
 
-        if (!doSecondPass) {
-            return;
-        }
-
-        //? Second pass.
-        //? Statically sized components.
         foreach (thisComponent; currentWindow.componentsInOrder) {
             if (Button button = instanceof!Button(thisComponent)) {
                 if (buttonLogic(button)) {
@@ -1494,6 +1483,10 @@ public: //* BEGIN PUBLIC API.
                 //? Text box.
             } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
                 if (textBoxLogic(textBox)) {
+                    break;
+                }
+            } else if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
+                if (doDropMenuLogic(dropMenu)) {
                     break;
                 }
             }
