@@ -658,6 +658,7 @@ public: //* BEGIN PUBLIC API.
                 }
                 Color dropMenuColor = dropMenu.mouseHovering ? dropMenu.backgroundColorHover
                     : dropMenu.backgroundColor;
+
                 DrawRectangle(
                     posX,
                     posY,
@@ -683,6 +684,32 @@ public: //* BEGIN PUBLIC API.
                     sizeX,
                     sizeY,
                     dropMenu.borderColor);
+
+                const double __triPadding = (currentGUIScale * 4);
+
+                //~ This is not perfect, but it's good enough.
+                const Vector2[3] triPoints = [
+                    Vector2(round(posX + sizeX - statusAreaHeight + __triPadding), round(
+                            posY + __triPadding)),
+                    Vector2(round(posX + sizeX - __triPadding), round(posY + __triPadding)),
+                    Vector2(round(posX + sizeX - (statusAreaHeight / 2.0)), round(
+                            posY + statusAreaHeight - __triPadding))
+                ];
+
+                DrawTriangle(
+                    triPoints[0],
+                    triPoints[1],
+                    triPoints[2],
+                    dropMenu.dropTriangleColor
+                );
+
+                DrawTriangleLines(
+                    triPoints[0],
+                    triPoints[1],
+                    triPoints[2],
+                    dropMenu.borderColor
+                );
+
                 endScissorComponent();
             }
         }
