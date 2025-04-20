@@ -1079,6 +1079,33 @@ public: //* BEGIN PUBLIC API.
 
         bool doSecondPass = true;
 
+        ///? Button.
+        bool buttonLogic(ref Button button) {
+            button.mouseHovering = false;
+            const int posX = cast(int) floor(
+                (button.position.x * currentGUIScale) + centerX);
+            const int posY = cast(int) floor(
+                ((-button.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+            const Rectangle buttonRect = Rectangle(
+                posX,
+                posY,
+                sizeX,
+                sizeY);
+            // If the mouse is hovering over the button.
+            if (CheckCollisionPointRec(mousePos, buttonRect)) {
+                button.mouseHovering = true;
+                // If the mouse clicks the button.
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    playButtonSound();
+                    button.clickFunction();
+                    return true;
+                }
+            }
+            return false;
+        }
+
         //? First pass. 
         //? This blocks things that "expand outwards" from causing
         //? strange overlap collisions with other's that are a statici size.
@@ -1179,27 +1206,8 @@ public: //* BEGIN PUBLIC API.
         foreach (thisComponent; currentWindow.componentsInOrder) {
             //? Button.
             if (Button button = instanceof!Button(thisComponent)) {
-                button.mouseHovering = false;
-                const int posX = cast(int) floor(
-                    (button.position.x * currentGUIScale) + centerX);
-                const int posY = cast(int) floor(
-                    ((-button.position.y) * currentGUIScale) + centerY);
-                const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
-                const Rectangle buttonRect = Rectangle(
-                    posX,
-                    posY,
-                    sizeX,
-                    sizeY);
-                // If the mouse is hovering over the button.
-                if (CheckCollisionPointRec(mousePos, buttonRect)) {
-                    button.mouseHovering = true;
-                    // If the mouse clicks the button.
-                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        playButtonSound();
-                        button.clickFunction();
-                        break;
-                    }
+                if (buttonLogic(button)) {
+                    break;
                 }
                 //? Text pad.
             } else if (TextPad textPad = instanceof!TextPad(thisComponent)) {
