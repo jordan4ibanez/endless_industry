@@ -1298,7 +1298,7 @@ public: //* BEGIN PUBLIC API.
 
         }
 
-        currentWindow = windows["pause_menu"];
+        openWindow("settings_menu");
     }
 
     void bringBackDebugTest() {
