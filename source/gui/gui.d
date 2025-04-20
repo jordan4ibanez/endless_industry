@@ -401,6 +401,7 @@ public: //* BEGIN PUBLIC API.
         //! NOTE: These are inlined because they should ONLY be able to be accessed in this function.
         //! DO NOT take these functions out of this function.
 
+        ///? Button.
         void drawButton(Button button) {
             const int posX = cast(int) floor(
                 (button.position.x * currentGUIScale) + centerX);
@@ -440,6 +441,7 @@ public: //* BEGIN PUBLIC API.
             endScissorComponent();
         }
 
+        ///? TextPad.
         void drawTextPad(TextPad textPad) {
             const int posX = cast(int) floor(
                 (textPad.position.x * currentGUIScale) + centerX);
