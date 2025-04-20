@@ -223,6 +223,12 @@ class DropMenu : Component {
     /// By default, this does nothing.
     void function(DropMenu) clickFunction = (DropMenu self) {};
 
+    /// What the menu does when opened.
+    void function(DropMenu) onOpen = (DropMenu self) {};
+
+    /// What the menu does when closed.
+    void function(DropMenu) onClose = (DropMenu self) {};
+
     this() {
         size = Vec2i(200, 32);
     }
