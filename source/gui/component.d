@@ -211,6 +211,9 @@ class DropMenu : Component {
     /// The placeholder text color.
     Color placeholderTextColor = Colors.DARKGRAY;
 
+    /// The drop triangle color indicator on the right.
+    Color dropTriangleColor = Colors.WHITE;
+
     //? Functions/methods.
 
     /// This is run when the window gets closed.

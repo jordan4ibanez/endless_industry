@@ -1299,7 +1299,7 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.center();
 
             DropMenu dropMenu = new DropMenu();
-            dropMenu.items ~= ["TEST", "TEST2"];
+            dropMenu.items ~= ["THIS IS A REALLY LONG TEXT", "TEST2"];
             dropMenu.center();
 
             settingsMenu.addComponent("drop_menu", dropMenu);
