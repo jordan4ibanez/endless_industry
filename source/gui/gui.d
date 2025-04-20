@@ -653,9 +653,16 @@ public: //* BEGIN PUBLIC API.
                     ((-dropMenu.position.y) * currentGUIScale) + centerY);
                 const int sizeX = cast(int) floor(dropMenu.size.x * currentGUIScale);
                 const int sizeY = cast(int) floor(dropMenu.size.y * currentGUIScale);
+
+                // At the expense of talking to the GPU twice, check if the entire are is rendered.
                 if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                     continue;
                 }
+
+                // Now do the real scissor.
+                // Drawing the button text portion.
+                startScissorComponent(posX, posY, sizeX - statusAreaHeight, sizeY);
+
                 Color dropMenuColor = dropMenu.mouseHovering ? dropMenu.backgroundColorHover
                     : dropMenu.backgroundColor;
 
