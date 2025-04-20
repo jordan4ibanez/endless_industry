@@ -401,48 +401,47 @@ public: //* BEGIN PUBLIC API.
         //! NOTE: These are inlined because they should ONLY be able to be accessed in this function.
         //! DO NOT take these functions out of this function.
 
-        void drawButton() {
-
+        void drawButton(Button button) {
+            const int posX = cast(int) floor(
+                (button.position.x * currentGUIScale) + centerX);
+            const int posY = cast(int) floor(
+                ((-button.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+            if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+                return;
+            }
+            Color buttonColor = button.mouseHovering ? button.backgroundColorHover
+                : button.backgroundColor;
+            DrawRectangle(
+                posX,
+                posY,
+                sizeX,
+                sizeY,
+                buttonColor);
+            const string title = (button.text is null) ? "UNDEFINED" : button.text;
+            const int adjustment = cast(int) floor(
+                (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
+                    .x * 0.5));
+            FontHandler.drawShadowed(
+                title,
+                posX + adjustment,
+                posY,
+                0.25,
+                button.textColor);
+            DrawRectangleLines(
+                posX,
+                posY,
+                sizeX,
+                sizeY,
+                button.borderColor);
+            endScissorComponent();
         }
 
         //? First pass.
         foreach (Component component; currentWindow.componentsInOrder) {
             if (Button button = instanceof!Button(component)) {
-                const int posX = cast(int) floor(
-                    (button.position.x * currentGUIScale) + centerX);
-                const int posY = cast(int) floor(
-                    ((-button.position.y) * currentGUIScale) + centerY);
-                const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
-                const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
-                if (startScissorComponent(posX, posY, sizeX, sizeY)) {
-                    continue;
-                }
-                Color buttonColor = button.mouseHovering ? button.backgroundColorHover
-                    : button.backgroundColor;
-                DrawRectangle(
-                    posX,
-                    posY,
-                    sizeX,
-                    sizeY,
-                    buttonColor);
-                const string title = (button.text is null) ? "UNDEFINED" : button.text;
-                const int adjustment = cast(int) floor(
-                    (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
-                        .x * 0.5));
-                FontHandler.drawShadowed(
-                    title,
-                    posX + adjustment,
-                    posY,
-                    0.25,
-                    button.textColor);
-                DrawRectangleLines(
-                    posX,
-                    posY,
-                    sizeX,
-                    sizeY,
-                    button.borderColor);
-                endScissorComponent();
-
+                drawButton(button);
             } else if (TextPad textPad = instanceof!TextPad(component)) {
                 const int posX = cast(int) floor(
                     (textPad.position.x * currentGUIScale) + centerX);
