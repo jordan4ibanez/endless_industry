@@ -1037,6 +1037,8 @@ public: //* BEGIN PUBLIC API.
             //? DropMenu.
             if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
                 dropMenu.mouseHovering = false;
+                dropMenu.hoverSelection = -1;
+
                 const int posX = cast(int) floor(
                     (dropMenu.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
@@ -1061,6 +1063,19 @@ public: //* BEGIN PUBLIC API.
                         dropMenu.droppedDown = !dropMenu.droppedDown;
                         dropMenu.clickFunction(dropMenu);
                         break;
+                    }
+                }
+
+                if (!dropMenu.droppedDown) {
+                    continue;
+                }
+
+                bool hitSomething = false;
+
+                if (!hitSomething) {
+                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        dropMenu.droppedDown = false;
+                        playButtonSound();
                     }
                 }
             }
