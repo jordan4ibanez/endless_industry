@@ -224,9 +224,13 @@ class DropMenu : Component {
 
     this() {
         size = Vec2i(200, 32);
-        this.onWindowClose = (DropMenu self) {
-            self.droppedDown = false;
-            self.hoverSelection = -1;
+        onWindowClose = (Component self) {
+            import std.stdio;
+
+            writeln("closing up shop");
+
+            (cast(DropMenu) self).droppedDown = false;
+            (cast(DropMenu) self).hoverSelection = -1;
         };
     }
 
