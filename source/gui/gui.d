@@ -1655,7 +1655,35 @@ public: //* BEGIN PUBLIC API.
             explainer.size.x = 500;
             explainer.centerX();
             explainer.position.y = 100;
+            explainer.onOpen = (DropMenu self) {
+                Option!WindowGUI result = getCurrentWindow();
+                WindowGUI thisWin = result.unwrap();
+                Option!Component buttonRes = thisWin.getComponent("angry_button");
+                if (Button button = instanceof!Button(buttonRes.unwrap())) {
+                    button.text = ">:(";
+                    button.position.x = 270;
+                    button.size.x = 50;
+                }
+            };
+            explainer.onClose = (DropMenu self) {
+                Option!WindowGUI result = getCurrentWindow();
+                WindowGUI thisWin = result.unwrap();
+                Option!Component buttonRes = thisWin.getComponent("angry_button");
+                if (Button button = instanceof!Button(buttonRes.unwrap())) {
+                    button.text = "I asked not to be covered! >:(";
+                    button.size.x = 350;
+                    button.centerX();
+                }
+            };
+
             settingsMenu.addComponent("explainer_menu", explainer);
+
+            Button angryButton = new Button();
+            angryButton.text = "Don't cover me :(";
+            angryButton.size.x = 200;
+            angryButton.centerX();
+            angryButton.position.y = 50;
+            settingsMenu.addComponent("angry_button", angryButton);
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
