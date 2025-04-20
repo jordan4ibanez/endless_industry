@@ -89,6 +89,8 @@ private:
     WindowGUI currentWindow = null;
     /// The currently focused text box.
     Component focusedTextBox = null;
+    /// The currently opened DropMenu.
+    Component focusedDropMenu = null;
     /// The cursor blink state timer.
     double cursorBlinkTimer = 0;
     /// If the cursor is visible.
