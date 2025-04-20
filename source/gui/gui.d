@@ -124,6 +124,9 @@ public: //* BEGIN PUBLIC API.
         dragging = false;
         resizing = false;
         focusedTextBox = null;
+        foreach (component; windows[oldWindowID].componentDatabase) {
+            component.onWindowClose(component);
+        }
         windows[oldWindowID].onClose();
     }
 
