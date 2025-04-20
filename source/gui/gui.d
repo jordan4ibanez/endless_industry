@@ -767,6 +767,12 @@ public: //* BEGIN PUBLIC API.
                         .backgroundColorHover : dropMenu.backgroundColor;
                     const int yPos = (sizeY * cast(int) i) + yAdjustment;
 
+                    startScissorComponent(
+                        posX,
+                        posY + yPos,
+                        sizeX,
+                        sizeY);
+
                     DrawRectangle(
                         posX,
                         posY + yPos,
