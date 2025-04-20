@@ -730,6 +730,15 @@ public: //* BEGIN PUBLIC API.
                     dropMenu.borderColor
                 );
 
+                // Then make it look nice with a border.
+                DrawRectangleLines(
+                    posX + sizeX - statusAreaHeight,
+                    posY,
+                    statusAreaHeight,
+                    statusAreaHeight,
+                    dropMenu.borderColor
+                );
+
                 endScissorComponent();
             }
         }
