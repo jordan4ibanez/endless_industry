@@ -470,7 +470,7 @@ public: //* BEGIN PUBLIC API.
             const Color textColor = (usePlaceHolder) ? textPad.placeholderTextColor
                 : textPad.textColor;
             if (text is null || text.length <= 0) {
-                goto SKIP_DRAW_TEXT;
+                goto SKIP_DRAW_TEXT_IN_PAD;
             }
             for (int i = 0; i < text.length; i++) {
                 bool shouldDrawCursor() {
@@ -544,7 +544,7 @@ public: //* BEGIN PUBLIC API.
                 // }
             }
 
-        SKIP_DRAW_TEXT:
+        SKIP_DRAW_TEXT_IN_PAD:
 
             // If the text pad cursor is at the literal last position, it needs to be drawn here.
             if (!usePlaceHolder && cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == textPad
