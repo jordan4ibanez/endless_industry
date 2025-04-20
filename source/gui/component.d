@@ -197,7 +197,7 @@ class DropMenu : Component {
     //? General text/icon colors.
 
     /// The border color.
-    Color borderColor = Colors.GRAY;
+    Color borderColor = Colors.BLACK;
     /// The border color when hovered over.
     Color borderColorHover = Colors.RED;
 
