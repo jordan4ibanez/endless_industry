@@ -1139,51 +1139,57 @@ public: //* BEGIN PUBLIC API.
                         ulong currentIndexInString = 0;
                         const string text = (usePlaceHolder) ? textPad.placeholderText
                             : textPad.text;
-                        if (text !is null && text.length > 0) {
-                            bool foundChar = false;
-                            COLLISION_LOOP_PAD: for (int i = 0; i < text.length; i++) {
-                                const char thisChar = text[i];
-                                width = FontHandler.getCharWidth(thisChar, 0.25);
-                                currentWidth += width;
-                                if (thisChar == '\n') {
-                                    // If newline is reached, it must jump over it.
-                                    currentHeight += cast(int) floor(32 * currentGUIScale);
-                                    currentWidth = 0;
-                                    currentIndexInString = i + 1;
-                                } else if (currentWidth >= sizeX) {
-                                    currentWidth = width;
-                                    currentHeight += cast(int) floor(32 * currentGUIScale);
-                                    currentIndexInString = i;
-                                }
-                                Rectangle charRect = Rectangle(
-                                    cast(int) floor(posX + (currentWidth - width)),
-                                    posY + currentHeight,
-                                    cast(int) floor(width),
-                                    cast(int) floor(32 * currentGUIScale));
-                                // Hit a character.
-                                if (CheckCollisionPointRec(mousePos, charRect)) {
-                                    // Break it into two to find out which side to move the cursor into.
-                                    Rectangle charLeft = Rectangle(
-                                        charRect.x,
-                                        charRect.y,
-                                        charRect.width / 2,
-                                        charRect.height
-                                    );
-                                    // If it's not left it's right.
-                                    if (CheckCollisionPointRec(mousePos, charLeft)) {
-                                        textPad.cursorPosition = i;
-                                    } else {
-                                        textPad.cursorPosition = i + 1;
-                                    }
-                                    foundChar = true;
-                                    break COLLISION_LOOP_PAD;
-                                }
+                        bool foundChar = false;
+
+                        if (text is null || text.length <= 0) {
+                            goto SKIP_TEXT_PAD_COLLISION_LOGIC;
+                        }
+
+                        COLLISION_LOOP_PAD: for (int i = 0; i < text.length; i++) {
+                            const char thisChar = text[i];
+                            width = FontHandler.getCharWidth(thisChar, 0.25);
+                            currentWidth += width;
+                            if (thisChar == '\n') {
+                                // If newline is reached, it must jump over it.
+                                currentHeight += cast(int) floor(32 * currentGUIScale);
+                                currentWidth = 0;
+                                currentIndexInString = i + 1;
+                            } else if (currentWidth >= sizeX) {
+                                currentWidth = width;
+                                currentHeight += cast(int) floor(32 * currentGUIScale);
+                                currentIndexInString = i;
                             }
-                            // If it hit nothing, just shove it into the last position.
-                            if (!foundChar) {
-                                textPad.cursorPosition = cast(int) textPad.text.length;
+                            Rectangle charRect = Rectangle(
+                                cast(int) floor(posX + (currentWidth - width)),
+                                posY + currentHeight,
+                                cast(int) floor(width),
+                                cast(int) floor(32 * currentGUIScale));
+                            // Hit a character.
+                            if (CheckCollisionPointRec(mousePos, charRect)) {
+                                // Break it into two to find out which side to move the cursor into.
+                                Rectangle charLeft = Rectangle(
+                                    charRect.x,
+                                    charRect.y,
+                                    charRect.width / 2,
+                                    charRect.height
+                                );
+                                // If it's not left it's right.
+                                if (CheckCollisionPointRec(mousePos, charLeft)) {
+                                    textPad.cursorPosition = i;
+                                } else {
+                                    textPad.cursorPosition = i + 1;
+                                }
+                                foundChar = true;
+                                break COLLISION_LOOP_PAD;
                             }
                         }
+                        // If it hit nothing, just shove it into the last position.
+                        if (!foundChar) {
+                            textPad.cursorPosition = cast(int) textPad.text.length;
+                        }
+
+                    SKIP_TEXT_PAD_COLLISION_LOGIC:
+
                     }
                     focusedTextBox = textPad;
                 }
