@@ -1268,64 +1268,63 @@ public: //* BEGIN PUBLIC API.
                     if (focusedTextBox != textBox) {
                         playButtonSound();
                     }
-                    {
-                        // Find which character mouse just clicked (if any)
-                        bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
-                        if (usePlaceHolder) {
-                            textBox.cursorPosition = 0;
-                        } else {
-                            // This is ultra extremely inefficient.
-                            // But, it works, probably.
-                            double currentWidth = 0;
-                            double width = 0;
-                            int adjustment = 0;
-                            const string text = (usePlaceHolder) ? textBox.placeholderText
-                                : textBox.text;
-                            if (text !is null && text.length > 0) {
-                                const double totalSize = FontHandler.getTextSize(textBox.text, 0.25)
-                                    .x;
-                                if (totalSize > sizeX) {
-                                    adjustment = cast(int) round(
-                                        (totalSize - sizeX) + (3 * currentGUIScale));
-                                }
-                                bool foundChar = false;
-                                COLLISION_LOOP_BOX: for (int i = 0; i < text.length;
-                                    i++) {
-                                    const char thisChar = text[i];
-                                    width = FontHandler.getCharWidth(thisChar, 0.25);
-                                    currentWidth += width;
-                                    Rectangle charRect = Rectangle(
-                                        cast(int) floor(
-                                            posX + (currentWidth - width)) - adjustment,
-                                        posY,
-                                        cast(int) floor(width),
-                                        cast(int) floor(32 * currentGUIScale));
-                                    // Hit a character.
-                                    if (CheckCollisionPointRec(mousePos, charRect)) {
-                                        // Break it into two to find out which side to move the cursor into.
-                                        Rectangle charLeft = Rectangle(
-                                            charRect.x,
-                                            charRect.y,
-                                            charRect.width / 2,
-                                            charRect.height
-                                        );
-                                        // If it's not left it's right.
-                                        if (CheckCollisionPointRec(mousePos, charLeft)) {
-                                            textBox.cursorPosition = i;
-                                        } else {
-                                            textBox.cursorPosition = i + 1;
-                                        }
-                                        foundChar = true;
-                                        break COLLISION_LOOP_BOX;
+
+                    // Find which character mouse just clicked (if any)
+                    bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
+                    if (usePlaceHolder) {
+                        textBox.cursorPosition = 0;
+                    } else {
+                        // This is ultra extremely inefficient.
+                        // But, it works, probably.
+                        double currentWidth = 0;
+                        double width = 0;
+                        int adjustment = 0;
+                        const string text = (usePlaceHolder) ? textBox.placeholderText
+                            : textBox.text;
+                        if (text !is null && text.length > 0) {
+                            const double totalSize = FontHandler.getTextSize(textBox.text, 0.25)
+                                .x;
+                            if (totalSize > sizeX) {
+                                adjustment = cast(int) round(
+                                    (totalSize - sizeX) + (3 * currentGUIScale));
+                            }
+                            bool foundChar = false;
+                            COLLISION_LOOP_BOX: for (int i = 0; i < text.length; i++) {
+                                const char thisChar = text[i];
+                                width = FontHandler.getCharWidth(thisChar, 0.25);
+                                currentWidth += width;
+                                Rectangle charRect = Rectangle(
+                                    cast(int) floor(
+                                        posX + (currentWidth - width)) - adjustment,
+                                    posY,
+                                    cast(int) floor(width),
+                                    cast(int) floor(32 * currentGUIScale));
+                                // Hit a character.
+                                if (CheckCollisionPointRec(mousePos, charRect)) {
+                                    // Break it into two to find out which side to move the cursor into.
+                                    Rectangle charLeft = Rectangle(
+                                        charRect.x,
+                                        charRect.y,
+                                        charRect.width / 2,
+                                        charRect.height
+                                    );
+                                    // If it's not left it's right.
+                                    if (CheckCollisionPointRec(mousePos, charLeft)) {
+                                        textBox.cursorPosition = i;
+                                    } else {
+                                        textBox.cursorPosition = i + 1;
                                     }
+                                    foundChar = true;
+                                    break COLLISION_LOOP_BOX;
                                 }
-                                // If it hit nothing, just shove it into the last position.
-                                if (!foundChar) {
-                                    textBox.cursorPosition = cast(int) textBox.text.length;
-                                }
+                            }
+                            // If it hit nothing, just shove it into the last position.
+                            if (!foundChar) {
+                                textBox.cursorPosition = cast(int) textBox.text.length;
                             }
                         }
                     }
+
                     focusedTextBox = textBox;
                 }
             } else {
