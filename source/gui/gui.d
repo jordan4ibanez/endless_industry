@@ -17,6 +17,7 @@ import std.random;
 import std.stdio;
 import std.string;
 import utility.delta;
+import utility.instance_of;
 
 /*
 *
@@ -56,11 +57,7 @@ import utility.delta;
 *       - TextInputBox  --> Window, Label, TextBox, Button
 */
 
-/// Check if an object is an instance of a class.
-pragma(inline, true)
-T instanceof(T)(Object o) if (is(T == class)) {
-    return cast(T) o;
-}
+
 
 static final const class GUI {
 static:
