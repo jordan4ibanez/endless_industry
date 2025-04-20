@@ -185,8 +185,11 @@ class DropMenu : Component {
     /// This holds the items to select.
     string[] items = [];
 
+    /// This is the current selection.
+    int selection = 0;
+
     /// What this text box will say when there's no text entered.
-    string placeholderText = "UNDEFINED";
+    string placeholderText = null;
 
     /// If the drop down menu is...dropped down.
     bool droppedDown = false;
@@ -200,6 +203,8 @@ class DropMenu : Component {
 
     /// The background color.
     Color backgroundColor = Colors.GRAY;
+    /// The background color of the button when hovered over.
+    Color backgroundColorHover = Colors.RED;
 
     /// The text color.
     Color textColor = Colors.BLACK;
