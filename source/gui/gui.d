@@ -840,12 +840,14 @@ public: //* BEGIN PUBLIC API.
             }
         }
 
-        //? Draw focused items over everything else.
+        //? Draw focused component over everything else.
         if (focusedComponent !is null) {
-            if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
+            if (TextPad textPad = instanceof!TextPad(focusedComponent)) {
+                drawTextPad(textPad);
+            } else if (TextBox textBox = instanceof!TextBox(focusedComponent)) {
+                drawTextBox(textBox);
+            } else if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
                 drawDropMenu(dropMenu);
-            } else {
-                throw new Error("Something else is in the drop menu");
             }
         }
     }
