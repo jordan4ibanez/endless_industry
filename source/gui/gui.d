@@ -1387,6 +1387,9 @@ public: //* BEGIN PUBLIC API.
             dropMenu.mouseHovering = false;
             dropMenu.hoverSelection = -1;
             if (focusedComponent != dropMenu) {
+                if (dropMenu.droppedDown) {
+                    dropMenu.onClose(dropMenu);
+                }
                 dropMenu.droppedDown = false;
             }
             const int posX = cast(int) floor(
@@ -1413,9 +1416,11 @@ public: //* BEGIN PUBLIC API.
                     if (dropMenu.droppedDown) {
                         dropMenu.droppedDown = false;
                         focusedComponent = null;
+                        dropMenu.onClose(dropMenu);
                     } else {
                         dropMenu.droppedDown = true;
                         focusedComponent = dropMenu;
+                        dropMenu.onOpen(dropMenu);
                     }
 
                     dropMenu.clickFunction(dropMenu);
@@ -1451,6 +1456,7 @@ public: //* BEGIN PUBLIC API.
                         dropMenu.selection = cast(int) __index;
                         dropMenu.droppedDown = false;
                         focusedComponent = null;
+                        dropMenu.onClose(dropMenu);
                         dropMenu.clickFunction(dropMenu);
                         playButtonSound();
                         return true;
@@ -1464,6 +1470,7 @@ public: //* BEGIN PUBLIC API.
                 dropMenu.droppedDown = false;
                 focusedComponent = null;
                 doSecondPass = false;
+                dropMenu.onClose(dropMenu);
                 playButtonSound();
             }
 
@@ -1640,10 +1647,6 @@ public: //* BEGIN PUBLIC API.
             explainer.centerX();
             explainer.position.y = 100;
             settingsMenu.addComponent("explainer_menu", explainer);
-
-            
-
-
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
