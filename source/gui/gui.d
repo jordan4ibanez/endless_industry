@@ -666,10 +666,10 @@ public: //* BEGIN PUBLIC API.
                 // Drawing the button text portion.
                 startScissorComponent(posX, posY, sizeX - statusAreaHeight, sizeY);
 
-                Color borderColor = (dropMenu.mouseHovering) ? dropMenu.borderColorHover
+                const Color borderColor = (dropMenu.mouseHovering) ? dropMenu.borderColorHover
                     : dropMenu.borderColor;
 
-                Color dropMenuColor = dropMenu.mouseHovering ? dropMenu.backgroundColorHover
+                const Color dropMenuColor = (dropMenu.mouseHovering) ? dropMenu.backgroundColorHover
                     : dropMenu.backgroundColor;
 
                 DrawRectangle(
