@@ -994,6 +994,7 @@ public: //* BEGIN PUBLIC API.
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         playButtonSound();
                         // dropMenu.clickFunction();
+                        dropMenu.droppedDown = true;
                         break;
                     }
                 }
