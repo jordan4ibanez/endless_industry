@@ -1095,10 +1095,14 @@ public: //* BEGIN PUBLIC API.
 
                     if (CheckCollisionPointRec(mousePos, collisionBox)) {
                         dropMenu.hoverSelection = cast(int) __index;
+                        doSecondPass = false;
                         if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                             dropMenu.selection = cast(int) __index;
                             dropMenu.droppedDown = false;
+                            focusedDropMenu = null;
+                            dropMenu.clickFunction(dropMenu);
                             playButtonSound();
+                            break FIRST_PASS_LOOP;
                         }
                     }
                     yAdjustment += incrementer;
@@ -1107,6 +1111,8 @@ public: //* BEGIN PUBLIC API.
                 //~ If it got here, that means that the player clicked off the entire drop menu.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     dropMenu.droppedDown = false;
+                    focusedDropMenu = null;
+                    doSecondPass = false;
                     playButtonSound();
                 }
 
