@@ -1515,7 +1515,13 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.center();
 
             DropMenu dropMenu = new DropMenu();
-            dropMenu.items ~= ["THIS IS A REALLY LONG TEXT", "TEST2"];
+            dropMenu.size.x = 400;
+            dropMenu.items ~= [
+                "THIS IS A REALLY LONG TEXT",
+                "These",
+                "are",
+                "some other items"
+            ];
             dropMenu.center();
 
             settingsMenu.addComponent("drop_menu", dropMenu);
