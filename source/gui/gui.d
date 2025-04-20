@@ -1070,14 +1070,34 @@ public: //* BEGIN PUBLIC API.
                     continue;
                 }
 
-                bool hitSomething = false;
+                const int incrementer = cast(int) floor(currentGUIScale);
+                int yAdjustment = incrementer;
+                foreach (__index, item; dropMenu.items) {
+                    const ulong i = __index + 1;
+                    const int yPos = (sizeY * cast(int) i) + yAdjustment;
+                    const Rectangle collisionBox = Rectangle(
+                        posX,
+                        posY + yPos,
+                        sizeX,
+                        sizeY);
 
-                if (!hitSomething) {
-                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                        dropMenu.droppedDown = false;
-                        playButtonSound();
+                    if (CheckCollisionPointRec(mousePos, collisionBox)) {
+                        dropMenu.hoverSelection = cast(int) __index;
+                        if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                            dropMenu.selection = cast(int) __index;
+                            dropMenu.droppedDown = false;
+                            playButtonSound();
+                        }
                     }
+                    yAdjustment += incrementer;
                 }
+
+                //~ If it got here, that means that the player clicked off the entire drop menu.
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    dropMenu.droppedDown = false;
+                    playButtonSound();
+                }
+
             }
         }
 
