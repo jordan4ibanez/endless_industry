@@ -827,9 +827,11 @@ public: //* BEGIN PUBLIC API.
 
         //! Logic flow begins here.
 
-        //? First pass.
+        //? Draw everything as normal, excluding focused expandable components.
         foreach (Component component; currentWindow.componentsInOrder) {
-
+            if (component == focusedDropMenu) {
+                continue;
+            }
             if (Button button = instanceof!Button(component)) {
                 drawButton(button);
             } else if (TextPad textPad = instanceof!TextPad(component)) {
@@ -839,6 +841,15 @@ public: //* BEGIN PUBLIC API.
                 drawTextBox(textBox);
             } else if (DropMenu dropMenu = instanceof!DropMenu(component)) {
                 drawDropMenu(dropMenu);
+            }
+        }
+
+        //? Draw focused items over everything else.
+        if (focusedDropMenu !is null) {
+            if (DropMenu dropMenu = instanceof!DropMenu(focusedDropMenu)) {
+                drawDropMenu(dropMenu);
+            } else {
+                throw new Error("Something else is in the drop menu");
             }
         }
     }
