@@ -671,12 +671,9 @@ public: //* BEGIN PUBLIC API.
                 const string title = (usePlaceHolder) ? ((dropMenu.placeholderText is null) ? "UNDEFINED"
                         : dropMenu.placeholderText) : dropMenu.items[dropMenu.selection];
 
-                const int adjustment = cast(int) floor(
-                    (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
-                        .x * 0.5));
                 FontHandler.drawShadowed(
                     title,
-                    posX + adjustment,
+                    posX,
                     posY,
                     0.25,
                     dropMenu.textColor);
