@@ -1065,9 +1065,16 @@ public: //* BEGIN PUBLIC API.
                         // This top button is special.
                         // If you click it it opens the drop menu items.
                         // But if you click it again, it's canceling your decision and using whatever was there.
-                        dropMenu.droppedDown = !dropMenu.droppedDown;
+                        if (dropMenu.droppedDown) {
+                            dropMenu.droppedDown = false;
+                            focusedDropMenu = null;
+                        } else {
+                            dropMenu.droppedDown = true;
+                            focusedDropMenu = dropMenu;
+                        }
+
                         dropMenu.clickFunction(dropMenu);
-                        break;
+                        break FIRST_PASS_LOOP;
                     }
                 }
 
