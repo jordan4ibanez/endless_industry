@@ -218,9 +218,6 @@ class DropMenu : Component {
 
     //? Functions/methods.
 
-    /// This is run when the window gets closed.
-    void function(DropMenu) onWindowClose = (DropMenu self) {};
-
     /// What the button does when clicked.
     /// By default, this does nothing.
     void function(DropMenu) clickFunction = (DropMenu self) {};
