@@ -1029,6 +1029,10 @@ public: //* BEGIN PUBLIC API.
 
         bool doSecondPass = true;
 
+        //? First pass. 
+        //? This blocks things that "expand outwards" from causing
+        //? strange overlap collisions with other's that are a statici size.
+        // Well, it tries to at least.
         foreach (thisComponent; currentWindow.componentsInOrder) {
             //? DropMenu.
             if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
@@ -1066,6 +1070,8 @@ public: //* BEGIN PUBLIC API.
             return;
         }
 
+        //? Second pass.
+        //? Statically sized components.
         foreach (thisComponent; currentWindow.componentsInOrder) {
             //? Button.
             if (Button button = instanceof!Button(thisComponent)) {
