@@ -12,7 +12,7 @@ Components use the same origin system that the window itself uses.
 
 */
 
-class Component {
+abstract class Component {
 package:
 
     // The ID of this component.
