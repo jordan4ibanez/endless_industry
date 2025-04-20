@@ -760,14 +760,18 @@ public: //* BEGIN PUBLIC API.
                 const int incrementer = cast(int) floor(currentGUIScale);
 
                 int yAdjustment = incrementer;
-
+                ulong i = 0;
                 foreach (__index, item; dropMenu.items) {
-                    const ulong i = __index + 1;
+                    if (__index == dropMenu.selection) {
+                        continue;
+                    }
+                    i++;
                     const bool isSelected = dropMenu.hoverSelection == __index;
                     const Color thisBorderColor = (isSelected) ? dropMenu.borderColorHover
                         : dropMenu.borderColor;
                     const Color thisSectionColor = (isSelected) ? dropMenu
                         .backgroundColorHover : dropMenu.backgroundColor;
+
                     const int yPos = (sizeY * cast(int) i) + yAdjustment;
 
                     startScissorComponent(
@@ -1084,8 +1088,12 @@ public: //* BEGIN PUBLIC API.
 
                 const int incrementer = cast(int) floor(currentGUIScale);
                 int yAdjustment = incrementer;
+                ulong i = 0;
                 foreach (__index, item; dropMenu.items) {
-                    const ulong i = __index + 1;
+                    if (__index == dropMenu.selection) {
+                        continue;
+                    }
+                    i++;
                     const int yPos = (sizeY * cast(int) i) + yAdjustment;
                     const Rectangle collisionBox = Rectangle(
                         posX,
