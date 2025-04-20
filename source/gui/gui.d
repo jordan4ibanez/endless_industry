@@ -1385,7 +1385,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         ///? DropMenu.
-        bool doDropMenuLogic(ref DropMenu dropMenu) {
+        bool dropMenuLogic(ref DropMenu dropMenu) {
             dropMenu.mouseHovering = false;
             dropMenu.hoverSelection = -1;
             if (focusedDropMenu != dropMenu) {
@@ -1432,6 +1432,7 @@ public: //* BEGIN PUBLIC API.
             const int incrementer = cast(int) floor(currentGUIScale);
             int yAdjustment = incrementer;
             ulong i = 0;
+            bool hoverOver = false;
             foreach (__index, item; dropMenu.items) {
                 if (__index == dropMenu.selection) {
                     continue;
@@ -1447,6 +1448,7 @@ public: //* BEGIN PUBLIC API.
                 if (CheckCollisionPointRec(mousePos, collisionBox)) {
                     dropMenu.hoverSelection = cast(int) __index;
                     doSecondPass = false;
+                    hoverOver = true;
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         dropMenu.selection = cast(int) __index;
                         dropMenu.droppedDown = false;
@@ -1467,10 +1469,25 @@ public: //* BEGIN PUBLIC API.
                 playButtonSound();
             }
 
-            return false;
+            return hoverOver;
+        }
+
+        bool skipOtherComponents = false;
+        if (focusedDropMenu !is null) {
+            if (DropMenu dropMenu = instanceof!DropMenu(focusedDropMenu)) {
+                skipOtherComponents = dropMenuLogic(dropMenu);
+            } else {
+                throw new Error("Something else is in the drop menu");
+            }
+        }
+        if (skipOtherComponents) {
+            return;
         }
 
         foreach (thisComponent; currentWindow.componentsInOrder) {
+            if (thisComponent == focusedDropMenu) {
+                continue;
+            }
             if (Button button = instanceof!Button(thisComponent)) {
                 if (buttonLogic(button)) {
                     break;
@@ -1486,7 +1503,7 @@ public: //* BEGIN PUBLIC API.
                     break;
                 }
             } else if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
-                if (doDropMenuLogic(dropMenu)) {
+                if (dropMenuLogic(dropMenu)) {
                     break;
                 }
             }
