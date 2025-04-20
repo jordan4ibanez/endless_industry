@@ -204,7 +204,7 @@ class DropMenu : Component {
     /// The background color.
     Color backgroundColor = Colors.LIGHTGRAY;
     /// The background color of the button when hovered over.
-    Color backgroundColorHover = Colors.RED;
+    Color backgroundColorHover = Colors.MAGENTA;
 
     /// The text color.
     Color textColor = Colors.WHITE;
