@@ -834,15 +834,7 @@ public: //* BEGIN PUBLIC API.
                 //? Text box.
             } else if (TextBox textBox = instanceof!TextBox(component)) {
                 drawTextBox(textBox);
-            }
-        }
-
-        //? Second pass. Draw things that need to overlap other things.
-        // If two things overlap, well, that sounds like the GUI needs to be adjusted.
-        // DropDown, etc.
-        foreach (Component component; currentWindow.componentsInOrder) {
-            //? DropMenu.
-            if (DropMenu dropMenu = instanceof!DropMenu(component)) {
+            } else if (DropMenu dropMenu = instanceof!DropMenu(component)) {
                 drawDropMenu(dropMenu);
             }
         }
