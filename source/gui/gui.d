@@ -646,8 +646,47 @@ public: //* BEGIN PUBLIC API.
         // Post process. Things that can cover other things need to go here.
         // DropDown, etc.
         foreach (Component component; currentWindow.componentsInOrder) {
-            if (DropDown textPad = instanceof!DropDown(component)) {
+            if (DropMenu dropMenu = instanceof!DropMenu(component)) {
+                const int posX = cast(int) floor(
+                    (dropMenu.position.x * currentGUIScale) + centerX);
+                const int posY = cast(int) floor(
+                    ((-dropMenu.position.y) * currentGUIScale) + centerY);
+                const int sizeX = cast(int) floor(dropMenu.size.x * currentGUIScale);
+                const int sizeY = cast(int) floor(dropMenu.size.y * currentGUIScale);
+                if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+                    continue;
+                }
+                Color dropMenuColor = dropMenu.mouseHovering ? dropMenu.backgroundColorHover
+                    : dropMenu.backgroundColor;
+                DrawRectangle(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    dropMenuColor);
 
+                const bool usePlaceHolder = (dropMenu.selection < 0 || dropMenu.selection >= dropMenu
+                        .items.length);
+
+                const string title = (usePlaceHolder) ? ((dropMenu.placeholderText is null) ? "UNDEFINED"
+                        : dropMenu.placeholderText) : dropMenu.items[dropMenu.selection];
+
+                const int adjustment = cast(int) floor(
+                    (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
+                        .x * 0.5));
+                FontHandler.drawShadowed(
+                    title,
+                    posX + adjustment,
+                    posY,
+                    0.25,
+                    dropMenu.textColor);
+                DrawRectangleLines(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY,
+                    dropMenu.borderColor);
+                endScissorComponent();
             }
         }
     }
