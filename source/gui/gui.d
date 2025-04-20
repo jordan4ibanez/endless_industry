@@ -1000,8 +1000,11 @@ public: //* BEGIN PUBLIC API.
                     // If the mouse clicks the button.
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         playButtonSound();
-                        // dropMenu.clickFunction();
-                        dropMenu.droppedDown = true;
+                        // This top button is special.
+                        // If you click it it opens the drop menu items.
+                        // But if you click it again, it's canceling your decision and using whatever was there.
+                        dropMenu.droppedDown = !dropMenu.droppedDown;
+                        dropMenu.clickFunction(dropMenu);
                         break;
                     }
                 }
