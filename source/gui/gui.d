@@ -1041,7 +1041,9 @@ public: //* BEGIN PUBLIC API.
             if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
                 dropMenu.mouseHovering = false;
                 dropMenu.hoverSelection = -1;
-
+                if (focusedDropMenu != dropMenu) {
+                    dropMenu.droppedDown = false;
+                }
                 const int posX = cast(int) floor(
                     (dropMenu.position.x * currentGUIScale) + centerX);
                 const int posY = cast(int) floor(
