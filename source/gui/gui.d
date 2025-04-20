@@ -89,10 +89,8 @@ private:
 
     /// The currently opened window.
     WindowGUI currentWindow = null;
-    /// The currently focused text box.
-    Component focusedTextBox = null;
-    /// The currently opened DropMenu.
-    Component focusedDropMenu = null;
+    /// The currently focused component.
+    Component focusedComponent = null;
 
     /// The cursor blink state timer.
     double cursorBlinkTimer = 0;
@@ -123,8 +121,7 @@ public: //* BEGIN PUBLIC API.
         currentWindow = null;
         dragging = false;
         resizing = false;
-        focusedTextBox = null;
-        focusedDropMenu = null;
+        focusedComponent = null;
         foreach (component; windows[oldWindowID].componentDatabase) {
             component.onWindowClose(component);
         }
@@ -477,7 +474,7 @@ public: //* BEGIN PUBLIC API.
             }
             for (int i = 0; i < text.length; i++) {
                 bool shouldDrawCursor() {
-                    return cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == i;
+                    return cursorVisible && focusedComponent == textPad && textPad.cursorPosition == i;
                 }
 
                 const char thisChar = text[i];
@@ -550,7 +547,7 @@ public: //* BEGIN PUBLIC API.
         SKIP_DRAW_TEXT_IN_PAD:
 
             // If the text pad cursor is at the literal last position, it needs to be drawn here.
-            if (!usePlaceHolder && cursorVisible && focusedTextBox == textPad && textPad.cursorPosition == textPad
+            if (!usePlaceHolder && cursorVisible && focusedComponent == textPad && textPad.cursorPosition == textPad
                 .text.length) {
                 const double w = currentWidth;
                 DrawRectangle(
@@ -609,7 +606,7 @@ public: //* BEGIN PUBLIC API.
             FontHandler.draw(text, posX - adjustment, posY, 0.25, textColor);
             for (int i = 0; i < text.length; i++) {
                 bool shouldDrawCursor() {
-                    return cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == i;
+                    return cursorVisible && focusedComponent == textBox && textBox.cursorPosition == i;
                 }
 
                 const char thisChar = text[i];
@@ -644,7 +641,7 @@ public: //* BEGIN PUBLIC API.
         SKIP_DRAW_TEXT_IN_BOX:
 
             // If the text pad cursor is at the literal last position, it needs to be drawn here.
-            if (!usePlaceHolder && cursorVisible && focusedTextBox == textBox && textBox.cursorPosition == textBox
+            if (!usePlaceHolder && cursorVisible && focusedComponent == textBox && textBox.cursorPosition == textBox
                 .text.length) {
                 const double w = currentWidth;
                 DrawRectangle(
@@ -829,7 +826,7 @@ public: //* BEGIN PUBLIC API.
 
         //? Draw everything as normal, excluding focused expandable components.
         foreach (Component component; currentWindow.componentsInOrder) {
-            if (component == focusedDropMenu) {
+            if (component == focusedComponent) {
                 continue;
             }
             if (Button button = instanceof!Button(component)) {
@@ -845,8 +842,8 @@ public: //* BEGIN PUBLIC API.
         }
 
         //? Draw focused items over everything else.
-        if (focusedDropMenu !is null) {
-            if (DropMenu dropMenu = instanceof!DropMenu(focusedDropMenu)) {
+        if (focusedComponent !is null) {
+            if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
                 drawDropMenu(dropMenu);
             } else {
                 throw new Error("Something else is in the drop menu");
@@ -1021,7 +1018,7 @@ public: //* BEGIN PUBLIC API.
     /// This is the blinking text cursor logic.
     void runBlinkingCursorLogic() {
         // Do not calculate anything if there's no text box.
-        if (focusedTextBox is null) {
+        if (focusedComponent is null) {
             return;
         }
 
@@ -1123,7 +1120,7 @@ public: //* BEGIN PUBLIC API.
             if (CheckCollisionPointRec(mousePos, buttonRect)) {
                 textPad.mouseHovering = true;
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    if (focusedTextBox != textPad) {
+                    if (focusedComponent != textPad) {
                         playButtonSound();
                     }
                     // Find which character mouse just clicked (if any)
@@ -1191,18 +1188,18 @@ public: //* BEGIN PUBLIC API.
                     SKIP_TEXT_PAD_COLLISION_LOGIC:
 
                     }
-                    focusedTextBox = textPad;
+                    focusedComponent = textPad;
                 }
             } else {
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    if (focusedTextBox == textPad) {
+                    if (focusedComponent == textPad) {
                         playButtonSound();
                         keyboardDoingTextInput = false;
-                        focusedTextBox = null;
+                        focusedComponent = null;
                     }
                 }
             }
-            if (focusedTextBox == textPad) {
+            if (focusedComponent == textPad) {
                 keyboardDoingTextInput = true;
                 const int input = Keyboard.getCharacterTyped();
                 if (input != 0) {
@@ -1265,7 +1262,7 @@ public: //* BEGIN PUBLIC API.
             if (CheckCollisionPointRec(mousePos, buttonRect)) {
                 textBox.mouseHovering = true;
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    if (focusedTextBox != textBox) {
+                    if (focusedComponent != textBox) {
                         playButtonSound();
                     }
 
@@ -1331,18 +1328,18 @@ public: //* BEGIN PUBLIC API.
 
                     }
 
-                    focusedTextBox = textBox;
+                    focusedComponent = textBox;
                 }
             } else {
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    if (focusedTextBox == textBox) {
+                    if (focusedComponent == textBox) {
                         playButtonSound();
                         keyboardDoingTextInput = false;
-                        focusedTextBox = null;
+                        focusedComponent = null;
                     }
                 }
             }
-            if (focusedTextBox == textBox) {
+            if (focusedComponent == textBox) {
                 keyboardDoingTextInput = true;
                 const int input = Keyboard.getCharacterTyped();
                 if (input != 0) {
@@ -1388,7 +1385,7 @@ public: //* BEGIN PUBLIC API.
         bool dropMenuLogic(ref DropMenu dropMenu) {
             dropMenu.mouseHovering = false;
             dropMenu.hoverSelection = -1;
-            if (focusedDropMenu != dropMenu) {
+            if (focusedComponent != dropMenu) {
                 dropMenu.droppedDown = false;
             }
             const int posX = cast(int) floor(
@@ -1414,10 +1411,10 @@ public: //* BEGIN PUBLIC API.
                     // But if you click it again, it's canceling your decision and using whatever was there.
                     if (dropMenu.droppedDown) {
                         dropMenu.droppedDown = false;
-                        focusedDropMenu = null;
+                        focusedComponent = null;
                     } else {
                         dropMenu.droppedDown = true;
-                        focusedDropMenu = dropMenu;
+                        focusedComponent = dropMenu;
                     }
 
                     dropMenu.clickFunction(dropMenu);
@@ -1452,7 +1449,7 @@ public: //* BEGIN PUBLIC API.
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         dropMenu.selection = cast(int) __index;
                         dropMenu.droppedDown = false;
-                        focusedDropMenu = null;
+                        focusedComponent = null;
                         dropMenu.clickFunction(dropMenu);
                         playButtonSound();
                         return true;
@@ -1464,7 +1461,7 @@ public: //* BEGIN PUBLIC API.
             //~ If it got here, that means that the player clicked off the entire drop menu.
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                 dropMenu.droppedDown = false;
-                focusedDropMenu = null;
+                focusedComponent = null;
                 doSecondPass = false;
                 playButtonSound();
             }
@@ -1473,8 +1470,8 @@ public: //* BEGIN PUBLIC API.
         }
 
         bool skipOtherComponents = false;
-        if (focusedDropMenu !is null) {
-            if (DropMenu dropMenu = instanceof!DropMenu(focusedDropMenu)) {
+        if (focusedComponent !is null) {
+            if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
                 skipOtherComponents = dropMenuLogic(dropMenu);
             } else {
                 throw new Error("Something else is in the drop menu");
@@ -1485,7 +1482,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         foreach (thisComponent; currentWindow.componentsInOrder) {
-            if (thisComponent == focusedDropMenu) {
+            if (thisComponent == focusedComponent) {
                 continue;
             }
             if (Button button = instanceof!Button(thisComponent)) {
@@ -1662,8 +1659,8 @@ public: //* BEGIN PUBLIC API.
         if (Keyboard.isPressed(KeyboardKey.KEY_ESCAPE)) {
             playButtonSound();
             if (isWindowOpened()) {
-                if (focusedTextBox !is null) {
-                    focusedTextBox = null;
+                if (focusedComponent !is null) {
+                    focusedComponent = null;
                 } else {
                     closeWindow();
                 }
