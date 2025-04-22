@@ -1229,6 +1229,7 @@ public: //* BEGIN PUBLIC API.
                 // If the mouse clicks the button.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     playButtonSound();
+                    checkBox.checked = !checkBox.checked;
                     checkBox.clickFunction();
                     return true;
                 }
