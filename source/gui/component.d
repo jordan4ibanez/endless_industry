@@ -131,7 +131,7 @@ public:
         this.size.y = cast(int) round(this.size.y * size);
     }
 
-    void scaleXY(double size) {
+    void scale(double size) {
         this.size.x = cast(int) round(this.size.x * size);
         this.size.y = cast(int) round(this.size.y * size);
     }
