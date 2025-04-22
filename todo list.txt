@@ -1,7 +1,5 @@
 - Build a GUI library in raylib using stock D architectural components
 
-checkbox - was toggle - changed to more common lingo
-
 label
 
 imagelabel
