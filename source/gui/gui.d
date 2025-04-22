@@ -1608,12 +1608,10 @@ public: //* BEGIN PUBLIC API.
                 if (buttonLogic(button)) {
                     break;
                 }
-                //? Text pad.
             } else if (TextPad textPad = instanceof!TextPad(thisComponent)) {
                 if (textPadLogic(textPad)) {
                     break;
                 }
-                //? Text box.
             } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
                 if (textBoxLogic(textBox)) {
                     break;
