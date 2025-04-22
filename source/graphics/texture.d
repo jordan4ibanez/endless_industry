@@ -62,6 +62,29 @@ public: //* BEGIN PUBLIC API.
         }
     }
 
+    // Simplified.
+    void drawTexture(string textureName, Vec2d position, Vec2d size, Vec2d origin = Vec2d(0, 0)) {
+        OutputRect rawInput;
+        database.getRectangleIntegral(textureName, rawInput);
+
+        Rect source;
+        source.x = rawInput.x;
+        source.y = rawInput.y;
+        source.width = rawInput.w;
+        source.height = rawInput.h;
+
+        Rect dest = Rect(
+            position.x,
+            -position.y,
+            size.x,
+            size.y
+        );
+
+        drawTextureFromAtlasPro(source.toRaylib(), dest.toRaylib(), origin.toRaylib(), 0, Colors
+                .WHITE);
+    }
+
+    // More complex.
     void drawTexture(string textureName, Vec2d position, Rect sourceOnTexture, Vec2d size, Vec2d origin = Vec2d(0, 0),
         double rotation = 0) {
 
