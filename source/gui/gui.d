@@ -451,30 +451,30 @@ public: //* BEGIN PUBLIC API.
         }
 
         ///? CheckBox.
-        void drawCheckBox(const ref CheckBox button) {
+        void drawCheckBox(const ref CheckBox checkBox) {
             const int posX = cast(int) floor(
-                (button.position.x * currentGUIScale) + centerX);
+                (checkBox.position.x * currentGUIScale) + centerX);
             const int posY = cast(int) floor(
-                ((-button.position.y) * currentGUIScale) + centerY);
-            const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
-            const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+                ((-checkBox.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) floor(checkBox.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(checkBox.size.y * currentGUIScale);
             // Initial check to see if this thing should even be drawn.
             if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                 return;
             }
             // First, draw what is basically a regular button.
             startScissorComponent(posX, posY, sizeX - statusAreaHeight, sizeY);
-            Color buttonColor = (button.mouseHovering) ? button.backgroundColorHover
-                : button.backgroundColor;
-            Color borderColor = (button.mouseHovering) ? button.borderColorHover
-                : button.borderColor;
+            Color buttonColor = (checkBox.mouseHovering) ? checkBox.backgroundColorHover
+                : checkBox.backgroundColor;
+            Color borderColor = (checkBox.mouseHovering) ? checkBox.borderColorHover
+                : checkBox.borderColor;
             DrawRectangle(
                 posX,
                 posY,
                 sizeX - statusAreaHeight,
                 sizeY,
                 buttonColor);
-            const string title = (button.text is null) ? "UNDEFINED" : button.text;
+            const string title = (checkBox.text is null) ? "UNDEFINED" : checkBox.text;
             // Attempt to center this into the "mini button".
             const int adjustment = cast(int) floor(
                 (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
@@ -484,7 +484,7 @@ public: //* BEGIN PUBLIC API.
                 posX + adjustment,
                 posY,
                 0.25,
-                button.textColor);
+                checkBox.textColor);
             DrawRectangleLines(
                 posX,
                 posY,
@@ -516,13 +516,13 @@ public: //* BEGIN PUBLIC API.
             );
 
             // Draw the internal circle (if checked).
-            if (button.checked) {
+            if (checkBox.checked) {
                 const int fifthHeight = statusAreaHeight / 5;
                 DrawCircle(
                     posX + sizeX - halfHeight,
                     posY + halfHeight,
                     fifthHeight,
-                    button.checkCircleColor
+                    checkBox.checkCircleColor
                 );
                 DrawCircleLines(
                     posX + sizeX - halfHeight,
