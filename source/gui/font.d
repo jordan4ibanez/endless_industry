@@ -89,6 +89,10 @@ public: //* BEGIN PUBLIC API.
         currentFontSize = font.baseSize * currentGUIScale;
     }
 
+    package Vector2 __getTextSizeSpecialFixed(string text, double fontScale = 1.0) {
+        return MeasureTextEx(font, toStringz(text), fontScale, spacing);
+    }
+
 private: //* BEGIN INTERNAL API.
 
 }
