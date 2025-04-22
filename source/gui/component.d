@@ -90,6 +90,44 @@ class Button : Component {
 
 }
 
+class CheckBox : Component {
+    /// What this check box says on it.
+    string text = null;
+
+    //? State behavior.
+
+    /// If the mouse is hovering over the check box.
+    bool mouseHovering = false;
+
+    //? General solid colors.
+
+    /// The border color of the check box.
+    Color borderColor = Colors.BLACK;
+    /// The border color of the check box when hovered over.
+    Color borderColorHover = Colors.BLACK;
+
+    /// The background color of the check box.
+    Color backgroundColor = Colors.LIGHTGRAY;
+    /// The background color of the check box when hovered over.
+    Color backgroundColorHover = Colors.MAGENTA;
+
+    //? General text/icon colors.
+
+    /// The check box text color.
+    Color textColor = Colors.WHITE;
+
+    //? Functions/methods.
+
+    /// What the check box does when clicked.
+    /// By default, this does nothing.
+    void function() clickFunction = () {};
+
+    this() {
+        size = Vec2i(100, 32);
+    }
+
+}
+
 class TextPad : Component {
 
     //? State behavior.
