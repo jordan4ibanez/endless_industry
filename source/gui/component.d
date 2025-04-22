@@ -52,6 +52,19 @@ public:
     void function(Component) onWindowClose = (Component self) {};
 }
 
+class Label : Component {
+    /// What this label says on it.
+    string text = null;
+
+    /// The button text color.
+    Color textColor = Colors.WHITE;
+
+    this() {
+        size = Vec2i(100, 32);
+    }
+
+}
+
 class Button : Component {
     /// What this button says on it.
     string text = null;
