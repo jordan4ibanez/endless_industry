@@ -1787,6 +1787,10 @@ public: //* BEGIN PUBLIC API.
             box.centerX();
             settingsMenu.addComponent("box", box);
 
+            ImageLabel image = new ImageLabel();
+            image.image = "test.png";
+            settingsMenu.addComponent("image", image);
+
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
             registerWindow("settings_menu", settingsMenu);
