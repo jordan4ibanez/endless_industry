@@ -492,7 +492,28 @@ public: //* BEGIN PUBLIC API.
                 sizeY,
                 borderColor);
 
-            
+            // Next, draw a toggle indicator.
+            startScissorComponent(posX + sizeX - statusAreaHeight, posY, statusAreaHeight, sizeY);
+
+            // Infill the background.
+            DrawRectangle(
+                posX + sizeX - statusAreaHeight,
+                posY,
+                statusAreaHeight,
+                statusAreaHeight,
+                buttonColor
+            );
+
+            //todo: draw the circle parts.
+
+            // Then make it look nice with a border.
+            DrawRectangleLines(
+                posX + sizeX - statusAreaHeight,
+                posY,
+                statusAreaHeight,
+                statusAreaHeight,
+                borderColor
+            );
 
             endScissorComponent();
         }
