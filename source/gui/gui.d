@@ -458,9 +458,12 @@ public: //* BEGIN PUBLIC API.
                 ((-button.position.y) * currentGUIScale) + centerY);
             const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
             const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+            // Initial check to see if this thing should even be drawn.
             if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                 return;
             }
+            startScissorComponent(posX, posY, sizeX - statusAreaHeight, sizeY);
+
             Color buttonColor = (button.mouseHovering) ? button.backgroundColorHover
                 : button.backgroundColor;
             Color borderColor = (button.mouseHovering) ? button.borderColorHover
