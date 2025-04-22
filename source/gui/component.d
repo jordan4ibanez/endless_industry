@@ -3,6 +3,7 @@ module gui.component;
 import math.vec2d;
 import math.vec2i;
 import raylib : Color, Colors;
+import std.math.rounding;
 import utility.instance_of;
 
 /*
@@ -106,7 +107,7 @@ public:
 
     @property void image(string image) {
         import graphics.texture;
-        import std.math.rounding;
+
         this.__image = image;
         OutputRect rect = TextureHandler.getTextureRectangle(image);
         this.size.x = rect.w;
@@ -116,8 +117,23 @@ public:
     /// The button text color.
     Color textColor = Colors.WHITE;
 
+    //? Functions/methods.
+
     this() {
         size = Vec2i(0, 0);
+    }
+
+    void scaleX(double size) {
+        this.size.x = cast(int) round(this.size.x * size);
+    }
+
+    void scaleY(double size) {
+        this.size.y = cast(int) round(this.size.y * size);
+    }
+
+    void scaleXY(double size) {
+        this.size.x = cast(int) round(this.size.x * size);
+        this.size.y = cast(int) round(this.size.y * size);
     }
 }
 
