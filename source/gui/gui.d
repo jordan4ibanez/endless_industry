@@ -1775,10 +1775,14 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.size.y = 800;
             settingsMenu.center();
 
+            Label label = new Label();
+            label.text = "This is a checkbox:";
+            label.position.x = -210;
+            settingsMenu.addComponent("label", label);
+
             CheckBox box = new CheckBox();
             box.text = "checkbox";
             box.size.x = 200;
-
             settingsMenu.addComponent("box", box);
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
