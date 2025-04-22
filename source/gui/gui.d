@@ -504,7 +504,33 @@ public: //* BEGIN PUBLIC API.
                 buttonColor
             );
 
-            //todo: draw the circle parts.
+            const int halfHeight = statusAreaHeight / 2;
+            const int thirdHeight = statusAreaHeight / 3;
+
+            // Outer circle.
+            DrawCircleLines(
+                posX + sizeX - halfHeight,
+                posY + halfHeight,
+                thirdHeight,
+                borderColor
+            );
+
+            // Draw the internal circle (if checked).
+            if (button.checked) {
+                const int fifthHeight = statusAreaHeight / 5;
+                DrawCircle(
+                    posX + sizeX - halfHeight,
+                    posY + halfHeight,
+                    fifthHeight,
+                    button.checkCircleColor
+                );
+                DrawCircleLines(
+                    posX + sizeX - halfHeight,
+                    posY + halfHeight,
+                    fifthHeight,
+                    borderColor
+                );
+            }
 
             // Then make it look nice with a border.
             DrawRectangleLines(
