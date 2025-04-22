@@ -475,6 +475,7 @@ public: //* BEGIN PUBLIC API.
                 sizeY,
                 buttonColor);
             const string title = (button.text is null) ? "UNDEFINED" : button.text;
+            // Attempt to center this into the "mini button".
             const int adjustment = cast(int) floor(
                 (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
                     .x * 0.5)) - (statusAreaHeight / 2);
