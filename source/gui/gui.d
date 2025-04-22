@@ -1665,6 +1665,7 @@ public: //* BEGIN PUBLIC API.
 
             CheckBox box = new CheckBox();
             box.text = "checkbox";
+            box.size.x = 200;
 
             settingsMenu.addComponent("box", box);
 
