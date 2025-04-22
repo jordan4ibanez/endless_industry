@@ -508,6 +508,12 @@ public: //* BEGIN PUBLIC API.
             const int thirdHeight = statusAreaHeight / 3;
 
             // Outer circle.
+            DrawCircle(
+                posX + sizeX - halfHeight,
+                posY + halfHeight,
+                thirdHeight,
+                checkBox.backgroundColor
+            );
             DrawCircleLines(
                 posX + sizeX - halfHeight,
                 posY + halfHeight,
