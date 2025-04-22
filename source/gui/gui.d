@@ -450,6 +450,46 @@ public: //* BEGIN PUBLIC API.
             endScissorComponent();
         }
 
+        ///? CheckBox.
+        void drawCheckBox(const ref CheckBox button) {
+            const int posX = cast(int) floor(
+                (button.position.x * currentGUIScale) + centerX);
+            const int posY = cast(int) floor(
+                ((-button.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+            if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+                return;
+            }
+            Color buttonColor = (button.mouseHovering) ? button.backgroundColorHover
+                : button.backgroundColor;
+            Color borderColor = (button.mouseHovering) ? button.borderColorHover
+                : button.borderColor;
+            DrawRectangle(
+                posX,
+                posY,
+                sizeX,
+                sizeY,
+                buttonColor);
+            const string title = (button.text is null) ? "UNDEFINED" : button.text;
+            const int adjustment = cast(int) floor(
+                (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
+                    .x * 0.5));
+            FontHandler.drawShadowed(
+                title,
+                posX + adjustment,
+                posY,
+                0.25,
+                button.textColor);
+            DrawRectangleLines(
+                posX,
+                posY,
+                sizeX,
+                sizeY,
+                borderColor);
+            endScissorComponent();
+        }
+
         ///? TextPad.
         void drawTextPad(const ref TextPad textPad) {
             const int posX = cast(int) floor(
@@ -840,6 +880,8 @@ public: //* BEGIN PUBLIC API.
             }
             if (Button button = instanceof!Button(component)) {
                 drawButton(button);
+            } else if (CheckBox checkBox = instanceof!CheckBox(component)) {
+                drawCheckBox(checkBox);
             } else if (TextPad textPad = instanceof!TextPad(component)) {
                 drawTextPad(textPad);
             } else if (TextBox textBox = instanceof!TextBox(component)) {
