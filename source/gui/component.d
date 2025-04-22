@@ -84,9 +84,43 @@ public:
     Color textColor = Colors.WHITE;
 
     this() {
+        size = Vec2i(0, 0);
+    }
+}
+
+/// An image to label something.
+class ImageLabel : Component {
+package:
+    /// What image this image label uses.
+    string __image = null;
+
+public:
+
+    //? These are special property functions.
+    //? These automate the sizing of the actual label when assigned to.
+    //? This makes less work for the end modder.
+
+    @property string image() {
+        return __image;
+    }
+
+    @property void texture(string image) {
+        import graphics.texture;
+        import std.math.rounding;
+
+        this.__image = image;
+
+        // const Vec2d textSize = FontHandler.__getTextSizeSpecialFixed(image);
+
+        // this.size.x = cast(int) round(textSize.x * 0.25);
+        // this.size.y = cast(int) round(textSize.y * 0.25);
+    }
+
+    /// The button text color.
+    Color textColor = Colors.WHITE;
+
+    this() {
         //? Size has no bearing on the label.
-        //? It is calculated dynamically.
-        //? (there are too many runtime variables to do it preprocessed)
         size = Vec2i(0, 0);
     }
 }
