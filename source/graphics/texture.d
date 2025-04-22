@@ -108,6 +108,25 @@ public: //* BEGIN PUBLIC API.
                 .WHITE);
     }
 
+    // Simplified version.
+    void drawTextureKnownCoordinates(OutputRect* coordinatesRect, Vec2d position, Vec2d size,
+        Vec2d origin = Vec2d(0, 0), double rotation = 0) {
+        Rect source;
+        source.x = coordinatesRect.x;
+        source.y = coordinatesRect.y;
+        source.width = coordinatesRect.w;
+        source.height = coordinatesRect.h;
+        Rect dest = Rect(
+            position.x,
+            -position.y,
+            size.x,
+            size.y
+        );
+        drawTextureFromAtlasPro(source.toRaylib(), dest.toRaylib(), origin.toRaylib(), rotation, Colors
+                .WHITE);
+    }
+
+    // More complex.
     void drawTextureKnownCoordinates(OutputRect* coordinatesRect, Vec2d position, Rect sourceOnTexture, Vec2d size,
         Vec2d origin = Vec2d(0, 0),
         double rotation = 0) {
