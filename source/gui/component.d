@@ -120,7 +120,6 @@ public:
     Color textColor = Colors.WHITE;
 
     this() {
-        //? Size has no bearing on the label.
         size = Vec2i(0, 0);
     }
 }
