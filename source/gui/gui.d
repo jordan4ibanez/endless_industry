@@ -938,7 +938,9 @@ public: //* BEGIN PUBLIC API.
             if (component == focusedComponent) {
                 continue;
             }
-            if (Button button = instanceof!Button(component)) {
+            if (Label label = instanceof!Label(component)) {
+                drawLabel(label);
+            } else if (Button button = instanceof!Button(component)) {
                 drawButton(button);
             } else if (CheckBox checkBox = instanceof!CheckBox(component)) {
                 drawCheckBox(checkBox);
