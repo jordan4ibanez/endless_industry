@@ -114,6 +114,9 @@ class CheckBox : Component {
     /// The background color of the check box when hovered over.
     Color backgroundColorHover = Colors.MAGENTA;
 
+    /// The inner circle color when the check box is checked.
+    Color checkCircleColor = Colors.RED;
+
     //? General text/icon colors.
 
     /// The check box text color.
