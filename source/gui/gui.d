@@ -989,6 +989,8 @@ public: //* BEGIN PUBLIC API.
             }
             if (Label label = instanceof!Label(component)) {
                 drawLabel(label);
+            } else if (ImageLabel imageLabel = instanceof!ImageLabel(component)) {
+                drawImageLabel(imageLabel);
             } else if (Button button = instanceof!Button(component)) {
                 drawButton(button);
             } else if (CheckBox checkBox = instanceof!CheckBox(component)) {
