@@ -471,7 +471,7 @@ public: //* BEGIN PUBLIC API.
             DrawRectangle(
                 posX,
                 posY,
-                sizeX,
+                sizeX - statusAreaHeight,
                 sizeY,
                 buttonColor);
             const string title = (button.text is null) ? "UNDEFINED" : button.text;
@@ -487,7 +487,7 @@ public: //* BEGIN PUBLIC API.
             DrawRectangleLines(
                 posX,
                 posY,
-                sizeX,
+                sizeX - statusAreaHeight,
                 sizeY,
                 borderColor);
             endScissorComponent();
