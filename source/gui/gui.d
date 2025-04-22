@@ -1618,72 +1618,9 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.size.y = 800;
             settingsMenu.center();
 
-            DropMenu dropMenu = new DropMenu();
-            dropMenu.size.x = 400;
-            dropMenu.items ~= [
-                "THIS IS A REALLY LONG TEXT",
-                "These",
-                "are",
-                "some other items"
-            ];
-            dropMenu.center();
-            settingsMenu.addComponent("drop_menu", dropMenu);
 
-            DropMenu difficultySelection = new DropMenu();
-            difficultySelection.size.x = 400;
-            difficultySelection.items ~= [
-                "I'm too young to die",
-                "Hey, not too rough",
-                "Hurt me plenty",
-                "Ultra-Violence",
-                "Nightmare!"
-            ];
-            difficultySelection.selection = 2;
-            difficultySelection.center();
-            difficultySelection.position.y = -100;
-            settingsMenu.addComponent("drop_menu1", difficultySelection);
 
-            DropMenu explainer = new DropMenu();
-            explainer.items ~= [
-                "You'll notice that each",
-                "item can overlap another thing.",
-                "I think this is pretty cool.",
-                "Whatever component is currently",
-                "focused is the one that is drawn",
-                "over everything else. It's neat."
-            ];
-            explainer.size.x = 500;
-            explainer.centerX();
-            explainer.position.y = 100;
-            explainer.onOpen = (DropMenu self) {
-                Option!WindowGUI result = getCurrentWindow();
-                WindowGUI thisWin = result.unwrap();
-                Option!Component buttonRes = thisWin.getComponent("angry_button");
-                if (Button button = instanceof!Button(buttonRes.unwrap())) {
-                    button.text = ">:(";
-                    button.position.x = 270;
-                    button.size.x = 50;
-                }
-            };
-            explainer.onClose = (DropMenu self) {
-                Option!WindowGUI result = getCurrentWindow();
-                WindowGUI thisWin = result.unwrap();
-                Option!Component buttonRes = thisWin.getComponent("angry_button");
-                if (Button button = instanceof!Button(buttonRes.unwrap())) {
-                    button.text = "I asked not to be covered! >:(";
-                    button.size.x = 350;
-                    button.centerX();
-                }
-            };
 
-            settingsMenu.addComponent("explainer_menu", explainer);
-
-            Button angryButton = new Button();
-            angryButton.text = "Don't cover me :(";
-            angryButton.size.x = 200;
-            angryButton.centerX();
-            angryButton.position.y = 50;
-            settingsMenu.addComponent("angry_button", angryButton);
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
