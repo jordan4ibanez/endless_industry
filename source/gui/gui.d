@@ -1777,12 +1777,14 @@ public: //* BEGIN PUBLIC API.
 
             Label label = new Label();
             label.text = "This is a checkbox:";
-            label.position.x = -210;
+            label.position.y = 32;
+            label.centerX();
             settingsMenu.addComponent("label", label);
 
             CheckBox box = new CheckBox();
             box.text = "checkbox";
             box.size.x = 200;
+            box.centerX();
             settingsMenu.addComponent("box", box);
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
