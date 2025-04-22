@@ -104,16 +104,13 @@ public:
         return __image;
     }
 
-    @property void texture(string image) {
+    @property void image(string image) {
         import graphics.texture;
         import std.math.rounding;
-
         this.__image = image;
-
-        // const Vec2d textSize = FontHandler.__getTextSizeSpecialFixed(image);
-
-        // this.size.x = cast(int) round(textSize.x * 0.25);
-        // this.size.y = cast(int) round(textSize.y * 0.25);
+        OutputRect rect = TextureHandler.getTextureRectangle(image);
+        this.size.x = rect.w;
+        this.size.y = rect.h;
     }
 
     /// The button text color.
