@@ -176,7 +176,7 @@ public: //* BEGIN PUBLIC API.
         uint index = (animation.state * stateStride) + (
             animation.direction * directionStride) + animation.frame;
 
-        TextureHandler.drawTextureKnownCoordinates(frames + index, adjustedPosition, Rect(0, 0, 88, 88), Vec2d(3, 3));
+        TextureHandler.drawTextureKnownCoordinates(frames + index, adjustedPosition, Vec2d(3, 3));
     }
 
     void setAnimationState(ubyte newState) {
