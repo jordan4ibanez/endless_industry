@@ -1618,9 +1618,10 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.size.y = 800;
             settingsMenu.center();
 
+            CheckBox box = new CheckBox();
+            box.text = "checkbox";
 
-
-
+            settingsMenu.addComponent("box", box);
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
