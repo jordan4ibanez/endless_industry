@@ -435,6 +435,8 @@ public: //* BEGIN PUBLIC API.
 
         ///? ImageLabel.
         void drawImageLabel(ImageLabel imageLabel) {
+            import graphics.texture;
+
             //~ This can sometimes be 1 pixel off, but I tried my best.
             const int posX = cast(int) floor(
                 (imageLabel.position.x * currentGUIScale) + centerX);
@@ -445,14 +447,15 @@ public: //* BEGIN PUBLIC API.
             if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                 return;
             }
+            TextureHandler.drawTexture(imageLabel.__image, Vec2d(posX, -posY), Vec2d(sizeX, sizeY));
             //! This is the debug box for the actual label.
-            // DrawRectangleLines(
-            //     posX,
-            //     posY,
-            //     sizeX,
-            //     sizeY,
-            //     Colors.BLACK);
-            // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
+            DrawRectangleLines(
+                posX,
+                posY,
+                sizeX,
+                sizeY,
+                Colors.BLACK);
+
             endScissorComponent();
         }
 
