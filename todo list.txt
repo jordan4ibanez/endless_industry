@@ -1,7 +1,5 @@
 - Build a GUI library in raylib using stock D architectural components
 
-imagelabel
-
 inventory
 
 drop down menu for menu button sounds
