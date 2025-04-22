@@ -99,6 +99,9 @@ class CheckBox : Component {
     /// If the mouse is hovering over the check box.
     bool mouseHovering = false;
 
+    /// If the check box is checked.
+    bool checked = false;
+
     //? General solid colors.
 
     /// The border color of the check box.
