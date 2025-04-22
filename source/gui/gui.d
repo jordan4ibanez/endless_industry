@@ -1210,14 +1210,14 @@ public: //* BEGIN PUBLIC API.
         }
 
         ///? CheckBox.
-        bool checkBoxLogic(ref CheckBox button) {
-            button.mouseHovering = false;
+        bool checkBoxLogic(ref CheckBox checkBox) {
+            checkBox.mouseHovering = false;
             const int posX = cast(int) floor(
-                (button.position.x * currentGUIScale) + centerX);
+                (checkBox.position.x * currentGUIScale) + centerX);
             const int posY = cast(int) floor(
-                ((-button.position.y) * currentGUIScale) + centerY);
-            const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
-            const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+                ((-checkBox.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) floor(checkBox.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(checkBox.size.y * currentGUIScale);
             const Rectangle buttonRect = Rectangle(
                 posX,
                 posY,
@@ -1225,11 +1225,11 @@ public: //* BEGIN PUBLIC API.
                 sizeY);
             // If the mouse is hovering over the button.
             if (CheckCollisionPointRec(mousePos, buttonRect)) {
-                button.mouseHovering = true;
+                checkBox.mouseHovering = true;
                 // If the mouse clicks the button.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     playButtonSound();
-                    button.clickFunction();
+                    checkBox.clickFunction();
                     return true;
                 }
             }
