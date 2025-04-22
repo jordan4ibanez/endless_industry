@@ -462,8 +462,8 @@ public: //* BEGIN PUBLIC API.
             if (startScissorComponent(posX, posY, sizeX, sizeY)) {
                 return;
             }
+            // First, draw what is basically a regular button.
             startScissorComponent(posX, posY, sizeX - statusAreaHeight, sizeY);
-
             Color buttonColor = (button.mouseHovering) ? button.backgroundColorHover
                 : button.backgroundColor;
             Color borderColor = (button.mouseHovering) ? button.borderColorHover
@@ -490,6 +490,9 @@ public: //* BEGIN PUBLIC API.
                 sizeX - statusAreaHeight,
                 sizeY,
                 borderColor);
+
+            
+
             endScissorComponent();
         }
 
