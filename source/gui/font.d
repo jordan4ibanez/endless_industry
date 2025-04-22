@@ -90,7 +90,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     package Vector2 __getTextSizeSpecialFixed(string text, double fontScale = 1.0) {
-        return MeasureTextEx(font, toStringz(text), fontScale, spacing);
+        return MeasureTextEx(font, toStringz(text), baseFontSize * fontScale, spacing);
     }
 
 private: //* BEGIN INTERNAL API.
