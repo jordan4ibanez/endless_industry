@@ -1209,6 +1209,33 @@ public: //* BEGIN PUBLIC API.
             return false;
         }
 
+        ///? CheckBox.
+        bool checkBoxLogic(ref CheckBox button) {
+            button.mouseHovering = false;
+            const int posX = cast(int) floor(
+                (button.position.x * currentGUIScale) + centerX);
+            const int posY = cast(int) floor(
+                ((-button.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+            const Rectangle buttonRect = Rectangle(
+                posX,
+                posY,
+                sizeX,
+                sizeY);
+            // If the mouse is hovering over the button.
+            if (CheckCollisionPointRec(mousePos, buttonRect)) {
+                button.mouseHovering = true;
+                // If the mouse clicks the button.
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                    playButtonSound();
+                    button.clickFunction();
+                    return true;
+                }
+            }
+            return false;
+        }
+
         ///? TextPad.
         bool textPadLogic(ref TextPad textPad) {
             textPad.mouseHovering = false;
@@ -1606,6 +1633,10 @@ public: //* BEGIN PUBLIC API.
             }
             if (Button button = instanceof!Button(thisComponent)) {
                 if (buttonLogic(button)) {
+                    break;
+                }
+            } else if (CheckBox checkBox = instanceof!CheckBox(thisComponent)) {
+                if (checkBoxLogic(checkBox)) {
                     break;
                 }
             } else if (TextPad textPad = instanceof!TextPad(thisComponent)) {
