@@ -433,6 +433,29 @@ public: //* BEGIN PUBLIC API.
             endScissorComponent();
         }
 
+        ///? ImageLabel.
+        void drawImageLabel(ImageLabel imageLabel) {
+            //~ This can sometimes be 1 pixel off, but I tried my best.
+            const int posX = cast(int) floor(
+                (imageLabel.position.x * currentGUIScale) + centerX);
+            const int posY = cast(int) floor(
+                ((-imageLabel.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) round(imageLabel.size.x * currentGUIScale);
+            const int sizeY = cast(int) round(imageLabel.size.y * currentGUIScale);
+            if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+                return;
+            }
+            //! This is the debug box for the actual label.
+            // DrawRectangleLines(
+            //     posX,
+            //     posY,
+            //     sizeX,
+            //     sizeY,
+            //     Colors.BLACK);
+            // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
+            endScissorComponent();
+        }
+
         ///? Button.
         void drawButton(const ref Button button) {
             const int posX = cast(int) floor(
