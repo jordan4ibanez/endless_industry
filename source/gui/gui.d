@@ -448,14 +448,13 @@ public: //* BEGIN PUBLIC API.
                 return;
             }
             TextureHandler.drawTexture(imageLabel.__image, Vec2d(posX, -posY), Vec2d(sizeX, sizeY));
-            //! This is the debug box for the actual label.
-            DrawRectangleLines(
-                posX,
-                posY,
-                sizeX,
-                sizeY,
-                Colors.BLACK);
-
+            //! This is the debug box for the actual image label.
+            // DrawRectangleLines(
+            //     posX,
+            //     posY,
+            //     sizeX,
+            //     sizeY,
+            //     Colors.BLACK);
             endScissorComponent();
         }
 
