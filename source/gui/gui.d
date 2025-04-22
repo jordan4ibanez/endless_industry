@@ -477,7 +477,7 @@ public: //* BEGIN PUBLIC API.
             const string title = (button.text is null) ? "UNDEFINED" : button.text;
             const int adjustment = cast(int) floor(
                 (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
-                    .x * 0.5));
+                    .x * 0.5)) - (statusAreaHeight / 2);
             FontHandler.drawShadowed(
                 title,
                 posX + adjustment,
