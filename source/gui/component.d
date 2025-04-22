@@ -52,6 +52,7 @@ public:
     void function(Component) onWindowClose = (Component self) {};
 }
 
+/// Some text to label something.
 class Label : Component {
     /// What this label says on it.
     string text = null;
@@ -60,9 +61,11 @@ class Label : Component {
     Color textColor = Colors.WHITE;
 
     this() {
-        size = Vec2i(100, 32);
+        //? Size has no bearing on the label.
+        //? It is calculated dynamically.
+        //? (there are too many runtime variables to do it preprocessed)
+        size = Vec2i(0, 0);
     }
-
 }
 
 class Button : Component {
