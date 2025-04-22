@@ -53,9 +53,32 @@ public:
 }
 
 /// Some text to label something.
+/// Keep in mind: The origin is the top left like everything else.
+/// This allows it to stay scaled with everything properly. (easier for me to make)
 class Label : Component {
+package:
     /// What this label says on it.
-    string text = null;
+    string __text = null;
+
+public:
+
+    //? These are special property functions.
+    //? These automate the sizing of the actual label when assigned to.
+    //? This makes less work for the end modder.
+
+    @property string text() {
+        return __text;
+    }
+
+    @property void text(string text) {
+        import gui.font;
+        import std.math.rounding;
+
+        this.__text = text;
+        const Vec2d textSize = FontHandler.__getTextSizeSpecialFixed(text);
+        this.size.x = cast(int) round(textSize.x * 0.25);
+        this.size.y = cast(int) round(textSize.y * 0.25);
+    }
 
     /// The button text color.
     Color textColor = Colors.WHITE;
