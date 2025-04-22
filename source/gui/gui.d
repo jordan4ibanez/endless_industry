@@ -1817,6 +1817,9 @@ public: //* BEGIN PUBLIC API.
 
             ImageLabel image = new ImageLabel();
             image.image = "test.png";
+            image.scale(2);
+            image.position.x = -168;
+            image.position.y = 28;
             settingsMenu.addComponent("image", image);
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
