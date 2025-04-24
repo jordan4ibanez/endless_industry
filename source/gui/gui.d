@@ -1027,6 +1027,8 @@ public: //* BEGIN PUBLIC API.
                 drawTextBox(textBox);
             } else if (DropMenu dropMenu = instanceof!DropMenu(component)) {
                 drawDropMenu(dropMenu);
+            } else if (InventoryGUI inventory = instanceof!InventoryGUI(component)) {
+                drawInventory(inventory);
             }
         }
 
