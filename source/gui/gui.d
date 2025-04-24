@@ -1796,11 +1796,17 @@ public: //* BEGIN PUBLIC API.
 
         // Settings menu.
         {
+            import game.player;
+
             WindowGUI settingsMenu = new WindowGUI();
             settingsMenu.title = "Settings";
             settingsMenu.size.x = 800;
             settingsMenu.size.y = 800;
             settingsMenu.center();
+
+            InventoryGUI test = new InventoryGUI();
+            test.__inventory = Player.getInventory();
+            settingsMenu.addComponent("inv", test);
 
             // Label label = new Label();
             // label.text = "This is a checkbox:";
