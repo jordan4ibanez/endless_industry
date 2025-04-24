@@ -231,6 +231,7 @@ class CheckBox : Component {
     this() {
         size = Vec2i(100, 32);
         logic = &checkBoxLogic;
+        draw = &drawCheckBox;
     }
 
 }
