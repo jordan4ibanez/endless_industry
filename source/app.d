@@ -47,16 +47,14 @@ void main() {
 
 	TextureHandler.initialize();
 
+	GUI.initialize();
+
 	// SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
 	// SetTargetFPS(100);
 
 	CameraHandler.initialize();
 
 	Api.initialize();
-
-	// TODO: move this to after the texture handler is initialized.
-
-	GUI.initialize();
 
 	Map.initialize();
 
