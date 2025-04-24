@@ -7,6 +7,7 @@ import controls.mouse;
 import game.inventory;
 import graphics.colors;
 import gui.font;
+import gui.window_logic;
 import math.vec2d;
 import math.vec2i;
 import raylib;
