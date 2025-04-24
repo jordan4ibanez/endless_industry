@@ -1349,25 +1349,6 @@ public: //* BEGIN PUBLIC API.
             if (thisComponent.logic(thisComponent, center, mousePos, keyboardDoingTextInput)) {
                 break;
             }
-
-            // } else
-            // if (TextPad textPad = instanceof!TextPad(thisComponent)) {
-            //     if (textPadLogic(textPad)) {
-            //         break;
-            //     }
-            // } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
-            //     if (textBoxLogic(textBox)) {
-            //         break;
-            //     }
-            // } else if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
-            //     if (dropMenuLogic(dropMenu)) {
-            //         break;
-            //     }
-            // } else if (InventoryGUI inventory = instanceof!InventoryGUI(thisComponent)) {
-            //     if (inventoryLogic(inventory)) {
-            //         break;
-            //     }
-            // }
         }
     }
 
