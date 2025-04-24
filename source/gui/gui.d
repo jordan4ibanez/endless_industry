@@ -60,7 +60,7 @@ import utility.instance_of;
 
 static final const class GUI {
 static:
-private:
+package:
 
     /// We standardize the GUI with 1080p.
     const Vec2d standardSize = Vec2d(1920.0, 1080.0);
