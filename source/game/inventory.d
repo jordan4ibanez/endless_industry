@@ -5,6 +5,7 @@ private:
 
     int __size = 10;
     int __width = 10;
+    
 
 public:
 
