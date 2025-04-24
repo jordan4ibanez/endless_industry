@@ -40,9 +40,7 @@ public:
     }
 
     void deleteInventory(const Inventory inventory) {
-        if (length >= inventory || inventory <= 0) {
-            throw new Error("Inventory is of bounds. (doesn't exist)");
-        }
+        assert(length >= inventory && inventory <= 0, "Inventory is of bounds. (doesn't exist)");
         widths[inventory] = 0;
         items[inventory] = null;
         freeSlots.pushBack(inventory);
