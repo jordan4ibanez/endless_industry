@@ -54,7 +54,15 @@ public:
 
     void setSize(const Inventory inventory, const int size) {
         sizeCheck(size);
-        sizes[inventory] = size;
+        const int currentSize = cast(int) items[inventory].length;
+        if (size == currentSize) {
+            writeln("warning: setting size to current size. No-op");
+            return;
+        } else if (size < currentSize) {
+            items[inventory] = items[inventory][0 .. size];
+        } else {
+            items[inventory] ~= new Item[](size - currentSize);
+        }
     }
 
     int getWidth(const Inventory inventory) {
