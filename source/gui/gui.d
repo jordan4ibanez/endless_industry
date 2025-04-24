@@ -1695,6 +1695,36 @@ public: //* BEGIN PUBLIC API.
             return hoverOver;
         }
 
+        ///? Inventory.
+        bool inventoryLogic(ref InventoryGUI button) {
+            button.mouseHovering = false;
+            const int posX = cast(int) floor(
+                (button.position.x * currentGUIScale) + centerX);
+            const int posY = cast(int) floor(
+                ((-button.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+            const Rectangle buttonRect = Rectangle(
+                posX,
+                posY,
+                sizeX,
+                sizeY);
+
+            writeln("hi");
+
+            // If the mouse is hovering over the button.
+            // if (CheckCollisionPointRec(mousePos, buttonRect)) {
+            //     button.mouseHovering = true;
+            //     // If the mouse clicks the button.
+            //     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+            //         playButtonSound();
+            //         button.clickFunction();
+            //         return true;
+            //     }
+            // }
+            return false;
+        }
+
         //? Focused component gets priority over everything else.
         //? It can also tell the logic to literally skip everything else in 
         //? whatever situations it deems necessary.
@@ -1735,6 +1765,10 @@ public: //* BEGIN PUBLIC API.
                 }
             } else if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
                 if (dropMenuLogic(dropMenu)) {
+                    break;
+                }
+            } else if (InventoryGUI inventory = instanceof!InventoryGUI(thisComponent)) {
+                if (inventoryLogic(inventory)) {
                     break;
                 }
             }
