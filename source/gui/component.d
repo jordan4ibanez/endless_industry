@@ -461,6 +461,7 @@ public:
     this() {
         size = Vec2i(200, 20);
         logic = &inventoryLogic;
+        draw = &drawInventory;
     }
 
 }
