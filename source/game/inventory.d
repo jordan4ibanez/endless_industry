@@ -23,29 +23,33 @@ union Inventory {
     alias value this;
 }
 
-Inventory newInventory(const int size = 10, const int width = 10) {
-    sizeCheck(size);
-    widthCheck(width);
-    Option!int slotResult = freeSlots.popFront();
-    int slot = 0;
-    // This means there was a free slot available and it's going to use it.
-    if (slotResult.isSome()) {
-        slot = slotResult.unwrap();
-        __widths[slot] = width;
-        __items[slot] = new Item[](size);
-    } else {
-        slot = __length;
-        __widths ~= width;
-        __items ~= new Item[](size);
+//? This is just a facade to make it easier to figure out what is calling what.
+static const struct InventoryHandler {
+static:
+    Inventory newInventory(const int size = 10, const int width = 10) {
+        sizeCheck(size);
+        widthCheck(width);
+        Option!int slotResult = freeSlots.popFront();
+        int slot = 0;
+        // This means there was a free slot available and it's going to use it.
+        if (slotResult.isSome()) {
+            slot = slotResult.unwrap();
+            __widths[slot] = width;
+            __items[slot] = new Item[](size);
+        } else {
+            slot = __length;
+            __widths ~= width;
+            __items ~= new Item[](size);
+        }
+        return Inventory(slot);
     }
-    return Inventory(slot);
-}
 
-void deleteInventory(const Inventory inventory) {
-    boundsCheck(inventory);
-    __widths[inventory] = 0;
-    __items[inventory] = null;
-    freeSlots.pushBack(inventory);
+    void deleteInventory(const Inventory inventory) {
+        boundsCheck(inventory);
+        __widths[inventory] = 0;
+        __items[inventory] = null;
+        freeSlots.pushBack(inventory);
+    }
 }
 
 int getSize(const Inventory inventory) {
