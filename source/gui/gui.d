@@ -367,8 +367,10 @@ public: //* BEGIN PUBLIC API.
         const int workAreaSizeX = cast(int) floor(currentWindow.size.x * currentGUIScale);
         const int workAreaSizeY = cast(int) floor(currentWindow.size.y * currentGUIScale);
         const int statusAreaHeight = cast(int) floor(currentGUIScale * 32.0);
-        const int centerX = cast(int) floor(workAreaPosX + (workAreaSizeX * 0.5));
-        const int centerY = cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5));
+        const Vec2i center = Vec2i(
+            cast(int) floor(workAreaPosX + (workAreaSizeX * 0.5)),
+            cast(int) floor(workAreaPosY + (workAreaSizeY * 0.5))
+        );
         // All components will only be able to render within the work area.
         const int __minX = workAreaPosX;
         const int __maxX = workAreaPosX + workAreaSizeX - 1;
