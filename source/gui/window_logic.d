@@ -75,3 +75,45 @@ void generalWindowLogic(ref bool mouseFocusedOnGUI, const ref Vec2d centerPoint)
         }
     }
 }
+
+/// The logic for when a window is resized.
+void windowResizeLogic(ref bool mouseFocusedOnGUI) {
+    if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
+        GUI.resizing = false;
+        GUI.playButtonSound();
+        return;
+    }
+    mouseFocusedOnGUI = true;
+    const int posX = GUI.currentWindow.position.x;
+    const int posY = GUI.currentWindow.position.y;
+    const Vector2 mousePosInGUI = GUI.getMousePositionInGUI();
+    const double scaledDeltaX = GUI.mouseWindowDelta.x * GUI.inverseCurrentGUIScale;
+    const double scaledDeltaY = GUI.mouseWindowDelta.y * GUI.inverseCurrentGUIScale;
+    const double scaledMousePosX = mousePosInGUI.x * GUI.inverseCurrentGUIScale;
+    const double scaledMousePosY = mousePosInGUI.y * GUI.inverseCurrentGUIScale;
+    const int oldSizeX = GUI.currentWindow.size.x;
+    const int oldSizeY = GUI.currentWindow.size.y;
+    GUI.currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
+    if (!GUI.windowXInBounds(GUI.currentWindow)) {
+        GUI.currentWindow.size.x = oldSizeX;
+    }
+    GUI.currentWindow.size.y = cast(int) floor((scaledMousePosY + scaledDeltaY) - posY);
+    if (!GUI.windowYInBounds(GUI.currentWindow)) {
+        GUI.currentWindow.size.y = oldSizeY;
+    }
+    if (GUI.currentWindow.size.x < GUI.currentWindow.minSize.x) {
+        GUI.currentWindow.size.x = GUI.currentWindow.minSize.x;
+    }
+    if (GUI.currentWindow.size.y < GUI.currentWindow.minSize.y) {
+        GUI.currentWindow.size.y = GUI.currentWindow.minSize.y;
+    }
+
+    if (oldSizeX != GUI.currentWindow.size.x || oldSizeY != GUI.currentWindow.size.y) {
+        Vec2i newSize = GUI.currentWindow.size;
+        newSize.y -= 32 + 1;
+        newSize.x += 1;
+        foreach (component; GUI.currentWindow.componentDatabase) {
+            component.onWindowResize(component, newSize);
+        }
+    }
+}
