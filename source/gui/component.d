@@ -383,10 +383,13 @@ package:
 
 public:
 
-    //? State behavior.
-
+package:
     /// Which inventory this component is attached to.
-    Inventory inventory = Inventory(0);
+    Inventory __inventory = Inventory(0);
+
+    //todo: a function property for setting the inventory.
+public:
+    //? State behavior.
 
     /// Which slot the mouse is hovering over.
     int mouseHovering = -1;
