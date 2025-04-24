@@ -1360,9 +1360,9 @@ public: //* BEGIN PUBLIC API.
         bool checkBoxLogic(ref CheckBox checkBox) {
             checkBox.mouseHovering = false;
             const int posX = cast(int) floor(
-                (checkBox.position.x * currentGUIScale) + centerX);
+                (checkBox.position.x * currentGUIScale) + center.x);
             const int posY = cast(int) floor(
-                ((-checkBox.position.y) * currentGUIScale) + centerY);
+                ((-checkBox.position.y) * currentGUIScale) + center.y);
             const int sizeX = cast(int) floor(checkBox.size.x * currentGUIScale);
             const int sizeY = cast(int) floor(checkBox.size.y * currentGUIScale);
             const Rectangle buttonRect = Rectangle(
@@ -1388,9 +1388,9 @@ public: //* BEGIN PUBLIC API.
         bool textPadLogic(ref TextPad textPad) {
             textPad.mouseHovering = false;
             const int posX = cast(int) floor(
-                (textPad.position.x * currentGUIScale) + centerX);
+                (textPad.position.x * currentGUIScale) + center.x);
             const int posY = cast(int) floor(
-                ((-textPad.position.y) * currentGUIScale) + centerY);
+                ((-textPad.position.y) * currentGUIScale) + center.y);
             const int sizeX = cast(int) floor(textPad.size.x * currentGUIScale);
             const int sizeY = cast(int) floor(textPad.size.y * currentGUIScale);
             const Rectangle buttonRect = Rectangle(
@@ -1530,9 +1530,9 @@ public: //* BEGIN PUBLIC API.
         bool textBoxLogic(ref TextBox textBox) {
             textBox.mouseHovering = false;
             const int posX = cast(int) floor(
-                (textBox.position.x * currentGUIScale) + centerX);
+                (textBox.position.x * currentGUIScale) + center.x);
             const int posY = cast(int) floor(
-                ((-textBox.position.y) * currentGUIScale) + centerY);
+                ((-textBox.position.y) * currentGUIScale) + center.y);
             const int sizeX = cast(int) floor(textBox.size.x * currentGUIScale);
             const int sizeY = cast(int) floor(textBox.size.y * currentGUIScale);
             const Rectangle buttonRect = Rectangle(
@@ -1673,9 +1673,9 @@ public: //* BEGIN PUBLIC API.
                 dropMenu.droppedDown = false;
             }
             const int posX = cast(int) floor(
-                (dropMenu.position.x * currentGUIScale) + centerX);
+                (dropMenu.position.x * currentGUIScale) + center.x);
             const int posY = cast(int) floor(
-                ((-dropMenu.position.y) * currentGUIScale) + centerY);
+                ((-dropMenu.position.y) * currentGUIScale) + center.y);
             const int sizeX = cast(int) floor(dropMenu.size.x * currentGUIScale);
             const int sizeY = cast(int) floor(dropMenu.size.y * currentGUIScale);
             const Rectangle buttonRect = Rectangle(
@@ -1759,9 +1759,9 @@ public: //* BEGIN PUBLIC API.
             inv.mouseHovering = -1;
 
             const int posX = cast(int) floor(
-                (inv.position.x * currentGUIScale) + centerX);
+                (inv.position.x * currentGUIScale) + center.x);
             const int posY = cast(int) floor(
-                ((-inv.position.y) * currentGUIScale) + centerY);
+                ((-inv.position.y) * currentGUIScale) + center.y);
             const int sizeX = cast(int) floor(cast(double) inv.size.x * currentGUIScale);
             const int sizeY = cast(int) floor(cast(double) inv.size.y * currentGUIScale);
 
