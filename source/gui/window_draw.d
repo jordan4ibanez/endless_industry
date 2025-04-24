@@ -5,6 +5,8 @@ import gui.gui;
 import raylib : BeginScissorMode, Color, DrawLineEx, DrawRectangle, DrawRectangleLines, EndScissorMode, Vector2;
 import std.math.rounding;
 
+package:
+
 void drawWindowFrame() {
     const int posX = cast(int) floor(
         GUI.centerPoint.x + (GUI.currentWindow.position.x * GUI.currentGUIScale));

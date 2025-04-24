@@ -11,6 +11,8 @@ import game.inventory;
 import game.item;
 import std.math.rounding;
 
+package:
+
 ///? Base component.
 void drawComponent(ref Component __self, const ref Vec2i center, const StartScissorFunction startScissorComponent,
     const EndScissorFunction endScissorComponent) {

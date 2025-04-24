@@ -13,6 +13,8 @@ import std.algorithm.mutation;
 import std.array;
 import std.math.rounding;
 
+package:
+
 ///? Base component.
 bool baseLogic(ref Component __self, const ref Vec2i center, const ref Vector2 mousePos,
     ref bool keyboardDoingTextInput) {

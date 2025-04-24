@@ -7,6 +7,8 @@ import math.vec2i;
 import raylib : CheckCollisionPointRec, Rectangle, Vector2, Vector2Subtract;
 import std.math.rounding;
 
+package:
+
 /// This is the general logic of the window itself.
 /// Not the components inside the window. That is a separate function.
 /// The mouse collision, drag/resize initialization.
