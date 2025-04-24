@@ -1,13 +1,18 @@
 module game.inventory;
 
-struct Inventory {
+import game.item;
+
+final class Inventory {
 private:
 
     int __size = 10;
     int __width = 10;
-    
+    Item[] items;
 
 public:
+
+    this() {         
+    }
 
     @property void size(int size) {
         __size = size;
@@ -26,3 +31,5 @@ public:
     }
 
 }
+
+// todo: data orient this
