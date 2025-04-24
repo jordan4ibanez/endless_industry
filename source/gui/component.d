@@ -274,6 +274,7 @@ class TextPad : Component {
     this() {
         size = Vec2i(100, 100);
         logic = &textPadLogic;
+        draw = &drawTextPad;
     }
 
 }
