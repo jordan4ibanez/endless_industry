@@ -993,21 +993,32 @@ public: //* BEGIN PUBLIC API.
             //     return;
             // }
 
-            const int size = inv.__inventory.getSize();
+            // This is literally an arbitrary number I came up with.
+            const int slotSize = cast(int) floor(128.0 * currentGUIScale);
+
+            // const int size = inv.__inventory.getSize();
+
+            const Item[] __itemsArray = inv.__inventory.getInventoryItems();
+            const Item* itemsPointer = __itemsArray.ptr;
+            const int size = cast(int) __itemsArray.length;
             const int width = inv.__inventory.getWidth();
             const int rows = cast(int) ceil(cast(double) size / cast(double) width);
 
-            
-
-            writeln(rows);
+            // Todo: draw an item.
+            // foreach (i; 0 .. size) {
+            //     const Item* item = (itemsPointer + i);
+            //     if (item.id == 0) {
+            //         continue;
+            //     }
+            // }
 
             //! This is the debug box for the actual label.
-            // DrawRectangleLines(
-            //     posX,
-            //     posY,
-            //     sizeX,
-            //     sizeY,
-            //     Colors.BLACK);
+            DrawRectangleLines(
+                posX,
+                posY,
+                sizeX,
+                sizeY,
+                Colors.BLACK);
 
             // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
             // endScissorComponent();
