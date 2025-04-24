@@ -340,3 +340,101 @@ SKIP_DRAW_TEXT_IN_PAD:
         borderColor);
     endScissorComponent();
 }
+
+///? TextBox.
+void drawTextBox(ref Component __self, const ref Vec2i center, const StartScissorFunction startScissorComponent,
+    const EndScissorFunction endScissorComponent) {
+
+    const TextBox textBox = cast(TextBox) __self;
+
+    const int posX = cast(int) floor(
+        (textBox.position.x * GUI.currentGUIScale) + center.x);
+    const int posY = cast(int) floor(
+        ((-textBox.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) floor(textBox.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(textBox.size.y * GUI.currentGUIScale);
+    if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+        return;
+    }
+    DrawRectangle(
+        posX,
+        posY,
+        sizeX,
+        sizeY,
+        textBox.backgroundColor);
+    // This is ultra extremely inefficient.
+    // But, it works, probably.
+    double currentWidth = 0;
+    double width = 0;
+    bool usePlaceHolder = (textBox.text is null || textBox.text.length == 0);
+    const string text = (usePlaceHolder) ? textBox.placeholderText : textBox.text;
+    const Color textColor = (usePlaceHolder) ? textBox.placeholderTextColor : textBox.textColor;
+    int adjustment = 0;
+    const double totalSize = FontHandler.getTextSize(textBox.text, 0.25).x;
+
+    if (text is null || text.length <= 0) {
+        goto SKIP_DRAW_TEXT_IN_BOX;
+    }
+
+    if (totalSize > sizeX) {
+        adjustment = cast(int) round((totalSize - sizeX) + (3 * GUI.currentGUIScale));
+    }
+    FontHandler.draw(text, posX - adjustment, posY, 0.25, textColor);
+    for (int i = 0; i < text.length; i++) {
+        bool shouldDrawCursor() {
+            return GUI.cursorVisible && GUI.focusedComponent == textBox && textBox.cursorPosition == i;
+        }
+
+        const char thisChar = text[i];
+        width = FontHandler.getCharWidth(thisChar, 0.25);
+        currentWidth += width;
+        // Draw the cursor if the current focus is on this text pad.
+        // This will draw it before the current character.
+        if (shouldDrawCursor()) {
+            double w = currentWidth - width;
+            if (w < 0) {
+                w = 0;
+            }
+            DrawRectangle(
+                cast(int) floor(posX + w + (GUI.currentGUIScale * 0.5)) - adjustment,
+                posY,
+                cast(int) floor(2 * GUI.currentGUIScale),
+                cast(int) floor(32 * GUI.currentGUIScale),
+                Colors.BLUE);
+        }
+        // if (true) {
+        //     DrawRectangleLines(
+        //         cast(int) floor(posX + (currentWidth - width)),
+        //         posY,
+        //         cast(int) floor(width),
+        //         cast(int) floor(32 * currentGUIScale),
+        //         Colors.BLUE);
+        //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY,
+        //         0.05, Colors.GREEN);
+        // }
+    }
+
+SKIP_DRAW_TEXT_IN_BOX:
+
+    // If the text pad cursor is at the literal last position, it needs to be drawn here.
+    if (!usePlaceHolder && GUI.cursorVisible && GUI.focusedComponent == textBox && textBox
+        .cursorPosition == textBox
+        .text.length) {
+        const double w = currentWidth;
+        DrawRectangle(
+            cast(int) floor(posX + w + (GUI.currentGUIScale * 0.5)) - adjustment,
+            posY,
+            cast(int) floor(2 * GUI.currentGUIScale),
+            cast(int) floor(32 * GUI.currentGUIScale),
+            Colors.BLUE);
+    }
+    const Color borderColor = textBox.mouseHovering ? textBox.borderColorHover : textBox
+        .borderColor;
+    DrawRectangleLines(
+        posX,
+        posY,
+        sizeX,
+        sizeY,
+        borderColor);
+    endScissorComponent();
+}
