@@ -413,11 +413,6 @@ public: //* BEGIN PUBLIC API.
             EndScissorMode();
         }
 
-        //! NOTE: These are inlined because they should ONLY be able to be accessed in this function.
-        //! DO NOT take these functions out of this function.
-
-
-
         ///? CheckBox.
         void drawCheckBox(const ref CheckBox checkBox) {
             const int posX = cast(int) floor(
