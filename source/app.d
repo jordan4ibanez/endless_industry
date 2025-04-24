@@ -50,11 +50,13 @@ void main() {
 	// SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
 	// SetTargetFPS(100);
 
-	GUI.initialize();
-
 	CameraHandler.initialize();
 
 	Api.initialize();
+
+	// TODO: move this to after the texture handler is initialized.
+
+	GUI.initialize();
 
 	Map.initialize();
 

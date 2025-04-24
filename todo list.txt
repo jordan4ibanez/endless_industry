@@ -2,6 +2,8 @@
 
 inventory
 
+move the GUI initializer back to after the texture initializer is created
+
 drop down menu for menu button sounds
 retro - current model f sound
 button - a clack button sound
