@@ -15,27 +15,27 @@ private:
     LinkedHashQueue!int freeSlots = LinkedHashQueue!int();
 
     int length = 0;
-    int[] size;
-    int[] width;
+    int[] sizes;
+    int[] widths;
     Item[][] items;
 
 public:
 
     Inventory newInventory(int size = 10, int width = 10) {
-        Option!int slotResult = freeSlots.popBack();
+        Option!int slotResult = freeSlots.popFront();
 
         int slot = 0;
 
         // This means there was a free slot available and it's going to use it.
         if (slotResult.isSome()) {
             slot = slotResult.unwrap();
-            this.size[slot] = size;
-            this.width[slot] = width;
+            sizes[slot] = size;
+            widths[slot] = width;
             items[slot] = new Item[](size);
         } else {
             slot = this.length;
-            this.size ~= size;
-            this.width ~= width;
+            sizes ~= size;
+            widths ~= width;
             items ~= new Item[](size);
         }
 
@@ -46,6 +46,12 @@ public:
         if (length >= inventory || inventory < 0) {
             throw new Error("Inventory is of bounds. (doesn't exist)");
         }
+
+        sizes[inventory] = 0;
+        widths[inventory] = 0;
+        items[inventory] = null;
+
+        freeSlots.pushBack(inventory);
     }
 
     // @property int size() {
