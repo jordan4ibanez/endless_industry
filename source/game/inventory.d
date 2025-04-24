@@ -1,5 +1,6 @@
 module game.inventory;
 
+public import optibrev;
 import game.item;
 import linked_hash_queue;
 import std.stdio;

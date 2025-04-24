@@ -2,6 +2,7 @@ module game.player;
 
 import controls.keyboard;
 import core.memory;
+import game.inventory;
 import game.map;
 import graphics.colors;
 import graphics.render;
