@@ -3,6 +3,7 @@ module game.inventory;
 import game.item;
 import linked_hash_queue;
 
+//? That's right, the inventory is actually just an integer in disguise.
 public alias Inventory = int;
 
 static final const class InventoryHandler {
@@ -41,7 +42,11 @@ public:
         return 0;
     }
 
-
+    void deleteInventory(Inventory inventory) {
+        if (length >= inventory || inventory < 0) {
+            throw new Error("Inventory is of bounds. (doesn't exist)");
+        }
+    }
 
     // @property int size() {
     //     return __size;
