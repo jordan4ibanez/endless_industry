@@ -185,6 +185,7 @@ class Button : Component {
     this() {
         size = Vec2i(100, 32);
         logic = &buttonLogic;
+        draw = &drawButton;
     }
 
 }
