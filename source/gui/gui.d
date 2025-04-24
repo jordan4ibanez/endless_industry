@@ -994,15 +994,57 @@ public: //* BEGIN PUBLIC API.
             // }
 
             // This is literally an arbitrary number I came up with.
-            const int slotSize = cast(int) floor(128.0 * currentGUIScale);
+            const int slotSize = cast(int) floor(48.0 * currentGUIScale);
+            const int padding = cast(int) floor(currentGUIScale * 4);
 
             // const int size = inv.__inventory.getSize();
 
             const Item[] __itemsArray = inv.__inventory.getInventoryItems();
             const Item* itemsPointer = __itemsArray.ptr;
-            const int size = cast(int) __itemsArray.length;
-            const int width = inv.__inventory.getWidth();
-            const int rows = cast(int) ceil(cast(double) size / cast(double) width);
+            const int sizeInv = cast(int) __itemsArray.length;
+            const int widthInv = inv.__inventory.getWidth();
+            const int rows = cast(int) ceil(cast(double) sizeInv / cast(double) widthInv);
+
+            // int currentRow = 0;
+            int currentColumn = 0;
+
+            int currentWidth = 0;
+            int currentHeight = 0;
+
+            writeln(inv.mouseHovering);
+
+            // Draw the slots of the inventory.
+            foreach (i; 0 .. sizeInv) {
+
+                const hovering = (inv.mouseHovering == i);
+
+                const Color borderColor = (hovering) ? inv.borderColorHover : inv.borderColorHover;
+                const Color slotColor = (hovering) ? inv.slotColorHover : inv.slotColor;
+
+                DrawRectangle(
+                    posX + currentWidth,
+                    posY + currentHeight,
+                    slotSize,
+                    slotSize,
+                    slotColor);
+
+                DrawRectangleLines(
+                    posX + currentWidth,
+                    posY + currentHeight,
+                    slotSize,
+                    slotSize,
+                    borderColor);
+
+                currentWidth += (slotSize + padding);
+
+                currentColumn++;
+                if (currentColumn >= widthInv) {
+                    currentColumn = 0;
+                    currentWidth = 0;
+
+                    currentHeight += (slotSize + padding);
+                }
+            }
 
             // Todo: draw an item.
             // foreach (i; 0 .. size) {
@@ -1013,12 +1055,12 @@ public: //* BEGIN PUBLIC API.
             // }
 
             //! This is the debug box for the actual label.
-            DrawRectangleLines(
-                posX,
-                posY,
-                sizeX,
-                sizeY,
-                Colors.BLACK);
+            // DrawRectangleLines(
+            //     posX,
+            //     posY,
+            //     sizeX,
+            //     sizeY,
+            //     Colors.BLACK);
 
             // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
             // endScissorComponent();
