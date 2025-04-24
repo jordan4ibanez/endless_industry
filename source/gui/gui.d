@@ -1928,7 +1928,8 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.center();
 
             InventoryGUI test = new InventoryGUI();
-            test.__inventory = Player.getInventory();
+            test.inventory = Player.getInventory();
+            test.center();
             settingsMenu.addComponent("inv", test);
 
             // Label label = new Label();
