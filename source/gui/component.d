@@ -369,6 +369,18 @@ class DropMenu : Component {
 class InventoryGUI : Component {
     import game.inventory;
 
+package:
+    int newSize = 0;
+    int oldSize = -1;
+
+    void calculateSize() {
+        import std.stdio;
+
+        writeln("hitting");
+    }
+
+public:
+
     //? State behavior.
 
     /// Which inventory this component is attached to.
