@@ -2,6 +2,7 @@ module game.inventory;
 
 import game.item;
 import linked_hash_queue;
+import std.stdio;
 
 //? That's right, the inventory is actually just an integer in disguise.
 public alias Inventory = int;
@@ -28,12 +29,10 @@ public:
         // This means there was a free slot available and it's going to use it.
         if (slotResult.isSome()) {
             slot = slotResult.unwrap();
-            sizes[slot] = size;
             widths[slot] = width;
             items[slot] = new Item[](size);
         } else {
             slot = this.length;
-            sizes ~= size;
             widths ~= width;
             items ~= new Item[](size);
         }
@@ -44,14 +43,13 @@ public:
         if (length >= inventory || inventory < 0) {
             throw new Error("Inventory is of bounds. (doesn't exist)");
         }
-        sizes[inventory] = 0;
         widths[inventory] = 0;
         items[inventory] = null;
         freeSlots.pushBack(inventory);
     }
 
     int getSize(const Inventory inventory) {
-        return sizes[inventory];
+        return cast(int) items[inventory].length;
     }
 
     void setSize(const Inventory inventory, const int size) {
