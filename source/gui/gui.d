@@ -982,13 +982,10 @@ public: //* BEGIN PUBLIC API.
 
         ///? Inventory.
         void drawInventory(InventoryGUI inv) {
-
             const int posX = cast(int) floor(
                 (inv.position.x * currentGUIScale) + centerX);
-
             const int posY = cast(int) floor(
                 ((-inv.position.y) * currentGUIScale) + centerY);
-
             const int sizeX = cast(int) round(cast(double) inv.size.x * currentGUIScale);
             const int sizeY = cast(int) round(cast(double) inv.size.y * currentGUIScale);
 
