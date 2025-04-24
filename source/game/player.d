@@ -1,8 +1,8 @@
 module game.player;
 
+public import game.inventory;
 import controls.keyboard;
 import core.memory;
-import game.inventory;
 import game.map;
 import graphics.colors;
 import graphics.render;
