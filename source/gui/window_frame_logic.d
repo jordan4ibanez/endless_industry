@@ -1,4 +1,4 @@
-module gui.window_logic;
+module gui.window_frame_logic;
 
 import controls.mouse;
 import gui.gui;

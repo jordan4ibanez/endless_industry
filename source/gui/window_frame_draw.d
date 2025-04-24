@@ -1,4 +1,4 @@
-module gui.window_draw;
+module gui.window_frame_draw;
 
 import gui.font;
 import gui.gui;
