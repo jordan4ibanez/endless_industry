@@ -51,6 +51,7 @@ private:
     double animationTimer = 0;
     string[] __frameNames = null;
     OutputRect* frames = null;
+    Inventory inventory;
 
 public: //* BEGIN PUBLIC API.
 
@@ -82,6 +83,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         this.__frameNames = null;
+        inventory = InventoryHandler.newInventory();
 
     }
 
