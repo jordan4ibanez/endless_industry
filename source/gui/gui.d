@@ -1325,8 +1325,6 @@ public: //* BEGIN PUBLIC API.
             __preprocessedMousePos.x + __mouseDumper, __preprocessedMousePos.y + __mouseDumper)
             : __preprocessedMousePos.toRaylib();
 
-        bool doSecondPass = true;
-
         ///? Button.
         bool buttonLogic(ref Button button) {
             button.mouseHovering = false;
@@ -1683,7 +1681,6 @@ public: //* BEGIN PUBLIC API.
                 sizeY);
             // If the mouse is hovering over the button.
             if (CheckCollisionPointRec(mousePos, buttonRect)) {
-                doSecondPass = false;
                 dropMenu.mouseHovering = true;
                 // If the mouse clicks the button.
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
@@ -1728,7 +1725,6 @@ public: //* BEGIN PUBLIC API.
 
                 if (CheckCollisionPointRec(mousePos, collisionBox)) {
                     dropMenu.hoverSelection = cast(int) __index;
-                    doSecondPass = false;
                     hoverOver = true;
                     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                         dropMenu.selection = cast(int) __index;
@@ -1747,7 +1743,6 @@ public: //* BEGIN PUBLIC API.
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                 dropMenu.droppedDown = false;
                 focusedComponent = null;
-                doSecondPass = false;
                 dropMenu.onClose(dropMenu);
                 playButtonSound();
             }
