@@ -979,6 +979,33 @@ public: //* BEGIN PUBLIC API.
             endScissorComponent();
         }
 
+        ///? Inventory.
+        void drawInventory(InventoryGUI label) {
+            //~ This can sometimes be 1 pixel off, but I tried my best.
+            const int posX = cast(int) floor(
+                (label.position.x * currentGUIScale) + centerX);
+            const int posY = cast(int) floor(
+                ((-label.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) round(label.size.x * currentGUIScale);
+            const int sizeY = cast(int) round(label.size.y * currentGUIScale);
+            // if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+            //     return;
+            // }
+
+            writeln("hello");
+
+            //! This is the debug box for the actual label.
+            // DrawRectangleLines(
+            //     posX,
+            //     posY,
+            //     sizeX,
+            //     sizeY,
+            //     Colors.BLACK);
+
+            // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
+            // endScissorComponent();
+        }
+
         //! Logic flow begins here.
 
         //? Draw everything as normal, excluding focused expandable components.
