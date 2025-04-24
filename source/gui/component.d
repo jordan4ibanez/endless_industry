@@ -20,6 +20,8 @@ package:
     // The ID of this component.
     string componentID = null;
 
+    void function() draw = () {};
+
 public:
 
     // The position this component has in the window's work area.
