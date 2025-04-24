@@ -7,6 +7,12 @@ import math.vec2i;
 import raylib : CheckCollisionPointRec, Rectangle, Vector2;
 import std.math.rounding;
 
+///? Base component.
+bool baseLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center,
+    const ref Vector2 mousePos) {
+    return false;
+}
+
 ///? Button.
 bool buttonLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center, const ref Vector2 mousePos) {
     Button button = cast(Button) __self;
