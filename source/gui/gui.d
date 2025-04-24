@@ -1025,17 +1025,17 @@ public: //* BEGIN PUBLIC API.
                 const Color slotColor = (hovering) ? inv.slotColorHover : inv.slotColor;
 
                 DrawRectangle(
-                    posX + currentWidth,
-                    posY + currentHeight,
-                    slotSize,
-                    slotSize,
+                    posX + cast(int) round(currentWidth),
+                    posY + cast(int) round(currentHeight),
+                    cast(int) floor(slotSize),
+                    cast(int) floor(slotSize),
                     slotColor);
 
                 DrawRectangleLines(
-                    posX + currentWidth,
-                    posY + currentHeight,
-                    slotSize,
-                    slotSize,
+                    posX + cast(int) round(currentWidth),
+                    posY + cast(int) round(currentHeight),
+                    cast(int) floor(slotSize),
+                    cast(int) floor(slotSize),
                     borderColor);
 
                 currentWidth += (slotSize + padding);
