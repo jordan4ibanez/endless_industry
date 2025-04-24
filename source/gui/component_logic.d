@@ -1,10 +1,14 @@
 module gui.component_logic;
 
+import controls.keyboard;
 import controls.mouse;
 import gui.component;
+import gui.font;
 import gui.gui;
 import math.vec2i;
 import raylib : CheckCollisionPointRec, Rectangle, Vector2;
+import std.algorithm.mutation;
+import std.array;
 import std.math.rounding;
 
 ///? Base component.
