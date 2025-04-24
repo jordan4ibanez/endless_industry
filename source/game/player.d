@@ -64,6 +64,15 @@ public: //* BEGIN PUBLIC API.
         this.__frameNames = frames;
     }
 
+    void initialize() {
+        inventory = InventoryHandler.newInventory();
+        // writeln(inventory.getSize());
+        // writeln("id: ", inventory.id);
+        // writeln("matches? ", inventory.sizeof == int.sizeof);
+        // inventory.setSize(1);
+        // writeln(inventory.getInventoryItems);
+    }
+
     void finalize() {
         if (__frameNames == null) {
             throw new Error("Player frames were never set.");
@@ -83,12 +92,6 @@ public: //* BEGIN PUBLIC API.
         }
 
         this.__frameNames = null;
-        inventory = InventoryHandler.newInventory();
-        // writeln(inventory.getSize());
-        // writeln("id: ", inventory.id);
-        // writeln("matches? ", inventory.sizeof == int.sizeof);
-        // inventory.setSize(1);
-        // writeln(inventory.getInventoryItems);
     }
 
     Inventory getInventory() {
