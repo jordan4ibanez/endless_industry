@@ -66,6 +66,7 @@ public: //* BEGIN PUBLIC API.
 
     void initialize() {
         inventory = InventoryHandler.newInventory();
+        // inventory.setSize(1);
         // writeln(inventory.getSize());
         // writeln("id: ", inventory.id);
         // writeln("matches? ", inventory.sizeof == int.sizeof);
