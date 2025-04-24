@@ -1074,6 +1074,8 @@ public: //* BEGIN PUBLIC API.
             if (component == focusedComponent) {
                 continue;
             }
+            component.draw(component, center, &startScissorComponent, &endScissorComponent);
+
             // if (Label label = instanceof!Label(component)) {
             //     drawLabel(label);
             // } else if (ImageLabel imageLabel = instanceof!ImageLabel(component)) {
