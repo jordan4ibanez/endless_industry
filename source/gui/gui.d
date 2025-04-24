@@ -4,6 +4,7 @@ public import gui.window_gui;
 import audio.audio;
 import controls.keyboard;
 import controls.mouse;
+import game.inventory;
 import graphics.colors;
 import gui.font;
 import math.vec2d;
@@ -980,19 +981,25 @@ public: //* BEGIN PUBLIC API.
         }
 
         ///? Inventory.
-        void drawInventory(InventoryGUI label) {
+        void drawInventory(InventoryGUI inv) {
             //~ This can sometimes be 1 pixel off, but I tried my best.
             const int posX = cast(int) floor(
-                (label.position.x * currentGUIScale) + centerX);
+                (inv.position.x * currentGUIScale) + centerX);
             const int posY = cast(int) floor(
-                ((-label.position.y) * currentGUIScale) + centerY);
-            const int sizeX = cast(int) round(label.size.x * currentGUIScale);
-            const int sizeY = cast(int) round(label.size.y * currentGUIScale);
+                ((-inv.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) round(inv.size.x * currentGUIScale);
+            const int sizeY = cast(int) round(inv.size.y * currentGUIScale);
             // if (startScissorComponent(posX, posY, sizeX, sizeY)) {
             //     return;
             // }
 
-            writeln("hello");
+            const int size = inv.__inventory.getSize();
+            const int width = inv.__inventory.getWidth();
+            const int rows = cast(int) ceil(cast(double) size / cast(double) width);
+
+            
+
+            writeln(rows);
 
             //! This is the debug box for the actual label.
             // DrawRectangleLines(
