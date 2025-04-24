@@ -1799,14 +1799,6 @@ public: //* BEGIN PUBLIC API.
                 break;
             }
 
-            // if (Button button = instanceof!Button(thisComponent)) {
-            //     if (buttonLogic(button)) {
-            //         break;
-            //     }
-            // if (CheckBox checkBox = instanceof!CheckBox(thisComponent)) {
-            //     if (checkBoxLogic(checkBox)) {
-            //         break;
-            //     }
             // } else
             // if (TextPad textPad = instanceof!TextPad(thisComponent)) {
             //     if (textPadLogic(textPad)) {
