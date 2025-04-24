@@ -18,6 +18,7 @@ Item[][] __items;
 public:
 
 //? That's right, the inventory is actually just an integer in disguise.
+// I never use unions but now I can say I have.
 union Inventory {
     int value = 0;
     alias value this;
