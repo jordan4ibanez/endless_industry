@@ -1653,7 +1653,7 @@ public: //* BEGIN PUBLIC API.
                 continue;
             }
 
-            if (thisComponent.logic(thisComponent, currentGUIScale, center, mousePos)) {
+            if (thisComponent.logic(thisComponent, currentGUIScale, center, mousePos, keyboardDoingTextInput)) {
                 break;
             }
 
