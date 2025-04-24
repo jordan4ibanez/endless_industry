@@ -17,7 +17,7 @@ void drawComponent(ref Component __self, const ref Vec2i center, const StartScis
 void drawLabel(ref Component __self, const ref Vec2i center, const StartScissorFunction startScissorComponent,
     const EndScissorFunction endScissorComponent) {
 
-    Label label = cast(Label) __self;
+    const Label label = cast(Label) __self;
     //~ This can sometimes be 1 pixel off, but I tried my best.
     const int posX = cast(int) floor(
         (label.position.x * GUI.currentGUIScale) + center.x);
@@ -46,7 +46,7 @@ void drawImageLabel(ref Component __self, const ref Vec2i center, const StartSci
     const EndScissorFunction endScissorComponent) {
     import graphics.texture;
 
-    ImageLabel imageLabel = cast(ImageLabel) __self;
+    const ImageLabel imageLabel = cast(ImageLabel) __self;
 
     //~ This can sometimes be 1 pixel off, but I tried my best.
     const int posX = cast(int) floor(
@@ -72,7 +72,7 @@ void drawImageLabel(ref Component __self, const ref Vec2i center, const StartSci
 ///? Button.
 void drawButton(ref Component __self, const ref Vec2i center, const StartScissorFunction startScissorComponent,
     const EndScissorFunction endScissorComponent) {
-    Button button = cast(Button) __self;
+    const Button button = cast(Button) __self;
     const int posX = cast(int) floor(
         (button.position.x * GUI.currentGUIScale) + center.x);
     const int posY = cast(int) floor(
@@ -113,7 +113,7 @@ void drawButton(ref Component __self, const ref Vec2i center, const StartScissor
 ///? CheckBox.
 void drawCheckBox(ref Component __self, const ref Vec2i center, const StartScissorFunction startScissorComponent,
     const EndScissorFunction endScissorComponent) {
-    CheckBox checkBox = cast(CheckBox) __self;
+    const CheckBox checkBox = cast(CheckBox) __self;
     const int posX = cast(int) floor(
         (checkBox.position.x * GUI.currentGUIScale) + center.x);
     const int posY = cast(int) floor(
