@@ -1434,24 +1434,24 @@ public: //* BEGIN PUBLIC API.
             };
             settingsMenu.addComponent("inv", test);
 
-            // Label label = new Label();
-            // label.text = "This is a checkbox:";
-            // label.position.y = 32;
-            // label.centerX();
-            // settingsMenu.addComponent("label", label);
+            Label label = new Label();
+            label.text = "This is a checkbox:";
+            label.position.y = 32;
+            label.centerX();
+            settingsMenu.addComponent("label", label);
 
-            // CheckBox box = new CheckBox();
-            // box.text = "checkbox";
-            // box.size.x = 200;
-            // box.centerX();
-            // settingsMenu.addComponent("box", box);
+            CheckBox box = new CheckBox();
+            box.text = "checkbox";
+            box.size.x = 200;
+            box.centerX();
+            settingsMenu.addComponent("box", box);
 
-            // ImageLabel image = new ImageLabel();
-            // image.image = "test.png";
-            // image.scale(2);
-            // image.position.x = -168;
-            // image.position.y = 28;
-            // settingsMenu.addComponent("image", image);
+            ImageLabel image = new ImageLabel();
+            image.image = "test.png";
+            image.scale(2);
+            image.position.x = -168;
+            image.position.y = 28;
+            settingsMenu.addComponent("image", image);
 
             settingsMenu.onClose = () { openWindow("pause_menu"); };
 
