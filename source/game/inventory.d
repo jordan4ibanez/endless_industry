@@ -15,7 +15,6 @@ private:
     LinkedHashQueue!int freeSlots = LinkedHashQueue!int();
 
     int length = 0;
-    int[] sizes;
     int[] widths;
     Item[][] items;
 
