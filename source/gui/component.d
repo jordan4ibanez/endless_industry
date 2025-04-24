@@ -144,6 +144,7 @@ public:
     }
 }
 
+/// You click it.
 class Button : Component {
     /// What this button says on it.
     string text = null;
