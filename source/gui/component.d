@@ -20,7 +20,11 @@ package:
     // The ID of this component.
     string componentID = null;
 
+    // The draw function of the component.
     void function() draw = () {};
+
+    // The logic function of the component.
+    void function() logic = () {};
 
 public:
 
