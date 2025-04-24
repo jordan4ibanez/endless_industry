@@ -68,3 +68,44 @@ void drawImageLabel(ref Component __self, const ref Vec2i center, const StartSci
     //     Colors.BLACK);
     endScissorComponent();
 }
+
+///? Button.
+void drawButton(ref Component __self, const ref Vec2i center, const StartScissorFunction startScissorComponent,
+    const EndScissorFunction endScissorComponent) {
+    Button button = cast(Button) __self;
+    const int posX = cast(int) floor(
+        (button.position.x * GUI.currentGUIScale) + center.x);
+    const int posY = cast(int) floor(
+        ((-button.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) floor(button.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(button.size.y * GUI.currentGUIScale);
+    if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+        return;
+    }
+    Color buttonColor = (button.mouseHovering) ? button.backgroundColorHover
+        : button.backgroundColor;
+    Color borderColor = (button.mouseHovering) ? button.borderColorHover : button.borderColor;
+    DrawRectangle(
+        posX,
+        posY,
+        sizeX,
+        sizeY,
+        buttonColor);
+    const string title = (button.text is null) ? "UNDEFINED" : button.text;
+    const int adjustment = cast(int) floor(
+        (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
+            .x * 0.5));
+    FontHandler.drawShadowed(
+        title,
+        posX + adjustment,
+        posY,
+        0.25,
+        button.textColor);
+    DrawRectangleLines(
+        posX,
+        posY,
+        sizeX,
+        sizeY,
+        borderColor);
+    endScissorComponent();
+}
