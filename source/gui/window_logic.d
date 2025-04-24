@@ -117,3 +117,22 @@ void windowResizeLogic(ref bool mouseFocusedOnGUI) {
         }
     }
 }
+
+/// The logic for when a window is dragged around.
+void windowDragLogic(ref bool mouseFocusedOnGUI) {
+    if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
+        GUI.dragging = false;
+        GUI.playButtonSound();
+        return;
+    }
+    mouseFocusedOnGUI = true;
+    const Vector2 mousePosInGUI = GUI.getMousePositionInGUI();
+    const double scaledDeltaX = GUI.mouseWindowDelta.x * GUI.inverseCurrentGUIScale;
+    const double scaledDeltaY = GUI.mouseWindowDelta.y * GUI.inverseCurrentGUIScale;
+    const double scaledMousePosX = mousePosInGUI.x * GUI.inverseCurrentGUIScale;
+    const double scaledMousePosY = mousePosInGUI.y * GUI.inverseCurrentGUIScale;
+    GUI.currentWindow.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
+    GUI.currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
+    // Make sure the window stays on the screen.
+    GUI.sweepWindowIntoBounds(GUI.currentWindow);
+}
