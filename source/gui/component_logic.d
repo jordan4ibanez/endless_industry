@@ -503,6 +503,12 @@ bool inventoryLogic(ref Component __self, const ref Vec2i center, const ref Vect
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                 GUI.playButtonSound();
                 inv.clickFunction(inv);
+
+                // todo: needs to have a thing where if there's an item you're holding with the mouse
+                // todo: in the onclose function, or if something happens, then it can put it back where you got it from.
+                // todo: so store the inventory, which slot it came from.
+                // todo: if the player manages to get something put in that slot then just try to add it in.
+                // todo: if that fails then just dump the item on the ground.
             }
             return true;
         }
