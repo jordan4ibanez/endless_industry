@@ -1335,14 +1335,6 @@ public: //* BEGIN PUBLIC API.
         bool skipOtherComponents = false;
         if (focusedComponent !is null) {
             skipOtherComponents = focusedComponent.logic(focusedComponent, center, mousePos, keyboardDoingTextInput);
-
-            // if (TextPad textPad = instanceof!TextPad(focusedComponent)) {
-            //     skipOtherComponents = textPadLogic(textPad);
-            // } else if (TextBox textBox = instanceof!TextBox(focusedComponent)) {
-            //     skipOtherComponents = textBoxLogic(textBox);
-            // } else if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
-            //     skipOtherComponents = dropMenuLogic(dropMenu);
-            // }
         }
 
         if (skipOtherComponents) {
