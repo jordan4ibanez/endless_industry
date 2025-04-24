@@ -403,7 +403,6 @@ package:
             cast(double) __inventory.getSize() / cast(double) invWidth);
         size.x = (48 * invWidth) + (4 * (invWidth - 1));
         size.y = (48 * invHeight) + (4 * (invHeight - 1));
-        newSize = __inventory.getSize();
         oldSize = newSize;
     }
 
@@ -415,6 +414,7 @@ public:
 
     @property void inventory(Inventory inventory) {
         __inventory = inventory;
+        newSize = inventory.getSize();
         calculateSize();
     }
 
