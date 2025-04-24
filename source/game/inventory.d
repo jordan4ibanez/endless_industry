@@ -21,7 +21,9 @@ private:
 
 public:
 
-    Inventory newInventory(int size = 10, int width = 10) {
+    Inventory newInventory(const int size = 10, const int width = 10) {
+        sizeCheck(size);
+        widthCheck(width);
         Option!int slotResult = freeSlots.popFront();
         int slot = 0;
         // This means there was a free slot available and it's going to use it.
@@ -39,7 +41,7 @@ public:
         return slot;
     }
 
-    void deleteInventory(Inventory inventory) {
+    void deleteInventory(const Inventory inventory) {
         if (length >= inventory || inventory < 0) {
             throw new Error("Inventory is of bounds. (doesn't exist)");
         }
@@ -49,15 +51,34 @@ public:
         freeSlots.pushBack(inventory);
     }
 
-    // @property int size() {
-    //     return __size;
-    // }
+    int getSize(const Inventory inventory) {
+        return sizes[inventory];
+    }
 
-    // @property void width(int width) {
-    //     __width = width;
-    // }
+    void setSize(const Inventory inventory, const int size) {
+        sizeCheck(size);
+        sizes[inventory] = size;
+    }
 
-    // @property int width() {
-    //     return __width;
-    // }
+    int getWidth(const Inventory inventory) {
+        return widths[inventory];
+    }
+
+    void setWidth(const Inventory inventory, const int width) {
+        widthCheck(width);
+        widths[inventory] = width;
+    }
+
+private:
+    void widthCheck(const int width) {
+        if (width <= 0) {
+            throw new Error("width cannot be less than 1");
+        }
+    }
+
+    void sizeCheck(const int size) {
+        if (size <= 0) {
+            throw new Error("size cannot be less than 1");
+        }
+    }
 }
