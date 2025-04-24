@@ -416,31 +416,6 @@ public: //* BEGIN PUBLIC API.
         //! NOTE: These are inlined because they should ONLY be able to be accessed in this function.
         //! DO NOT take these functions out of this function.
 
-        ///? ImageLabel.
-        void drawImageLabel(ImageLabel imageLabel) {
-            import graphics.texture;
-
-            //~ This can sometimes be 1 pixel off, but I tried my best.
-            const int posX = cast(int) floor(
-                (imageLabel.position.x * currentGUIScale) + center.x);
-            const int posY = cast(int) floor(
-                ((-imageLabel.position.y) * currentGUIScale) + center.y);
-            const int sizeX = cast(int) round(imageLabel.size.x * currentGUIScale);
-            const int sizeY = cast(int) round(imageLabel.size.y * currentGUIScale);
-            if (startScissorComponent(posX, posY, sizeX, sizeY)) {
-                return;
-            }
-            TextureHandler.drawTexture(imageLabel.__image, Vec2d(posX, -posY), Vec2d(sizeX, sizeY));
-            //! This is the debug box for the actual image label.
-            // DrawRectangleLines(
-            //     posX,
-            //     posY,
-            //     sizeX,
-            //     sizeY,
-            //     Colors.BLACK);
-            endScissorComponent();
-        }
-
         ///? Button.
         void drawButton(const ref Button button) {
             const int posX = cast(int) floor(
