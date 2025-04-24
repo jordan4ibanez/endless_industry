@@ -211,3 +211,132 @@ void drawCheckBox(ref Component __self, const ref Vec2i center, const StartSciss
 
     endScissorComponent();
 }
+
+///? TextPad.
+void drawTextPad(ref Component __self, const ref Vec2i center, const StartScissorFunction startScissorComponent,
+    const EndScissorFunction endScissorComponent) {
+    const TextPad textPad = cast(TextPad) __self;
+    const int posX = cast(int) floor(
+        (textPad.position.x * GUI.currentGUIScale) + center.x);
+    const int posY = cast(int) floor(
+        ((-textPad.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) floor(textPad.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(textPad.size.y * GUI.currentGUIScale);
+    if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+        return;
+    }
+    DrawRectangle(
+        posX,
+        posY,
+        sizeX,
+        sizeY,
+        textPad.backgroundColor);
+    // This is ultra extremely inefficient.
+    // But, it works, probably.
+    double currentWidth = 0;
+    double width = 0;
+    int currentHeight = 0;
+    ulong currentIndexInString = 0;
+    bool usePlaceHolder = (textPad.text is null || textPad.text.length == 0);
+    const string text = (usePlaceHolder) ? textPad.placeholderText : textPad.text;
+    const ulong lastIndex = (text.length == 0) ? 0 : (text.length) - 1;
+    const Color textColor = (usePlaceHolder) ? textPad.placeholderTextColor : textPad.textColor;
+    if (text is null || text.length <= 0) {
+        goto SKIP_DRAW_TEXT_IN_PAD;
+    }
+    for (int i = 0; i < text.length; i++) {
+        bool shouldDrawCursor() {
+            return GUI.cursorVisible && GUI.focusedComponent == textPad && textPad.cursorPosition == i;
+        }
+
+        const char thisChar = text[i];
+        width = FontHandler.getCharWidth(thisChar, 0.25);
+        currentWidth += width;
+        bool skipDrawCursor = false;
+        if (thisChar == '\n') {
+            // If newline is reached, it must jump over it.
+            FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
+                0.25, textColor);
+            //? This needs to be inline because \n creates some complex situations.
+            if (shouldDrawCursor()) {
+                double w = currentWidth - width;
+                if (w < 0) {
+                    w = 0;
+                }
+                DrawRectangle(
+                    cast(int) floor(posX + w + (GUI.currentGUIScale * 0.5)),
+                    posY + currentHeight,
+                    cast(int) floor(2 * GUI.currentGUIScale),
+                    cast(int) floor(32 * GUI.currentGUIScale),
+                    Colors.BLUE);
+                skipDrawCursor = true;
+            }
+            currentHeight += cast(int) floor(32 * GUI.currentGUIScale);
+            currentWidth = 0;
+            currentIndexInString = i + 1;
+        } else if (currentWidth >= sizeX) {
+            FontHandler.draw(text[currentIndexInString .. i], posX, posY + currentHeight,
+                0.25, textColor);
+            currentWidth = width;
+            currentHeight += cast(int) floor(32 * GUI.currentGUIScale);
+            currentIndexInString = i;
+        }
+        // Catch all.
+        if (i == lastIndex) {
+            FontHandler.draw(text[currentIndexInString .. i + 1], posX, posY + currentHeight,
+                0.25, textColor);
+        }
+        // Draw the cursor if the current focus is on this text pad.
+        // This will draw it before the current character.
+        //! Note: this will cause issues with newlines.
+        //! You cannot select the last character visually in the line.
+        //! It will just skip to the next line.
+        //! It still works the same though. Oh well.
+        if (!skipDrawCursor && shouldDrawCursor()) {
+            double w = currentWidth - width;
+            if (w < 0) {
+                w = 0;
+            }
+            DrawRectangle(
+                cast(int) floor(posX + w + (GUI.currentGUIScale * 0.5)),
+                posY + currentHeight,
+                cast(int) floor(2 * GUI.currentGUIScale),
+                cast(int) floor(32 * GUI.currentGUIScale),
+                Colors.BLUE);
+        }
+        // if (true) {
+        //     DrawRectangleLines(
+        //         cast(int) floor(posX + (currentWidth - width)),
+        //         posY + currentHeight,
+        //         cast(int) floor(width),
+        //         cast(int) floor(32 * currentGUIScale),
+        //         Colors.BLUE);
+        //     FontHandler.draw(to!string(i), posX + (currentWidth - width), posY + currentHeight,
+        //         0.05, Colors.GREEN);
+        // }
+    }
+
+SKIP_DRAW_TEXT_IN_PAD:
+
+    // If the text pad cursor is at the literal last position, it needs to be drawn here.
+    if (!usePlaceHolder && GUI.cursorVisible && GUI.focusedComponent == textPad && textPad
+        .cursorPosition == textPad
+        .text.length) {
+        const double w = currentWidth;
+        DrawRectangle(
+            cast(int) floor(posX + w + (GUI.currentGUIScale * 0.5)),
+            posY + currentHeight,
+            cast(int) floor(2 * GUI.currentGUIScale),
+            cast(int) floor(32 * GUI.currentGUIScale),
+            Colors.BLUE);
+    }
+    const Color borderColor = textPad.mouseHovering ? textPad.borderColorHover : textPad
+        .borderColor;
+    DrawRectangleLines(
+        posX,
+        posY,
+        sizeX,
+        sizeY,
+        borderColor);
+    endScissorComponent();
+}
