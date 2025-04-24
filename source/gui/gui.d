@@ -416,29 +416,6 @@ public: //* BEGIN PUBLIC API.
         //! NOTE: These are inlined because they should ONLY be able to be accessed in this function.
         //! DO NOT take these functions out of this function.
 
-        ///? Label.
-        void drawLabel(Label label) {
-            //~ This can sometimes be 1 pixel off, but I tried my best.
-            const int posX = cast(int) floor(
-                (label.position.x * currentGUIScale) + center.x);
-            const int posY = cast(int) floor(
-                ((-label.position.y) * currentGUIScale) + center.y);
-            const int sizeX = cast(int) round(label.size.x * currentGUIScale);
-            const int sizeY = cast(int) round(label.size.y * currentGUIScale);
-            if (startScissorComponent(posX, posY, sizeX, sizeY)) {
-                return;
-            }
-            //! This is the debug box for the actual label.
-            // DrawRectangleLines(
-            //     posX,
-            //     posY,
-            //     sizeX,
-            //     sizeY,
-            //     Colors.BLACK);
-            FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
-            endScissorComponent();
-        }
-
         ///? ImageLabel.
         void drawImageLabel(ImageLabel imageLabel) {
             import graphics.texture;
