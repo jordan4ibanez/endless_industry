@@ -1,6 +1,6 @@
 module game.inventory;
 
-final class Inventory {
+struct Inventory {
 private:
 
     int __size = 10;
