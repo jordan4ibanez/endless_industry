@@ -40,7 +40,7 @@ public:
     }
 
     void deleteInventory(const Inventory inventory) {
-        if (length >= inventory || inventory < 0) {
+        if (length >= inventory || inventory <= 0) {
             throw new Error("Inventory is of bounds. (doesn't exist)");
         }
         widths[inventory] = 0;
