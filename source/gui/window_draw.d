@@ -113,3 +113,36 @@ void drawWindowFrame() {
     );
     EndScissorMode();
 }
+
+/// This draws the resize button on the bottom right of the window.
+void drawResizeButton() {
+    //? Draw the resize button.
+    const int posX = cast(int) floor(
+        GUI.centerPoint.x + (GUI.currentWindow.position.x * GUI.currentGUIScale));
+    const int posY = cast(int) floor(
+        GUI.centerPoint.y + (GUI.currentWindow.position.y * GUI.currentGUIScale));
+    const int sizeX = cast(int) floor(GUI.currentWindow.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(GUI.currentWindow.size.y * GUI.currentGUIScale);
+    const int statusAreaHeight = cast(int) floor(GUI.currentGUIScale * 32.0);
+    const int halfStatusAreaHeight = cast(int) floor(statusAreaHeight * 0.5);
+    BeginScissorMode(
+        posX + sizeX - halfStatusAreaHeight - 1,
+        posY + sizeY - halfStatusAreaHeight - 1,
+        halfStatusAreaHeight + 1,
+        halfStatusAreaHeight + 1);
+    const Color resizeButtonColor = GUI.currentWindow.mouseHoveringResizeButton ? GUI.currentWindow
+        .resizeButtonBackgroundColorHovered : GUI.currentWindow.resizeButtonBackgroundColor;
+    DrawRectangle(
+        posX + sizeX - halfStatusAreaHeight,
+        posY + sizeY - halfStatusAreaHeight,
+        halfStatusAreaHeight,
+        halfStatusAreaHeight,
+        resizeButtonColor);
+    DrawRectangleLines(
+        posX + sizeX - halfStatusAreaHeight,
+        posY + sizeY - halfStatusAreaHeight,
+        halfStatusAreaHeight,
+        halfStatusAreaHeight,
+        GUI.currentWindow.borderColor);
+    EndScissorMode();
+}
