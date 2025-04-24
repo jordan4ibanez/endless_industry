@@ -1010,8 +1010,6 @@ public: //* BEGIN PUBLIC API.
             double currentWidth = 0;
             double currentHeight = 0;
 
-            // writeln(inv.mouseHovering);
-
             // Draw the slots of the inventory.
             foreach (i; 0 .. sizeInv) {
 
