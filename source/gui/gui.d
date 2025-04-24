@@ -58,6 +58,8 @@ import utility.instance_of;
 *       - TextInputBox  --> Window, Label, TextBox, Button
 */
 
+package alias ScissorFunction = bool function(const int, const int, const int, const int);
+
 static final const class GUI {
 static:
 package:
