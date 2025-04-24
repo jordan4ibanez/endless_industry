@@ -1,6 +1,8 @@
 module gui.component;
 
+import gui.component_draw;
 import gui.component_logic;
+import gui.gui;
 import math.vec2d;
 import math.vec2i;
 import raylib : Color, Colors, Vector2;
@@ -22,7 +24,8 @@ package:
     string componentID = null;
 
     // The draw function of the component.
-    void function() draw = () {};
+    void function(ref Component, const ref Vec2i, const StartScissorFunction, const EndScissorFunction) draw =
+        &drawComponent;
 
     // The logic function of the component.
     bool function(ref Component, const ref Vec2i, const ref Vector2, ref bool) logic = &baseLogic;
