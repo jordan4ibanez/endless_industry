@@ -398,10 +398,10 @@ public:
     /// The border color when hovered over.
     Color borderColorHover = Colors.BLACK;
 
-    /// The background color.
-    Color backgroundColor = Colors.LIGHTGRAY;
+    /// The background color of the slot.
+    Color slotColor = Colors.DARKGRAY;
     /// The background color of the slot when hovered over.
-    Color backgroundColorHover = Colors.MAGENTA;
+    Color slotColorHover = Colors.MAGENTA;
 
     //? Functions/methods.
 
