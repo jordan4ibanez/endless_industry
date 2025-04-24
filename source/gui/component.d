@@ -367,8 +367,11 @@ class DropMenu : Component {
 }
 
 class InventoryGUI : Component {
+    import game.inventory;
 
     //? State behavior.
+
+    Inventory inventory = Inventory(0);
 
     /// Which slot the mouse is hovering over.
     int mouseHovering = -1;
