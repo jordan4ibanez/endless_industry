@@ -1048,6 +1048,14 @@ public: //* BEGIN PUBLIC API.
                 }
             }
 
+            //! This is the debug box for the entirety of the inventory. 
+            DrawRectangleLines(
+                posX,
+                posY,
+                sizeX,
+                sizeY,
+                Colors.RED);
+
             // Todo: draw an item.
             // foreach (i; 0 .. size) {
             //     const Item* item = (itemsPointer + i);
@@ -1055,14 +1063,6 @@ public: //* BEGIN PUBLIC API.
             //         continue;
             //     }
             // }
-
-            //! This is the debug box for the actual label.
-            // DrawRectangleLines(
-            //     posX,
-            //     posY,
-            //     sizeX,
-            //     sizeY,
-            //     Colors.BLACK);
 
             // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
             // endScissorComponent();
