@@ -1635,8 +1635,7 @@ public: //* BEGIN PUBLIC API.
         //? whatever situations it deems necessary.
         bool skipOtherComponents = false;
         if (focusedComponent !is null) {
-            skipOtherComponents = focusedComponent.logic(focusedComponent, currentGUIScale, center, mousePos,
-                keyboardDoingTextInput);
+            skipOtherComponents = focusedComponent.logic(focusedComponent, center, mousePos, keyboardDoingTextInput);
 
             // if (TextPad textPad = instanceof!TextPad(focusedComponent)) {
             //     skipOtherComponents = textPadLogic(textPad);
@@ -1656,7 +1655,7 @@ public: //* BEGIN PUBLIC API.
                 continue;
             }
 
-            if (thisComponent.logic(thisComponent, currentGUIScale, center, mousePos, keyboardDoingTextInput)) {
+            if (thisComponent.logic(thisComponent, center, mousePos, keyboardDoingTextInput)) {
                 break;
             }
 
