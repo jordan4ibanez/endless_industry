@@ -1005,7 +1005,6 @@ public: //* BEGIN PUBLIC API.
             const int widthInv = inv.__inventory.getWidth();
             const int rows = cast(int) ceil(cast(double) sizeInv / cast(double) widthInv);
 
-            // int currentRow = 0;
             int currentColumn = 0;
 
             double currentWidth = 0;
