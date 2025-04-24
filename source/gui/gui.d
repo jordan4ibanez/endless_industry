@@ -416,45 +416,7 @@ public: //* BEGIN PUBLIC API.
         //! NOTE: These are inlined because they should ONLY be able to be accessed in this function.
         //! DO NOT take these functions out of this function.
 
-        ///? Button.
-        void drawButton(const ref Button button) {
-            const int posX = cast(int) floor(
-                (button.position.x * currentGUIScale) + center.x);
-            const int posY = cast(int) floor(
-                ((-button.position.y) * currentGUIScale) + center.y);
-            const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
-            const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
-            if (startScissorComponent(posX, posY, sizeX, sizeY)) {
-                return;
-            }
-            Color buttonColor = (button.mouseHovering) ? button.backgroundColorHover
-                : button.backgroundColor;
-            Color borderColor = (button.mouseHovering) ? button.borderColorHover
-                : button.borderColor;
-            DrawRectangle(
-                posX,
-                posY,
-                sizeX,
-                sizeY,
-                buttonColor);
-            const string title = (button.text is null) ? "UNDEFINED" : button.text;
-            const int adjustment = cast(int) floor(
-                (sizeX * 0.5) - (FontHandler.getTextSize(title, 0.25)
-                    .x * 0.5));
-            FontHandler.drawShadowed(
-                title,
-                posX + adjustment,
-                posY,
-                0.25,
-                button.textColor);
-            DrawRectangleLines(
-                posX,
-                posY,
-                sizeX,
-                sizeY,
-                borderColor);
-            endScissorComponent();
-        }
+
 
         ///? CheckBox.
         void drawCheckBox(const ref CheckBox checkBox) {
