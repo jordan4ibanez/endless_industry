@@ -14,7 +14,9 @@ bool baseLogic(ref Component __self, const double currentGUIScale, const ref Vec
 }
 
 ///? Button.
-bool buttonLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center, const ref Vector2 mousePos) {
+bool buttonLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center,
+    const ref Vector2 mousePos) {
+
     Button button = cast(Button) __self;
 
     button.mouseHovering = false;
