@@ -373,7 +373,11 @@ package:
     int newSize = 0;
     int oldSize = -1;
 
+    /// Which inventory this component is attached to.
+    Inventory __inventory = Inventory(0);
+
     // todo: needs a function to calculate the size of the inventory.
+    // todo: a function property for setting the inventory.
 
     void calculateSize() {
         import std.stdio;
@@ -381,13 +385,6 @@ package:
         writeln("hitting | needs calculation");
     }
 
-public:
-
-package:
-    /// Which inventory this component is attached to.
-    Inventory __inventory = Inventory(0);
-
-    //todo: a function property for setting the inventory.
 public:
     //? State behavior.
 
