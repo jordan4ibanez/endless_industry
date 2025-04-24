@@ -501,6 +501,7 @@ bool inventoryLogic(ref Component __self, const ref Vec2i center, const ref Vect
         if (CheckCollisionPointRec(mousePos, slotRec)) {
             inv.mouseHovering = i;
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                GUI.playButtonSound();
                 inv.clickFunction(inv);
             }
             return true;
