@@ -20,8 +20,8 @@ public:
 //? That's right, the inventory is actually just an integer in disguise.
 // I never use unions but now I can say I have.
 union Inventory {
-    int value = 0;
-    alias value this;
+    int id = 0;
+    alias id this;
 }
 
 //? This is just a facade to make it easier to figure out what is calling what.
