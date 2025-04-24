@@ -7,6 +7,7 @@
 		"d2sqlite3": "~>1.0.0",
 		"fast_noise": "~>1.0.5",
 		"fast_pack": "~>5.0.1",
+		"linked_hash_queue": "~>1.0.2",
 		"optibrev": "~>0.0.3",
 		"raylib-d": "~>5.5.1"
 	},
