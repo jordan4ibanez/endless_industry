@@ -1049,13 +1049,14 @@ public: //* BEGIN PUBLIC API.
 
         //? Draw focused component over everything else.
         if (focusedComponent !is null) {
-            if (TextPad textPad = instanceof!TextPad(focusedComponent)) {
-                drawTextPad(textPad);
-            } else if (TextBox textBox = instanceof!TextBox(focusedComponent)) {
-                drawTextBox(textBox);
-            } else if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
-                drawDropMenu(dropMenu);
-            }
+            focusedComponent.draw(focusedComponent, center, &startScissorComponent, &endScissorComponent);
+            // if (TextPad textPad = instanceof!TextPad(focusedComponent)) {
+            //     drawTextPad(textPad);
+            // } else if (TextBox textBox = instanceof!TextBox(focusedComponent)) {
+            //     drawTextBox(textBox);
+            // } else if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
+            //     drawDropMenu(dropMenu);
+            // }
         }
     }
 
