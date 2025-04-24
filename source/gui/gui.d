@@ -1635,13 +1635,16 @@ public: //* BEGIN PUBLIC API.
         //? whatever situations it deems necessary.
         bool skipOtherComponents = false;
         if (focusedComponent !is null) {
-            if (TextPad textPad = instanceof!TextPad(focusedComponent)) {
-                skipOtherComponents = textPadLogic(textPad);
-            } else if (TextBox textBox = instanceof!TextBox(focusedComponent)) {
-                skipOtherComponents = textBoxLogic(textBox);
-            } else if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
-                skipOtherComponents = dropMenuLogic(dropMenu);
-            }
+            skipOtherComponents = focusedComponent.logic(focusedComponent, currentGUIScale, center, mousePos,
+                keyboardDoingTextInput);
+
+            // if (TextPad textPad = instanceof!TextPad(focusedComponent)) {
+            //     skipOtherComponents = textPadLogic(textPad);
+            // } else if (TextBox textBox = instanceof!TextBox(focusedComponent)) {
+            //     skipOtherComponents = textBoxLogic(textBox);
+            // } else if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
+            //     skipOtherComponents = dropMenuLogic(dropMenu);
+            // }
         }
 
         if (skipOtherComponents) {
