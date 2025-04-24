@@ -6,7 +6,7 @@
 		"fast_pack": "5.0.1",
 		"gamut": "3.2.0",
 		"intel-intrinsics": "1.12.0",
-		"linked_hash_queue": "1.0.2",
+		"linked_hash_queue": "1.0.3",
 		"miniz": "0.0.2",
 		"optibrev": "0.0.3",
 		"raylib-d": "5.5.1",
