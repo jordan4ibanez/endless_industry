@@ -1794,6 +1794,9 @@ public: //* BEGIN PUBLIC API.
             if (thisComponent == focusedComponent) {
                 continue;
             }
+
+            thisComponent.logic(thisComponent, currentGUIScale, center, mousePos);
+
             // if (Button button = instanceof!Button(thisComponent)) {
             //     if (buttonLogic(button)) {
             //         break;
@@ -1803,23 +1806,23 @@ public: //* BEGIN PUBLIC API.
             //         break;
             //     }
             // } else
-            if (TextPad textPad = instanceof!TextPad(thisComponent)) {
-                if (textPadLogic(textPad)) {
-                    break;
-                }
-            } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
-                if (textBoxLogic(textBox)) {
-                    break;
-                }
-            } else if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
-                if (dropMenuLogic(dropMenu)) {
-                    break;
-                }
-            } else if (InventoryGUI inventory = instanceof!InventoryGUI(thisComponent)) {
-                if (inventoryLogic(inventory)) {
-                    break;
-                }
-            }
+            // if (TextPad textPad = instanceof!TextPad(thisComponent)) {
+            //     if (textPadLogic(textPad)) {
+            //         break;
+            //     }
+            // } else if (TextBox textBox = instanceof!TextBox(thisComponent)) {
+            //     if (textBoxLogic(textBox)) {
+            //         break;
+            //     }
+            // } else if (DropMenu dropMenu = instanceof!DropMenu(thisComponent)) {
+            //     if (dropMenuLogic(dropMenu)) {
+            //         break;
+            //     }
+            // } else if (InventoryGUI inventory = instanceof!InventoryGUI(thisComponent)) {
+            //     if (inventoryLogic(inventory)) {
+            //         break;
+            //     }
+            // }
         }
     }
 
