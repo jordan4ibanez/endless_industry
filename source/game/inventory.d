@@ -2,11 +2,19 @@ module game.inventory;
 
 final class Inventory {
 private:
-    int size = 8;
 
+    int __size = 8;
 public:
 
-    this(int size = 8) {
-        this.size = size;
+    this() {
     }
+
+    @property void size(int size) {
+        this.__size = size;
+    }
+
+    @property int size() {
+        return this.__size;
+    }
+
 }
