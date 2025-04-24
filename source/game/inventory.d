@@ -83,6 +83,11 @@ void setWidth(const Inventory inventory, const int width) {
     __widths[inventory] = width;
 }
 
+Item[] getInventoryItems(Inventory inventory) {
+    boundsCheck(inventory);
+    return __items[inventory];
+}
+
 private:
 pragma(inline)
 void boundsCheck(const Inventory inventory) {
