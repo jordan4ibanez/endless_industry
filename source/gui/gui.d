@@ -1794,6 +1794,9 @@ public: //* BEGIN PUBLIC API.
 
                 if (CheckCollisionPointRec(mousePos, slotRec)) {
                     inv.mouseHovering = i;
+                    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                        inv.clickFunction(inv);
+                    }
                     return true;
                 }
 
