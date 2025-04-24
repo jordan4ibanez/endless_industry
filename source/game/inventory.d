@@ -23,9 +23,7 @@ public:
 
     Inventory newInventory(int size = 10, int width = 10) {
         Option!int slotResult = freeSlots.popFront();
-
         int slot = 0;
-
         // This means there was a free slot available and it's going to use it.
         if (slotResult.isSome()) {
             slot = slotResult.unwrap();
@@ -38,19 +36,16 @@ public:
             widths ~= width;
             items ~= new Item[](size);
         }
-
-        return 0;
+        return slot;
     }
 
     void deleteInventory(Inventory inventory) {
         if (length >= inventory || inventory < 0) {
             throw new Error("Inventory is of bounds. (doesn't exist)");
         }
-
         sizes[inventory] = 0;
         widths[inventory] = 0;
         items[inventory] = null;
-
         freeSlots.pushBack(inventory);
     }
 
