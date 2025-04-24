@@ -1065,7 +1065,7 @@ public: //* BEGIN PUBLIC API.
             // }
 
             // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
-            // endScissorComponent();
+            endScissorComponent();
         }
 
         //! Logic flow begins here.
