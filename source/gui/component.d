@@ -386,28 +386,20 @@ class InventoryGUI : Component {
 
     /// The background color.
     Color backgroundColor = Colors.LIGHTGRAY;
-    /// The background color of the button when hovered over.
+    /// The background color of the slot when hovered over.
     Color backgroundColorHover = Colors.MAGENTA;
-
-    /// The text color.
-    Color textColor = Colors.WHITE;
-    /// The placeholder text color.
-    Color placeholderTextColor = Colors.DARKGRAY;
-
-    /// The drop triangle color indicator on the right.
-    Color dropTriangleColor = Colors.WHITE;
 
     //? Functions/methods.
 
-    /// What the button does when clicked.
+    /// What the slot does when clicked.
     /// By default, this does nothing.
     void function(InventoryGUI) clickFunction = (InventoryGUI self) {};
 
-    /// What the menu does when opened.
+    /// What the slot does when opened.
     /// By default, this does nothing.
     void function(InventoryGUI) onOpen = (InventoryGUI self) {};
 
-    /// What the menu does when closed.
+    /// What the slot does when closed.
     /// By default, this does nothing.
     void function(InventoryGUI) onClose = (InventoryGUI self) {};
 
