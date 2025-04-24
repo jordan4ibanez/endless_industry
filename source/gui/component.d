@@ -335,7 +335,7 @@ class DropMenu : Component {
 
     /// The background color.
     Color backgroundColor = Colors.LIGHTGRAY;
-    /// The background color of the button when hovered over.
+    /// The background color of the menu when hovered over.
     Color backgroundColorHover = Colors.MAGENTA;
 
     /// The text color.
@@ -348,7 +348,7 @@ class DropMenu : Component {
 
     //? Functions/methods.
 
-    /// What the button does when clicked.
+    /// What the menu does when clicked.
     /// By default, this does nothing.
     void function(DropMenu) clickFunction = (DropMenu self) {};
 
