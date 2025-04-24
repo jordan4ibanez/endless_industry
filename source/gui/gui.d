@@ -1766,7 +1766,7 @@ public: //* BEGIN PUBLIC API.
             const int sizeX = cast(int) floor(cast(double) inv.size.x * currentGUIScale);
             const int sizeY = cast(int) floor(cast(double) inv.size.y * currentGUIScale);
 
-            {
+            { // Don't need to check all this if it's being hovered over.
                 const Rectangle collisionBox = Rectangle(
                     posX,
                     posY,
