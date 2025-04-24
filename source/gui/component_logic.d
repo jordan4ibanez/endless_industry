@@ -13,13 +13,13 @@ import std.math.rounding;
 
 ///? Base component.
 bool baseLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center,
-    const ref Vector2 mousePos) {
+    const ref Vector2 mousePos, ref bool keyboardDoingTextInput) {
     return false;
 }
 
 ///? Button.
 bool buttonLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center,
-    const ref Vector2 mousePos) {
+    const ref Vector2 mousePos, ref bool keyboardDoingTextInput) {
 
     Button button = cast(Button) __self;
 
@@ -50,7 +50,7 @@ bool buttonLogic(ref Component __self, const double currentGUIScale, const ref V
 
 ///? CheckBox.
 bool checkBoxLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center,
-    const ref Vector2 mousePos) {
+    const ref Vector2 mousePos, ref bool keyboardDoingTextInput) {
     CheckBox checkBox = cast(CheckBox) __self;
     checkBox.mouseHovering = false;
     const int posX = cast(int) floor(
