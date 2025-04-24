@@ -132,6 +132,7 @@ public:
 
     this() {
         size = Vec2i(0, 0);
+        draw = &drawImageLabel;
     }
 
     void scaleX(double size) {
