@@ -84,7 +84,6 @@ public: //* BEGIN PUBLIC API.
 
         this.__frameNames = null;
         inventory = InventoryHandler.newInventory();
-
     }
 
     Vec2d getSize() {
