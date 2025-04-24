@@ -7,12 +7,6 @@ import std.stdio;
 
 private:
 
-//? That's right, the inventory is actually just an integer in disguise.
-public union Inventory {
-    int value = 0;
-    alias value this;
-}
-
 // todo: swap to GC malloc so it doesn't incur boundary check
 
 LinkedHashQueue!int freeSlots = LinkedHashQueue!int();
@@ -22,6 +16,12 @@ int[] __widths;
 Item[][] __items;
 
 public:
+
+//? That's right, the inventory is actually just an integer in disguise.
+union Inventory {
+    int value = 0;
+    alias value this;
+}
 
 Inventory newInventory(const int size = 10, const int width = 10) {
     sizeCheck(size);
