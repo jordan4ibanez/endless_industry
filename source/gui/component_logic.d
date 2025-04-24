@@ -357,3 +357,97 @@ bool textBoxLogic(ref Component __self, const ref Vec2i center, const ref Vector
     }
     return false;
 }
+
+///? DropMenu.
+bool dropMenuLogic(ref Component __self, const ref Vec2i center, const ref Vector2 mousePos,
+    ref bool keyboardDoingTextInput) {
+    DropMenu dropMenu = cast(DropMenu) __self;
+    dropMenu.mouseHovering = false;
+    dropMenu.hoverSelection = -1;
+    if (GUI.focusedComponent != dropMenu) {
+        if (dropMenu.droppedDown) {
+            dropMenu.onClose(dropMenu);
+        }
+        dropMenu.droppedDown = false;
+    }
+    const int posX = cast(int) floor(
+        (dropMenu.position.x * GUI.currentGUIScale) + center.x);
+    const int posY = cast(int) floor(
+        ((-dropMenu.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) floor(dropMenu.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(dropMenu.size.y * GUI.currentGUIScale);
+    const Rectangle buttonRect = Rectangle(
+        posX,
+        posY,
+        sizeX,
+        sizeY);
+    // If the mouse is hovering over the button.
+    if (CheckCollisionPointRec(mousePos, buttonRect)) {
+        dropMenu.mouseHovering = true;
+        // If the mouse clicks the button.
+        if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+            GUI.playButtonSound();
+            // This top button is special.
+            // If you click it it opens the drop menu items.
+            // But if you click it again, it's canceling your decision and using whatever was there.
+            if (dropMenu.droppedDown) {
+                dropMenu.droppedDown = false;
+                GUI.focusedComponent = null;
+                dropMenu.onClose(dropMenu);
+            } else {
+                dropMenu.droppedDown = true;
+                GUI.focusedComponent = dropMenu;
+                dropMenu.onOpen(dropMenu);
+            }
+
+            dropMenu.clickFunction(dropMenu);
+            return true;
+        }
+    }
+
+    if (!dropMenu.droppedDown) {
+        return false;
+    }
+
+    const int incrementer = cast(int) floor(GUI.currentGUIScale);
+    int yAdjustment = incrementer;
+    ulong i = 0;
+    bool hoverOver = false;
+    foreach (__index, item; dropMenu.items) {
+        if (__index == dropMenu.selection) {
+            continue;
+        }
+        i++;
+        const int yPos = (sizeY * cast(int) i) + yAdjustment;
+        const Rectangle collisionBox = Rectangle(
+            posX,
+            posY + yPos,
+            sizeX,
+            sizeY);
+
+        if (CheckCollisionPointRec(mousePos, collisionBox)) {
+            dropMenu.hoverSelection = cast(int) __index;
+            hoverOver = true;
+            if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                dropMenu.selection = cast(int) __index;
+                dropMenu.droppedDown = false;
+                GUI.focusedComponent = null;
+                dropMenu.onClose(dropMenu);
+                dropMenu.clickFunction(dropMenu);
+                GUI.playButtonSound();
+                return true;
+            }
+        }
+        yAdjustment += incrementer;
+    }
+
+    //~ If it got here, that means that the player clicked off the entire drop menu.
+    if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+        dropMenu.droppedDown = false;
+        GUI.focusedComponent = null;
+        dropMenu.onClose(dropMenu);
+        GUI.playButtonSound();
+    }
+
+    return hoverOver;
+}
