@@ -1710,8 +1710,6 @@ public: //* BEGIN PUBLIC API.
                 sizeX,
                 sizeY);
 
-            writeln("hi");
-
             // If the mouse is hovering over the button.
             // if (CheckCollisionPointRec(mousePos, buttonRect)) {
             //     button.mouseHovering = true;
