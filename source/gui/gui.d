@@ -1966,6 +1966,11 @@ public: //* BEGIN PUBLIC API.
             InventoryGUI test = new InventoryGUI();
             test.inventory = Player.getInventory();
             test.center();
+            test.clickFunction = (InventoryGUI self) {
+                import std.stdio;
+
+                writeln("click! ", self.mouseHovering);
+            };
             settingsMenu.addComponent("inv", test);
 
             // Label label = new Label();
