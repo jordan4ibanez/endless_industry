@@ -483,47 +483,6 @@ public: //* BEGIN PUBLIC API.
         sweepWindowIntoBounds(currentWindow);
     }
 
-    /// The logic for when a window is resized.
-    void windowResizeLogic(ref bool mouseFocusedOnGUI) {
-        if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-            resizing = false;
-            playButtonSound();
-            return;
-        }
-        mouseFocusedOnGUI = true;
-        const int posX = currentWindow.position.x;
-        const int posY = currentWindow.position.y;
-        const Vector2 mousePosInGUI = getMousePositionInGUI();
-        const double scaledDeltaX = mouseWindowDelta.x * inverseCurrentGUIScale;
-        const double scaledDeltaY = mouseWindowDelta.y * inverseCurrentGUIScale;
-        const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
-        const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
-        const int oldSizeX = currentWindow.size.x;
-        const int oldSizeY = currentWindow.size.y;
-        currentWindow.size.x = cast(int) floor((scaledMousePosX + scaledDeltaX) - posX);
-        if (!windowXInBounds(currentWindow)) {
-            currentWindow.size.x = oldSizeX;
-        }
-        currentWindow.size.y = cast(int) floor((scaledMousePosY + scaledDeltaY) - posY);
-        if (!windowYInBounds(currentWindow)) {
-            currentWindow.size.y = oldSizeY;
-        }
-        if (currentWindow.size.x < currentWindow.minSize.x) {
-            currentWindow.size.x = currentWindow.minSize.x;
-        }
-        if (currentWindow.size.y < currentWindow.minSize.y) {
-            currentWindow.size.y = currentWindow.minSize.y;
-        }
-
-        if (oldSizeX != currentWindow.size.x || oldSizeY != currentWindow.size.y) {
-            Vec2i newSize = currentWindow.size;
-            newSize.y -= 32 + 1;
-            newSize.x += 1;
-            foreach (component; currentWindow.componentDatabase) {
-                component.onWindowResize(component, newSize);
-            }
-        }
-    }
 
     /// This is the blinking text cursor logic.
     void runBlinkingCursorLogic() {
