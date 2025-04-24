@@ -25,7 +25,7 @@ package:
     void function() draw = () {};
 
     // The logic function of the component.
-    bool function(ref Component, const double, const ref Vec2i, const ref Vector2) logic = &baseLogic;
+    bool function(ref Component, const double, const ref Vec2i, const ref Vector2, ref bool) logic = &baseLogic;
 
 public:
 
