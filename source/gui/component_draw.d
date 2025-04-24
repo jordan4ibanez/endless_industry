@@ -5,7 +5,7 @@ import gui.font;
 import gui.gui;
 import math.vec2d;
 import math.vec2i;
-import raylib : Color, Colors, DrawRectangle, DrawRectangleLines, Vector2;
+import raylib : Color, Colors, DrawCircle, DrawCircleLines, DrawRectangle, DrawRectangleLines, Vector2;
 import std.math.rounding;
 
 ///? Base component.
