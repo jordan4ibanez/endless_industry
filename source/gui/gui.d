@@ -1773,7 +1773,6 @@ public: //* BEGIN PUBLIC API.
                     sizeX,
                     sizeY);
                 if (!CheckCollisionPointRec(mousePos, collisionBox)) {
-                    writeln("returning false");
                     return false;
                 }
             }
