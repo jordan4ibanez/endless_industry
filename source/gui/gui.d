@@ -421,36 +421,11 @@ public: //* BEGIN PUBLIC API.
                 continue;
             }
             component.draw(component, center, &startScissorComponent, &endScissorComponent);
-
-            // if (Label label = instanceof!Label(component)) {
-            //     drawLabel(label);
-            // } else if (ImageLabel imageLabel = instanceof!ImageLabel(component)) {
-            //     drawImageLabel(imageLabel);
-            // } else if (Button button = instanceof!Button(component)) {
-            //     drawButton(button);
-            // } else if (CheckBox checkBox = instanceof!CheckBox(component)) {
-            //     drawCheckBox(checkBox);
-            // } else if (TextPad textPad = instanceof!TextPad(component)) {
-            //     drawTextPad(textPad);
-            // } else if (TextBox textBox = instanceof!TextBox(component)) {
-            //     drawTextBox(textBox);
-            // } else if (DropMenu dropMenu = instanceof!DropMenu(component)) {
-            //     drawDropMenu(dropMenu);
-            // } else if (InventoryGUI inventory = instanceof!InventoryGUI(component)) {
-            //     drawInventory(inventory);
-            // }
         }
 
         //? Draw focused component over everything else.
         if (focusedComponent !is null) {
             focusedComponent.draw(focusedComponent, center, &startScissorComponent, &endScissorComponent);
-            // if (TextPad textPad = instanceof!TextPad(focusedComponent)) {
-            //     drawTextPad(textPad);
-            // } else if (TextBox textBox = instanceof!TextBox(focusedComponent)) {
-            //     drawTextBox(textBox);
-            // } else if (DropMenu dropMenu = instanceof!DropMenu(focusedComponent)) {
-            //     drawDropMenu(dropMenu);
-            // }
         }
     }
 
