@@ -2,6 +2,8 @@ module gui.component_logic;
 
 import controls.keyboard;
 import controls.mouse;
+import game.inventory;
+import game.item;
 import gui.component;
 import gui.font;
 import gui.gui;
@@ -450,4 +452,79 @@ bool dropMenuLogic(ref Component __self, const ref Vec2i center, const ref Vecto
     }
 
     return hoverOver;
+}
+
+///? Inventory.
+bool inventoryLogic(ref Component __self, const ref Vec2i center, const ref Vector2 mousePos,
+    ref bool keyboardDoingTextInput) {
+    InventoryGUI inv = cast(InventoryGUI) __self;
+    inv.mouseHovering = -1;
+
+    const int posX = cast(int) floor(
+        (inv.position.x * GUI.currentGUIScale) + center.x);
+    const int posY = cast(int) floor(
+        ((-inv.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) floor(cast(double) inv.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(cast(double) inv.size.y * GUI.currentGUIScale);
+
+    { // Don't need to check all this if it's being hovered over.
+        const Rectangle collisionBox = Rectangle(
+            posX,
+            posY,
+            sizeX,
+            sizeY);
+        if (!CheckCollisionPointRec(mousePos, collisionBox)) {
+            return false;
+        }
+    }
+
+    const Item[] __itemsArray = inv.__inventory.getInventoryItems();
+    const int sizeInv = cast(int) __itemsArray.length;
+    const int widthInv = inv.__inventory.getWidth();
+
+    const double slotSize = 48.0 * GUI.currentGUIScale;
+    const double padding = 4.0 * GUI.currentGUIScale;
+
+    int currentColumn = 0;
+
+    double currentWidth = 0;
+    double currentHeight = 0;
+
+    foreach (i; 0 .. sizeInv) {
+
+        const Rectangle slotRec = Rectangle(
+            posX + cast(int) round(currentWidth),
+            posY + cast(int) round(currentHeight),
+            cast(int) floor(slotSize),
+            cast(int) floor(slotSize));
+
+        if (CheckCollisionPointRec(mousePos, slotRec)) {
+            inv.mouseHovering = i;
+            if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                inv.clickFunction(inv);
+            }
+            return true;
+        }
+
+        currentWidth += (slotSize + padding);
+
+        currentColumn++;
+        if (currentColumn >= widthInv) {
+            currentColumn = 0;
+            currentWidth = 0;
+            currentHeight += (slotSize + padding);
+        }
+    }
+
+    // If the mouse is hovering over the button.
+    // if (CheckCollisionPointRec(mousePos, buttonRect)) {
+    //     button.mouseHovering = true;
+    //     // If the mouse clicks the button.
+    //     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+    //         playButtonSound();
+    //         button.clickFunction();
+    //         return true;
+    //     }
+    // }
+    return false;
 }
