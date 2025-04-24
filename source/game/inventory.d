@@ -92,7 +92,10 @@ Item[] getInventoryItems(Inventory inventory) {
 private:
 pragma(inline)
 void boundsCheck(const Inventory inventory) {
-    assert(__length >= inventory && inventory <= 0, "Inventory is of bounds. (doesn't exist)");
+    import std.conv;
+
+    assert(inventory < __length && inventory > 0, "Inventory is of bounds. (doesn't exist) " ~ to!string(
+            inventory.id));
 }
 
 void widthCheck(const int width) {
