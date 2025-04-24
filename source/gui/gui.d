@@ -992,9 +992,9 @@ public: //* BEGIN PUBLIC API.
             const int sizeX = cast(int) round(cast(double) inv.size.x * currentGUIScale);
             const int sizeY = cast(int) round(cast(double) inv.size.y * currentGUIScale);
 
-            // if (startScissorComponent(posX, posY, sizeX, sizeY)) {
-            //     return;
-            // }
+            if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+                return;
+            }
 
             // This is literally an arbitrary number I came up with.
             const double slotSize = 48.0 * currentGUIScale;
