@@ -12,24 +12,24 @@ import std.array;
 import std.math.rounding;
 
 ///? Base component.
-bool baseLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center,
-    const ref Vector2 mousePos, ref bool keyboardDoingTextInput) {
+bool baseLogic(ref Component __self, const ref Vec2i center, const ref Vector2 mousePos,
+    ref bool keyboardDoingTextInput) {
     return false;
 }
 
 ///? Button.
-bool buttonLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center,
-    const ref Vector2 mousePos, ref bool keyboardDoingTextInput) {
+bool buttonLogic(ref Component __self, const ref Vec2i center, const ref Vector2 mousePos,
+    ref bool keyboardDoingTextInput) {
 
     Button button = cast(Button) __self;
 
     button.mouseHovering = false;
     const int posX = cast(int) floor(
-        (button.position.x * currentGUIScale) + center.x);
+        (button.position.x * GUI.currentGUIScale) + center.x);
     const int posY = cast(int) floor(
-        ((-button.position.y) * currentGUIScale) + center.y);
-    const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
-    const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+        ((-button.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) floor(button.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(button.size.y * GUI.currentGUIScale);
     const Rectangle buttonRect = Rectangle(
         posX,
         posY,
@@ -49,16 +49,16 @@ bool buttonLogic(ref Component __self, const double currentGUIScale, const ref V
 }
 
 ///? CheckBox.
-bool checkBoxLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center,
-    const ref Vector2 mousePos, ref bool keyboardDoingTextInput) {
+bool checkBoxLogic(ref Component __self, const ref Vec2i center, const ref Vector2 mousePos,
+    ref bool keyboardDoingTextInput) {
     CheckBox checkBox = cast(CheckBox) __self;
     checkBox.mouseHovering = false;
     const int posX = cast(int) floor(
-        (checkBox.position.x * currentGUIScale) + center.x);
+        (checkBox.position.x * GUI.currentGUIScale) + center.x);
     const int posY = cast(int) floor(
-        ((-checkBox.position.y) * currentGUIScale) + center.y);
-    const int sizeX = cast(int) floor(checkBox.size.x * currentGUIScale);
-    const int sizeY = cast(int) floor(checkBox.size.y * currentGUIScale);
+        ((-checkBox.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) floor(checkBox.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(checkBox.size.y * GUI.currentGUIScale);
     const Rectangle buttonRect = Rectangle(
         posX,
         posY,
@@ -79,16 +79,16 @@ bool checkBoxLogic(ref Component __self, const double currentGUIScale, const ref
 }
 
 ///? TextPad.
-bool textPadLogic(ref Component __self, const double currentGUIScale, const ref Vec2i center,
-    const ref Vector2 mousePos, ref bool keyboardDoingTextInput) {
+bool textPadLogic(ref Component __self, const ref Vec2i center, const ref Vector2 mousePos,
+    ref bool keyboardDoingTextInput) {
     TextPad textPad = cast(TextPad) __self;
     textPad.mouseHovering = false;
     const int posX = cast(int) floor(
-        (textPad.position.x * currentGUIScale) + center.x);
+        (textPad.position.x * GUI.currentGUIScale) + center.x);
     const int posY = cast(int) floor(
-        ((-textPad.position.y) * currentGUIScale) + center.y);
-    const int sizeX = cast(int) floor(textPad.size.x * currentGUIScale);
-    const int sizeY = cast(int) floor(textPad.size.y * currentGUIScale);
+        ((-textPad.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) floor(textPad.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(textPad.size.y * GUI.currentGUIScale);
     const Rectangle buttonRect = Rectangle(
         posX,
         posY,
@@ -124,19 +124,19 @@ bool textPadLogic(ref Component __self, const double currentGUIScale, const ref 
                     currentWidth += width;
                     if (thisChar == '\n') {
                         // If newline is reached, it must jump over it.
-                        currentHeight += cast(int) floor(32 * currentGUIScale);
+                        currentHeight += cast(int) floor(32 * GUI.currentGUIScale);
                         currentWidth = 0;
                         currentIndexInString = i + 1;
                     } else if (currentWidth >= sizeX) {
                         currentWidth = width;
-                        currentHeight += cast(int) floor(32 * currentGUIScale);
+                        currentHeight += cast(int) floor(32 * GUI.currentGUIScale);
                         currentIndexInString = i;
                     }
                     Rectangle charRect = Rectangle(
                         cast(int) floor(posX + (currentWidth - width)),
                         posY + currentHeight,
                         cast(int) floor(width),
-                        cast(int) floor(32 * currentGUIScale));
+                        cast(int) floor(32 * GUI.currentGUIScale));
                     // Hit a character.
                     if (CheckCollisionPointRec(mousePos, charRect)) {
                         // Break it into two to find out which side to move the cursor into.
