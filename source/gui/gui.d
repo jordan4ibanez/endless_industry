@@ -1772,6 +1772,42 @@ public: //* BEGIN PUBLIC API.
                 sizeX,
                 sizeY);
 
+            const Item[] __itemsArray = inv.__inventory.getInventoryItems();
+            const int sizeInv = cast(int) __itemsArray.length;
+            const int widthInv = inv.__inventory.getWidth();
+            const int rows = cast(int) ceil(cast(double) sizeInv / cast(double) widthInv);
+
+            const double slotSize = 48.0 * currentGUIScale;
+            const double padding = 4.0 * currentGUIScale;
+
+            int currentColumn = 0;
+
+            double currentWidth = 0;
+            double currentHeight = 0;
+
+            foreach (i; 0 .. sizeInv) {
+
+                const Rectangle slotRec = Rectangle(
+                    posX + cast(int) round(currentWidth),
+                    posY + cast(int) round(currentHeight),
+                    cast(int) floor(slotSize),
+                    cast(int) floor(slotSize));
+
+                if (CheckCollisionPointRec(mousePos, slotRec)) {
+                    inv.mouseHovering = i;
+                    return true;
+                }
+
+                currentWidth += (slotSize + padding);
+
+                currentColumn++;
+                if (currentColumn >= widthInv) {
+                    currentColumn = 0;
+                    currentWidth = 0;
+                    currentHeight += (slotSize + padding);
+                }
+            }
+
             // If the mouse is hovering over the button.
             // if (CheckCollisionPointRec(mousePos, buttonRect)) {
             //     button.mouseHovering = true;
