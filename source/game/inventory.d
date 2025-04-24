@@ -40,17 +40,19 @@ public:
     }
 
     void deleteInventory(const Inventory inventory) {
-        assert(length >= inventory && inventory <= 0, "Inventory is of bounds. (doesn't exist)");
+        boundsCheck(inventory);
         widths[inventory] = 0;
         items[inventory] = null;
         freeSlots.pushBack(inventory);
     }
 
     int getSize(const Inventory inventory) {
+        boundsCheck(inventory);
         return cast(int) items[inventory].length;
     }
 
     void setSize(const Inventory inventory, const int size) {
+        boundsCheck(inventory);
         sizeCheck(size);
         const int currentSize = cast(int) items[inventory].length;
         if (size == currentSize) {
@@ -64,15 +66,22 @@ public:
     }
 
     int getWidth(const Inventory inventory) {
+        boundsCheck(inventory);
         return widths[inventory];
     }
 
     void setWidth(const Inventory inventory, const int width) {
+        boundsCheck(inventory);
         widthCheck(width);
         widths[inventory] = width;
     }
 
 private:
+    pragma(inline)
+    void boundsCheck(const Inventory inventory) {
+        assert(length >= inventory && inventory <= 0, "Inventory is of bounds. (doesn't exist)");
+    }
+
     void widthCheck(const int width) {
         if (width <= 0) {
             throw new Error("width cannot be less than 1");
