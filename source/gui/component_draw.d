@@ -12,3 +12,30 @@ void drawComponent(ref Component __self, const ref Vec2i center, const StartScis
     const EndScissorFunction endScissorComponent) {
 }
 
+///? Label.
+void drawLabel(ref Component __self, const ref Vec2i center, const StartScissorFunction startScissorComponent,
+    const EndScissorFunction endScissorComponent) {
+
+    Label label = cast(Label) __self;
+    //~ This can sometimes be 1 pixel off, but I tried my best.
+    const int posX = cast(int) floor(
+        (label.position.x * GUI.currentGUIScale) + center.x);
+    const int posY = cast(int) floor(
+        ((-label.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) round(label.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) round(label.size.y * GUI.currentGUIScale);
+
+    if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+        return;
+    }
+
+    //! This is the debug box for the actual label.
+    // DrawRectangleLines(
+    //     posX,
+    //     posY,
+    //     sizeX,
+    //     sizeY,
+    //     Colors.BLACK);
+    FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
+    endScissorComponent();
+}
