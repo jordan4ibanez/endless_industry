@@ -1775,7 +1775,6 @@ public: //* BEGIN PUBLIC API.
             const Item[] __itemsArray = inv.__inventory.getInventoryItems();
             const int sizeInv = cast(int) __itemsArray.length;
             const int widthInv = inv.__inventory.getWidth();
-            const int rows = cast(int) ceil(cast(double) sizeInv / cast(double) widthInv);
 
             const double slotSize = 48.0 * currentGUIScale;
             const double padding = 4.0 * currentGUIScale;
