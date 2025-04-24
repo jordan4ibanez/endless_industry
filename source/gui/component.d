@@ -1,8 +1,9 @@
 module gui.component;
 
+import gui.component_logic;
 import math.vec2d;
 import math.vec2i;
-import raylib : Color, Colors;
+import raylib : Color, Colors, Vector2;
 import std.math.rounding;
 import utility.instance_of;
 
