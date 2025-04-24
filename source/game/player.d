@@ -86,6 +86,10 @@ public: //* BEGIN PUBLIC API.
         inventory = InventoryHandler.newInventory();
     }
 
+    Inventory getInventory() {
+        return inventory;
+    }
+
     Vec2d getSize() {
         return size;
     }
