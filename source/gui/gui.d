@@ -1329,8 +1329,6 @@ public: //* BEGIN PUBLIC API.
             __preprocessedMousePos.x + __mouseDumper, __preprocessedMousePos.y + __mouseDumper)
             : __preprocessedMousePos.toRaylib();
 
-
-
         ///? Inventory.
         bool inventoryLogic(ref InventoryGUI inv) {
             inv.mouseHovering = -1;
