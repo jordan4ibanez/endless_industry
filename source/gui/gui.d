@@ -1795,7 +1795,9 @@ public: //* BEGIN PUBLIC API.
                 continue;
             }
 
-            thisComponent.logic(thisComponent, currentGUIScale, center, mousePos);
+            if (thisComponent.logic(thisComponent, currentGUIScale, center, mousePos)) {
+                break;
+            }
 
             // if (Button button = instanceof!Button(thisComponent)) {
             //     if (buttonLogic(button)) {
