@@ -385,17 +385,13 @@ package:
         if (newSize == oldSize) {
             return;
         }
-
-        import std.stdio;
-
         const int invWidth = __inventory.getWidth();
         const int invHeight = cast(int) ceil(
             cast(double) __inventory.getSize() / cast(double) invWidth);
-
         size.x = (48 * invWidth) + (4 * (invWidth - 1));
         size.y = (48 * invHeight) + (4 * (invHeight - 1));
-
-        writeln("hitting | needs calculation");
+        newSize = __inventory.getSize();
+        oldSize = newSize;
     }
 
 public:
