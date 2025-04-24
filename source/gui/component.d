@@ -371,6 +371,7 @@ class InventoryGUI : Component {
 
     //? State behavior.
 
+    /// Which inventory this component is attached to.
     Inventory inventory = Inventory(0);
 
     /// Which slot the mouse is hovering over.
