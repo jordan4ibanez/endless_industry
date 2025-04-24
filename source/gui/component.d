@@ -311,6 +311,7 @@ class TextBox : Component {
 
     this() {
         size = Vec2i(200, 32);
+        logic = &textBoxLogic;
     }
 
 }
