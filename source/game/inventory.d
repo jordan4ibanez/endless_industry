@@ -9,6 +9,8 @@ static final const class InventoryHandler {
 static:
 private:
 
+    // todo: swap to GC malloc so it doesn't incur boundary check
+
     LinkedHashQueue!int freeSlots = LinkedHashQueue!int();
 
     int length = 0;
@@ -38,6 +40,8 @@ public:
 
         return 0;
     }
+
+
 
     // @property int size() {
     //     return __size;
