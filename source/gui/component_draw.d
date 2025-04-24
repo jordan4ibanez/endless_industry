@@ -7,6 +7,8 @@ import math.vec2d;
 import math.vec2i;
 import raylib : Color, Colors, DrawCircle, DrawCircleLines, DrawRectangle, DrawRectangleLines, DrawTriangle,
     DrawTriangleLines, Vector2;
+import game.inventory;
+import game.item;
 import std.math.rounding;
 
 ///? Base component.
