@@ -58,7 +58,8 @@ import utility.instance_of;
 *       - TextInputBox  --> Window, Label, TextBox, Button
 */
 
-package alias ScissorFunction = bool function(const int, const int, const int, const int);
+package alias StartScissorFunction = bool delegate(const int, const int, const int, const int);
+package alias EndScissorFunction = void delegate();
 
 static final const class GUI {
 static:
