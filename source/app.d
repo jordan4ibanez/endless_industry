@@ -45,6 +45,8 @@ void main() {
 
 	ShaderHandler.newShader("2d", "shader/2d.vert", "shader/2d.frag");
 
+	Player.initialize();
+
 	TextureHandler.initialize();
 
 	GUI.initialize();
