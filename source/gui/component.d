@@ -379,7 +379,13 @@ package:
     // todo: needs a function to calculate the size of the inventory.
     // todo: a function property for setting the inventory.
 
+    /// This function makes it so this thing can automatically resize itself to
+    /// fit a resized inventory on the fly.
     void calculateSize() {
+        if (newSize == oldSize) {
+            return;
+        }
+
         import std.stdio;
 
         writeln("hitting | needs calculation");
@@ -390,6 +396,15 @@ public:
 
     /// Which slot the mouse is hovering over.
     int mouseHovering = -1;
+
+    @property void inventory(Inventory inventory) {
+        __inventory = inventory;
+        calculateSize();
+    }
+
+    @property Inventory inventory() {
+        return __inventory;
+    }
 
     //? General text/icon colors.
 
