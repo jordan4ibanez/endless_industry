@@ -373,10 +373,12 @@ package:
     int newSize = 0;
     int oldSize = -1;
 
+    // todo: needs a function to calculate the size of the inventory.
+
     void calculateSize() {
         import std.stdio;
 
-        writeln("hitting");
+        writeln("hitting | needs calculation");
     }
 
 public:
@@ -418,7 +420,5 @@ public:
     this() {
         size = Vec2i(200, 20);
     }
-
-    // todo: needs a function to calculate the size of the inventory.
 
 }
