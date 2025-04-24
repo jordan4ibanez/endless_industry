@@ -1763,8 +1763,8 @@ public: //* BEGIN PUBLIC API.
                 (inv.position.x * currentGUIScale) + centerX);
             const int posY = cast(int) floor(
                 ((-inv.position.y) * currentGUIScale) + centerY);
-            const int sizeX = cast(int) round(cast(double) inv.size.x * currentGUIScale);
-            const int sizeY = cast(int) round(cast(double) inv.size.y * currentGUIScale);
+            const int sizeX = cast(int) floor(cast(double) inv.size.x * currentGUIScale);
+            const int sizeY = cast(int) floor(cast(double) inv.size.y * currentGUIScale);
 
             const Rectangle buttonRect = Rectangle(
                 posX,
