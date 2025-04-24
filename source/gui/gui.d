@@ -1044,7 +1044,6 @@ public: //* BEGIN PUBLIC API.
                 if (currentColumn >= widthInv) {
                     currentColumn = 0;
                     currentWidth = 0;
-
                     currentHeight += (slotSize + padding);
                 }
             }
