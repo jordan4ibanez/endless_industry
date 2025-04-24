@@ -464,26 +464,6 @@ public: //* BEGIN PUBLIC API.
         return mousePos;
     }
 
-    /// The logic for when a window is dragged around.
-    void windowDragLogic(ref bool mouseFocusedOnGUI) {
-        if (!Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-            dragging = false;
-            playButtonSound();
-            return;
-        }
-        mouseFocusedOnGUI = true;
-        const Vector2 mousePosInGUI = getMousePositionInGUI();
-        const double scaledDeltaX = mouseWindowDelta.x * inverseCurrentGUIScale;
-        const double scaledDeltaY = mouseWindowDelta.y * inverseCurrentGUIScale;
-        const double scaledMousePosX = mousePosInGUI.x * inverseCurrentGUIScale;
-        const double scaledMousePosY = mousePosInGUI.y * inverseCurrentGUIScale;
-        currentWindow.position.x = cast(int) floor(scaledDeltaX + scaledMousePosX);
-        currentWindow.position.y = cast(int) floor(scaledDeltaY + scaledMousePosY);
-        // Make sure the window stays on the screen.
-        sweepWindowIntoBounds(currentWindow);
-    }
-
-
     /// This is the blinking text cursor logic.
     void runBlinkingCursorLogic() {
         // Do not calculate anything if there's no text box.
