@@ -41,6 +41,7 @@ static:
             slot = __length;
             __widths ~= width;
             __items ~= new Item[](size);
+            __length++;
         }
         return Inventory(slot);
     }
