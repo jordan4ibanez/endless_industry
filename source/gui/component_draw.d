@@ -604,3 +604,87 @@ void drawDropMenu(ref Component __self, const ref Vec2i center, const StartSciss
 
     endScissorComponent();
 }
+
+///? Inventory.
+void drawInventory(ref Component __self, const ref Vec2i center, const StartScissorFunction startScissorComponent,
+    const EndScissorFunction endScissorComponent) {
+    const InventoryGUI inv = cast(InventoryGUI) __self;
+    const int posX = cast(int) floor(
+        (inv.position.x * GUI.currentGUIScale) + center.x);
+    const int posY = cast(int) floor(
+        ((-inv.position.y) * GUI.currentGUIScale) + center.y);
+    const int sizeX = cast(int) floor(cast(double) inv.size.x * GUI.currentGUIScale);
+    const int sizeY = cast(int) floor(cast(double) inv.size.y * GUI.currentGUIScale);
+
+    if (startScissorComponent(posX, posY, sizeX, sizeY)) {
+        return;
+    }
+
+    // This is literally an arbitrary number I came up with.
+    const double slotSize = 48.0 * GUI.currentGUIScale;
+    const double padding = 4.0 * GUI.currentGUIScale;
+
+    // const int size = inv.__inventory.getSize();
+
+    const Item[] __itemsArray = inv.__inventory.getInventoryItems();
+    const Item* itemsPointer = __itemsArray.ptr;
+    const int sizeInv = cast(int) __itemsArray.length;
+    const int widthInv = inv.__inventory.getWidth();
+    const int rows = cast(int) ceil(cast(double) sizeInv / cast(double) widthInv);
+
+    int currentColumn = 0;
+
+    double currentWidth = 0;
+    double currentHeight = 0;
+
+    // Draw the slots of the inventory.
+    foreach (i; 0 .. sizeInv) {
+
+        const hovering = (inv.mouseHovering == i);
+
+        const Color borderColor = (hovering) ? inv.borderColorHover : inv.borderColorHover;
+        const Color slotColor = (hovering) ? inv.slotColorHover : inv.slotColor;
+
+        DrawRectangle(
+            posX + cast(int) round(currentWidth),
+            posY + cast(int) round(currentHeight),
+            cast(int) floor(slotSize),
+            cast(int) floor(slotSize),
+            slotColor);
+
+        DrawRectangleLines(
+            posX + cast(int) round(currentWidth),
+            posY + cast(int) round(currentHeight),
+            cast(int) floor(slotSize),
+            cast(int) floor(slotSize),
+            borderColor);
+
+        currentWidth += (slotSize + padding);
+
+        currentColumn++;
+        if (currentColumn >= widthInv) {
+            currentColumn = 0;
+            currentWidth = 0;
+            currentHeight += (slotSize + padding);
+        }
+    }
+
+    //! This is the debug box for the entirety of the inventory. 
+    DrawRectangleLines(
+        posX,
+        posY,
+        sizeX,
+        sizeY,
+        Colors.RED);
+
+    // Todo: draw an item.
+    // foreach (i; 0 .. size) {
+    //     const Item* item = (itemsPointer + i);
+    //     if (item.id == 0) {
+    //         continue;
+    //     }
+    // }
+
+    // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
+    endScissorComponent();
+}
