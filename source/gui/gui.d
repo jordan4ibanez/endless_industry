@@ -1766,11 +1766,17 @@ public: //* BEGIN PUBLIC API.
             const int sizeX = cast(int) floor(cast(double) inv.size.x * currentGUIScale);
             const int sizeY = cast(int) floor(cast(double) inv.size.y * currentGUIScale);
 
-            const Rectangle buttonRect = Rectangle(
-                posX,
-                posY,
-                sizeX,
-                sizeY);
+            {
+                const Rectangle collisionBox = Rectangle(
+                    posX,
+                    posY,
+                    sizeX,
+                    sizeY);
+                if (!CheckCollisionPointRec(mousePos, collisionBox)) {
+                    writeln("returning false");
+                    return false;
+                }
+            }
 
             const Item[] __itemsArray = inv.__inventory.getInventoryItems();
             const int sizeInv = cast(int) __itemsArray.length;
