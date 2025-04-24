@@ -1757,14 +1757,16 @@ public: //* BEGIN PUBLIC API.
         }
 
         ///? Inventory.
-        bool inventoryLogic(ref InventoryGUI button) {
-            button.mouseHovering = false;
+        bool inventoryLogic(ref InventoryGUI inv) {
+            inv.mouseHovering = -1;
+
             const int posX = cast(int) floor(
-                (button.position.x * currentGUIScale) + centerX);
+                (inv.position.x * currentGUIScale) + centerX);
             const int posY = cast(int) floor(
-                ((-button.position.y) * currentGUIScale) + centerY);
-            const int sizeX = cast(int) floor(button.size.x * currentGUIScale);
-            const int sizeY = cast(int) floor(button.size.y * currentGUIScale);
+                ((-inv.position.y) * currentGUIScale) + centerY);
+            const int sizeX = cast(int) round(cast(double) inv.size.x * currentGUIScale);
+            const int sizeY = cast(int) round(cast(double) inv.size.y * currentGUIScale);
+
             const Rectangle buttonRect = Rectangle(
                 posX,
                 posY,
