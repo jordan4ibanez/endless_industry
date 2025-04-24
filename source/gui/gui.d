@@ -431,19 +431,14 @@ public: //* BEGIN PUBLIC API.
     }
 
     void drawCurrentWindow() {
-
         if (currentWindow is null) {
             return;
         }
-
         drawWindowFrame();
-
         drawWindowComponents();
-
         if (currentWindow.resizeable) {
             drawResizeButton();
         }
-
     }
 
     void playButtonSound() {
