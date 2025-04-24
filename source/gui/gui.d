@@ -982,20 +982,23 @@ public: //* BEGIN PUBLIC API.
 
         ///? Inventory.
         void drawInventory(InventoryGUI inv) {
-            //~ This can sometimes be 1 pixel off, but I tried my best.
+
             const int posX = cast(int) floor(
                 (inv.position.x * currentGUIScale) + centerX);
+
             const int posY = cast(int) floor(
                 ((-inv.position.y) * currentGUIScale) + centerY);
-            const int sizeX = cast(int) round(inv.size.x * currentGUIScale);
-            const int sizeY = cast(int) round(inv.size.y * currentGUIScale);
+
+            const int sizeX = cast(int) round(cast(double) inv.size.x * currentGUIScale);
+            const int sizeY = cast(int) round(cast(double) inv.size.y * currentGUIScale);
+
             // if (startScissorComponent(posX, posY, sizeX, sizeY)) {
             //     return;
             // }
 
             // This is literally an arbitrary number I came up with.
-            const int slotSize = cast(int) floor(48.0 * currentGUIScale);
-            const int padding = cast(int) floor(currentGUIScale * 4);
+            const double slotSize = 48.0 * currentGUIScale;
+            const double padding = 4.0 * currentGUIScale;
 
             // const int size = inv.__inventory.getSize();
 
@@ -1008,10 +1011,10 @@ public: //* BEGIN PUBLIC API.
             // int currentRow = 0;
             int currentColumn = 0;
 
-            int currentWidth = 0;
-            int currentHeight = 0;
+            double currentWidth = 0;
+            double currentHeight = 0;
 
-            writeln(inv.mouseHovering);
+            // writeln(inv.mouseHovering);
 
             // Draw the slots of the inventory.
             foreach (i; 0 .. sizeInv) {
