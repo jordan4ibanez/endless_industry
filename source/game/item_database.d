@@ -64,6 +64,10 @@ public:
                 "Texture " ~ newItem.texture ~ " for item " ~ newItem.name ~ " does not exist");
         }
 
+        if (newItem.maxStackSize <= 0) {
+            throw new Error("Max stack size for item " ~ newItem.name ~ " needs to be one or greater");
+        }
+
         // Now inject the modname prefix into the item name.
         newItem.name = modName ~ "." ~ newItem.name;
 
