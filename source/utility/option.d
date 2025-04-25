@@ -160,6 +160,26 @@ struct Option(T) {
         throw new Exception("Can't unwrap None");
     }
 
+    /**
+	A method to unwrap the value of the Option and supply a failure error text.
+	Returns:
+	Returns the value stored in Option if Option itself does not consider None.
+    
+    Typical usage:
+    ----
+    Option!int x;
+    x = x.Some(10);
+    writeln(x.expect("This blew up for no reason"));  // Prints: 10
+    ----
+    */
+    T expect(const string failureText) const {
+        if (type == OptionType.SOME) {
+            return cast(T) value;
+        }
+
+        throw new Exception(failureText);
+    }
+
     Option!U map(U)(U delegate(T) func) {
         Option!U tmp;
 
