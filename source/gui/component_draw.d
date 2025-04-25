@@ -672,12 +672,12 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
     }
 
     //! This is the debug box for the entirety of the inventory. 
-    DrawRectangleLines(
-        posX,
-        posY,
-        sizeX,
-        sizeY,
-        Colors.RED);
+    // DrawRectangleLines(
+    //     posX,
+    //     posY,
+    //     sizeX,
+    //     sizeY,
+    //     Colors.RED);
 
     // Todo: draw an item.
     // foreach (i; 0 .. size) {
