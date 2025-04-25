@@ -16,7 +16,7 @@ struct Item {
     int count = 0;
 }
 
-static final const class ItemHandler {
+static final const class ItemDatabase {
 static:
 private:
 
