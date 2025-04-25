@@ -1,6 +1,7 @@
 module game.item_database;
 
 import core.memory;
+import std.string;
 
 struct ItemDefinition {
 package:
@@ -38,7 +39,10 @@ public:
         this.modName = modName;
     }
 
-    void registerItem(const string name, Item item) {
+    void registerItem(ItemDefinition newItem) {
+        if (newItem.name.empty()) {
+            throw new Error("Name for item is null.");
+        }
 
     }
 
