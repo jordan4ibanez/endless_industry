@@ -28,9 +28,9 @@ private void deployMainFunctions() {
 
 // This is so you don't have to prefix your mods. :D
 private void setModName(string modName) {
-    TileDatabase.setModName(modName);
-    OreDatabase.setModName(modName);
-    BiomeDatabase.setModName(modName);
+    TileDatabase.__setModName(modName);
+    OreDatabase.__setModName(modName);
+    BiomeDatabase.__setModName(modName);
 }
 
 static final const class Api {
