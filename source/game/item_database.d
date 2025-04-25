@@ -58,6 +58,10 @@ public:
                 "Texture " ~ newItem.texture ~ " for item " ~ newItem.name ~ " does not exist");
         }
 
+        // Now inject the modname prefix into the item name.
+        newItem.name = modName ~ "." ~ newItem.name;
+
+        nameDatabase[newItem.name] = newItem;
     }
 
 }
