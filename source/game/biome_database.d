@@ -7,18 +7,19 @@ import std.conv;
 import std.stdio;
 
 struct BiomeDefinition {
+package:
+    int id = -1;
+    int[] groundLayerIDs = null;
+    int[] waterLayerIDs = null;
+    int[] waterLayerCornerIDs = null;
+
+public:
     string name = null;
     // These are not really layers, they're different types.
     // But thinking of them as "layers" is slightly more intuitive. 
     string[] groundLayerTiles = null;
     string[] waterLayerTiles = null;
     string[] waterLayerCornerTiles = null;
-
-    ///! DO NOT USE.
-    int id = -1;
-    int[] groundLayerIDs = null;
-    int[] waterLayerIDs = null;
-    int[] waterLayerCornerIDs = null;
 }
 
 static final const class BiomeDatabase {
