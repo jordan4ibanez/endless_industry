@@ -2,6 +2,8 @@
 
 inventory
 
+if the virtual window is bigger than the width or height, make it fit
+
 drop down menu for menu button sounds
 retro - current model f sound
 button - a clack button sound
