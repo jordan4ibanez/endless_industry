@@ -42,7 +42,7 @@ public: //* BEGIN PUBLIC API.
 
     void registerTile(TileDefinition newTile) {
 
-        if (newTile.name is null) {
+        if (newTile.name.empty()) {
             throw new Error("Name for tile is null.");
         }
 
@@ -50,7 +50,7 @@ public: //* BEGIN PUBLIC API.
             throw new Error("Trying to overwrite tile " ~ newTile.name);
         }
 
-        if (newTile.texture is null) {
+        if (newTile.texture.empty()) {
             throw new Error("Texture is null for tile " ~ newTile.name);
         }
 
