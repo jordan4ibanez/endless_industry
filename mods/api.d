@@ -32,6 +32,7 @@ private void setModName(string modName) {
     TileDatabase.__setModName(modName);
     OreDatabase.__setModName(modName);
     BiomeDatabase.__setModName(modName);
+    ItemDatabase.__setModName(modName);
 }
 
 static final const class Api {
