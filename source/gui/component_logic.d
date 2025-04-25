@@ -3,7 +3,7 @@ module gui.component_logic;
 import controls.keyboard;
 import controls.mouse;
 import game.inventory;
-import game.item;
+import game.item_database;
 import gui.component;
 import gui.font;
 import gui.gui;

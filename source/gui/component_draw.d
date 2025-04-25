@@ -8,7 +8,7 @@ import math.vec2i;
 import raylib : Color, Colors, DrawCircle, DrawCircleLines, DrawRectangle, DrawRectangleLines, DrawTriangle,
     DrawTriangleLines, Vector2;
 import game.inventory;
-import game.item;
+import game.item_database;
 import std.math.rounding;
 
 package:
