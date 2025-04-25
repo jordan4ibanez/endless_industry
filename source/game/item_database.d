@@ -3,7 +3,6 @@ module game.item_database;
 import core.memory;
 
 struct ItemDefinition {
-
 package:
     int id = -1;
     ulong texturePointsIndex = 0;
@@ -11,7 +10,6 @@ package:
 public:
     string name = null;
     string texture = null;
-
 }
 
 struct Item {
