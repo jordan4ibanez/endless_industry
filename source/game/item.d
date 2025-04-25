@@ -33,7 +33,7 @@ private:
 public:
 
     ///! This is not to be used. Only for the mod API automation.
-    void setModName(string modName) {
+    void __setModName(string modName) {
         this.modName = modName;
     }
 
