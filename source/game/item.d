@@ -1,5 +1,7 @@
 module game.item;
 
+import core.memory;
+
 struct ItemDefinition {
     string name = null;
     string texture = null;
@@ -18,9 +20,22 @@ static final const class ItemHandler {
 static:
 private:
 
-    Item[string] nameDatabase;
+    string modName = null;
+
+    // Faster access based on ID or name.
+    ItemDefinition[string] nameDatabase;
+    ItemDefinition[int] idDatabase;
+
+    // Insanely fast unsafe access based on ID alone from pointer arithmetic.
+    // Do not use this unless you want to debug some "very cool" errors.
+    ItemDefinition* ultraFastAccess;
 
 public:
+
+    ///! This is not to be used. Only for the mod API automation.
+    void setModName(string modName) {
+        this.modName = modName;
+    }
 
     void registerItem(const string name, Item item) {
 
