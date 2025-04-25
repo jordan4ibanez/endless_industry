@@ -59,6 +59,7 @@ private: //* BEGIN INTERNAL API.
         TileDatabase.finalize();
         OreDatabase.finalize();
         BiomeDatabase.finalize();
+        ItemDatabase.finalize();
         Player.finalize();
         finalized = true;
     }
