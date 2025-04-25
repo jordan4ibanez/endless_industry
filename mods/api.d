@@ -1,6 +1,7 @@
 module mods.api;
 
 import game.biome_database;
+import game.item_database;
 import game.ore_database;
 import game.player;
 import game.tile_database;

@@ -1,4 +1,4 @@
-module game.item;
+module game.item_database;
 
 import core.memory;
 
