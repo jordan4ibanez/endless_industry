@@ -75,7 +75,7 @@ public: //* BEGIN PUBLIC API.
 
         //? Water layer.
 
-        if (newBiome.waterLayerTiles is null) {
+        if (newBiome.waterLayerTiles.empty()) {
             throw new Error("Water layer tiles is missing from biome " ~ newBiome.name);
         }
 
@@ -84,7 +84,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         foreach (index, value; newBiome.waterLayerTiles) {
-            if (value is null) {
+            if (value.empty()) {
                 throw new Error("Water layer tile at index " ~ to!string(
                         index) ~ " in biome " ~ newBiome.name ~ " is null");
             }
@@ -92,7 +92,7 @@ public: //* BEGIN PUBLIC API.
 
         //? Water corner layer.
 
-        if (newBiome.waterLayerCornerTiles is null) {
+        if (newBiome.waterLayerCornerTiles.empty()) {
             throw new Error("Water corner layer tiles is missing from biome " ~ newBiome.name);
         }
 
@@ -101,7 +101,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         foreach (index, value; newBiome.waterLayerCornerTiles) {
-            if (value is null) {
+            if (value.empty()) {
                 throw new Error("Water corner layer tile at index " ~ to!string(
                         index) ~ " in biome " ~ newBiome.name ~ " is null");
             }
