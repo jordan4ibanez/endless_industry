@@ -2,6 +2,7 @@ module game.item_database;
 
 import core.memory;
 import graphics.texture;
+import optibrev;
 import std.string;
 
 struct ItemDefinition {
@@ -62,6 +63,44 @@ public:
         newItem.name = modName ~ "." ~ newItem.name;
 
         nameDatabase[newItem.name] = newItem;
+    }
+
+    bool hasItemID(int id) {
+        if (id in idDatabase) {
+            return true;
+        }
+        return false;
+    }
+
+    bool hasItemName(string name) {
+        if (name in nameDatabase) {
+            return true;
+        }
+        return false;
+    }
+
+    Option!ItemDefinition getItemByID(int id) {
+        Option!ItemDefinition result;
+        ItemDefinition* thisDefinition = id in idDatabase;
+        if (thisDefinition !is null) {
+            result = result.Some(*thisDefinition);
+        }
+        return result;
+    }
+
+    Option!ItemDefinition getItemByName(string name) {
+        Option!ItemDefinition result;
+        ItemDefinition* thisDefinition = name in nameDatabase;
+        if (thisDefinition !is null) {
+            result = result.Some(*thisDefinition);
+        }
+        return result;
+    }
+
+    /// Extremely unsafe API access.
+    /// Do not use this unless you want to debug some "very cool" errors.
+    ItemDefinition* unsafeGetByID(int id) {
+        return ultraFastAccess + id;
     }
 
 }
