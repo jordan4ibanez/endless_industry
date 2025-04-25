@@ -2,8 +2,8 @@ module game.inventory;
 
 public import game.item_database;
 public import utility.option;
-import utility.linked_hash_queue;
 import std.stdio;
+import utility.linked_hash_queue;
 
 private:
 
@@ -87,6 +87,23 @@ void setWidth(const Inventory inventory, const int width) {
 Item[] getInventoryItems(Inventory inventory) {
     boundsCheck(inventory);
     return __items[inventory];
+}
+
+/// Add an item into an inventory.
+/// Returns the leftover items that didn't fit, if any.
+Option!Item addItem(Inventory inventory, string name, int stackSize = 1) {
+    Option!Item result;
+
+    Item[] thisInv = __items[inventory];
+
+    ItemDefinition addingItem = ItemDatabase.getItemByName(name)
+        .expect(name ~ " is not a registered item");
+
+    foreach (item; thisInv) {
+        // if (item.id )
+    }
+
+    return result;
 }
 
 private:
