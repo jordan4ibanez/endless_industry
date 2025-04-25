@@ -11,6 +11,7 @@ struct ItemDefinition {
 package:
     int id = -1;
     ulong texturePointsIndex = 0;
+    int maxStackSize = 100;
 
 public:
     string name = null;
