@@ -107,14 +107,40 @@ public:
         return ultraFastAccess + id;
     }
 
+    void finalize() {
+
+        // Regular safe API access.
+        foreach (name, ref thisDefinition; nameDatabase) {
+            // todo: do the match thing below when sqlite is added in.
+            thisDefinition.id = nextID();
+            thisDefinition.texturePointsIndex = TextureHandler.lookupTexturePointsIndex(
+                thisDefinition.texture);
+            idDatabase[thisDefinition.id] = thisDefinition;
+            debugWrite(thisDefinition);
+        }
+
+        // Extremely unsafe API access.
+        // Do not use this unless you want to debug some "very cool" errors.
+        ultraFastAccess = cast(ItemDefinition*) GC.malloc(ItemDefinition.sizeof * idDatabase.length);
+        foreach (i; 0 .. idDatabase.length) {
+            ultraFastAccess[i] = idDatabase[cast(int) i];
+
+            assert(ultraFastAccess[i].name == idDatabase[cast(int) i].name);
+            assert(ultraFastAccess[i].id == idDatabase[cast(int) i].id);
+            assert(ultraFastAccess[i].texture == idDatabase[cast(int) i].texture);
+        }
+
+    }
+
 private: //* BEGIN INTERNAL API.
+
     void debugWrite(ItemDefinition definition) {
-        writeln("Tile " ~ definition.name ~ " at ID " ~ to!string(definition.id));
+        writeln("Item " ~ definition.name ~ " at ID " ~ to!string(definition.id));
     }
 
     // todo: make this pull the standard IDs into an associative array from the sqlite.
     // todo: sqlite should store the MAX current ID and restore it.
-    // todo: Then, match to it. If it doesn't match, this is a new tile.
+    // todo: Then, match to it. If it doesn't match, this is a new item.
     // todo: Then you'd call into this. :)
     int nextID() {
         int thisID = currentID;
