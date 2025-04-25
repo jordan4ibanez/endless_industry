@@ -1,6 +1,7 @@
 module game.item_database;
 
 import core.memory;
+import graphics.texture;
 import std.string;
 
 struct ItemDefinition {
@@ -42,6 +43,19 @@ public:
     void registerItem(ItemDefinition newItem) {
         if (newItem.name.empty()) {
             throw new Error("Name for item is null.");
+        }
+
+        if (newItem.name in nameDatabase) {
+            throw new Error("Trying to overwrite item " ~ newItem.name);
+        }
+
+        if (newItem.texture.empty()) {
+            throw new Error("Texture is null for item " ~ newItem.name);
+        }
+
+        if (!TextureHandler.hasTexture(newItem.texture)) {
+            throw new Error(
+                "Texture " ~ newItem.texture ~ " for item " ~ newItem.name ~ " does not exist");
         }
 
     }
