@@ -8,12 +8,13 @@ import std.stdio;
 import std.string;
 
 struct TileDefinition {
-    string name = null;
-    string texture = null;
-
-    //! DO NOT USE.
+package:
     int id = -1;
     ulong texturePointsIndex = 0;
+
+public:
+    string name = null;
+    string texture = null;
 }
 
 static final const class TileDatabase {
