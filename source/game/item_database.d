@@ -2,10 +2,10 @@ module game.item_database;
 
 import core.memory;
 import graphics.texture;
-import utility.option;
 import std.conv;
 import std.stdio;
 import std.string;
+import utility.option;
 
 struct ItemDefinition {
 package:
