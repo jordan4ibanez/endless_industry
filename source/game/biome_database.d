@@ -5,6 +5,7 @@ import game.tile_database;
 import optibrev;
 import std.conv;
 import std.stdio;
+import std.string;
 
 struct BiomeDefinition {
 package:
@@ -47,7 +48,7 @@ public: //* BEGIN PUBLIC API.
 
     void registerBiome(BiomeDefinition newBiome) {
 
-        if (newBiome.name is null) {
+        if (newBiome.name.empty()) {
             throw new Error("Biome is missing a name.");
         }
 
@@ -57,7 +58,7 @@ public: //* BEGIN PUBLIC API.
 
         //? Ground layer.
 
-        if (newBiome.groundLayerTiles is null) {
+        if (newBiome.groundLayerTiles.empty()) {
             throw new Error("Ground layer tiles is missing from biome " ~ newBiome.name);
         }
 
@@ -66,7 +67,7 @@ public: //* BEGIN PUBLIC API.
         }
 
         foreach (index, value; newBiome.groundLayerTiles) {
-            if (value is null) {
+            if (value.empty()) {
                 throw new Error("Ground layer tile at index " ~ to!string(
                         index) ~ " in biome " ~ newBiome.name ~ " is null");
             }
