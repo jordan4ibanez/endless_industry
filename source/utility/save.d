@@ -4,9 +4,9 @@ import d2sqlite3;
 import game.map;
 import math.vec2d;
 import math.vec2i;
-import optibrev;
 import std.stdio;
 import utility.msgpack;
+import utility.option;
 
 static final const class Save {
 static:
