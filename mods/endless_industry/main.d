@@ -1,6 +1,7 @@
 module mods.endless_industry.main;
 
 import game.biome_database;
+import game.item_database;
 import game.ore_database;
 import game.player;
 import game.tile_database;
@@ -229,11 +230,19 @@ void setPlayerTextures() {
     Player.setPlayerFrames(playerFrames);
 }
 
+void registerItems() {
+    ItemDefinition copperPlate;
+    copperPlate.name = "copper_plate";
+    copperPlate.texture = "copper_plate.png";
+    ItemDatabase.registerItem(copperPlate);
+}
+
 void endlessIndustryMain() {
 
     registerTiles();
     registerOres();
     registerBiomes();
     setPlayerTextures();
+    registerItems();
 
 }
