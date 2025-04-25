@@ -1,11 +1,11 @@
 default:
-	@dub run --build=debug
+	@DFLAGS="--linker=mold" dub run --build=debug
 
 fast:
-	@DFLAGS="--O3" dub run --build=release
+	@DFLAGS="--linker=mold --O3" dub run --build=release
 
 debug:
-	DFLAGS="-g -gc -d-debug" dub build --build=debug && gdb -q -ex run ./endless_industry
+	DFLAGS="--linker=mold -g -gc -d-debug" dub build --build=debug && gdb -q -ex run ./endless_industry
 
 install:
 	dub upgrade
