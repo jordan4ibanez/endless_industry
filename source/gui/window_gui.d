@@ -92,18 +92,18 @@ public:
     }
 
     /// Add a component into the window's work area.
-    // void addComponent(string componentID, Component component) {
-    //     component.componentID = componentID;
+    void addComponent(string componentID, Component component) {
+        component.componentID = componentID;
 
-    //     if (componentID in componentDatabase) {
-    //         throw new Error(
-    //             "Trying to override component " ~ componentID ~ ". Please use overrideComponent()");
-    //     }
+        if (componentID in componentDatabase) {
+            throw new Error(
+                "Trying to override component " ~ componentID ~ ". Please use overrideComponent()");
+        }
 
-    //     // They both point to the same thing.
-    //     componentsInOrder ~= component;
-    //     componentDatabase[componentID] = component;
-    // }
+        // They both point to the same thing.
+        componentsInOrder ~= component;
+        componentDatabase[componentID] = component;
+    }
 
     /// Get a component of the window's work area.
     Option!Component getComponent(string componentID) {

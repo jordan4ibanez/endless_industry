@@ -285,12 +285,12 @@ public: //* BEGIN PUBLIC API.
             if (component == focusedComponent) {
                 continue;
             }
-            //! component.draw(component, center, &startScissorComponent, &endScissorComponent);
+            component.draw(component, center, &startScissorComponent, &endScissorComponent);
         }
 
         //? Draw focused component over everything else.
         if (focusedComponent !is null) {
-            //! focusedComponent.draw(focusedComponent, center, &startScissorComponent, &endScissorComponent);
+            focusedComponent.draw(focusedComponent, center, &startScissorComponent, &endScissorComponent);
         }
     }
 
@@ -390,9 +390,9 @@ public: //* BEGIN PUBLIC API.
         //? It can also tell the logic to literally skip everything else in 
         //? whatever situations it deems necessary.
         bool skipOtherComponents = false;
-        //! if (focusedComponent !is null) {
-        //!     skipOtherComponents = focusedComponent.logic(focusedComponent, center, mousePos, keyboardDoingTextInput);
-        //! }
+        if (focusedComponent !is null) {
+            skipOtherComponents = focusedComponent.logic(focusedComponent, center, mousePos, keyboardDoingTextInput);
+        }
 
         if (skipOtherComponents) {
             return;
@@ -403,9 +403,9 @@ public: //* BEGIN PUBLIC API.
                 continue;
             }
 
-            //! if (thisComponent.logic(thisComponent, center, mousePos, keyboardDoingTextInput)) {
-            //!     break;
-            //! }
+            if (thisComponent.logic(thisComponent, center, mousePos, keyboardDoingTextInput)) {
+                break;
+            }
         }
     }
 
@@ -442,49 +442,49 @@ public: //* BEGIN PUBLIC API.
             // pauseMenu.resizeable = false;
             pauseMenu.center();
 
-            // TextBox userNameBox = new TextBox();
-            // userNameBox.placeholderText = "Username here";
-            // userNameBox.maxCharacters = 24;
-            // userNameBox.size.x = 200;
-            // userNameBox.center();
-            // pauseMenu.addComponent("username_box", userNameBox);
+            TextBox userNameBox = new TextBox();
+            userNameBox.placeholderText = "Username here";
+            userNameBox.maxCharacters = 24;
+            userNameBox.size.x = 200;
+            userNameBox.center();
+            pauseMenu.addComponent("username_box", userNameBox);
 
-            // Button continueButton = new Button();
-            // continueButton.clickFunction = () { closeWindow(); };
-            // continueButton.size.x = 200;
-            // continueButton.position.y = 200;
-            // continueButton.text = "CONTINUE";
-            // continueButton.centerX();
-            // pauseMenu.addComponent("continue_button", continueButton);
+            Button continueButton = new Button();
+            continueButton.clickFunction = () { closeWindow(); };
+            continueButton.size.x = 200;
+            continueButton.position.y = 200;
+            continueButton.text = "CONTINUE";
+            continueButton.centerX();
+            pauseMenu.addComponent("continue_button", continueButton);
 
-            // Button notepadButton = new Button();
-            // notepadButton.clickFunction = () { openWindow("notepad_menu"); };
-            // notepadButton.size.x = 200;
-            // notepadButton.position.y = 75;
-            // notepadButton.text = "NOTEPAD";
-            // notepadButton.centerX();
-            // pauseMenu.addComponent("notepad_button", notepadButton);
+            Button notepadButton = new Button();
+            notepadButton.clickFunction = () { openWindow("notepad_menu"); };
+            notepadButton.size.x = 200;
+            notepadButton.position.y = 75;
+            notepadButton.text = "NOTEPAD";
+            notepadButton.centerX();
+            pauseMenu.addComponent("notepad_button", notepadButton);
 
-            // Button settingsButton = new Button();
-            // settingsButton.clickFunction = () { openWindow("settings_menu"); };
-            // settingsButton.size.x = 200;
-            // settingsButton.position.y = -75;
-            // settingsButton.text = "SETTINGS";
-            // settingsButton.centerX();
-            // pauseMenu.addComponent("settings_button", settingsButton);
+            Button settingsButton = new Button();
+            settingsButton.clickFunction = () { openWindow("settings_menu"); };
+            settingsButton.size.x = 200;
+            settingsButton.position.y = -75;
+            settingsButton.text = "SETTINGS";
+            settingsButton.centerX();
+            pauseMenu.addComponent("settings_button", settingsButton);
 
-            // Button exitButton = new Button();
-            // exitButton.clickFunction = () {
-            //     import graphics.window;
+            Button exitButton = new Button();
+            exitButton.clickFunction = () {
+                import graphics.window;
 
-            //     Window.close();
-            // };
+                Window.close();
+            };
 
-            // exitButton.size.x = 200;
-            // exitButton.position.y = -200;
-            // exitButton.text = "EXIT";
-            // exitButton.centerX();
-            // pauseMenu.addComponent("exit_button", exitButton);
+            exitButton.size.x = 200;
+            exitButton.position.y = -200;
+            exitButton.text = "EXIT";
+            exitButton.centerX();
+            pauseMenu.addComponent("exit_button", exitButton);
 
             registerWindow("pause_menu", pauseMenu);
         }
@@ -499,36 +499,36 @@ public: //* BEGIN PUBLIC API.
             settingsMenu.size.y = 800;
             settingsMenu.center();
 
-            // InventoryGUI test = new InventoryGUI();
-            // test.inventory = Player.getInventory();
-            // test.center();
-            // test.clickFunction = (InventoryGUI self) {
-            //     import std.stdio;
+            InventoryGUI test = new InventoryGUI();
+            test.inventory = Player.getInventory();
+            test.center();
+            test.clickFunction = (InventoryGUI self) {
+                import std.stdio;
 
-            //     writeln("click! ", self.mouseHovering);
-            // };
-            // settingsMenu.addComponent("inv", test);
+                writeln("click! ", self.mouseHovering);
+            };
+            settingsMenu.addComponent("inv", test);
 
-            // Label label = new Label();
-            // label.text = "This is a checkbox:";
-            // label.position.y = 32;
-            // label.centerX();
-            // settingsMenu.addComponent("label", label);
+            Label label = new Label();
+            label.text = "This is a checkbox:";
+            label.position.y = 32;
+            label.centerX();
+            settingsMenu.addComponent("label", label);
 
-            // CheckBox box = new CheckBox();
-            // box.text = "checkbox";
-            // box.size.x = 200;
-            // box.centerX();
-            // settingsMenu.addComponent("box", box);
+            CheckBox box = new CheckBox();
+            box.text = "checkbox";
+            box.size.x = 200;
+            box.centerX();
+            settingsMenu.addComponent("box", box);
 
-            // ImageLabel image = new ImageLabel();
-            // image.image = "test.png";
-            // image.scale(2);
-            // image.position.x = -168;
-            // image.position.y = 28;
-            // settingsMenu.addComponent("image", image);
+            ImageLabel image = new ImageLabel();
+            image.image = "test.png";
+            image.scale(2);
+            image.position.x = -168;
+            image.position.y = 28;
+            settingsMenu.addComponent("image", image);
 
-            // settingsMenu.onClose = () { openWindow("pause_menu"); };
+            settingsMenu.onClose = () { openWindow("pause_menu"); };
 
             registerWindow("settings_menu", settingsMenu);
 
@@ -543,19 +543,19 @@ public: //* BEGIN PUBLIC API.
 
             notepadMenu.onClose = () { openWindow("pause_menu"); };
 
-            // TextPad notepad = new TextPad();
-            // notepad.size.x = 800 + 1;
-            // notepad.size.y = 800 - 32 + 1;
-            // notepad.placeholderText = "Here is where you can take notes.";
-            // notepad.center();
+            TextPad notepad = new TextPad();
+            notepad.size.x = 800 + 1;
+            notepad.size.y = 800 - 32 + 1;
+            notepad.placeholderText = "Here is where you can take notes.";
+            notepad.center();
 
-            // notepad.onWindowResize = (Component self, Vec2i newWorkAreaSize) {
-            //     self.size.x = newWorkAreaSize.x;
-            //     self.size.y = newWorkAreaSize.y;
-            //     self.center();
-            // };
+            notepad.onWindowResize = (Component self, Vec2i newWorkAreaSize) {
+                self.size.x = newWorkAreaSize.x;
+                self.size.y = newWorkAreaSize.y;
+                self.center();
+            };
 
-            // notepadMenu.addComponent("notepad", notepad);
+            notepadMenu.addComponent("notepad", notepad);
 
             registerWindow("notepad_menu", notepadMenu);
 
