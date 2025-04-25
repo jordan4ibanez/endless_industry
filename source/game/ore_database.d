@@ -121,7 +121,7 @@ public: //* BEGIN PUBLIC API.
             thisDefinition.texturePointsIndex = TextureHandler.lookupTexturePointsIndex(
                 thisDefinition.texture);
             idDatabase[thisDefinition.id] = thisDefinition;
-            debugWrite(thisDefinition);
+            // debugWrite(thisDefinition);
         }
 
         // Extremely unsafe API access.
