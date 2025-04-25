@@ -3,6 +3,8 @@ module game.item_database;
 import core.memory;
 import graphics.texture;
 import optibrev;
+import std.conv;
+import std.stdio;
 import std.string;
 
 struct ItemDefinition {
@@ -33,6 +35,8 @@ private:
     // Insanely fast unsafe access based on ID alone from pointer arithmetic.
     // Do not use this unless you want to debug some "very cool" errors.
     ItemDefinition* ultraFastAccess;
+
+    int currentID = 0;
 
 public:
 
@@ -101,6 +105,21 @@ public:
     /// Do not use this unless you want to debug some "very cool" errors.
     ItemDefinition* unsafeGetByID(int id) {
         return ultraFastAccess + id;
+    }
+
+private: //* BEGIN INTERNAL API.
+    void debugWrite(ItemDefinition definition) {
+        writeln("Tile " ~ definition.name ~ " at ID " ~ to!string(definition.id));
+    }
+
+    // todo: make this pull the standard IDs into an associative array from the sqlite.
+    // todo: sqlite should store the MAX current ID and restore it.
+    // todo: Then, match to it. If it doesn't match, this is a new tile.
+    // todo: Then you'd call into this. :)
+    int nextID() {
+        int thisID = currentID;
+        currentID++;
+        return thisID;
     }
 
 }
