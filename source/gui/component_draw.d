@@ -628,8 +628,8 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
 
     // const int size = inv.__inventory.getSize();
 
-    const Item[] __itemsArray = inv.__inventory.getInventoryItems();
-    const Item* itemsPointer = __itemsArray.ptr;
+    const ItemStack[] __itemsArray = inv.__inventory.getInventoryItems();
+    const ItemStack* itemsPointer = __itemsArray.ptr;
     const int sizeInv = cast(int) __itemsArray.length;
     const int widthInv = inv.__inventory.getWidth();
     const int rows = cast(int) ceil(cast(double) sizeInv / cast(double) widthInv);

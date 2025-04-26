@@ -480,7 +480,7 @@ bool inventoryLogic(ref Component __self, const ref Vec2i center, const ref Vect
         }
     }
 
-    const Item[] __itemsArray = inv.__inventory.getInventoryItems();
+    const ItemStack[] __itemsArray = inv.__inventory.getInventoryItems();
     const int sizeInv = cast(int) __itemsArray.length;
     const int widthInv = inv.__inventory.getWidth();
 
