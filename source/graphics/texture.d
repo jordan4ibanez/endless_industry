@@ -119,6 +119,28 @@ public: //* BEGIN PUBLIC API.
                 .WHITE);
     }
 
+    // Specialty function.
+    void drawTextureFromRectPointer(ulong index, Vec2d position, Vec2d size, Vec2d origin = Vec2d(0, 0)) {
+
+        const OutputRect* rawInput = ultraFastOutputRectAccess + index;
+
+        Rect source;
+        source.x = rawInput.x;
+        source.y = rawInput.y;
+        source.width = rawInput.w;
+        source.height = rawInput.h;
+
+        Rect dest = Rect(
+            position.x,
+            -position.y,
+            size.x,
+            size.y
+        );
+
+        drawTextureFromAtlasPro(source.toRaylib(), dest.toRaylib(), origin.toRaylib(), 0, Colors
+                .WHITE);
+    }
+
     // Simplified version.
     void drawTextureKnownCoordinates(OutputRect* coordinatesRect, Vec2d position, Vec2d size,
         Vec2d origin = Vec2d(0, 0), double rotation = 0) {
@@ -176,6 +198,12 @@ public: //* BEGIN PUBLIC API.
         OutputRect result;
         database.getRectangleIntegral(name, result);
         return result;
+    }
+
+    /// This is a specialty function to get the position in the array to draw entities very fast.
+    /// Do not use this in mods.
+    ulong getTextureRectanglePointerIndex(string name) {
+        return outputRectReverseLookup[name];
     }
 
     void loadTexture(string location) {
