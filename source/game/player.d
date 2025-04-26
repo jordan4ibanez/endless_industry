@@ -84,7 +84,9 @@ public: //* BEGIN PUBLIC API.
         inventory.addItem("endless_industry.copper_plate", 1);
         inventory.addItem("endless_industry.copper_plate", 1);
         inventory.addItem("endless_industry.copper_plate", 86);
-        writeln(inventory.addItem("endless_industry.copper_plate", 87_000).expect("wat"));
+        inventory.addItem("endless_industry.copper_plate", 65);
+
+        // writeln(inventory.addItem("endless_industry.copper_plate", 87_000).expect("wat"));
 
         if (__frameNames == null) {
             throw new Error("Player frames were never set.");
