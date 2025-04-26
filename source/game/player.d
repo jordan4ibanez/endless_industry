@@ -22,6 +22,7 @@ import std.stdio;
 import utility.collision_functions;
 import utility.delta;
 import utility.drawing_functions;
+import utility.option;
 
 private struct AnimationState {
     mixin(bitfields!(
@@ -82,9 +83,8 @@ public: //* BEGIN PUBLIC API.
         inventory.addItem("endless_industry.copper_plate", 10);
         inventory.addItem("endless_industry.copper_plate", 1);
         inventory.addItem("endless_industry.copper_plate", 1);
-        inventory.addItem("endless_industry.copper_plate", 87);
-        inventory.addItem("endless_industry.copper_plate", 87);
-
+        inventory.addItem("endless_industry.copper_plate", 86);
+        writeln(inventory.addItem("endless_industry.copper_plate", 87_000).expect("wat"));
 
         if (__frameNames == null) {
             throw new Error("Player frames were never set.");
