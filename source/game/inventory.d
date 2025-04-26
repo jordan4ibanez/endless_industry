@@ -96,24 +96,53 @@ Option!ItemStack addItem(Inventory inventory, string name, int count = 1) {
 
     ItemStack[] thisInv = __items[inventory];
 
-    ItemDefinition itemDef = ItemDatabase.getItemByName(name)
+    const ItemDefinition itemDef = ItemDatabase.getItemByName(name)
         .expect(name ~ " is not a registered item");
 
     ItemStack itemStack = ItemStack(itemDef.id, count);
 
-    foreach (invSlotItem; thisInv) {
+    const int MAX_STACK = itemDef.maxStackSize;
 
-        if (invSlotItem.id == 0) {
+    void insert(ref int currentCount) {
+        // const int test = ;
+        writeln("===============");
+        const int AMOUNT_CAN_FIT = MAX_STACK - currentCount;
+
+        if (AMOUNT_CAN_FIT > itemStack.count) {
+            currentCount += itemStack.count;
+            itemStack.count = 0;
+        } else {
+            currentCount += AMOUNT_CAN_FIT;
+            itemStack.count -= AMOUNT_CAN_FIT;
+        }
+
+        writeln("new: ", currentCount, " | adder: ", itemStack.count);
+
+        writeln("+++++++++++++++");
+    }
+
+    foreach (ref invSlotItem; thisInv) {
+
+        if (invSlotItem.id == 0 || invSlotItem.id == itemStack.id) {
+
             //todo: Empty, good to dump an entire stack in.
             //todo: this can still yield leftovers 
-            writeln("found empty!");
 
-        } else if (invSlotItem.id == itemStack.id) {
+            insert(invSlotItem.count);
+
             //todo: Partially, if not entirely full. Needs to check for room.
             //todo: if room calculate how much can add, like if adding in
             //todo: more than a full stack at once, it could loop over until either finding another slot to add into or
             //todo: it reached the end.
             //todo: If the calculation drops to 0, break the loop.
+
+            if (itemStack.count < 0) {
+                writeln("wat ", itemStack.count);
+                throw new Error("reached less than 0");
+            }
+            if (itemStack.count == 0) {
+                break;
+            }
 
         }
     }

@@ -68,6 +68,7 @@ public: //* BEGIN PUBLIC API.
         inventory = InventoryHandler.newInventory();
         inventory.setSize(95);
         inventory.setWidth(10);
+
         // writeln(inventory.getSize());
         // writeln("id: ", inventory.id);
         // writeln("matches? ", inventory.sizeof == int.sizeof);
@@ -76,6 +77,15 @@ public: //* BEGIN PUBLIC API.
     }
 
     void finalize() {
+
+        inventory.addItem("endless_industry.copper_plate", 1);
+        inventory.addItem("endless_industry.copper_plate", 10);
+        inventory.addItem("endless_industry.copper_plate", 1);
+        inventory.addItem("endless_industry.copper_plate", 1);
+        inventory.addItem("endless_industry.copper_plate", 87);
+        inventory.addItem("endless_industry.copper_plate", 87);
+
+
         if (__frameNames == null) {
             throw new Error("Player frames were never set.");
         }
