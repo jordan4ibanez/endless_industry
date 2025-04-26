@@ -10,12 +10,17 @@ import utility.option;
 struct ItemDefinition {
 package:
     int id = -1;
-    ulong texturePointsIndex = 0;
-    int maxStackSize = 100;
 
 public:
+
     string name = null;
     string texture = null;
+
+    /// If you modify this during runtime, you will blow up the game.
+    int maxStackSize = 100;
+
+    /// Do not use.
+    ulong textureRectIndex = 0;
 }
 
 struct ItemStack {
@@ -118,7 +123,7 @@ public:
         foreach (name, ref thisDefinition; nameDatabase) {
             // todo: do the match thing below when sqlite is added in.
             thisDefinition.id = nextID();
-            thisDefinition.texturePointsIndex = TextureHandler.lookupTexturePointsIndex(
+            thisDefinition.textureRectIndex = TextureHandler.getTextureRectanglePointerIndex(
                 thisDefinition.texture);
             idDatabase[thisDefinition.id] = thisDefinition;
             debugWrite(thisDefinition);
