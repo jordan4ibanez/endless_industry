@@ -696,14 +696,6 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
     //     sizeY,
     //     Colors.RED);
 
-    // Todo: draw an item.
-    // foreach (i; 0 .. size) {
-    //     const Item* item = (itemsPointer + i);
-    //     if (item.id == 0) {
-    //         continue;
-    //     }
-    // }
-
     // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
     endScissorComponent();
 }
