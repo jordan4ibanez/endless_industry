@@ -18,7 +18,7 @@ public:
     string texture = null;
 }
 
-struct Item {
+struct ItemStack {
     int id = 0;
     int count = 0;
 }

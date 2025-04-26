@@ -13,7 +13,7 @@ LinkedHashQueue!int freeSlots = LinkedHashQueue!int();
 
 int __length = 1;
 int[] __widths = new int[](1);
-Item[][] __items = new Item[][](1);
+ItemStack[][] __items = new ItemStack[][](1);
 
 public:
 
@@ -36,11 +36,11 @@ static:
         if (slotResult.isSome()) {
             slot = slotResult.unwrap();
             __widths[slot] = width;
-            __items[slot] = new Item[](size);
+            __items[slot] = new ItemStack[](size);
         } else {
             slot = __length;
             __widths ~= width;
-            __items ~= new Item[](size);
+            __items ~= new ItemStack[](size);
             __length++;
         }
         return Inventory(slot);
@@ -69,7 +69,7 @@ void setSize(const Inventory inventory, const int size) {
     } else if (size < currentSize) {
         __items[inventory] = __items[inventory][0 .. size];
     } else {
-        __items[inventory] ~= new Item[](size - currentSize);
+        __items[inventory] ~= new ItemStack[](size - currentSize);
     }
 }
 
@@ -84,22 +84,22 @@ void setWidth(const Inventory inventory, const int width) {
     __widths[inventory] = width;
 }
 
-Item[] getInventoryItems(Inventory inventory) {
+ItemStack[] getInventoryItems(Inventory inventory) {
     boundsCheck(inventory);
     return __items[inventory];
 }
 
 /// Add an item into an inventory.
 /// Returns the leftover items that didn't fit, if any.
-Option!Item addItem(Inventory inventory, string name, int count = 1) {
-    Option!Item result;
+Option!ItemStack addItem(Inventory inventory, string name, int count = 1) {
+    Option!ItemStack result;
 
-    Item[] thisInv = __items[inventory];
+    ItemStack[] thisInv = __items[inventory];
 
     ItemDefinition itemDef = ItemDatabase.getItemByName(name)
         .expect(name ~ " is not a registered item");
 
-    Item itemStack = Item(itemDef.id, count);
+    ItemStack itemStack = ItemStack(itemDef.id, count);
 
     foreach (invSlotItem; thisInv) {
 
