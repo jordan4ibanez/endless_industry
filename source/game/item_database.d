@@ -37,7 +37,7 @@ private:
     // Do not use this unless you want to debug some "very cool" errors.
     ItemDefinition* ultraFastAccess;
 
-    int currentID = 0;
+    int currentID = 1;
 
 public:
 
@@ -126,8 +126,10 @@ public:
 
         // Extremely unsafe API access.
         // Do not use this unless you want to debug some "very cool" errors.
-        ultraFastAccess = cast(ItemDefinition*) GC.malloc(ItemDefinition.sizeof * idDatabase.length);
-        foreach (i; 0 .. idDatabase.length) {
+        ultraFastAccess = cast(ItemDefinition*) GC.malloc(
+            ItemDefinition.sizeof * (idDatabase.length + 1));
+
+        foreach (i; 1 .. (idDatabase.length + 1)) {
             ultraFastAccess[i] = idDatabase[cast(int) i];
 
             assert(ultraFastAccess[i].name == idDatabase[cast(int) i].name);
