@@ -203,7 +203,11 @@ public: //* BEGIN PUBLIC API.
     /// This is a specialty function to get the position in the array to draw entities very fast.
     /// Do not use this in mods.
     ulong getTextureRectanglePointerIndex(string name) {
-        return outputRectReverseLookup[name];
+        ulong* index = name in outputRectReverseLookup;
+        if (index is null) {
+            throw new Error("missing texture");
+        }
+        return *index;
     }
 
     void loadTexture(string location) {
