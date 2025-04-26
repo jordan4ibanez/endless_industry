@@ -28,7 +28,7 @@ public: //* BEGIN PUBLIC API.
         font = LoadFontEx(
             toStringz("font/roboto_condensed.ttf"), baseFontSize, cast(int*) codePointString, 0);
 
-        writeln("Loaded font roboto_condensed.ttf");
+        // writeln("Loaded font roboto_condensed.ttf");
     }
 
     Vector2 getTextSize(string text, double fontScale = 1.0) {
