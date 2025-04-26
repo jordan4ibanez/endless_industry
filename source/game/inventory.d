@@ -103,32 +103,34 @@ Option!ItemStack addItem(Inventory inventory, string name, int count = 1) {
 
     const int MAX_STACK = itemDef.maxStackSize;
 
-    void insert(ref int currentCount) {
+    void insert(ref ItemStack currentStack) {
         // const int test = ;
         writeln("===============");
-        const int AMOUNT_CAN_FIT = MAX_STACK - currentCount;
+        const int AMOUNT_CAN_FIT = MAX_STACK - currentStack.count;
 
         if (AMOUNT_CAN_FIT > itemStack.count) {
-            currentCount += itemStack.count;
+            currentStack.count += itemStack.count;
             itemStack.count = 0;
         } else {
-            currentCount += AMOUNT_CAN_FIT;
+            currentStack.count += AMOUNT_CAN_FIT;
             itemStack.count -= AMOUNT_CAN_FIT;
         }
 
-        writeln("new: ", currentCount, " | adder: ", itemStack.count);
+        currentStack.id = itemStack.id;
+
+        writeln("new: ", currentStack.count, " | adder: ", itemStack.count);
 
         writeln("+++++++++++++++");
     }
 
-    foreach (ref invSlotItem; thisInv) {
+    foreach (ref ItemStack invSlotItem; thisInv) {
 
         if (invSlotItem.id == 0 || invSlotItem.id == itemStack.id) {
 
             //todo: Empty, good to dump an entire stack in.
             //todo: this can still yield leftovers 
 
-            insert(invSlotItem.count);
+            insert(invSlotItem);
 
             //todo: Partially, if not entirely full. Needs to check for room.
             //todo: if room calculate how much can add, like if adding in
@@ -136,15 +138,17 @@ Option!ItemStack addItem(Inventory inventory, string name, int count = 1) {
             //todo: it reached the end.
             //todo: If the calculation drops to 0, break the loop.
 
-            if (itemStack.count < 0) {
-                writeln("wat ", itemStack.count);
-                throw new Error("reached less than 0");
-            }
+            assert(itemStack.count >= 0, "reached less than 0");
             if (itemStack.count == 0) {
                 break;
             }
 
         }
+    }
+
+    // If there was no room for more, the leftover gets returned as Some.
+    if (itemStack.count > 0) {
+        result = result.Some(itemStack);
     }
 
     return result;
