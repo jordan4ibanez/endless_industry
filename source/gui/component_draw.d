@@ -10,6 +10,7 @@ import raylib : Color, Colors, DrawCircle, DrawCircleLines, DrawRectangle, DrawR
 import game.inventory;
 import game.item_database;
 import graphics.texture;
+import std.conv;
 import std.math.rounding;
 
 package:
