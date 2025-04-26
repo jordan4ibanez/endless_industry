@@ -655,6 +655,22 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
             cast(int) floor(slotSize),
             slotColor);
 
+        const ItemStack* item = (itemsPointer + i);
+
+        // Draw the actual item. (if any)
+        if (item.id > 0) {
+            const ItemDefinition* thisDefPointer = ItemDatabase.unsafeGetByID(item.id);
+
+            TextureHandler.drawTextureFromRectPointer(
+                thisDefPointer.textureRectIndex,
+                Vec2d(
+                    posX + round(currentWidth),
+                    -posY - round(currentHeight)),
+                Vec2d(
+                    floor(slotSize),
+                    floor(slotSize)));
+        }
+
         DrawRectangleLines(
             posX + cast(int) round(currentWidth),
             posY + cast(int) round(currentHeight),
