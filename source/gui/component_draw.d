@@ -670,6 +670,23 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
                 Vec2d(
                     floor(slotSize),
                     floor(slotSize)));
+
+            const string stackCountText = to!string(thisStack.count);
+
+            const Vec2d textSize = FontHandler.getTextSize(stackCountText, 0.2);
+
+            const int textX = cast(int) round(textSize.x);
+            const int textY = cast(int) round(textSize.y);
+
+            FontHandler.drawShadowed(
+                stackCountText,
+                (((posX + slotSize) - textX) - cast(int) round(2 * GUI.currentGUIScale)) +
+                    cast(int) round(currentWidth),
+                (((posY + slotSize) - textY) + cast(int) round(GUI.currentGUIScale)) + cast(
+                    int) round(currentHeight),
+                0.2,
+                Colors.WHITE
+            );
         }
 
         DrawRectangleLines(
