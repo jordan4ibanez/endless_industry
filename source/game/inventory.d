@@ -91,20 +91,24 @@ Item[] getInventoryItems(Inventory inventory) {
 
 /// Add an item into an inventory.
 /// Returns the leftover items that didn't fit, if any.
-Option!Item addItem(Inventory inventory, string name, int stackSize = 1) {
+Option!Item addItem(Inventory inventory, string name, int count = 1) {
     Option!Item result;
 
     Item[] thisInv = __items[inventory];
 
-    ItemDefinition addingItem = ItemDatabase.getItemByName(name)
+    ItemDefinition itemDef = ItemDatabase.getItemByName(name)
         .expect(name ~ " is not a registered item");
 
-    foreach (item; thisInv) {
+    Item itemStack = Item(itemDef.id, count);
 
-        if (addingItem.id == 0) {
+    foreach (invSlotItem; thisInv) {
+
+        if (invSlotItem.id == 0) {
             //todo: Empty, good to dump an entire stack in.
+            //todo: this can still yield leftovers 
+            writeln("found empty!");
 
-        } else if (addingItem.id == item.id) {
+        } else if (invSlotItem.id == itemStack.id) {
             //todo: Partially, if not entirely full. Needs to check for room.
             //todo: if room calculate how much can add, like if adding in
             //todo: more than a full stack at once, it could loop over until either finding another slot to add into or
