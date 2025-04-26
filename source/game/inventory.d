@@ -100,7 +100,18 @@ Option!Item addItem(Inventory inventory, string name, int stackSize = 1) {
         .expect(name ~ " is not a registered item");
 
     foreach (item; thisInv) {
-        // if (item.id )
+
+        if (addingItem.id == 0) {
+            //todo: Empty, good to dump an entire stack in.
+
+        } else if (addingItem.id == item.id) {
+            //todo: Partially, if not entirely full. Needs to check for room.
+            //todo: if room calculate how much can add, like if adding in
+            //todo: more than a full stack at once, it could loop over until either finding another slot to add into or
+            //todo: it reached the end.
+            //todo: If the calculation drops to 0, break the loop.
+
+        }
     }
 
     return result;
