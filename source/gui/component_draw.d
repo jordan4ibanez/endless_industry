@@ -673,7 +673,7 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
 
             const string stackCountText = to!string(thisStack.count);
 
-            const Vec2d textSize = FontHandler.getTextSize(stackCountText, 0.2);
+            const Vec2d textSize = FontHandler.getTextSize(stackCountText, 0.165);
 
             const int textX = cast(int) round(textSize.x);
             const int textY = cast(int) round(textSize.y);
@@ -684,7 +684,7 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
                     cast(int) round(currentWidth),
                 (((posY + slotSize) - textY) + cast(int) round(GUI.currentGUIScale)) + cast(
                     int) round(currentHeight),
-                0.2,
+                0.165,
                 Colors.WHITE
             );
         }
