@@ -1,8 +1,8 @@
 - Build a GUI library in raylib using stock D architectural components
 
-inventory
-
 if the virtual window is bigger than the width or height, make it fit
+
+mouse inventory so you can move things around
 
 drop down menu for menu button sounds
 retro - current model f sound
