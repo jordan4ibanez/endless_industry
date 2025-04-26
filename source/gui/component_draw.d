@@ -714,6 +714,5 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
     //     sizeY,
     //     Colors.RED);
 
-    // FontHandler.drawShadowed(label.__text, posX, posY, 0.25, label.textColor);
     endScissorComponent();
 }
