@@ -656,11 +656,11 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
             cast(int) floor(slotSize),
             slotColor);
 
-        const ItemStack* item = (itemsPointer + i);
+        const ItemStack* thisStack = (itemsPointer + i);
 
         // Draw the actual item. (if any)
-        if (item.id > 0) {
-            const ItemDefinition* thisDefPointer = ItemDatabase.unsafeGetByID(item.id);
+        if (thisStack.id > 0) {
+            const ItemDefinition* thisDefPointer = ItemDatabase.unsafeGetByID(thisStack.id);
 
             TextureHandler.drawTextureFromRectPointer(
                 thisDefPointer.textureRectIndex,
