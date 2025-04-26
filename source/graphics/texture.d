@@ -33,6 +33,8 @@ private:
     //! NEVER USE THESE IN YOUR MODS.
     TexturePoints!Vec2d* ultraFastTexturePointAccess;
     ulong[string] texturePointAccessReverseLookup;
+    OutputRect* ultraFastOutputRectAccess;
+    ulong[string] outputRectReverseLookup;
 
 public: //* BEGIN PUBLIC API.
 
@@ -53,11 +55,20 @@ public: //* BEGIN PUBLIC API.
         ultraFastTexturePointAccess = cast(TexturePoints!Vec2d*) GC.malloc(
             TexturePoints!Vec2d.sizeof * texturePointDatabase.length);
 
+        ultraFastOutputRectAccess = cast(OutputRect*) GC.malloc(
+            OutputRect.sizeof * texturePointDatabase.length);
+
         ulong index = 0;
         foreach (key, value; texturePointDatabase) {
-            texturePointAccessReverseLookup[key] = index;
 
+            texturePointAccessReverseLookup[key] = index;
             ultraFastTexturePointAccess[index] = value;
+
+            OutputRect result;
+            database.getRectangleIntegral(key, result);
+            outputRectReverseLookup[key] = index;
+            ultraFastOutputRectAccess[index] = result;
+
             index++;
         }
     }
