@@ -65,9 +65,11 @@ void main() {
 
 	Audio.initialize();
 
-	double counter = -10.0;
+	double counter = .0;
 	int itemDumpCounter = 0;
 	int inventoryExpansionCounter = 0;
+
+	const double timeSpan = 0.0001;
 
 	while (Window.shouldStayOpen()) {
 
@@ -80,12 +82,13 @@ void main() {
 		Map.onTick(delta);
 
 		counter += delta;
-		if (counter > 0.15) {
-			if (itemDumpCounter < 5) {
-				if (itemDumpCounter == 4) {
-					Inventory(2).addItemByName("endless_industry.copper_plate", 99);
-				} else {
-					Inventory(2).addItemByName("endless_industry.copper_plate", 100);
+		if (counter >= timeSpan) {
+			if (itemDumpCounter < 14_000) {
+
+				Option!ItemStack blah = Inventory(2).addItemByName("endless_industry.copper_plate");
+
+				if (blah.isSome()) {
+					writeln("leftover: ", blah.unwrap);
 				}
 
 				// writeln("adding");
@@ -102,7 +105,7 @@ void main() {
 				inventoryExpansionCounter++;
 			}
 
-			counter -= 0.15;
+			counter -= timeSpan;
 		}
 
 		BeginDrawing();
