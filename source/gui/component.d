@@ -444,8 +444,14 @@ public:
     //? Functions/methods.
 
     /// What the slot does when clicked.
+    /// You can use this to check what the slot is before the swap with mouse inv takes place.
     /// By default, this does nothing.
     void function(InventoryGUI) clickFunction = (InventoryGUI self) {};
+
+    /// What the slot does after it is clicked.
+    /// You can use this to check what the slot becomes after the swap with mouse inv takes place.
+    /// By default, this does nothing.
+    void function(InventoryGUI) afterClickFunction = (InventoryGUI self) {};
 
     /// What the slot does when opened.
     /// By default, this does nothing.
