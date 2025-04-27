@@ -54,6 +54,7 @@ private:
     OutputRect* frames = null;
     Inventory inventory;
     Inventory mouseInventory;
+    Inventory lastFocusedInv;
 
 public: //* BEGIN PUBLIC API.
 
@@ -83,7 +84,7 @@ public: //* BEGIN PUBLIC API.
 
     void finalize() {
 
-        inventory.addItemByName("endless_industry.copper_plate", 1);
+        inventory.addItemByName("endless_industry.copper_plate", 10);
         // inventory.addItemByName("endless_industry.copper_plate", 10);
         // inventory.addItemByName("endless_industry.copper_plate", 1);
         // inventory.addItemByName("endless_industry.copper_plate", 1);
@@ -110,6 +111,14 @@ public: //* BEGIN PUBLIC API.
         }
 
         this.__frameNames = null;
+    }
+
+    void __setLastFocusedInv(Inventory inv) {
+        lastFocusedInv = inv;
+    }
+
+    Inventory __getLastFocusedInv() {
+        return lastFocusedInv;
     }
 
     Inventory getInventory() {
