@@ -124,6 +124,8 @@ Option!ItemStack addItem(Inventory inventory, string name, int count = 1) {
             currentStack.count += itemStack.count;
             itemStack.count = 0;
         } else {
+            // This is allowed to do 0 because it's probably faster for the CPU
+            // to guess forward with the same machine code path.
             currentStack.count += AMOUNT_CAN_FIT;
             itemStack.count -= AMOUNT_CAN_FIT;
         }
