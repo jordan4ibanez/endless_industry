@@ -118,9 +118,8 @@ Option!ItemStack addItem(Inventory inventory, string name, int count = 1) {
 
     void insert(ref ItemStack currentStack) {
         // const int test = ;
-        writeln("===============");
+        // writeln("===============");
         const int AMOUNT_CAN_FIT = MAX_STACK - currentStack.count;
-
         if (AMOUNT_CAN_FIT > itemStack.count) {
             currentStack.count += itemStack.count;
             itemStack.count = 0;
@@ -128,21 +127,13 @@ Option!ItemStack addItem(Inventory inventory, string name, int count = 1) {
             currentStack.count += AMOUNT_CAN_FIT;
             itemStack.count -= AMOUNT_CAN_FIT;
         }
-
         currentStack.id = itemStack.id;
-
-        writeln("new: ", currentStack.count, " | adder: ", itemStack.count);
-
-        writeln("+++++++++++++++");
+        // writeln("new: ", currentStack.count, " | adder: ", itemStack.count);
+        // writeln("+++++++++++++++");
     }
 
     foreach (ref ItemStack invSlotItem; thisInv) {
-
         if (invSlotItem.id == 0 || invSlotItem.id == itemStack.id) {
-
-            //todo: Empty, good to dump an entire stack in.
-            //todo: this can still yield leftovers 
-
             insert(invSlotItem);
 
             //todo: Partially, if not entirely full. Needs to check for room.
