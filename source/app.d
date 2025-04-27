@@ -142,7 +142,7 @@ void main() {
 			GUI.drawCurrentWindow();
 
 			// Then the mouse inventory is drawn over the GUI.
-			Player.drawMouseInventory();
+			GUI.drawMouseInventory();
 
 		}
 		EndDrawing();
