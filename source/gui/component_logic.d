@@ -528,15 +528,5 @@ bool inventoryLogic(ref Component __self, const ref Vec2i center, const ref Vect
         }
     }
 
-    // If the mouse is hovering over the button.
-    // if (CheckCollisionPointRec(mousePos, buttonRect)) {
-    //     button.mouseHovering = true;
-    //     // If the mouse clicks the button.
-    //     if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-    //         playButtonSound();
-    //         button.clickFunction();
-    //         return true;
-    //     }
-    // }
     return false;
 }
