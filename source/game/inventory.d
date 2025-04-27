@@ -133,6 +133,34 @@ void clickSlot(Inventory inventory, const int slot) {
     }
 }
 
+/// This is a specialty function in which the mouse has clicked an inventory slot.
+/// I would highly not recommend using this in your mods if you value your sanity.
+void splitClickSlot(Inventory inventory, const int slot) {
+    // writeln("clicked slot: ", slot, " | in inventory: ", inventory);
+    Player.__setLastFocusedInv(inventory);
+    ItemStack[] __mouseInv = __items[1];
+    ItemStack* mouseStack = &__mouseInv[0];
+    ItemStack[] __targetInv = __items[inventory];
+    ItemStack* targetStack = &__targetInv[slot];
+    if (mouseStack.id == 0) {
+        // Taking.
+        // But nothing to take.
+        if (targetStack.id == 0) {
+            return;
+        }
+        swap(mouseStack, targetStack);
+    } else {
+        // Put or swap.
+        if (targetStack.id != mouseStack.id) {
+            // Swap.
+            swap(mouseStack, targetStack);
+        } else {
+            // Put. This will automatically leave any residual in the mouse slot.
+            insert(mouseStack, targetStack);
+        }
+    }
+}
+
 /// Add an item into an inventory.
 /// Returns the leftover items that didn't fit, if any.
 Option!ItemStack addItemByName(Inventory inventory, string name, int count = 1) {
