@@ -164,13 +164,23 @@ void splitClickSlot(Inventory inventory, const int slot) {
         }
         targetStack.count = remainder;
     } else {
-        // Put or swap.
-        if (targetStack.id != mouseStack.id) {
-            // Swap.
-            swap(mouseStack, targetStack);
-        } else {
-            // Put. This will automatically leave any residual in the mouse slot.
-            insert(mouseStack, targetStack);
+        // Put 1 or no-op.
+        if (targetStack.id == 0) {
+            targetStack.id = mouseStack.id;
+            targetStack.count++;
+        } else if (targetStack.id == mouseStack.id) {
+            const ItemDefinition __itemDef = ItemDatabase.getItemByID(mouseStack.id)
+                .expect("ID " ~ to!string(mouseStack.id) ~ " is not a registered item");
+            if (targetStack.count + 1 > __itemDef.maxStackSize) {
+                return;
+            }
+
+            targetStack.count++;
+            mouseStack.count--;
+            // Ran out of items.
+            if (mouseStack.count == 0) {
+                mouseStack.id = 0;
+            }
         }
     }
 }
