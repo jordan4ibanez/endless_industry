@@ -65,7 +65,7 @@ void main() {
 
 	Audio.initialize();
 
-	int counter = -70_000;
+	double counter = -10.0;
 	int itemDumpCounter = 0;
 	int inventoryExpansionCounter = 0;
 
@@ -79,8 +79,8 @@ void main() {
 
 		Map.onTick(delta);
 
-		counter++;
-		if (counter > 10_000) {
+		counter += delta;
+		if (counter > 0.15) {
 			if (itemDumpCounter < 5) {
 				if (itemDumpCounter == 4) {
 					Inventory(2).addItemByName("endless_industry.copper_plate", 99);
@@ -92,7 +92,7 @@ void main() {
 				itemDumpCounter++;
 			}
 
-			if (inventoryExpansionCounter < 10) {
+			if (inventoryExpansionCounter <= 12) {
 				// Yes you can literally conjur a player inventory out of thin air.
 				Inventory playerInv = Inventory(2);
 
@@ -102,7 +102,7 @@ void main() {
 				inventoryExpansionCounter++;
 			}
 
-			counter = 0;
+			counter -= 0.15;
 		}
 
 		BeginDrawing();
