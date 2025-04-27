@@ -8,6 +8,15 @@ import utility.linked_hash_queue;
 private:
 
 // todo: swap to GC malloc so it doesn't incur boundary check
+/**
+*~ Some notes:
+*~ 
+*~ Inventory 1 is reserved for the mouse.
+*~
+*~
+*~
+*~
+*/
 
 LinkedHashQueue!int freeSlots = LinkedHashQueue!int();
 
@@ -47,6 +56,7 @@ static:
     }
 
     void deleteInventory(const Inventory inventory) {
+        mouseCheck(inventory);
         boundsCheck(inventory);
         __widths[inventory] = 0;
         __items[inventory] = null;
@@ -60,6 +70,7 @@ int getSize(const Inventory inventory) {
 }
 
 void setSize(const Inventory inventory, const int size) {
+    mouseCheck(inventory);
     boundsCheck(inventory);
     sizeCheck(size);
     const int currentSize = cast(int) __items[inventory].length;
@@ -74,11 +85,13 @@ void setSize(const Inventory inventory, const int size) {
 }
 
 int getWidth(const Inventory inventory) {
+    mouseCheck(inventory);
     boundsCheck(inventory);
     return __widths[inventory];
 }
 
 void setWidth(const Inventory inventory, const int width) {
+    mouseCheck(inventory);
     boundsCheck(inventory);
     widthCheck(width);
     __widths[inventory] = width;
@@ -161,6 +174,12 @@ void boundsCheck(const Inventory inventory) {
 
     assert(inventory < __length && inventory > 0, "Inventory is of bounds. (doesn't exist) " ~ to!string(
             inventory.id));
+}
+
+void mouseCheck(const Inventory inventory) {
+    if (inventory == 1) {
+        throw new Error("Do not modify the mouse inventory");
+    }
 }
 
 void widthCheck(const int width) {
