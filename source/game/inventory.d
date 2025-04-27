@@ -174,13 +174,12 @@ void splitClickSlot(Inventory inventory, const int slot) {
             if (targetStack.count + 1 > __itemDef.maxStackSize) {
                 return;
             }
-
             targetStack.count++;
-            mouseStack.count--;
-            // Ran out of items.
-            if (mouseStack.count == 0) {
-                mouseStack.id = 0;
-            }
+        }
+        mouseStack.count--;
+        // Ran out of items.
+        if (mouseStack.count == 0) {
+            mouseStack.id = 0;
         }
     }
 }
