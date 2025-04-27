@@ -6,6 +6,7 @@ import controls.keyboard;
 import controls.mouse;
 import game.inventory;
 import graphics.colors;
+import graphics.texture;
 import gui.font;
 import gui.window_frame_draw;
 import gui.window_frame_logic;
@@ -637,10 +638,30 @@ public: //* BEGIN PUBLIC API.
             return;
         }
 
-        ItemDefinition __thisDef = ItemDatabase.getItemByID(mouseStack.id)
-            .expect("How did this happen");
+        const ItemDefinition* thisDefPointer = ItemDatabase.unsafeGetByID(mouseStack.id);
+        const double slotSize = 48.0 * GUI.currentGUIScale;
 
-        writeln(__thisDef.textureRectIndex);
+        Vec2d mousePos = Mouse.getPosition();
+        mousePos.y *= -1.0;
+
+        TextureHandler.drawTextureFromRectPointer(
+            thisDefPointer.textureRectIndex,
+            mousePos,
+            Vec2d(floor(slotSize),
+                floor(slotSize)));
+
+        const string stackCountText = to!string(mouseStack.count);
+        const Vec2d textSize = FontHandler.getTextSize(stackCountText, 0.165);
+        const int textX = cast(int) round(textSize.x);
+        const int textY = cast(int) round(textSize.y);
+
+        FontHandler.drawShadowed(
+            stackCountText,
+            (((mousePos.x + slotSize) - textX) - cast(int) round(2 * GUI.currentGUIScale)),
+            ((((-mousePos.y) + slotSize) - textY) + cast(int) round(GUI.currentGUIScale)),
+            0.165,
+            Colors.WHITE
+        );
     }
 
     void __update(Vec2d newWindowSize) {
