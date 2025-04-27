@@ -134,22 +134,30 @@ void clickSlot(Inventory inventory, const int slot) {
     }
 }
 
-void insert(ref ItemStack targetStack, ref ItemStack currentStack) {
-    // const int test = ;
+void insert(ref ItemStack currentStack, ref ItemStack targetStack) {
     // writeln("===============");
-    const int AMOUNT_CAN_FIT = MAX_STACK - currentStack.count;
-    if (AMOUNT_CAN_FIT > targetStack.count) {
-        currentStack.count += targetStack.count;
-        targetStack.count = 0;
+    const ItemDefinition itemDef = ItemDatabase.getItemByID(currentStack.id)
+        .expect("ID " ~ to!string(currentStack.id) ~ " not a registered item");
+    const int MAX_STACK = itemDef.maxStackSize;
+    const int AMOUNT_CAN_FIT = MAX_STACK - targetStack.count;
+    if (AMOUNT_CAN_FIT == 0) {
+        return;
+    }
+    if (AMOUNT_CAN_FIT >= currentStack.count) {
+        targetStack.count += currentStack.count;
+        currentStack.count = 0;
     } else {
         // This is allowed to do 0 because it's probably faster for the CPU
         // to guess forward with the same machine code path.
-        currentStack.count += AMOUNT_CAN_FIT;
-        targetStack.count -= AMOUNT_CAN_FIT;
+        targetStack.count += AMOUNT_CAN_FIT;
+        currentStack.count -= AMOUNT_CAN_FIT;
     }
-    currentStack.id = targetStack.id;
-    // writeln("new: ", currentStack.count, " | adder: ", targetStack.count);
-    // writeln("+++++++++++++++");
+    targetStack.id = currentStack.id;
+    if (currentStack.count == 0) {
+        currentStack.id = 0;
+    }
+    writeln("new: ", currentStack.count, " | adder: ", targetStack.count);
+    writeln("+++++++++++++++");
 }
 
 /// Add an item into an inventory.
