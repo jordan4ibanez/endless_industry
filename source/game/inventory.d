@@ -16,7 +16,7 @@ private:
 *~ 
 *~ Inventory 1 is reserved for the mouse.
 *~
-*~
+*~ Inventory 2 is reserved for the player.
 *~
 *~
 */
