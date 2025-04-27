@@ -519,9 +519,23 @@ public: //* BEGIN PUBLIC API.
                         writeln("warning: got nothing?");
                     }
                 }
-
                 writeln("before: ", itemName, " ", stack.count);
+            };
 
+            test.afterClickFunction = (InventoryGUI self) {
+                import std.stdio;
+
+                ItemStack stack = self.getHoveredStack().expect("How is this nothing?");
+                string itemName = "nothing";
+                if (stack.id > 0) {
+                    Option!ItemDefinition res = ItemDatabase.getItemByID(stack.id);
+                    if (res.isSome) {
+                        itemName = res.unwrap().name;
+                    } else {
+                        writeln("warning: got nothing?");
+                    }
+                }
+                writeln("after: ", itemName, " ", stack.count);
             };
             settingsMenu.addComponent("inv", test);
 
