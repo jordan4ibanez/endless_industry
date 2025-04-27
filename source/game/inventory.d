@@ -4,6 +4,7 @@ public import game.item_database;
 public import utility.option;
 import game.player;
 import std.conv;
+import std.math.rounding;
 import std.stdio;
 import utility.linked_hash_queue;
 
@@ -142,13 +143,27 @@ void splitClickSlot(Inventory inventory, const int slot) {
     ItemStack* mouseStack = &__mouseInv[0];
     ItemStack[] __targetInv = __items[inventory];
     ItemStack* targetStack = &__targetInv[slot];
+
     if (mouseStack.id == 0) {
         // Taking.
         // But nothing to take.
         if (targetStack.id == 0) {
             return;
         }
-        swap(mouseStack, targetStack);
+
+        // Take the upper half if count is odd.
+        const int takenCount = cast(int) ceil(cast(double) targetStack.count / 2.0);
+        const int remainder = targetStack.count - takenCount;
+
+        mouseStack.id = targetStack.id;
+        mouseStack.count = takenCount;
+
+        // If you right click a single item, it's 0.
+        if (remainder == 0) {
+            writeln("hit single");
+            targetStack.id = 0;
+        }
+        targetStack.count = remainder;
     } else {
         // Put or swap.
         if (targetStack.id != mouseStack.id) {
