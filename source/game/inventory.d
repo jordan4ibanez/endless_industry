@@ -134,7 +134,7 @@ void clickSlot(Inventory inventory, const int slot) {
     }
 }
 
-void insert(ref ItemStack currentStack, ref ItemStack targetStack) {
+void insert(ItemStack* currentStack, ItemStack* targetStack) {
     // writeln("===============");
     const ItemDefinition itemDef = ItemDatabase.getItemByID(currentStack.id)
         .expect("ID " ~ to!string(currentStack.id) ~ " not a registered item");
@@ -170,7 +170,7 @@ Option!ItemStack addItemByName(Inventory inventory, string name, int count = 1) 
     ItemStack itemStack = ItemStack(__itemDef.id, count);
     foreach (ref ItemStack invSlotStack; thisInv) {
         if (invSlotStack.id == 0 || invSlotStack.id == itemStack.id) {
-            insert(itemStack, invSlotStack);
+            insert(&itemStack, &invSlotStack);
             assert(itemStack.count >= 0, "reached less than 0");
             if (itemStack.count == 0) {
                 break;
