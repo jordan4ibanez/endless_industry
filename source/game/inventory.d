@@ -103,6 +103,12 @@ ItemStack[] getInventoryItems(Inventory inventory) {
     return __items[inventory];
 }
 
+/// This is a specialty function in which the mouse has clicked an inventory slot.
+/// I would highly not recommend using this in your mods if you value your sanity.
+void clickSlot(Inventory inventory, const int slot) {
+    
+}
+
 /// Add an item into an inventory.
 /// Returns the leftover items that didn't fit, if any.
 Option!ItemStack addItemByName(Inventory inventory, string name, int count = 1) {
