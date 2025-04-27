@@ -104,7 +104,7 @@ ItemStack[] getInventoryItems(Inventory inventory) {
 
 /// Add an item into an inventory.
 /// Returns the leftover items that didn't fit, if any.
-Option!ItemStack addItem(Inventory inventory, string name, int count = 1) {
+Option!ItemStack addItemByName(Inventory inventory, string name, int count = 1) {
     Option!ItemStack result;
 
     ItemStack[] thisInv = __items[inventory];

@@ -83,14 +83,14 @@ public: //* BEGIN PUBLIC API.
 
     void finalize() {
 
-        inventory.addItem("endless_industry.copper_plate", 1);
-        // inventory.addItem("endless_industry.copper_plate", 10);
-        // inventory.addItem("endless_industry.copper_plate", 1);
-        // inventory.addItem("endless_industry.copper_plate", 1);
-        // inventory.addItem("endless_industry.copper_plate", 86);
-        // inventory.addItem("endless_industry.copper_plate", 65);
+        inventory.addItemByName("endless_industry.copper_plate", 1);
+        // inventory.addItemByName("endless_industry.copper_plate", 10);
+        // inventory.addItemByName("endless_industry.copper_plate", 1);
+        // inventory.addItemByName("endless_industry.copper_plate", 1);
+        // inventory.addItemByName("endless_industry.copper_plate", 86);
+        // inventory.addItemByName("endless_industry.copper_plate", 65);
 
-        // writeln(inventory.addItem("endless_industry.copper_plate", 87_000).expect("wat"));
+        // writeln(inventory.addItemByName("endless_industry.copper_plate", 87_000).expect("wat"));
 
         if (__frameNames == null) {
             throw new Error("Player frames were never set.");
