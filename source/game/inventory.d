@@ -126,12 +126,20 @@ void clickSlot(Inventory inventory, const int slot) {
         *mouseStack = *targetStack;
 
         *targetStack = ItemStack();
+
         writeln("took");
 
     } else {
         // Put or swap.
 
-        writeln("put or swap");
+        // Swap.
+        if (targetStack.id != mouseStack.id) {
+            *targetStack = *mouseStack;
+            *mouseStack = ItemStack();
+        } else {
+            // Put.
+            insert(mouseStack, targetStack);
+        }
     }
 }
 
