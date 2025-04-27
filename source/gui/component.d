@@ -399,9 +399,6 @@ package:
     /// Which inventory this component is attached to.
     Inventory __inventory = Inventory(0);
 
-    // todo: needs a function to calculate the size of the inventory.
-    // todo: a function property for setting the inventory.
-
     /// This function makes it so this thing can automatically resize itself to
     /// fit a resized inventory on the fly.
     void calculateSize() {
