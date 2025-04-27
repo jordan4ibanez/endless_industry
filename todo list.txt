@@ -13,6 +13,7 @@ off - turn it off
 
 Then reorganize all the internals into the private section of the class
 
+- when starting up the game should do a sanity check and just remove all unregistered items and entities
 
 - Use the ubuntu font set cause why not
 
