@@ -162,6 +162,7 @@ void boundsCheck(const Inventory inventory) {
             inventory.id));
 }
 
+pragma(inline, true)
 void mouseCheck(const Inventory inventory) {
     if (inventory == 1) {
         throw new Error("Do not modify the mouse inventory");
@@ -175,12 +176,14 @@ void playerInventoryCheck(const Inventory inventory) {
     }
 }
 
+pragma(inline, true)
 void widthCheck(const int width) {
     if (width <= 0) {
         throw new Error("width cannot be less than 1");
     }
 }
 
+pragma(inline, true)
 void sizeCheck(const int size) {
     if (size <= 0) {
         throw new Error("size cannot be less than 1");
