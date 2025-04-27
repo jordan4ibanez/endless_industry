@@ -504,7 +504,10 @@ bool inventoryLogic(ref Component __self, const ref Vec2i center, const ref Vect
             inv.mouseHovering = i;
             if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                 GUI.playButtonSound();
+                //~ Note: Doing this in this order allows extremely delicate behavior to be achieved.
                 inv.clickFunction(inv);
+                inv.__inventory.clickSlot(inv.mouseHovering);
+                inv.afterClickFunction(inv);
 
                 // todo: needs to have a thing where if there's an item you're holding with the mouse
                 // todo: in the onclose function, or if something happens, then it can put it back where you got it from.
