@@ -157,6 +157,30 @@ Option!ItemStack addItemByName(Inventory inventory, string name, int count = 1) 
     return result;
 }
 
+/// Add an item into an inventory.
+/// Returns the leftover items that didn't fit, if any.
+Option!ItemStack addItemByID(Inventory inventory, int id, int count = 1) {
+    Option!ItemStack result;
+    ItemStack[] thisInv = __items[inventory];
+    const ItemDefinition __itemDef = ItemDatabase.getItemByID(id)
+        .expect("ID " ~ to!string(id) ~ " is not a registered item");
+    ItemStack itemStack = ItemStack(__itemDef.id, count);
+    foreach (ref ItemStack invSlotStack; thisInv) {
+        if (invSlotStack.id == 0 || invSlotStack.id == itemStack.id) {
+            insert(&itemStack, &invSlotStack);
+            assert(itemStack.count >= 0, "reached less than 0");
+            if (itemStack.count == 0) {
+                break;
+            }
+        }
+    }
+    // If there was no room for more, the leftover gets returned as Some.
+    if (itemStack.count > 0) {
+        result = result.Some(itemStack);
+    }
+    return result;
+}
+
 private:
 pragma(inline)
 void boundsCheck(const Inventory inventory) {
