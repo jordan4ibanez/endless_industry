@@ -141,6 +141,9 @@ void main() {
 			// The current window covers everything else in the GUI.
 			GUI.drawCurrentWindow();
 
+			// Then the mouse inventory is drawn over the GUI.
+			Player.drawMouseInventory();
+
 		}
 		EndDrawing();
 	}
