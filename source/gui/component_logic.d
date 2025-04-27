@@ -459,7 +459,18 @@ bool dropMenuLogic(ref Component __self, const ref Vec2i center, const ref Vecto
 ///? Inventory.
 bool inventoryLogic(ref Component __self, const ref Vec2i center, const ref Vector2 mousePos,
     ref bool keyboardDoingTextInput) {
+
     InventoryGUI inv = cast(InventoryGUI) __self;
+
+    const ItemStack[] __itemsArray = inv.__inventory.getInventoryItems();
+    const int sizeInv = cast(int) __itemsArray.length;
+    const int widthInv = inv.__inventory.getWidth();
+
+    if (inv.oldSize != sizeInv) {
+        inv.newSize = sizeInv;
+        inv.calculateSize();
+    }
+
     inv.mouseHovering = -1;
 
     const int posX = cast(int) floor(
@@ -479,10 +490,6 @@ bool inventoryLogic(ref Component __self, const ref Vec2i center, const ref Vect
             return false;
         }
     }
-
-    const ItemStack[] __itemsArray = inv.__inventory.getInventoryItems();
-    const int sizeInv = cast(int) __itemsArray.length;
-    const int widthInv = inv.__inventory.getWidth();
 
     const double slotSize = 48.0 * GUI.currentGUIScale;
     const double padding = 4.0 * GUI.currentGUIScale;
