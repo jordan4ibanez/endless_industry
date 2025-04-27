@@ -205,7 +205,6 @@ void sizeCheck(const int size) {
 }
 
 void insert(ItemStack* currentStack, ItemStack* targetStack) {
-    // writeln("===============");
     const ItemDefinition itemDef = ItemDatabase.getItemByID(currentStack.id)
         .expect("ID " ~ to!string(currentStack.id) ~ " not a registered item");
     const int MAX_STACK = itemDef.maxStackSize;
@@ -217,8 +216,6 @@ void insert(ItemStack* currentStack, ItemStack* targetStack) {
         targetStack.count += currentStack.count;
         currentStack.count = 0;
     } else {
-        // This is allowed to do 0 because it's probably faster for the CPU
-        // to guess forward with the same machine code path.
         targetStack.count += AMOUNT_CAN_FIT;
         currentStack.count -= AMOUNT_CAN_FIT;
     }
