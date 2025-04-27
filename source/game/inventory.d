@@ -225,6 +225,6 @@ void insert(ItemStack* currentStack, ItemStack* targetStack) {
     if (currentStack.count == 0) {
         currentStack.id = 0;
     }
-    writeln("new: ", currentStack.count, " | adder: ", targetStack.count);
-    writeln("+++++++++++++++");
+    // writeln("new: ", currentStack.count, " | adder: ", targetStack.count);
+    // writeln("+++++++++++++++");
 }
