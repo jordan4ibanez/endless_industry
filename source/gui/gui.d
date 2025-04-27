@@ -506,37 +506,37 @@ public: //* BEGIN PUBLIC API.
             test.position.x = -680;
             test.position.y = 348;
 
-            test.clickFunction = (InventoryGUI self) {
-                import std.stdio;
+            // test.clickFunction = (InventoryGUI self) {
+            //     import std.stdio;
 
-                ItemStack stack = self.inventory.getInventoryItems()[self.mouseHovering];
-                string itemName = "nothing";
-                if (stack.id > 0) {
-                    Option!ItemDefinition res = ItemDatabase.getItemByID(stack.id);
-                    if (res.isSome) {
-                        itemName = res.unwrap().name;
-                    } else {
-                        writeln("warning: got nothing?");
-                    }
-                }
-                writeln("before: ", itemName, " ", stack.count);
-            };
+            //     ItemStack stack = self.inventory.getInventoryItems()[self.mouseHovering];
+            //     string itemName = "nothing";
+            //     if (stack.id > 0) {
+            //         Option!ItemDefinition res = ItemDatabase.getItemByID(stack.id);
+            //         if (res.isSome) {
+            //             itemName = res.unwrap().name;
+            //         } else {
+            //             writeln("warning: got nothing?");
+            //         }
+            //     }
+            //     writeln("before: ", itemName, " ", stack.count);
+            // };
 
-            test.afterClickFunction = (InventoryGUI self) {
-                import std.stdio;
+            // test.afterClickFunction = (InventoryGUI self) {
+            //     import std.stdio;
 
-                ItemStack stack = self.inventory.getInventoryItems()[self.mouseHovering];
-                string itemName = "nothing";
-                if (stack.id > 0) {
-                    Option!ItemDefinition res = ItemDatabase.getItemByID(stack.id);
-                    if (res.isSome) {
-                        itemName = res.unwrap().name;
-                    } else {
-                        writeln("warning: got nothing?");
-                    }
-                }
-                writeln("after: ", itemName, " ", stack.count);
-            };
+            //     ItemStack stack = self.inventory.getInventoryItems()[self.mouseHovering];
+            //     string itemName = "nothing";
+            //     if (stack.id > 0) {
+            //         Option!ItemDefinition res = ItemDatabase.getItemByID(stack.id);
+            //         if (res.isSome) {
+            //             itemName = res.unwrap().name;
+            //         } else {
+            //             writeln("warning: got nothing?");
+            //         }
+            //     }
+            //     writeln("after: ", itemName, " ", stack.count);
+            // };
             settingsMenu.addComponent("inv", test);
 
             // Label label = new Label();
