@@ -220,18 +220,6 @@ public: //* BEGIN PUBLIC API.
         TextureHandler.drawTextureKnownCoordinates(frames + index, adjustedPosition, Vec2d(3, 3));
     }
 
-    void drawMouseInventory() {
-        ItemStack mouseStack = mouseInventory.getInventoryItems[0];
-        if (mouseStack.id == 0) {
-            return;
-        }
-
-        ItemDefinition __thisDef = ItemDatabase.getItemByID(mouseStack.id)
-            .expect("How did this happen");
-
-        writeln(__thisDef.textureRectIndex);
-    }
-
     void setAnimationState(ubyte newState) {
         // Walking has 8 frames.
         // Everything else (for now) has 4.

@@ -631,6 +631,18 @@ public: //* BEGIN PUBLIC API.
         FontHandler.terminate();
     }
 
+    void drawMouseInventory() {
+        ItemStack mouseStack = Inventory(1).getInventoryItems[0];
+        if (mouseStack.id == 0) {
+            return;
+        }
+
+        ItemDefinition __thisDef = ItemDatabase.getItemByID(mouseStack.id)
+            .expect("How did this happen");
+
+        writeln(__thisDef.textureRectIndex);
+    }
+
     void __update(Vec2d newWindowSize) {
         const Vec2d oldSize = realSize;
 
