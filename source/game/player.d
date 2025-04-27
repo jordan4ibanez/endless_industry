@@ -53,6 +53,7 @@ private:
     string[] __frameNames = null;
     OutputRect* frames = null;
     Inventory inventory;
+    Inventory mouseInventory;
 
 public: //* BEGIN PUBLIC API.
 
@@ -66,6 +67,8 @@ public: //* BEGIN PUBLIC API.
     }
 
     void initialize() {
+
+        mouseInventory = InventoryHandler.newInventory(1, 1);
         inventory = InventoryHandler.newInventory();
         inventory.setSize(95);
         inventory.setWidth(10);
