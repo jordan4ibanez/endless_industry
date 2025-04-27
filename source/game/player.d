@@ -69,9 +69,10 @@ public: //* BEGIN PUBLIC API.
     void initialize() {
 
         mouseInventory = InventoryHandler.newInventory(1, 1);
+
         inventory = InventoryHandler.newInventory();
-        inventory.setSize(95);
-        inventory.setWidth(10);
+        // inventory.setSize(95);
+        // inventory.setWidth(10);
 
         // writeln(inventory.getSize());
         // writeln("id: ", inventory.id);
@@ -83,11 +84,11 @@ public: //* BEGIN PUBLIC API.
     void finalize() {
 
         inventory.addItem("endless_industry.copper_plate", 1);
-        inventory.addItem("endless_industry.copper_plate", 10);
-        inventory.addItem("endless_industry.copper_plate", 1);
-        inventory.addItem("endless_industry.copper_plate", 1);
-        inventory.addItem("endless_industry.copper_plate", 86);
-        inventory.addItem("endless_industry.copper_plate", 65);
+        // inventory.addItem("endless_industry.copper_plate", 10);
+        // inventory.addItem("endless_industry.copper_plate", 1);
+        // inventory.addItem("endless_industry.copper_plate", 1);
+        // inventory.addItem("endless_industry.copper_plate", 86);
+        // inventory.addItem("endless_industry.copper_plate", 65);
 
         // writeln(inventory.addItem("endless_industry.copper_plate", 87_000).expect("wat"));
 
