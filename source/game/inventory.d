@@ -127,7 +127,7 @@ void clickSlot(Inventory inventory, const int slot) {
             // Swap.
             swap(mouseStack, targetStack);
         } else {
-            // Put.
+            // Put. This will automatically leave any residual in the mouse slot.
             insert(mouseStack, targetStack);
         }
     }
