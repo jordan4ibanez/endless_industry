@@ -164,19 +164,13 @@ void insert(ref ItemStack currentStack, ref ItemStack targetStack) {
 /// Returns the leftover items that didn't fit, if any.
 Option!ItemStack addItemByName(Inventory inventory, string name, int count = 1) {
     Option!ItemStack result;
-
     ItemStack[] thisInv = __items[inventory];
-
-    const ItemDefinition itemDef = ItemDatabase.getItemByName(name)
+    const ItemDefinition __itemDef = ItemDatabase.getItemByName(name)
         .expect(name ~ " is not a registered item");
-
-    ItemStack itemStack = ItemStack(itemDef.id, count);
-
-    const int MAX_STACK = itemDef.maxStackSize;
-
-    foreach (ref ItemStack invSlotItem; thisInv) {
-        if (invSlotItem.id == 0 || invSlotItem.id == itemStack.id) {
-            insert(invSlotItem);
+    ItemStack itemStack = ItemStack(__itemDef.id, count);
+    foreach (ref ItemStack invSlotStack; thisInv) {
+        if (invSlotStack.id == 0 || invSlotStack.id == itemStack.id) {
+            insert(itemStack, invSlotStack);
             assert(itemStack.count >= 0, "reached less than 0");
             if (itemStack.count == 0) {
                 break;
