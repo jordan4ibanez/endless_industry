@@ -137,18 +137,10 @@ Option!ItemStack addItem(Inventory inventory, string name, int count = 1) {
     foreach (ref ItemStack invSlotItem; thisInv) {
         if (invSlotItem.id == 0 || invSlotItem.id == itemStack.id) {
             insert(invSlotItem);
-
-            //todo: Partially, if not entirely full. Needs to check for room.
-            //todo: if room calculate how much can add, like if adding in
-            //todo: more than a full stack at once, it could loop over until either finding another slot to add into or
-            //todo: it reached the end.
-            //todo: If the calculation drops to 0, break the loop.
-
             assert(itemStack.count >= 0, "reached less than 0");
             if (itemStack.count == 0) {
                 break;
             }
-
         }
     }
 
