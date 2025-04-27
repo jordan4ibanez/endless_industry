@@ -204,6 +204,13 @@ void sizeCheck(const int size) {
     }
 }
 
+pragma(inline, true)
+void swap(ItemStack* currentStack, ItemStack* targetStack) {
+    const ItemStack oldTarget = *targetStack;
+    *targetStack = *currentStack;
+    *currentStack = oldTarget;
+}
+
 void insert(ItemStack* currentStack, ItemStack* targetStack) {
     const ItemDefinition itemDef = ItemDatabase.getItemByID(currentStack.id)
         .expect("ID " ~ to!string(currentStack.id) ~ " not a registered item");
