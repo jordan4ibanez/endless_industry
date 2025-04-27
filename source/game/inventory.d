@@ -2,6 +2,7 @@ module game.inventory;
 
 public import game.item_database;
 public import utility.option;
+import std.conv;
 import std.stdio;
 import utility.linked_hash_queue;
 
