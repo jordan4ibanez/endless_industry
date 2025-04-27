@@ -495,13 +495,16 @@ public: //* BEGIN PUBLIC API.
 
             WindowGUI settingsMenu = new WindowGUI();
             settingsMenu.title = "Settings";
-            settingsMenu.size.x = 800;
+            settingsMenu.size.x = 1400;
             settingsMenu.size.y = 800;
+            settingsMenu.resizeable = false;
             settingsMenu.center();
 
             InventoryGUI test = new InventoryGUI();
             test.inventory = Player.getInventory();
-            test.center();
+            test.position.x = -680;
+            test.position.y = 348;
+
             test.clickFunction = (InventoryGUI self) {
                 import std.stdio;
 
