@@ -134,6 +134,24 @@ void clickSlot(Inventory inventory, const int slot) {
     }
 }
 
+void insert(ref ItemStack targetStack, ref ItemStack currentStack) {
+    // const int test = ;
+    // writeln("===============");
+    const int AMOUNT_CAN_FIT = MAX_STACK - currentStack.count;
+    if (AMOUNT_CAN_FIT > itemStack.count) {
+        currentStack.count += itemStack.count;
+        itemStack.count = 0;
+    } else {
+        // This is allowed to do 0 because it's probably faster for the CPU
+        // to guess forward with the same machine code path.
+        currentStack.count += AMOUNT_CAN_FIT;
+        itemStack.count -= AMOUNT_CAN_FIT;
+    }
+    currentStack.id = itemStack.id;
+    // writeln("new: ", currentStack.count, " | adder: ", itemStack.count);
+    // writeln("+++++++++++++++");
+}
+
 /// Add an item into an inventory.
 /// Returns the leftover items that didn't fit, if any.
 Option!ItemStack addItemByName(Inventory inventory, string name, int count = 1) {
@@ -147,24 +165,6 @@ Option!ItemStack addItemByName(Inventory inventory, string name, int count = 1) 
     ItemStack itemStack = ItemStack(itemDef.id, count);
 
     const int MAX_STACK = itemDef.maxStackSize;
-
-    void insert(ref ItemStack currentStack) {
-        // const int test = ;
-        // writeln("===============");
-        const int AMOUNT_CAN_FIT = MAX_STACK - currentStack.count;
-        if (AMOUNT_CAN_FIT > itemStack.count) {
-            currentStack.count += itemStack.count;
-            itemStack.count = 0;
-        } else {
-            // This is allowed to do 0 because it's probably faster for the CPU
-            // to guess forward with the same machine code path.
-            currentStack.count += AMOUNT_CAN_FIT;
-            itemStack.count -= AMOUNT_CAN_FIT;
-        }
-        currentStack.id = itemStack.id;
-        // writeln("new: ", currentStack.count, " | adder: ", itemStack.count);
-        // writeln("+++++++++++++++");
-    }
 
     foreach (ref ItemStack invSlotItem; thisInv) {
         if (invSlotItem.id == 0 || invSlotItem.id == itemStack.id) {
