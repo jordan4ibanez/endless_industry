@@ -57,6 +57,7 @@ static:
 
     void deleteInventory(const Inventory inventory) {
         mouseCheck(inventory);
+        playerInventoryCheck(inventory);
         boundsCheck(inventory);
         __widths[inventory] = 0;
         __items[inventory] = null;
@@ -164,6 +165,13 @@ void boundsCheck(const Inventory inventory) {
 void mouseCheck(const Inventory inventory) {
     if (inventory == 1) {
         throw new Error("Do not modify the mouse inventory");
+    }
+}
+
+pragma(inline, true)
+void playerInventoryCheck(const Inventory inventory) {
+    if (inventory == 2) {
+        throw new Error("Do not delete the player inventory");
     }
 }
 
