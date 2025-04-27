@@ -2,6 +2,7 @@ module game.inventory;
 
 public import game.item_database;
 public import utility.option;
+import game.player;
 import std.conv;
 import std.stdio;
 import utility.linked_hash_queue;
@@ -109,6 +110,9 @@ ItemStack[] getInventoryItems(Inventory inventory) {
 void clickSlot(Inventory inventory, const int slot) {
 
     writeln("clicked slot: ", slot, " | in inventory: ", inventory);
+
+    Player.__setLastFocusedInv(inventory);
+    
     ItemStack[] __mouseInv = __items[1];
     ItemStack* mouseStack = &__mouseInv[0];
 
