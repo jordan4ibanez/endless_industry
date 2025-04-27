@@ -514,6 +514,12 @@ bool inventoryLogic(ref Component __self, const ref Vec2i center, const ref Vect
                 // todo: so store the inventory, which slot it came from.
                 // todo: if the player manages to get something put in that slot then just try to add it in.
                 // todo: if that fails then just dump the item on the ground.
+            } else if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_RIGHT)) {
+                GUI.playButtonSound();
+                //~ Note: Doing this in this order allows extremely delicate behavior to be achieved.
+                inv.clickFunction(inv);
+                inv.__inventory.splitClickSlot(inv.mouseHovering);
+                inv.afterClickFunction(inv);
             }
             return true;
         }
