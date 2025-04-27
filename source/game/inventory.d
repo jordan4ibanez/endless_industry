@@ -138,17 +138,17 @@ void insert(ref ItemStack targetStack, ref ItemStack currentStack) {
     // const int test = ;
     // writeln("===============");
     const int AMOUNT_CAN_FIT = MAX_STACK - currentStack.count;
-    if (AMOUNT_CAN_FIT > itemStack.count) {
-        currentStack.count += itemStack.count;
-        itemStack.count = 0;
+    if (AMOUNT_CAN_FIT > targetStack.count) {
+        currentStack.count += targetStack.count;
+        targetStack.count = 0;
     } else {
         // This is allowed to do 0 because it's probably faster for the CPU
         // to guess forward with the same machine code path.
         currentStack.count += AMOUNT_CAN_FIT;
-        itemStack.count -= AMOUNT_CAN_FIT;
+        targetStack.count -= AMOUNT_CAN_FIT;
     }
-    currentStack.id = itemStack.id;
-    // writeln("new: ", currentStack.count, " | adder: ", itemStack.count);
+    currentStack.id = targetStack.id;
+    // writeln("new: ", currentStack.count, " | adder: ", targetStack.count);
     // writeln("+++++++++++++++");
 }
 
