@@ -178,12 +178,10 @@ Option!ItemStack addItemByName(Inventory inventory, string name, int count = 1) 
             }
         }
     }
-
     // If there was no room for more, the leftover gets returned as Some.
     if (itemStack.count > 0) {
         result = result.Some(itemStack);
     }
-
     return result;
 }
 
