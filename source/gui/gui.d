@@ -14,6 +14,7 @@ import math.vec2i;
 import raylib;
 import std.algorithm.mutation;
 import std.array;
+import std.compiler;
 import std.conv;
 import std.math.rounding;
 import std.random;
@@ -508,7 +509,19 @@ public: //* BEGIN PUBLIC API.
             test.clickFunction = (InventoryGUI self) {
                 import std.stdio;
 
-                writeln("click! ", self.mouseHovering);
+                ItemStack stack = self.getHoveredStack().expect("How is this nothing?");
+                string itemName = "nothing";
+                if (stack.id > 0) {
+                    Option!ItemDefinition res = ItemDatabase.getItemByID(stack.id);
+                    if (res.isSome) {
+                        itemName = res.unwrap().name;
+                    } else {
+                        writeln("warning: got nothing?");
+                    }
+                }
+
+                writeln("before: ", itemName, " ", stack.count);
+
             };
             settingsMenu.addComponent("inv", test);
 
