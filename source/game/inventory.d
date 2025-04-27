@@ -160,7 +160,6 @@ void splitClickSlot(Inventory inventory, const int slot) {
 
         // If you right click a single item, it's 0.
         if (remainder == 0) {
-            writeln("hit single");
             targetStack.id = 0;
         }
         targetStack.count = remainder;
