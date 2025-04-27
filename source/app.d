@@ -3,6 +3,7 @@ import std.stdio;
 import audio.audio;
 import controls.keyboard;
 import controls.mouse;
+import game.inventory;
 import game.map;
 import game.player;
 import graphics.camera;
@@ -64,6 +65,9 @@ void main() {
 
 	Audio.initialize();
 
+	int counter = -30_000;
+	int maximum = 0;
+
 	while (Window.shouldStayOpen()) {
 
 		double delta = Delta.getDelta();
@@ -73,6 +77,23 @@ void main() {
 		CameraHandler.centerToPlayer();
 
 		Map.onTick(delta);
+
+		if (maximum < 5) {
+			counter++;
+			if (counter > 10_000) {
+
+				if (maximum == 4) {
+					Inventory(2).addItemByName("endless_industry.copper_plate", 99);
+				} else {
+					Inventory(2).addItemByName("endless_industry.copper_plate", 100);
+				}
+
+				// writeln("adding");
+
+				counter = 0;
+				maximum++;
+			}
+		}
 
 		BeginDrawing();
 		{
