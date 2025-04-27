@@ -509,7 +509,7 @@ public: //* BEGIN PUBLIC API.
             test.clickFunction = (InventoryGUI self) {
                 import std.stdio;
 
-                ItemStack stack = self.getHoveredStack().expect("How is this nothing?");
+                ItemStack stack = self.inventory.getInventoryItems()[self.mouseHovering];
                 string itemName = "nothing";
                 if (stack.id > 0) {
                     Option!ItemDefinition res = ItemDatabase.getItemByID(stack.id);
@@ -525,7 +525,7 @@ public: //* BEGIN PUBLIC API.
             test.afterClickFunction = (InventoryGUI self) {
                 import std.stdio;
 
-                ItemStack stack = self.getHoveredStack().expect("How is this nothing?");
+                ItemStack stack = self.inventory.getInventoryItems()[self.mouseHovering];
                 string itemName = "nothing";
                 if (stack.id > 0) {
                     Option!ItemDefinition res = ItemDatabase.getItemByID(stack.id);
