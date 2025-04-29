@@ -65,17 +65,13 @@ public: //* BEGIN PUBLIC API.
     }
 
     void batchDrawRectangle(int posX, int posY, int width, int height) {
-        Vector2 topLeft;
-        Vector2 topRight;
-        Vector2 bottomLeft;
-        Vector2 bottomRight;
 
         float x = posX;
         float y = posY;
-        topLeft = Vector2(x, y);
-        topRight = Vector2(x + width, y);
-        bottomLeft = Vector2(x, y + height);
-        bottomRight = Vector2(x + width, y + height);
+        Vector2 topLeft = Vector2(x, y);
+        Vector2 topRight = Vector2(x + width, y);
+        Vector2 bottomLeft = Vector2(x, y + height);
+        Vector2 bottomRight = Vector2(x + width, y + height);
 
         rlVertex2f(topLeft.x, topLeft.y);
         rlVertex2f(bottomLeft.x, bottomLeft.y);
