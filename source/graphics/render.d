@@ -14,11 +14,13 @@ private:
     float yOffset;
     Color currentColor;
     Rectangle rectangleShapeRectangle;
+    int shapesTextureID;
 
 public: //* BEGIN PUBLIC API.
 
     void initialize() {
         rectangleShapeRectangle = GetShapesTextureRectangle();
+        shapesTextureID = GetShapesTexture().id;
     }
 
     void rectangle(Vec2d position, Vec2d size, Color color) {
@@ -35,6 +37,56 @@ public: //* BEGIN PUBLIC API.
         Vec2d invertedPosition = invertPosition(center);
         DrawCircleV(invertedPosition.toRaylib(), radius, color);
     }
+
+    //~ Begin high performance shape draw function batch.
+
+    pragma(inline)
+    void startShapeDrawBatch() {
+        rlSetTexture(shapesTextureID);
+        rlBegin(RL_TRIANGLES);
+        currentColor = Colors.WHITE;
+        setShapeDrawColor(Colors.BLACK);
+    }
+
+    pragma(inline)
+    void endShapeDrawBatch() {
+        rlEnd();
+        rlSetTexture(0);
+    }
+
+    pragma(inline)
+    void setShapeDrawColor(const Color color) {
+        // Do not bother sending this instruction to the GPU.
+        if (color == currentColor) {
+            return;
+        }
+        rlColor4ub(color.r, color.g, color.b, color.a);
+        currentColor = color;
+    }
+
+    void batchDrawRectangle(int posX, int posY, int width, int height) {
+        Vector2 topLeft;
+        Vector2 topRight;
+        Vector2 bottomLeft;
+        Vector2 bottomRight;
+
+        float x = posX;
+        float y = posY;
+        topLeft = Vector2(x, y);
+        topRight = Vector2(x + width, y);
+        bottomLeft = Vector2(x, y + height);
+        bottomRight = Vector2(x + width, y + height);
+
+        rlVertex2f(topLeft.x, topLeft.y);
+        rlVertex2f(bottomLeft.x, bottomLeft.y);
+        rlVertex2f(topRight.x, topRight.y);
+
+        rlVertex2f(topRight.x, topRight.y);
+        rlVertex2f(bottomLeft.x, bottomLeft.y);
+        rlVertex2f(bottomRight.x, bottomRight.y);
+    }
+
+    //~ End high performance shape draw function batch.
 
     //? Begin high performance line draw function batch.
 
