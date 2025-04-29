@@ -26,6 +26,14 @@ public: //* BEGIN PUBLIC API.
         DrawCircleV(invertedPosition.toRaylib(), radius, color);
     }
 
+    //? Begin high performance line draw function batch.
+
+    void startLineDraw() {
+        rlBegin(RL_LINES);
+    }
+
+    //? End high performance line draw function batch.
+
 private: //* BEGIN INTERNAL API.
 
     Vec2d invertPosition(Vec2d position) {
