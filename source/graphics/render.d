@@ -12,6 +12,7 @@ private:
     Matrix mat;
     float xOffset;
     float yOffset;
+    Color currentColor;
 
 public: //* BEGIN PUBLIC API.
 
@@ -38,7 +39,9 @@ public: //* BEGIN PUBLIC API.
         xOffset = 0.5f / mat.m0;
         yOffset = 0.5f / mat.m5;
         rlBegin(RL_LINES);
-
+        currentColor = Colors.WHITE;
+        const Color black = Colors.BLACK;
+        setLineDrawColor(black);
     }
 
     pragma(inline)
@@ -48,7 +51,12 @@ public: //* BEGIN PUBLIC API.
 
     pragma(inline)
     void setLineDrawColor(const ref Color color) {
+        // Do not bother sending this instruction to the GPU.
+        if (color == currentColor) {
+            return;
+        }
         rlColor4ub(color.r, color.g, color.b, color.a);
+        currentColor = color;
     }
 
     void batchDrawRectangleLines(const int posX, const int posY, const int width, const int height) {
