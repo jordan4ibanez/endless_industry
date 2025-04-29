@@ -13,8 +13,13 @@ private:
     float xOffset;
     float yOffset;
     Color currentColor;
+    Rectangle rectangleShapeRectangle;
 
 public: //* BEGIN PUBLIC API.
+
+    void initialize() {
+        rectangleShapeRectangle = GetShapesTextureRectangle();
+    }
 
     void rectangle(Vec2d position, Vec2d size, Color color) {
         DrawRectangleV(invertPosition(position).toRaylib(), size.toRaylib(), color);

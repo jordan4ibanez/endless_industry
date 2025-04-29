@@ -44,6 +44,8 @@ void main() {
 
 	Window.initialize();
 
+	Render.initialize();
+
 	ShaderHandler.newShader("2d", "shader/2d.vert", "shader/2d.frag");
 
 	Player.initialize();
