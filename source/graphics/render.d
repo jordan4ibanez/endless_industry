@@ -45,8 +45,7 @@ public: //* BEGIN PUBLIC API.
         yOffset = 0.5 / mat.m5;
         rlBegin(RL_LINES);
         currentColor = Colors.WHITE;
-        const Color black = Colors.BLACK;
-        setLineDrawColor(black);
+        setLineDrawColor(Colors.BLACK);
     }
 
     pragma(inline)
@@ -55,7 +54,7 @@ public: //* BEGIN PUBLIC API.
     }
 
     pragma(inline)
-    void setLineDrawColor(const ref Color color) {
+    void setLineDrawColor(const Color color) {
         // Do not bother sending this instruction to the GPU.
         if (color == currentColor) {
             return;
