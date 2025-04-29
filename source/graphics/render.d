@@ -66,12 +66,10 @@ public: //* BEGIN PUBLIC API.
 
     void batchDrawRectangle(int posX, int posY, int width, int height) {
 
-        float x = posX;
-        float y = posY;
-        Vector2 topLeft = Vector2(x, y);
-        Vector2 topRight = Vector2(x + width, y);
-        Vector2 bottomLeft = Vector2(x, y + height);
-        Vector2 bottomRight = Vector2(x + width, y + height);
+        Vector2 topLeft = Vector2(posX, posY);
+        Vector2 topRight = Vector2(posX + width, posY);
+        Vector2 bottomLeft = Vector2(posX, posY + height);
+        Vector2 bottomRight = Vector2(posX + width, posY + height);
 
         rlVertex2f(topLeft.x, topLeft.y);
         rlVertex2f(bottomLeft.x, bottomLeft.y);
