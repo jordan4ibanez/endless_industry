@@ -674,6 +674,8 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
     currentWidth = 0;
     currentHeight = 0;
 
+    // Draw the actual items.
+
     foreach (i; 0 .. sizeInv) {
         const ItemStack* thisStack = (itemsPointer + i);
 
@@ -704,23 +706,44 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
     currentWidth = 0;
     currentHeight = 0;
 
-    // const string stackCountText = to!string(thisStack.count);
+    string stackCountText;
 
-    // const Vec2d textSize = FontHandler.getTextSize(stackCountText, 0.165);
+    foreach (i; 0 .. sizeInv) {
 
-    // const int textX = cast(int) round(textSize.x);
-    // const int textY = cast(int) round(textSize.y);
+        const ItemStack* thisStack = (itemsPointer + i);
 
-    // FontHandler.drawShadowed(
-    //     stackCountText,
-    //     (((posX + slotSize) - textX) - cast(int) round(2 * GUI.currentGUIScale)) +
-    //         cast(int) round(currentWidth),
-    //     (((posY + slotSize) - textY) + cast(int) round(GUI.currentGUIScale)) + cast(
-    //         int) round(currentHeight),
-    //     0.165,
-    //     Colors.WHITE
-    // );
-    // }
+        // Draw the actual item. (if any)
+        if (thisStack.id > 0) {
+            stackCountText = to!string(thisStack.count);
+
+            const Vec2d textSize = FontHandler.getTextSize(stackCountText, 0.165);
+
+            const int textX = cast(int) round(textSize.x);
+            const int textY = cast(int) round(textSize.y);
+
+            FontHandler.drawShadowed(
+                stackCountText,
+                (((posX + slotSize) - textX) - cast(int) round(2 * GUI.currentGUIScale)) +
+                    cast(int) round(currentWidth),
+                (((posY + slotSize) - textY) + cast(int) round(GUI.currentGUIScale)) + cast(
+                    int) round(currentHeight),
+                0.165,
+                Colors.WHITE
+            );
+        }
+
+        currentWidth += (slotSize + padding);
+        currentColumn++;
+        if (currentColumn >= widthInv) {
+            currentColumn = 0;
+            currentWidth = 0;
+            currentHeight += (slotSize + padding);
+        }
+    }
+
+    currentColumn = 0;
+    currentWidth = 0;
+    currentHeight = 0;
 
     // The outline of the slots.
     Render.startLineDrawBatch();
