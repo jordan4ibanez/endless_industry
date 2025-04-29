@@ -69,7 +69,7 @@ void main() {
 	int itemDumpCounter = 0;
 	int inventoryExpansionCounter = 0;
 
-	const double timeSpan = 0.0001;
+	const double timeSpan = 0.0;
 
 	while (Window.shouldStayOpen()) {
 
@@ -83,9 +83,9 @@ void main() {
 
 		counter += delta;
 		if (counter >= timeSpan) {
-			if (itemDumpCounter < 14_000) {
+			if (itemDumpCounter < 100) {
 
-				Option!ItemStack blah = Inventory(2).addItemByName("endless_industry.copper_plate");
+				Option!ItemStack blah = Inventory(2).addItemByName("endless_industry.copper_plate", 1000);
 
 				if (blah.isSome()) {
 					writeln("leftover: ", blah.unwrap);
