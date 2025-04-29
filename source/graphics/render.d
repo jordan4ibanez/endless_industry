@@ -38,7 +38,7 @@ public: //* BEGIN PUBLIC API.
         DrawCircleV(invertedPosition.toRaylib(), radius, color);
     }
 
-    //~ Begin high performance shape draw function batch.
+    //! Begin high performance shape draw function batch.
 
     pragma(inline)
     void startShapeDrawBatch() {
@@ -79,7 +79,7 @@ public: //* BEGIN PUBLIC API.
         rlVertex2f(bottomRight.x, bottomRight.y);
     }
 
-    //~ End high performance shape draw function batch.
+    //! End high performance shape draw function batch.
 
     //? Begin high performance line draw function batch.
 
