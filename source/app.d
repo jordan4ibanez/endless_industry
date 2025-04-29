@@ -1,5 +1,3 @@
-import std.stdio;
-
 import audio.audio;
 import controls.keyboard;
 import controls.mouse;
@@ -20,6 +18,7 @@ import mods.api;
 import raylib;
 import std.conv;
 import std.math.traits;
+import std.stdio;
 import std.string;
 import utility.collision_functions;
 import utility.delta;
