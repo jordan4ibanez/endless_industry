@@ -642,19 +642,22 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
     double currentWidth = 0;
     double currentHeight = 0;
 
-    // Draw the slots of the inventory.
+    // Draw the background of the slots.
+    Render.startShapeDrawBatch();
+
     foreach (i; 0 .. sizeInv) {
 
         const hovering = (inv.mouseHovering == i);
 
         const Color slotColor = (hovering) ? inv.slotColorHover : inv.slotColor;
 
-        DrawRectangle(
+        Render.setShapeDrawColor(slotColor);
+
+        Render.batchDrawRectangle(
             posX + cast(int) round(currentWidth),
             posY + cast(int) round(currentHeight),
             cast(int) floor(slotSize),
-            cast(int) floor(slotSize),
-            slotColor);
+            cast(int) floor(slotSize));
 
         currentWidth += (slotSize + padding);
         currentColumn++;
@@ -665,10 +668,13 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
         }
     }
 
+    Render.endShapeDrawBatch();
+
     currentColumn = 0;
     currentWidth = 0;
     currentHeight = 0;
 
+    // The outline of the slots.
     Render.startLineDrawBatch();
 
     foreach (i; 0 .. sizeInv) {
