@@ -672,19 +672,14 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
     Render.startLineDrawBatch();
 
     foreach (i; 0 .. sizeInv) {
-
         const hovering = (inv.mouseHovering == i);
-
         const Color borderColor = (hovering) ? inv.borderColorHover : inv.borderColorHover;
-
         Render.setLineDrawColor(borderColor);
-
         Render.batchDrawRectangleLines(
             posX + cast(int) round(currentWidth),
             posY + cast(int) round(currentHeight),
             cast(int) floor(slotSize),
             cast(int) floor(slotSize));
-
         currentWidth += (slotSize + padding);
         currentColumn++;
         if (currentColumn >= widthInv) {
