@@ -647,7 +647,6 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
 
         const hovering = (inv.mouseHovering == i);
 
-        const Color borderColor = (hovering) ? inv.borderColorHover : inv.borderColorHover;
         const Color slotColor = (hovering) ? inv.slotColorHover : inv.slotColor;
 
         DrawRectangle(
@@ -657,48 +656,7 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
             cast(int) floor(slotSize),
             slotColor);
 
-        const ItemStack* thisStack = (itemsPointer + i);
-
-        // Draw the actual item. (if any)
-        if (thisStack.id > 0) {
-            const ItemDefinition* thisDefPointer = ItemDatabase.unsafeGetByID(thisStack.id);
-
-            TextureHandler.drawTextureFromRectPointer(
-                thisDefPointer.textureRectIndex,
-                Vec2d(
-                    posX + round(currentWidth),
-                    -posY - round(currentHeight)),
-                Vec2d(
-                    floor(slotSize),
-                    floor(slotSize)));
-
-            const string stackCountText = to!string(thisStack.count);
-
-            const Vec2d textSize = FontHandler.getTextSize(stackCountText, 0.165);
-
-            const int textX = cast(int) round(textSize.x);
-            const int textY = cast(int) round(textSize.y);
-
-            FontHandler.drawShadowed(
-                stackCountText,
-                (((posX + slotSize) - textX) - cast(int) round(2 * GUI.currentGUIScale)) +
-                    cast(int) round(currentWidth),
-                (((posY + slotSize) - textY) + cast(int) round(GUI.currentGUIScale)) + cast(
-                    int) round(currentHeight),
-                0.165,
-                Colors.WHITE
-            );
-        }
-
-        DrawRectangleLines(
-            posX + cast(int) round(currentWidth),
-            posY + cast(int) round(currentHeight),
-            cast(int) floor(slotSize),
-            cast(int) floor(slotSize),
-            borderColor);
-
         currentWidth += (slotSize + padding);
-
         currentColumn++;
         if (currentColumn >= widthInv) {
             currentColumn = 0;
@@ -706,6 +664,69 @@ void drawInventory(ref Component __self, const ref Vec2i center, const StartScis
             currentHeight += (slotSize + padding);
         }
     }
+
+    currentColumn = 0;
+    currentWidth = 0;
+    currentHeight = 0;
+
+    Render.startLineDrawBatch();
+
+    foreach (i; 0 .. sizeInv) {
+
+        const hovering = (inv.mouseHovering == i);
+
+        const Color borderColor = (hovering) ? inv.borderColorHover : inv.borderColorHover;
+
+        Render.setLineDrawColor(borderColor);
+
+        Render.batchDrawRectangleLines(
+            posX + cast(int) round(currentWidth),
+            posY + cast(int) round(currentHeight),
+            cast(int) floor(slotSize),
+            cast(int) floor(slotSize));
+
+        currentWidth += (slotSize + padding);
+        currentColumn++;
+        if (currentColumn >= widthInv) {
+            currentColumn = 0;
+            currentWidth = 0;
+            currentHeight += (slotSize + padding);
+        }
+    }
+
+    Render.endLineDrawBatch();
+    // const ItemStack* thisStack = (itemsPointer + i);
+
+    // // Draw the actual item. (if any)
+    // if (thisStack.id > 0) {
+    //     const ItemDefinition* thisDefPointer = ItemDatabase.unsafeGetByID(thisStack.id);
+
+    // TextureHandler.drawTextureFromRectPointer(
+    //     thisDefPointer.textureRectIndex,
+    //     Vec2d(
+    //         posX + round(currentWidth),
+    //         -posY - round(currentHeight)),
+    //     Vec2d(
+    //         floor(slotSize),
+    //         floor(slotSize)));
+
+    // const string stackCountText = to!string(thisStack.count);
+
+    // const Vec2d textSize = FontHandler.getTextSize(stackCountText, 0.165);
+
+    // const int textX = cast(int) round(textSize.x);
+    // const int textY = cast(int) round(textSize.y);
+
+    // FontHandler.drawShadowed(
+    //     stackCountText,
+    //     (((posX + slotSize) - textX) - cast(int) round(2 * GUI.currentGUIScale)) +
+    //         cast(int) round(currentWidth),
+    //     (((posY + slotSize) - textY) + cast(int) round(GUI.currentGUIScale)) + cast(
+    //         int) round(currentHeight),
+    //     0.165,
+    //     Colors.WHITE
+    // );
+    // }
 
     //! This is the debug box for the entirety of the inventory. 
     // DrawRectangleLines(
