@@ -64,12 +64,11 @@ public: //* BEGIN PUBLIC API.
         currentColor = color;
     }
 
-    void batchDrawRectangle(int posX, int posY, int width, int height) {
-
-        Vector2 topLeft = Vector2(posX, posY);
-        Vector2 topRight = Vector2(posX + width, posY);
-        Vector2 bottomLeft = Vector2(posX, posY + height);
-        Vector2 bottomRight = Vector2(posX + width, posY + height);
+    void batchDrawRectangle(const int posX, const int posY, const int width, const int height) {
+        const Vector2 topLeft = Vector2(posX, posY);
+        const Vector2 topRight = Vector2(posX + width, posY);
+        const Vector2 bottomLeft = Vector2(posX, posY + height);
+        const Vector2 bottomRight = Vector2(posX + width, posY + height);
 
         rlVertex2f(topLeft.x, topLeft.y);
         rlVertex2f(bottomLeft.x, bottomLeft.y);
