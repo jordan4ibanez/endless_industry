@@ -36,8 +36,8 @@ public: //* BEGIN PUBLIC API.
     pragma(inline)
     void startLineDrawBatch() {
         mat = rlGetMatrixTransform();
-        xOffset = 0.5f / mat.m0;
-        yOffset = 0.5f / mat.m5;
+        xOffset = 0.5 / mat.m0;
+        yOffset = 0.5 / mat.m5;
         rlBegin(RL_LINES);
         currentColor = Colors.WHITE;
         const Color black = Colors.BLACK;
