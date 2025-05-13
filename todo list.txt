@@ -1,6 +1,6 @@
 - Build a GUI library in raylib using stock D architectural components
 
-if the virtual window is bigger than the width or height, make it fit
+if the virtual window is bigger than the width or height, shrink it
 
 mouse inventory so you can move things around
 
